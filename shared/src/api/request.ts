@@ -3,8 +3,8 @@ import qs from 'qs';
 import { CustomError } from 'ts-custom-error'
 
 export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE'
-export type RequestOptions = { data?: any, origin?: string, ignoreErrors?: boolean }
-export type NoThrowOptions = { data?: any, origin?: string, ignoreErrors?: boolean, nothrow: true }
+export type RequestOptions = { data?: any, origin?: string|false, ignoreErrors?: boolean }
+export type NoThrowOptions = { data?: any, origin?: string|false, ignoreErrors?: boolean, nothrow: true }
 
 export type MethodUrl = [HttpMethod, string]
 
@@ -14,15 +14,22 @@ export interface ApiErrorData {
     data?: any
 }
 
+interface UrlOptions {
+    url?: string
+}
+
+export const objectToQS = (obj: any) => qs.stringify(obj, { arrayFormat: 'brackets', encode: true })
+
 export function r<P, Q=Record<string, any>>(method: HttpMethod, pattern: string) {
-    return (params?: P, query?: Q) => {
-        let url = params ? interpolate(pattern, params) : pattern
+    return (params?: P, query?: Q, options?: UrlOptions) => {
+        let url = options?.url || (params ? interpolate(pattern, params) : pattern)
         if (query) {
-            url += '?' + qs.stringify(query, { arrayFormat: 'brackets', encode: true })
+            url += '?' + objectToQS(query)
         }
         return [method, interpolate(url, params)] as MethodUrl
     }
 }
+
 
 // export a function that accepts a property from api definitions,
 // the paramters and the query string needed to build it's url
@@ -31,8 +38,9 @@ export function makeUrlFunc<T extends Record<string, any>>(definitions: T) {
         key: K,
         params?: Parameters<T[K]>[0],
         query?: Parameters<T[K]>[1],
+        options?: UrlOptions
     ) {
-        const methodUrl = definitions[key](params, query)
+        const methodUrl = definitions[key](params, query, options)
         return { key, methodUrl }
     }
 }
@@ -78,15 +86,20 @@ const baseUrl = process.env.BACKEND_SERVER_URL ?
 async function request<RetT>(methodUrl: MethodUrl, options: NoThrowOptions): Promise<RetT | ApiError> // eslint-disable-line
 async function request<RetT>(methodUrl: MethodUrl, options?: RequestOptions): Promise<RetT> // eslint-disable-line
 async function request<RetT>(methodUrl: MethodUrl, options?: any): Promise<RetT|ApiError> {  // eslint-disable-line
-    const [method, url] = methodUrl
+    const [method, providedUrl] = methodUrl
     try {
         let req: { method: string, body?: any, headers?: any } = { method }
         req.headers = { 'Content-Type': 'application/json' }
         if (options?.data) {
             req.body = JSON.stringify(options.data)
         }
-        const origin = options?.origin || baseUrl
-        const resp = await fetch(`${origin}/${url}`, req)
+        let url = providedUrl
+        if (options?.origin) {
+            url = `${options.origin}/${url}`
+        } else if (options?.origin !== false) {
+            url = `${baseUrl}/${url}`
+        }
+        const resp = await fetch(url, req)
         if (resp.ok) {
             const body = await resp.text()
             if (body) {
@@ -94,7 +107,7 @@ async function request<RetT>(methodUrl: MethodUrl, options?: any): Promise<RetT|
             }
             return {} as RetT
         } else {
-            const err = ApiError.fromError(`${method} api/${url}`, resp, options)
+            const err = ApiError.fromError(`${method} api/${providedUrl}`, resp, options)
             try {
                 const respJson = await resp.json()
                 if (respJson && respJson.errors) {
@@ -104,7 +117,7 @@ async function request<RetT>(methodUrl: MethodUrl, options?: any): Promise<RetT|
             throw err
         }
     } catch (err) {
-        const apiErr = (err instanceof ApiError) ? err : ApiError.fromError(`${method} api/${url}`, { status: 418, statusText: String(err) } as Response, options)
+        const apiErr = (err instanceof ApiError) ? err : ApiError.fromError(`${method} api/${providedUrl}`, { status: 418, statusText: String(err) } as Response, options)
         if  (options?.nothrow) {
             return apiErr
         }
