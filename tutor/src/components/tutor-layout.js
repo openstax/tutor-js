@@ -4,7 +4,7 @@ import {
 } from 'vendor';
 import Theme                from '../theme';
 import Toasts               from './toasts';
-import { currentCourses, Course }  from '../models'
+import { Course }           from '../models'
 import { Logo }             from './navbar/logo';
 import { Menus }            from './navbar/menus';
 import TermsModal           from './terms-modal';
@@ -19,8 +19,7 @@ import { get } from 'lodash';
 import { breakpoint } from 'theme';
 import { MobilePaymentBar } from './navbar/student-payment-bar';
 import GoToTop from './go-to-top';
-import SidePanel from './side-panel';
-import TutorLink from './link';
+import { PreviewCourseSidePanel } from './preview-side-panel';
 import { currentToasts } from './toasts';
 
 
@@ -94,36 +93,6 @@ const Content = styled.div`
   }
 `;
 
-const PreviewCourseSidePanel = ({ course }) => {
-    if (!course ||
-        !course.is_preview ||
-        !course.offering.is_available ||
-        !course.currentRole.isTeacher ||
-        !course.appearanceCode ||
-        !currentCourses.nonPreview.where(c => c.offering_id == course.offering_id).isEmpty
-    ) {
-        return null
-    }
-
-    return (
-        <SidePanel ignorePathIncludes={'t/month'}>
-            <h3>Ready to begin?</h3>
-            <p>Creating a course is the first step towards managing your class assignments.</p>
-            <TutorLink
-                className="btn btn-primary"
-                to="createNewCourseFromOffering"
-                params={{ offeringId: course.offering_id }}
-                data-test-id="preview-panel-create-course"
-            >
-            Create a course
-            </TutorLink>
-        </SidePanel>
-    )
-}
-
-PreviewCourseSidePanel.propTypes = {
-    course: PropTypes.instanceOf(Course),
-}
 
 class CourseContext {
     @observable course;
