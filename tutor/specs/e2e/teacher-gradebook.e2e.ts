@@ -1,21 +1,6 @@
-import { Factory, visitPage, Mocker, setTimeouts, loginAs, deleteText } from './helpers'
+import { visitPage, setTimeouts, loginAs, deleteText } from './helpers'
 
-xdescribe('Teacher Gradebook', () => {
-    Mocker.mock({
-        page,
-        options: {
-            feature_flags: { tours: false },
-        },
-        routes: {
-            '/api/courses/:id/performance': async ({ mock, params: { id } }) => {
-                const course = mock.course(id)
-                const scores = course.periods.map(
-                    period => Factory.create('ScoresForPeriod', { period }),
-                );
-                return scores
-            },
-        },
-    })
+describe('Teacher Gradebook', () => {
 
     beforeEach(async () => {
         await setTimeouts()

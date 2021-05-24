@@ -1,14 +1,10 @@
-import { visitPage, Mocker, setTimeouts } from './helpers'
+import { visitPage, loginAs, setTimeouts } from './helpers'
 
-xdescribe('Browse the book', () => {
+describe('Browse the book', () => {
 
     beforeEach(async () => {
         await setTimeouts()
-    })
-
-    Mocker.mock({
-        page,
-        routes: {},
+        await loginAs('reviewteacher')
     })
 
     it('loads the book screen', async () => {
@@ -21,7 +17,7 @@ xdescribe('Browse the book', () => {
     it('can use arrows to move forward or backward', async () => {
         await visitPage(page, '/book/1')
         await page.waitForSelector('testEl=book-title')
-        const currentTitle = await page.$eval('[data-test-id="book-title"]' , ex => ex.dataset.title) as string
+        const currentTitle = await page.$eval('[data-test-id="book-title"]', ex => ex.dataset.title) as string
         await page.click('testEl=go-forward')
         await expect(page).not.toHaveText('testEl=book-title', currentTitle)
         await page.click('testEl=go-backward')
