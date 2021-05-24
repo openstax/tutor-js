@@ -35,9 +35,9 @@ const Definitions = {
     bootstrap:              r('GET', 'user/bootstrap'),
 
     saveOwnStudentId:       r<CourseId>('PUT', 'user/courses/{courseId}/student'),
-    updateStudent:          r<StudentId>('POST', 'students{studentId}'),
+    updateStudent:          r<StudentId>('PUT', 'students/{studentId}'),
     dropStudent:            r<StudentId>('DELETE', 'students/{studentId}'),
-    unDropStudent:          r<StudentId>('POST', 'students/{studentId}/undrop'),
+    unDropStudent:          r<StudentId>('PUT', 'students/{studentId}/undrop'),
 
     dropTeacher:            r<TeacherId>('DELETE', 'teachers/{teacherId}'),
 

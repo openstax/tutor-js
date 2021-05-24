@@ -1,4 +1,5 @@
-import { BaseModel, computed, field, modelize,NEW_ID, getParentOf } from 'shared/model';
+import { BaseModel, computed, field, modelize, NEW_ID, getParentOf, action } from 'shared/model';
+import urlFor from '../../api'
 import type { CourseRoster } from './roster'
 
 export class CourseTeacher extends BaseModel {
@@ -16,8 +17,9 @@ export class CourseTeacher extends BaseModel {
         modelize(this);
     }
 
-    drop() {
-        return { id: this.id };
+    @action async drop() {
+        await this.api.request(urlFor('dropTeacher', { teacherId: this.id }));
+        this.onDropped()
     }
 
     @computed get isTeacherOfCourse() {
@@ -26,7 +28,7 @@ export class CourseTeacher extends BaseModel {
 
     onDropped() {
         this.roster.teachers.remove(this);
-        if (this.isTeacherOfCourse){
+        if (this.isTeacherOfCourse) {
             this.roster.course.otherCourses.delete(this.roster.course.id)
         }
     }
