@@ -5,7 +5,7 @@ describe('Course Roster', () => {
     beforeEach(async () => {
         await setTimeouts()
         await loginAs('teacher02')
-        await visitPage(page, `/course/2/roster`)
+        await visitPage(page, '/course/2/roster')
     })
 
     it('can remove self from course', async () => {
