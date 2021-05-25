@@ -85,7 +85,6 @@ interface CoursePreviewProps {
 
 const CoursePreview: React.FC<CoursePreviewProps> = ({ offering, className, isPreviewInResource, setIsPreviewInResource }) => {
     const history = useHistory()
-    const previewCourse = currentCourses.preview.latestForOffering(offering) // array
     const [isCreating, setIsCreating] = useState(false)
     if (!offering.is_preview_available || !currentUser.canCreateCourses) {
         return null
@@ -94,6 +93,7 @@ const CoursePreview: React.FC<CoursePreviewProps> = ({ offering, className, isPr
         const routePath = toSettings ? 'courseSettings' : 'dashboard';
         // course details is tab = 1
         const queryPath = toSettings ? { query: { tab: 1 } } : {};
+        const previewCourse = currentCourses.preview.active.latestForOffering(offering)
         if (previewCourse) {
             history.push(Router.makePathname(routePath, { courseId: previewCourse.id }, queryPath))
         } else {
