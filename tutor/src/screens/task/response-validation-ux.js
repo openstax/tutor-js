@@ -111,14 +111,14 @@ class ResponseValidationUX {
         const nudge = this.validator.isUIEnabled && S.isEmpty(this.results) ? this.nudge.title : null;
         const submitted = this.response;
         try {
-            const reply = (await this.validator.validate({
+            await this.validator.validate({
                 uid: this.step.uid,
                 response: submitted,
-            })) || {};
-            const validation = extend({}, reply, {
-                timestamp: (new Date()).toISOString(),
-                response: submitted, nudge,
-            });
+            })
+            const validation = extend(
+                { timestamp: (new Date()).toISOString(), response: submitted, nudge, valid: false },
+                this.validator.toJSON(),
+            );
             runInAction(() => {
                 this.step.spy.response_validation = validation;
             })

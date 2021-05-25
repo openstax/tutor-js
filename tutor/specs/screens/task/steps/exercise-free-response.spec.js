@@ -156,11 +156,13 @@ describe('Exercise Free Response', () => {
         runInAction(() => {
             props.response_validation.isEnabled = true;
             props.response_validation.isUIEnabled = true;
-            props.response_validation.validate = jest.fn().mockResolvedValue({ valid: true });
+            props.response_validation.validate = jest.fn()
+            props.response_validation.toJSON = jest.fn(() => ({ valid: true }))
         })
         const fr = mount(<C><FreeResponseInput {...props} /></C>);
         const value = 'test test test';
         await setFreeResponse(fr, { value });
+        expect(props.response_validation.toJSON).toHaveBeenCalled()
         expect(props.step.free_response).toEqual(value);
         expect(props.step.canEditFreeResponse).toBe(false);
         expect(props.step.response_validation.attempts).toHaveLength(1);

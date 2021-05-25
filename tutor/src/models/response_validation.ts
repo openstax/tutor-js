@@ -1,5 +1,5 @@
 import {
-    BaseModel, action, field, modelize,
+    BaseModel, field, modelize,
 } from 'shared/model';
 import urlFor from '../api'
 
@@ -57,10 +57,6 @@ export class ResponseValidation extends BaseModel {
             urlFor('responseValidation', {}, { uid, response }, { url: this.config.url }),
             { origin: false, ignoreErrors: true },
         )
-        this.onValidationComplete(data)
-    }
-
-    @action onValidationComplete(data: any) {
         this.update(data);
     }
 
