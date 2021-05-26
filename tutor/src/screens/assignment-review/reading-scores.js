@@ -1,4 +1,4 @@
-import { React, PropTypes, styled, observer, css } from 'vendor';
+import { React, PropTypes, styled, observer, css, Box } from 'vendor';
 import { StickyTable, Row } from 'react-sticky-table';
 import { OverlayTrigger, Popover } from 'react-bootstrap';
 import { isUndefined } from 'lodash';
@@ -10,7 +10,7 @@ import InfoIcon from '../../components/icons/info';
 import SortIcon from '../../components/icons/sort';
 import SearchInput from '../../components/search-input';
 import TutorLink from '../../components/link';
-import { DroppedIndicator } from '../../components/dropped-question';
+import { DroppedIndicator, DroppedIcon } from '../../components/dropped-question';
 import GrantExtension from './grant-extension';
 import { EIcon } from '../../components/icons/extension';
 
@@ -41,7 +41,6 @@ const CellContents = styled(BasicCellContents)`
 `;
 
 const ExtIcon = styled(EIcon)`
-  display: inline-block;
 `;
 
 const ColumnHeading = styled(BasicColumnHeading)`
@@ -74,7 +73,6 @@ const StyledTotal = styled(Total)`
 const Legend = styled.div`
   > div {
     display: flex;
-    margin-bottom: 7px;
 
     & div {
       margin-right: 9px;
@@ -90,23 +88,21 @@ const Legend = styled.div`
     }
   }
 
-  .extension-legend {
-    .extension-icon {
-      margin-left: 8px;
-      margin-right: 18px;
+
+  .legend-box {
+    width: 12px;
+    padding: 8px 15px;
+    display: inline-block;
+    margin-right: 8px;
+    &.incomplete-questions {
+      border: 1px solid ${colors.neutral.std};
+      background-color: ${colors.neutral.pale};
     }
-  }
 
-  .incomplete-questions-legend-box {
-    border: 1px solid ${colors.neutral.std};
-    background-color: ${colors.neutral.pale};
-    padding: 8px 15px;
-  }
-
-  .needs-attention-legend-box {
-    border: 1px solid ${colors.danger};
-    background-color: ${colors.states.trouble};
-    padding: 8px 15px;
+    &.needs-attention {
+      border: 1px solid ${colors.danger};
+      background-color: ${colors.states.trouble};
+    }
   }
 `;
 
@@ -167,10 +163,10 @@ const StudentColumnHeader = observer(({ ux }) => (
                         aria-label="Display total in points"
                         role="button"
                     >
-            #
+                        #
                     </SplitCell>
                     <SplitCell variant="divider">
-            |
+                        |
                     </SplitCell>
                     <SplitCell
                         variant={ux.displayTotalInPercent ? 'active' : ''}
@@ -178,7 +174,7 @@ const StudentColumnHeader = observer(({ ux }) => (
                         aria-label="Display total in percent"
                         role="button"
                     >
-            %
+                        %
                     </SplitCell>
                 </HeadingMiddle>
                 <HeadingBottom>
@@ -354,21 +350,30 @@ const ReadingScores = observer(({ ux }) => {
                 </Row>
             </ReadingStickyTable>
             <Legend>
-                <div>
-                    <div className="incomplete-questions-legend-box"></div><span>All or some questions not attempted</span>
-                </div>
-                <div>
-                    <div className="needs-attention-legend-box"></div><span>Score less than 50% of total available points</span>
-                </div>
-                <div className="extension-legend">
-                    <ExtIcon></ExtIcon><span>Extension granted</span>
-                </div>
-                <div>
-                    <span>
-          The late penalty is applied only to the points earned after the due date. {' '}
-                        <a href="https://openstax.org/blog/new-openstax-tutor-scoring-feature" target="_blank">Learn more</a>
-                    </span>
-                </div>
+                <Box>
+                    <Box direction="column">
+                        <Box margin="bottom">
+                            <span className="incomplete-questions legend-box"></span>
+                            <span>All or some questions not attempted</span>
+                        </Box>
+                        <Box>
+                            <span className="needs-attention legend-box"></span>
+                            <span>Score less than 50% of total available points</span>
+                        </Box>
+                    </Box>
+                    <Box direction="column">
+                        <Box margin="bottom" className="extension-legend">
+                            <ExtIcon /><span>Extension granted</span>
+                        </Box>
+                        <Box>
+                            <DroppedIcon color="blue" /> Dropped question
+                        </Box>
+                    </Box>
+                </Box>
+                <Box margin={{ vertical: 'large' }}>
+                    The late penalty is applied only to the points earned after the due date. {' '}
+                    <a href="https://openstax.org/blog/new-openstax-tutor-scoring-feature" target="_blank">Learn more</a>
+                </Box>
             </Legend>
         </>
     );
