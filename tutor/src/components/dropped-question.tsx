@@ -43,6 +43,12 @@ const StyledTriangle = styled.div`
     ${TriangleCSS}
 `;
 
+export const DroppedIcon = styled.div`
+    ${TriangleCSS}
+    border-width: 0 1.2rem 1.2rem 0;
+`;
+
+
 interface DroppedIndicatorProps {
     preventOverflow?: boolean
     size?: number

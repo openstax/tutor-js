@@ -10,7 +10,7 @@ import InfoIcon from '../../components/icons/info';
 import SortIcon from '../../components/icons/sort';
 import SearchInput from '../../components/search-input';
 import TutorLink from '../../components/link';
-import { DroppedQuestionHeadingIndicator, TriangleCSS } from '../../components/dropped-question';
+import { DroppedQuestionHeadingIndicator, DroppedIcon } from '../../components/dropped-question';
 import GrantExtension from './grant-extension';
 import PublishScores from '../../components/buttons/publish-scores';
 import ResultTooltip from './result-tooltip';
@@ -45,11 +45,6 @@ const ResultWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
-
-const DroppedIcon = styled.div`
-  ${TriangleCSS}
-  border-width: 0 1.2rem 1.2rem 0;
 `;
 
 const UngradedIcon = styled.span`
