@@ -54,7 +54,7 @@ const Cell = styled(TableCell)`
   .ox-icon-clock {
     position: absolute;
     top: 3px;
-    right: 3px;
+    left: 5px;
     margin: 0;
     width: 0.8rem;
     height: 0.8rem;
