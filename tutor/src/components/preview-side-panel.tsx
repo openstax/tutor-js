@@ -21,8 +21,8 @@ class PreviewCourseSidePanel extends React.Component<PanelProps> {
 
     componentDidMount() {
         when(
-            () => this.chatRef.current,
-            () => Chat.setElementVisiblity(this.chatRef.current),
+            () => Boolean(this.chatRef.current),
+            () => Chat.setElementVisiblity(this.chatRef.current!),
         );
     }
 
@@ -30,7 +30,7 @@ class PreviewCourseSidePanel extends React.Component<PanelProps> {
         const { course, courses = currentCourses } = this.props
         if (!course ||
             !course.is_preview ||
-            !course.offering.is_available ||
+            !course.offering?.is_available ||
             !course.currentRole.isTeacher ||
             !course.appearanceCode ||
             !courses.nonPreview.where(c => c.offering_id == course.offering_id).isEmpty

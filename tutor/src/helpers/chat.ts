@@ -25,7 +25,7 @@ export const Chat = {
     // liveagent.enableLogging();
     },
 
-    setElementVisiblity(online: any, offline: any) {
+    setElementVisiblity(online: any, offline?: any) {
         if (!this.isEnabled) { return; }
         try {
             win.liveagent.showWhenOnline(ELEMENT_ID, online);
