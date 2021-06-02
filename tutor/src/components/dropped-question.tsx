@@ -1,6 +1,7 @@
 import { React, styled, css, observer } from 'vendor';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { TaskPlanScoreHeading } from '../models/task-plans/teacher/scores'
+import pluralize from 'pluralize';
 import { colors } from '../theme';
 
 interface CornerTriangleProps {
@@ -71,29 +72,33 @@ const DroppedIndicator: React.FC<DroppedIndicatorProps> = observer(({
 })
 DroppedIndicator.displayName = 'DroppedIndicator'
 
+
 interface DroppedQuestionHeadingIndicatorProps {
     preventOverflow?: boolean
     size?: number
+    responseCount?: number
     heading: TaskPlanScoreHeading
 }
 
 const DroppedQuestionHeadingIndicator: React.FC<DroppedQuestionHeadingIndicatorProps> = observer(({
     heading,
     preventOverflow = true,
+    responseCount = heading.studentResponses.length,
     size = 1,
 }) => {
     if (!heading.someQuestionsDropped) return null
     let tooltip
-    if (heading.isCore) {
+
+    const isHomework = heading.tasking.scores.type == 'homework'
+
+    if (isHomework && heading.isCore) {
         if (heading.everyQuestionFullCredit) {
             tooltip = 'Full credit given to all students'
-        }
-        else /* if (heading.everyQuestionZeroed) */ {
+        } else {
             tooltip = 'Points changed to 0 for all students'
         }
-    }
-    else {
-        tooltip = 'Question dropped for one or more students'
+    } else {
+        tooltip = `Question dropped for ${pluralize('student', responseCount, true)}`
     }
 
     return (
@@ -108,11 +113,38 @@ const DroppedQuestionHeadingIndicator: React.FC<DroppedQuestionHeadingIndicatorP
 })
 DroppedQuestionHeadingIndicator.displayName = 'DroppedQuestionHeadingIndicator'
 
+
+interface DroppedReviewExerciseIndicatorProps {
+    info: {
+        droppedQuestion?: {
+            drop_method?: any
+        }
+        heading: TaskPlanScoreHeading
+        responses: any[]
+    }
+}
+
+export const DroppedReviewExerciseIndicator: React.FC<DroppedReviewExerciseIndicatorProps> = observer(({
+    info,
+}) => {
+    const { droppedQuestion, heading } = info
+    if (!droppedQuestion || !droppedQuestion.drop_method) return null
+
+    return (
+        <DroppedQuestionHeadingIndicator
+            heading={heading}
+            responseCount={info.responses.length}
+            size={1.6}
+        />
+    )
+})
+DroppedReviewExerciseIndicator.displayName = 'DroppedReviewExerciseIndicator'
+
+
 interface DroppedStepIndicatorProps {
     size?: number
     step: { drop_method?: 'full_credit' | 'zeroed' }
 }
-
 const DroppedStepIndicator: React.FC<DroppedStepIndicatorProps> = observer(({
     step,
     size = 1,

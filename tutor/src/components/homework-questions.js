@@ -1,7 +1,7 @@
 import { React, PropTypes, cn, styled, observer, css } from 'vendor';
 import { colors } from 'theme';
 import Question from 'shared/components/question';
-import { DroppedIndicator } from './dropped-question';
+import { DroppedReviewExerciseIndicator } from './dropped-question';
 
 const HomeworkQuestionsWrapper = styled.div`
 
@@ -179,34 +179,6 @@ const ExerciseNumber = styled.div`
 
 export { Question, QuestionPreview, QuestionHeader, ExerciseNumber };
 
-const DroppedReviewExerciseIndicator = observer(({ info }) => {
-    const model = info.droppedQuestion
-    let numStudents
-    if (info.isCore) {
-        numStudents = 'all'
-    }
-    else {
-        numStudents = info.responses.length
-    }
-
-    if (!model.drop_method) return null
-    let tooltip
-    if (model.drop_method == 'full_credit') {
-        tooltip = 'Full credit given to '
-    }
-    else /*if (model.drop_method == 'zeroed')*/ {
-        tooltip = 'Points changed to 0 for '
-    }
-    if (numStudents == 1) {
-        tooltip += '1 student'
-    }
-    else {
-        tooltip += numStudents + ' students'
-    }
-
-    return (<DroppedIndicator model={model} tooltip={tooltip} size={1.6}/>)
-})
-DroppedReviewExerciseIndicator.displayName = 'DroppedReviewExerciseIndicator'
 
 const ReviewExerciseCard = observer(({
     index, info,
