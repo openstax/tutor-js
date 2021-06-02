@@ -76,12 +76,14 @@ DroppedIndicator.displayName = 'DroppedIndicator'
 interface DroppedQuestionHeadingIndicatorProps {
     preventOverflow?: boolean
     size?: number
+    responseCount?: number
     heading: TaskPlanScoreHeading
 }
 
 const DroppedQuestionHeadingIndicator: React.FC<DroppedQuestionHeadingIndicatorProps> = observer(({
     heading,
     preventOverflow = true,
+    responseCount = heading.studentResponses.length,
     size = 1,
 }) => {
     if (!heading.someQuestionsDropped) return null
@@ -96,7 +98,7 @@ const DroppedQuestionHeadingIndicator: React.FC<DroppedQuestionHeadingIndicatorP
             tooltip = 'Points changed to 0 for all students'
         }
     } else {
-        tooltip = `Question dropped for ${pluralize('student', heading.studentResponses.length, true)}`
+        tooltip = `Question dropped for ${pluralize('student', responseCount, true)}`
     }
 
     return (
@@ -131,6 +133,7 @@ export const DroppedReviewExerciseIndicator: React.FC<DroppedReviewExerciseIndic
     return (
         <DroppedQuestionHeadingIndicator
             heading={heading}
+            responseCount={info.responses.length}
             size={1.6}
         />
     )
