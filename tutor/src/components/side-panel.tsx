@@ -81,7 +81,7 @@ const Panel = styled.div`
 
 interface SidePanelProps {
     ignorePathIncludes: string
-    windowImpl: any
+    windowImpl?: any
 }
 
 const SidePanel: React.FC<SidePanelProps> = ({ children, ignorePathIncludes = ' ', windowImpl = window }) => {
