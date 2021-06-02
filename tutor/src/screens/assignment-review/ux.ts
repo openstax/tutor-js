@@ -281,13 +281,16 @@ export default class AssignmentReviewUX {
         } else {
             taskPlan.dropped_questions.push(droppedQuestion);
         }
-
         await taskPlan.saveDroppedQuestions();
+
+        // hide the modal as soon as the visible items are updated
+        this.cancelDisplayingDropQuestions();
+
+        // the remaining calls affect off-screen elements
         await course.saveExerciseExclusion({
             exercise: droppedQuestion.exercise, is_excluded: droppedQuestion.excluded,
         });
         await this.planScores.fetch();
-        this.cancelDisplayingDropQuestions();
     }
 
     findDroppedQuestion(questionId: string | number) {
