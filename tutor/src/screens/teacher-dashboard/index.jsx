@@ -12,6 +12,7 @@ import NotificationHelpers from '../../helpers/notifications';
 import TeacherBecomesStudent from '../../components/buttons/teacher-become-student';
 import Dashboard from './dashboard';
 import CourseCalendarHeader from './header';
+import Sociology3eBanner from './sociology-3e-banner';
 
 import './styles.scss';
 
@@ -117,35 +118,38 @@ class TeacherDashboardWrapper extends React.Component {
         }
 
         return (
-            <CoursePage
-                className="list-task-plans"
-                title={(
-                    <Title>
-                        <h1>{course.name}</h1>
-                    </Title>
-                )}
-                titleControls={(
-                    <TeacherBecomesStudent course={course} />
-                )}
-                subtitle={course.termFull}
-                course={course}
-                controls={
-                    <CourseCalendarHeader
-                        onSidebarToggle={this.onSidebarToggle}
-                        course={course}
-                        hasPeriods={hasPeriods}
-                        defaultOpen={this.showingSideBar}
-                    />}
-                notices={
-                    <NotificationsBar
-                        course={course}
-                        role={course.primaryRole}
-                        callbacks={NotificationHelpers.buildCallbackHandlers(this)}
-                    />
-                }
-            >
-                <Dashboard {...dashboardProps} />
-            </CoursePage>
+            <>
+                <Sociology3eBanner course={course} />
+                <CoursePage
+                    className="list-task-plans"
+                    title={(
+                        <Title>
+                            <h1>{course.name}</h1>
+                        </Title>
+                    )}
+                    titleControls={(
+                        <TeacherBecomesStudent course={course} />
+                    )}
+                    subtitle={course.termFull}
+                    course={course}
+                    controls={
+                        <CourseCalendarHeader
+                            onSidebarToggle={this.onSidebarToggle}
+                            course={course}
+                            hasPeriods={hasPeriods}
+                            defaultOpen={this.showingSideBar}
+                        />}
+                    notices={
+                        <NotificationsBar
+                            course={course}
+                            role={course.primaryRole}
+                            callbacks={NotificationHelpers.buildCallbackHandlers(this)}
+                        />
+                    }
+                >
+                    <Dashboard {...dashboardProps} />
+                </CoursePage>
+            </>
         );
     }
 }

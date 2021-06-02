@@ -8,6 +8,9 @@ export class Offering extends BaseModel {
         'spring', 'summer', 'fall', 'winter',
     ];
 
+    const SOC2E_BOOK_ID = 'introduction-sociology-2e'
+    const SOC3E_BOOK_ID = 'introduction-sociology-3e'
+
     @field id = NEW_ID;
     @field title = '';
     @field number = 0;
@@ -37,5 +40,13 @@ export class Offering extends BaseModel {
 
     @computed get currentTerm() {
         return first(this.validTerms);
+    }
+
+    @computed get isSociology2e() {
+        return this.os_book_id === this.SOC2E_BOOK_ID
+    }
+
+    @computed get isSociology3e() {
+        return this.os_book_id === this.SOC3E_BOOK_ID
     }
 }
