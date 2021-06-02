@@ -432,6 +432,7 @@ export class TaskPlanScoresTasking extends BaseModel {
                         index: studentQuestion.index,
                         isCore: heading?.isCore,
                         droppedQuestion: droppedQuestion,
+                        heading,
                         exercise,
                         question,
                         responses: [],
