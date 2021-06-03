@@ -8,8 +8,8 @@ export class Offering extends BaseModel {
         'spring', 'summer', 'fall', 'winter',
     ];
 
-    const SOC2E_BOOK_ID = 'introduction-sociology-2e'
-    const SOC3E_BOOK_ID = 'introduction-sociology-3e'
+    readonly SOC2E_BOOK_ID = 'introduction-sociology-2e'
+    readonly SOC3E_BOOK_ID = 'introduction-sociology-3e'
 
     @field id = NEW_ID;
     @field title = '';
@@ -32,7 +32,7 @@ export class Offering extends BaseModel {
     }
 
     @computed get validTerms() {
-        if (this.is_concept_coach){
+        if (this.is_concept_coach) {
             return filter(this.active_term_years, (t) => t.year == 2017 && includes(['spring', 'summer'], t.term));
         }
         return this.active_term_years;

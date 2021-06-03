@@ -20,7 +20,7 @@ const NotificationBar = styled.div`
 `;
 
 const Sociology3eBanner = observer(({ course }: { course: Course }) => {
-    const announceable = course?.offering.isSociology2e && !currentOfferings.soc3eAvailable
+    const announceable = course.offering?.isSociology2e && !currentOfferings.soc3eAvailable
 
     if (!announceable || UiSettings.get('soc3e.bannerDismissed') === true) {
         return null
