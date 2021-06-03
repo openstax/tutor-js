@@ -32,11 +32,15 @@ export class OfferingsMap extends Map<ID, Offering> {
         return this.available.where(c => c.appearance_code == 'biology_2e');
     }
 
-    @computed get soc3eAvailable() {
-        return !!this.available.array.find(c => c.isSociology3e)
+    @computed get soc3eExists() {
+        return this.where(c => c.isSociology3e).any
     }
 
-    @action bootstrap(items: OfferingData[] ) {
+    @computed get soc3eAvailable() {
+        return this.available.where(c => c.isSociology3e).any
+    }
+
+    @action bootstrap(items: OfferingData[]) {
         this.clear()
         this.mergeModelData(items)
     }

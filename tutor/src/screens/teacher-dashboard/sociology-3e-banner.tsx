@@ -20,14 +20,15 @@ const NotificationBar = styled.div`
 `;
 
 const Sociology3eBanner = observer(({ course }: { course: Course }) => {
-    const announceable = course.offering?.isSociology2e && !currentOfferings.soc3eAvailable
+    const setting = 'soc3eBannerDismissed'
+    const announceable = course.offering?.isSociology2e && currentOfferings.soc3eExists && !currentOfferings.soc3eAvailable
 
-    if (!announceable || UiSettings.get('soc3e.bannerDismissed') === true) {
+    if (!announceable || UiSettings.get(setting) === true) {
         return null
     }
 
     const dismiss = () => {
-        UiSettings.set('soc3e.bannerDismissed', true)
+        UiSettings.set(setting, true)
         return null
     }
 
