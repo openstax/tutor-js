@@ -429,19 +429,38 @@ const GradingBlock = observer(({ ux }) => {
     );
 });
 
-const AvailablePoints = ({ value }) => {
-    if (!value) {
-        return (
+const AvailablePoints = ({ value, heading = false }) => {
+    if (value === false) {
+        // Icon's defaultTooltipProps plus popperConfig
+        const tooltipProps = {
+            placement: 'auto',
+            trigger: ['hover', 'focus'],
+            popperConfig: { modifiers: { preventOverflow: { enabled: true } } },
+        };
+
+        const infoIcon = (
             <InfoIcon
                 color="#f36a31"
                 tooltip="Students received different numbers of Tutor-selected questions.  This can happen when questions aren’t
         available, a student works an assignment late, or a student hasn’t started the assignment."
+                tooltipProps={tooltipProps}
             />
         );
+
+        if (heading) {
+            return infoIcon;
+        }
+        else {
+            return (<Cell>{infoIcon}</Cell>);
+        }
     }
-    return (
-        <strong>({ScoresHelper.formatPoints(value)})</strong>
-    );
+
+    if (heading) {
+        return (<strong>({ScoresHelper.formatPoints(value)})</strong>);
+    }
+    else {
+        return (<Cell>{ScoresHelper.formatPoints(value)}</Cell>);
+    }
 };
 AvailablePoints.propTypes = {
     value: PropTypes.oneOfType([
@@ -564,9 +583,17 @@ const HomeWorkInfo = observer(({ ux }) => (
             </Row>
             <Row>
                 <Header>
-                    Available Points <AvailablePoints value={(ux.scores.hasEqualQuestions && ux.scores.availablePoints) || false} />
+                    Available Points <AvailablePoints value={(ux.scores.hasEqualQuestions && ux.scores.availablePoints) || false} heading />
                 </Header>
-                {ux.scores.question_headings.map((h, i) => <Cell key={i}>{ScoresHelper.formatPoints(h.points)}</Cell>)}
+                {ux.scores.question_headings.map((heading, i) => {
+                    let value = false;
+                    if (
+                        heading.type != 'Tutor' ||
+                        !heading.droppedQuestions.some(dq => dq.drop_method == 'zeroed')
+                    ) value = heading.points;
+
+                    return (<AvailablePoints value={value} key={i} />);
+                })}
             </Row>
             <Row>
                 <Header>Correct Responses</Header>

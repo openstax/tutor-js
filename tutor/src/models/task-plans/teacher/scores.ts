@@ -422,11 +422,15 @@ export class TaskPlanScoresTasking extends BaseModel {
                     const droppedQuestion = heading && heading.droppedQuestions.find(
                         dq => dq.question_id === question.id.toString()
                     )
+                    const availablePoints = heading ? (
+                        droppedQuestion && droppedQuestion.drop_method == 'zeroed' ?
+                            0.0 : heading.points
+                    ) : 1.0
                     const questionInfo = info[question.id] || (info[question.id] = {
                         id: question.id,
                         key: question.id,
                         points: studentQuestion.points,
-                        availablePoints: heading ? heading.points : 1.0,
+                        availablePoints: availablePoints,
                         averagePoints: heading ? heading.averageGradedPoints : studentQuestion.points,
                         remaining: heading ? heading.gradedStats.remaining : 0,
                         index: studentQuestion.index,
