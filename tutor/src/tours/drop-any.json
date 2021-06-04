@@ -13,7 +13,7 @@
       "anchor_id": "drop-question-relocated-button",
       "position": "right-start",
       "spotlight": false,
-      "className": "green"
+      "variant": "green"
     }
   ]
 },
@@ -32,7 +32,7 @@
       "anchor_id": "drop-question-new",
       "position": "right-start",
       "spotlight": false,
-      "className": "greenNoBody"
+      "variant": "greenNoBody"
     }
   ]
 }]

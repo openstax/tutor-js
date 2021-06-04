@@ -4,12 +4,12 @@ import cn from 'classnames'
 import { Icon } from 'shared'
 import UiSettings from 'shared/model/ui-settings'
 import Tabs from '../../../components/tabs'
-import { Course, CoursesMap, CourseInformation, Offering, ID } from '../../../models'
+import { Course, CoursesMap, CourseInformation, Offering, currentOfferings, ID } from '../../../models'
 import CreateACourse from './create-course'
 import CoursePreview from './preview-course'
 import ViewCourse from './view-course'
 import Resource from './resource'
-
+import Sociology3eOfferingTooltip from './sociology-3e-offering-tooltip'
 
 const sortByCourseEndsAt = (courseA: Course, courseB: Course) => {
     if (courseA.ends_at.isAfter(courseB.ends_at)) { return 1 }
@@ -188,9 +188,12 @@ const OfferingBlock: React.FC<OfferingBlockProps> = ({ offering, courses, swapOf
         </div>
     )
 
+    const displaySoc3eTooltip = offering.isSociology2e && currentOfferings.soc3eAvailable
+
     return (
         <div className={cn('offering-container', { 'is-edit-mode': isEditMode })} data-offering-id={offering.id} data-test-id="offering-container">
             {editModeIcons}
+            {displaySoc3eTooltip && <Sociology3eOfferingTooltip />}
             <h3>{offering.title}</h3>
             <Tabs
                 tabs={['current', 'past', 'resources']}

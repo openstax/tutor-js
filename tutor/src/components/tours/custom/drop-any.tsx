@@ -71,7 +71,7 @@ const DropQuestionRelocated = (props: any) => {
                     <li>Click <Icon type="minus-circle" /></li>
                 </ol>
             </div>
-        </StyledGreenTooltip >
+        </StyledGreenTooltip>
     )
 }
 
