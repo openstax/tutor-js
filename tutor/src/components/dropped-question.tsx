@@ -118,7 +118,7 @@ DroppedQuestionHeadingIndicator.displayName = 'DroppedQuestionHeadingIndicator'
 
 
 interface DroppedTutorQuestionIndicatorProps {
-    result: TaskPlanScoreStudentQuestion
+    result?: TaskPlanScoreStudentQuestion
     preventOverflow?: boolean
     size?: number
 }
@@ -128,7 +128,7 @@ const DroppedTutorQuestionIndicator: React.FC<DroppedTutorQuestionIndicatorProps
     preventOverflow = true,
     size = 1,
 }) => {
-    if (!result.droppedQuestion) return null
+    if (!result?.droppedQuestion) return null
 
     let tooltip
     if (result.droppedQuestion.drop_method == 'full_credit') {
