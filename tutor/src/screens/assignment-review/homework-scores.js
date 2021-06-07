@@ -10,7 +10,9 @@ import InfoIcon from '../../components/icons/info';
 import SortIcon from '../../components/icons/sort';
 import SearchInput from '../../components/search-input';
 import TutorLink from '../../components/link';
-import { DroppedQuestionHeadingIndicator, DroppedIcon } from '../../components/dropped-question';
+import {
+    DroppedQuestionHeadingIndicator, DroppedTutorQuestionIndicator, DroppedIcon,
+} from '../../components/dropped-question';
 import GrantExtension from './grant-extension';
 import PublishScores from '../../components/buttons/publish-scores';
 import ResultTooltip from './result-tooltip';
@@ -235,7 +237,7 @@ const TaskResult = observer(({ heading, result, striped }) => {
             isTrouble={result && !result.isUnattemptedAutoZero && result.isTrouble}
             isUnattemptedAutoZero={result && result.isUnattemptedAutoZero}
         >
-            {!heading.isCore && <DroppedQuestionHeadingIndicator heading={heading} />}
+            {!heading.isCore && <DroppedTutorQuestionIndicator result={result} />}
             <ResultWrapper>
                 {body}
             </ResultWrapper>
