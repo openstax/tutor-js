@@ -44,6 +44,7 @@ class Actions {
             course: this.ux.course,
             book: this.ux.referenceBook,
             page_ids: this.ux.selectedPageIds,
+            limit: this.ux.plan.isHomework ? 'homework_core' : false,
         });
         this.ux.selectedPageIds.forEach(pgId => {
             this.ux.exercises.forPageId(pgId).forEach(
