@@ -15,8 +15,8 @@ import {
 } from '../../../models'
 
 export class TaskPlanScoreStudentQuestion extends BaseModel {
-    @field question_id = NEW_ID;
-    @field exercise_id:ID = NEW_ID;
+    @field question_id?:ID;
+    @field exercise_id?:ID;
     @field is_completed = false;
     @field points?: number;
     @field comments = ''
@@ -159,7 +159,7 @@ export class TaskPlanScoreStudent extends BaseModel {
 
         return this.questions.map((question, questionIdx) => {
             const heading = this.tasking.question_headings.slice(questionIdx).find(
-                heading => heading.question_ids.includes(question.question_id) &&
+                heading => heading.question_ids.includes(question.question_id || 0) &&
                            !usedHeadings.includes(heading)
             )
 
@@ -413,7 +413,7 @@ export class TaskPlanScoresTasking extends BaseModel {
         const info = {};
         for (const student of this.students) {
             for (const studentQuestion of student.questions) {
-                const exercise = this.exercises.get(studentQuestion.exercise_id);
+                const exercise = studentQuestion.exercise_id && this.exercises.get(studentQuestion.exercise_id);
                 if (exercise) {
                     const question = exercise.content.questions?.find(q => q.id == studentQuestion.question_id);
                     if (!question) continue;

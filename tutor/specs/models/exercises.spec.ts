@@ -69,7 +69,7 @@ describe('Exercises Map', () => {
 
         exercises.fetch({ book, page_ids })
         expect(fetchMock.mock.calls).toHaveLength(1)
-        expect(fetchMock.mock.calls[0][0]).toContain(`ecosystems/${book.id}/exercises/homework_core`)
+        expect(fetchMock.mock.calls[0][0]).toContain(`ecosystems/${book.id}/exercises`)
 
         page_ids.forEach(page_id => { expect(exercises.isFetching({ page_id })).toBe(true); });
 
