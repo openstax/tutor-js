@@ -1,6 +1,8 @@
 import { React, styled, css, observer } from 'vendor';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
-import { TaskPlanScoreHeading } from '../models/task-plans/teacher/scores'
+import {
+    TaskPlanScoreHeading, TaskPlanScoreStudentQuestion,
+} from '../models/task-plans/teacher/scores';
 import pluralize from 'pluralize';
 import { colors } from '../theme';
 
@@ -74,10 +76,10 @@ DroppedIndicator.displayName = 'DroppedIndicator'
 
 
 interface DroppedQuestionHeadingIndicatorProps {
+    heading: TaskPlanScoreHeading
     preventOverflow?: boolean
     size?: number
     responseCount?: number
-    heading: TaskPlanScoreHeading
 }
 
 const DroppedQuestionHeadingIndicator: React.FC<DroppedQuestionHeadingIndicatorProps> = observer(({
@@ -87,11 +89,12 @@ const DroppedQuestionHeadingIndicator: React.FC<DroppedQuestionHeadingIndicatorP
     size = 1,
 }) => {
     if (!heading.someQuestionsDropped) return null
+
     let tooltip
 
     const isHomework = heading.tasking.scores.type == 'homework'
 
-    if (isHomework && heading.isCore) {
+    if (isHomework) {
         if (heading.everyQuestionFullCredit) {
             tooltip = 'Full credit given to all students'
         } else {
@@ -109,9 +112,42 @@ const DroppedQuestionHeadingIndicator: React.FC<DroppedQuestionHeadingIndicatorP
             data-test-id="dropped-question-indicator"
             data-question-id={heading.title}
         />
-    );
+    )
 })
 DroppedQuestionHeadingIndicator.displayName = 'DroppedQuestionHeadingIndicator'
+
+
+interface DroppedTutorQuestionIndicatorProps {
+    result: TaskPlanScoreStudentQuestion
+    preventOverflow?: boolean
+    size?: number
+}
+
+const DroppedTutorQuestionIndicator: React.FC<DroppedTutorQuestionIndicatorProps> = observer(({
+    result,
+    preventOverflow = true,
+    size = 1,
+}) => {
+    if (!result.droppedQuestion) return null
+
+    let tooltip
+    if (result.droppedQuestion.drop_method == 'full_credit') {
+        tooltip = 'Full credit given'
+    } else {
+        tooltip = 'Points changed to 0'
+    }
+
+    return (
+        <DroppedIndicator
+            tooltip={tooltip}
+            preventOverflow={preventOverflow}
+            size={size}
+            data-test-id="dropped-question-indicator"
+            data-question-id={result.question_id}
+        />
+    )
+})
+DroppedTutorQuestionIndicator.displayName = 'DroppedTutorQuestionIndicator'
 
 
 interface DroppedReviewExerciseIndicatorProps {
@@ -167,5 +203,6 @@ export {
     TriangleCSS,
     DroppedIndicator,
     DroppedQuestionHeadingIndicator,
+    DroppedTutorQuestionIndicator,
     DroppedStepIndicator,
 };
