@@ -115,7 +115,7 @@ export class ExercisesMap extends Map<ID, Exercise> {
         ecosystem_id,
         page_ids,
         exercise_ids,
-        limit = 'homework_core',
+        limit = false,
         query = {},
         action = 'exercises',
     }: FetchArg) {
