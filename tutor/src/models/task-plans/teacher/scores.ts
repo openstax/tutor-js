@@ -14,7 +14,7 @@ import {
     DroppedQuestion, GradingTemplate, CoursePeriod, currentExercises,
 } from '../../../models'
 
-class TaskPlanScoreStudentQuestion extends BaseModel {
+export class TaskPlanScoreStudentQuestion extends BaseModel {
     @field question_id = NEW_ID;
     @field exercise_id:ID = NEW_ID;
     @field is_completed = false;
