@@ -7,9 +7,9 @@ import {
 
 export default
 class ExerciseAnswer extends BaseModel {
-    @field content_html = '';
-    @field correctness = '0';
-    @field feedback_html = '';
+    @field content_html?: string
+    @field correctness?: string
+    @field feedback_html?: string
 
     get question() { return getParentOf<Question>(this) }
 
