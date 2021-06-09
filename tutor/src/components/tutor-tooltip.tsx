@@ -4,13 +4,6 @@ import { colors } from '../theme'
 import Floater from 'react-floater'
 import { omit, merge } from 'lodash'
 
-const StyledFloater = styled((Floater as any))`
-    background: #f1f1f1;
-    ${(props: TooltipProps) => props.variant === Variants.green && css`
-        background: ${colors.secondary};
-    `}
-`;
-
 const floaterStyles = {
     default: {
         floater: {
@@ -62,10 +55,10 @@ const floaterStyles = {
 
 const StyledContent = styled.div`
     .header {
-        ${(props: TooltipProps) => props.variant === Variants.Green && css`
+        ${(props: TutorTooltipProps) => props.variant === Variants.Green && css`
             background: ${colors.secondary};
         `}
-        ${(props: TooltipProps) => props.variant === Variants.Gray && css`
+        ${(props: TutorTooltipProps) => props.variant === Variants.Gray && css`
             background: ${colors.neutral.std};
         `}
         color: #fff;
@@ -103,7 +96,7 @@ const StyledContent = styled.div`
 
 
     .body {
-        ${(props: TooltipProps) => props.variant === Variants.Gray && css`
+        ${(props: TutorTooltipProps) => props.variant === Variants.Gray && css`
             background: ${colors.neutral.lighter};
         `}
 

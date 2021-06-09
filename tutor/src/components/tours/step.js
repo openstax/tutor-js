@@ -2,9 +2,7 @@ import {
     React, PropTypes, observer,
 } from 'vendor';
 import Spotlight from './spotlight';
-import Floater from 'react-floater';
 import STEPS from './custom';
-import { colors } from 'theme';
 import TutorTooltip from '../tutor-tooltip';
 
 @observer
@@ -16,7 +14,7 @@ export default class TourStep extends React.Component {
     }
 
     render() {
-        const { step, ride, header, body } = this.props;
+        const { step, ride } = this.props;
         const Step = STEPS[step.customComponent || 'Standard'];
 
         const tip = (
