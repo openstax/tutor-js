@@ -53,7 +53,7 @@ const floaterStyles = {
     },
 };
 
-const StyledContent = styled.div`
+const StyledContent = styled.div<TutorTooltipProps>`
     .header {
         ${(props: TutorTooltipProps) => props.variant === Variants.Green && css`
             background: ${colors.secondary};
@@ -118,11 +118,16 @@ enum Variants {
 
 interface TutorTooltipProps {
     variant?: Variants
-    header: string
+    header?: string
+    body?: any
     children: any
     open?: boolean
     autoOpen?: boolean
-    onClose?: void
+    onClose?(): any
+    styles?: any
+    disableFlip?: boolean
+    placement?: any
+    offset?: number
 }
 
 const TutorTooltip = observer((props: TutorTooltipProps) => {
@@ -153,3 +158,4 @@ const TutorTooltip = observer((props: TutorTooltipProps) => {
 })
 
 export default TutorTooltip
+export { Variants }

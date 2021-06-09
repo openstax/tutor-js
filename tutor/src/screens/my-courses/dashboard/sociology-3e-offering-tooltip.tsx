@@ -1,5 +1,5 @@
 import { React, useState, styled } from 'vendor'
-import TutorTooltip from '../../../components/tutor-tooltip'
+import TutorTooltip, { Variants as TooltipVariants } from '../../../components/tutor-tooltip'
 import { Icon } from 'shared'
 
 const IconWrapper = styled.div`
@@ -34,7 +34,7 @@ const Sociology3eOfferingTooltip = () => {
                 open={showSoc3eTooltip}
                 autoOpen={false}
                 disableFlip={true}
-                variant={'gray'}
+                variant={TooltipVariants.Gray}
                 offset={0}
                 onClose={() => setShowSoc3eTooltip(!showSoc3eTooltip)}
             >
