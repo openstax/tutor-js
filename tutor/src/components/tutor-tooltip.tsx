@@ -41,6 +41,10 @@ const floaterStyles = {
             spread: 16,
             length: 10,
         },
+        container: {
+            minHeight: 0,
+            padding: 0,
+        },
     },
     greenNoBody: {
         arrow: {
