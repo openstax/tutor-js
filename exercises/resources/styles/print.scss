@@ -1,0 +1,22 @@
+@media print {
+    .panel.search {
+
+        .card-footer,
+        .pagination,
+        .search-filter
+        {
+            display: none;
+        }
+
+        .openstax-exercise-preview {
+            page-break-inside: avoid;
+            border: 1px solid black;
+        }
+        .search-title {
+            position: fixed;
+            top: 0;
+            display: none;
+        }
+    }
+
+}

@@ -9,12 +9,22 @@ import BSPagination from 'shared/components/pagination';
 import Loading from 'shared/components/loading-animation';
 import { modelize, action } from 'shared/model';
 import UX from '../ux';
+import pluralize from 'pluralize';
+import { toSentence } from 'shared/helpers/string'
 
 const Pagination = styled(BSPagination)`
   justify-content: center;
   margin-top: 2rem;
-
 `;
+
+const Title = ({ exercises, clauses }) => {
+    if (!exercises.length) {
+        return null;
+    }
+    return (
+        <h6 className="search-title">{pluralize('exercise', exercises.length, true)} found for {toSentence(clauses.map(c => c.asString))}</h6>
+    )
+}
 
 @inject('ux')
 @observer
@@ -49,9 +59,10 @@ class Search extends React.Component {
             exercises.map((e) => <Preview key={e.uuid} exercise={e} showEdit />);
 
         return (
-            <div className="search">
+            <div className="panel search">
                 {clauses.map((c, i) => <Clause key={i} clause={c} />)}
                 {pagination && <Pagination hideFirstAndLastPageLinks {...pagination} />}
+                <Title clauses={clauses} exercises={exercises} />
                 {body}
             </div>
         );

@@ -78,9 +78,11 @@ export class ExercisesMap extends Map<ID, Exercise | ExerciseVersions> {
         }
     }
 
-    publish(exercise: Exercise) {
-        const data = exercise.toJSON()
-        return { uid: exercise.uid, data } ;
+    async publish(exercise: Exercise) {
+        this.onSaved(
+            await this.api.request(urlFor('publish', { uid: exercise.uid }), { data: exercise.toJSON() }),
+            exercise
+        )
     }
 
     async saveDraft(exercise: Exercise) {
@@ -91,7 +93,7 @@ export class ExercisesMap extends Map<ID, Exercise | ExerciseVersions> {
             url = urlFor('saveExistingDraft', { number: exercise.number })
         }
         this.onSaved(
-            await this.api.request(url, exercise.toJSON()),
+            await this.api.request(url, { data: exercise.toJSON() }),
             exercise
         )
     }

@@ -21,6 +21,10 @@ class Clause extends BaseModel {
         return `Search by ${this.filter}`;
     }
 
+    @computed get asString() {
+        return `${this.filter}="${this.value}"`;
+    }
+
     @action.bound setFilter(filter: string) {
         this.filter = filter;
         this.search.currentPage = 1;

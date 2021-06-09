@@ -6,7 +6,7 @@ import { autobind } from 'core-decorators';
 import Router from '../../helpers/router';
 import CourseGroupingLabel from '../../components/course-grouping-label';
 import { colors } from 'theme';
-import S from '../../helpers/string';
+import { assignmentHeaderText } from '../../helpers/string';
 
 const StyledMenuContainer = styled.div`
   & hr {
@@ -37,25 +37,25 @@ export default class CourseAddMenu {
         if (hasPeriods) {
             links = [
                 {
-                    text: `Add ${S.assignmentHeaderText('reading')}`,
+                    text: `Add ${assignmentHeaderText('reading')}`,
                     to: 'editAssignment',
                     params: { type: 'reading', courseId: course.id, id: 'new' },
                     type: 'reading',
                     query: { due_at },
                 }, {
-                    text: `Add ${S.assignmentHeaderText('homework')}`,
+                    text: `Add ${assignmentHeaderText('homework')}`,
                     to: 'editAssignment',
                     params: { type: 'homework', courseId: course.id, id: 'new' },
                     type: 'homework',
                     query: { due_at },
                 }, {
-                    text: `Add ${S.assignmentHeaderText('external')}`,
+                    text: `Add ${assignmentHeaderText('external')}`,
                     to: 'editAssignment',
                     params: { type: 'external', courseId: course.id, id: 'new' },
                     type: 'external',
                     query: { due_at },
                 }, {
-                    text: `Add ${S.assignmentHeaderText('event')}`,
+                    text: `Add ${assignmentHeaderText('event')}`,
                     to: 'editAssignment',
                     params: { type: 'event', courseId: course.id, id: 'new' },
                     type: 'event',
