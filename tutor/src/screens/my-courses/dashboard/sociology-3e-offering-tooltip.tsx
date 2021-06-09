@@ -20,9 +20,12 @@ const Sociology3eOfferingTooltip = () => {
 
     const body = (
         <StyledBody>
-            A new addition is available - <cite className="em">Introduction to Sociology 3e</cite>.&nbsp;
+            A new addition is available -
+            <div><cite className="em">Introduction to Sociology 3e</cite>.</div>
             <cite>Introduction to Sociology 2e</cite> is available only until Summer 2022.
-            <div><a target="_blank" href="TODO: ADD FAQ LINK">Learn more</a></div>
+            <div>
+                <a target="_blank" href="TODO: ADD FAQ LINK">Learn more</a>
+            </div>
         </StyledBody>
     )
 

@@ -62,7 +62,6 @@ const StyledContent = styled.div<TutorTooltipProps>`
             background: ${colors.neutral.std};
         `}
         color: #fff;
-        padding: 9px 10px;
         padding: 10px 20px;
         font-size: 1.6rem;
         line-height: 2rem;
@@ -102,10 +101,8 @@ const StyledContent = styled.div<TutorTooltipProps>`
 
         font-size: 1.4rem;
         line-height: 2rem;
-        padding: 12px 24px 24px;
-        padding: 16px 20px 24px
+        padding: 16px 20px 24px;
         background: #fff;
-        max-width: 312px;
         max-width: 272px;
         letter-spacing: -0.4px;
     }
