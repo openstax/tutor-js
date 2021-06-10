@@ -58,13 +58,13 @@ class ProgressGuideCards extends React.Component {
 
     @action.bound viewPerformanceForecast() {
         return this.props.history.push(
-            Router.makePathname('viewPerformanceGuide', this.props)
+            Router.makePathname('viewPerformanceGuide', { courseId: this.props.course.id })
         );
     }
 
     @action.bound viewMyPracticeQuestions() {
         return this.props.history.push(
-            Router.makePathname('practiceQuestions', this.props)
+            Router.makePathname('practiceQuestions', { courseId: this.props.course.id })
         );
     }
 
