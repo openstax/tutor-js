@@ -1,6 +1,6 @@
 import { React, useState, observer } from 'vendor'
 import { Button } from 'react-bootstrap'
-import { map, filter, findIndex, every, sumBy, find } from 'lodash'
+import { map, filter, findIndex, every, sumBy } from 'lodash'
 import styled from 'styled-components'
 import { colors } from '../../../theme'
 import { Icon } from 'shared'
@@ -135,18 +135,12 @@ export const MyCoursesDashboard = observer(() => {
         if (index >= 0 && deleteOfferingIdModal) {
             const offeringCourses = filter(courses.array, c => c.offering_id === deleteOfferingIdModal && !c.is_preview)
             Promise.all(map(offeringCourses, async c => {
-                const currentRole = find(c.roles, r => r.type === 'teacher')
-                const currentTeacher = currentRole && find(c.teacher_profiles, t => t.id === currentRole.id);
-                if(currentTeacher) {
-                    return currentTeacher.drop()
-                }
-                return Promise.resolve()
-            }))
-                .then(() => {
-                    tempDisplayedOfferingIds.splice(index, 1)
-                    setDisplayedOfferingIds(tempDisplayedOfferingIds)
-                    setDeleteOfferingIdModal(null)
-                })
+                return c.teachers.current?.drop() || Promise.resolve()
+            })).then(() => {
+                tempDisplayedOfferingIds.splice(index, 1)
+                setDisplayedOfferingIds(tempDisplayedOfferingIds)
+                setDeleteOfferingIdModal(null)
+            })
         }
     }
 

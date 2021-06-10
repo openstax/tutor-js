@@ -3,7 +3,7 @@ import {
     NEW_ID, array, hydrateModel, getParentOf, hydrateInstance, runInAction,
 } from 'shared/model';
 import {
-    sumBy, first, sortBy, find, get, endsWith, capitalize, pick, isEmpty, filter, without,
+    sumBy, first, sortBy, find, get, endsWith, capitalize, pick, filter, without,
 } from 'lodash';
 import urlFor from '../api'
 import type { CoursesMap } from './courses-map'
@@ -11,7 +11,7 @@ import UiSettings from 'shared/model/ui-settings';
 import {
     Time, Interval, Notes, CourseData, currentOfferings, Offering,
     CourseScores as Scores, CoursePeriod as Period, CourseRole as Role, CourseStudent as Student, CourseRoster as Roster,
-    TeacherProfile, StudentTasks, PastTaskPlans, CourseLMS as LMS, TeacherTaskPlans, StudentTaskPlans, GradingTemplates,
+    TeacherProfile, CourseTeacher, StudentTasks, PastTaskPlans, CourseLMS as LMS, TeacherTaskPlans, StudentTaskPlans, GradingTemplates,
     PracticeQuestions, ReferenceBook, FeatureFlags, Exercise, CourseInformation, CoursePerformance,
 } from '../models'
 import PH from '../helpers/period';
@@ -40,8 +40,6 @@ export class Course extends BaseModel {
     @field default_open_time = '';
     @field ecosystem_book_uuid = '';
     @field ecosystem_id = NEW_ID;
-    @model(TeacherProfile) teacher_profiles = array<TeacherProfile>()
-
     @field is_active = false;
     @field is_college = false;
     @field is_concept_coach = false;
@@ -82,12 +80,19 @@ export class Course extends BaseModel {
     @lazyGetter get studentTaskPlans() { return hydrateModel(StudentTaskPlans, {} , this) }
     @lazyGetter get practiceQuestions() { return hydrateModel(PracticeQuestions, {}, this) }
 
+    @model(TeacherProfile) teacher_profiles = array((profiles: TeacherProfile[]) => ({
+        get current() {
+            return find(profiles, tp => tp.isCurrentUser);
+        },
+    }))
+    @model(CourseTeacher) teachers = array((teachers: CourseTeacher[]) => ({
+        get current() { return teachers.find(t => t.isTeacherOfCourse) },
+    }))
     @model(Period) periods = array((a: Period[]) => ({
         get sorted() { return PH.sort(a) },
         get archived() { return filter(this.sorted, period => !period.is_archived) },
         get active() { return filter(this.sorted, 'isActive') },
     }))
-
     @model(Role) roles = array((roles: Role[]) => ({
         get student() { return find(roles, { isStudent: true }); },
         get teacher() { return find(roles, { isTeacher: true }); },
@@ -297,18 +302,6 @@ export class Course extends BaseModel {
 
     @computed get primaryRole() {
         return first(sortBy(this.roles, r => -1 * ROLE_PRIORITY.indexOf(r.type))) as Role;
-    }
-
-    @computed get currentTeacherProfile() {
-        return find(this.teacher_profiles, tp => tp.isCurrentUser);
-    }
-
-    @computed get currentCourseTeacher() {
-        const teacherRole = find(this.roles, r => r.type === 'teacher');
-        if(!this.roster || isEmpty(this.roster.teachers) || !teacherRole) {
-            return null;
-        }
-        return find(this.roster.teachers, t => t.role_id === teacherRole.id);
     }
 
     @computed get saveData() {

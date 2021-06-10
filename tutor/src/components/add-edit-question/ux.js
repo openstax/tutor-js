@@ -316,7 +316,7 @@ export default class AddEditQuestionUX {
             return [...this.course.teacher_profiles];
         }
         else
-            return [this.course.currentTeacherProfile];
+            return [this.course.teacher_profiles.current];
     }
 
     // Get the browse book link with the chapter or section selected

@@ -136,6 +136,7 @@ exports[`Exercise Tasks Screen matches snapshot 1`] = `
               "name": "Review Teacher 2",
             },
           ],
+          "teachers": Array [],
           "term": "spring",
           "timezone": "US/Central",
           "uses_pre_wrm_scores": false,
