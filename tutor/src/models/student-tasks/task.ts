@@ -75,7 +75,7 @@ export class StudentTask extends BaseModel {
     }
 
     @computed get humanLateWorkPenalty() {
-        const amount = this.late_work_penalty_applied !== 'not_accepted' ? this.late_work_penalty_per_period : 1;
+        const amount = this.late_work_penalty_applied !== 'not_accepted' ? this.late_work_penalty_per_period || 0 : 1;
         return `${S.asPercent(amount)}%`;
     }
 
