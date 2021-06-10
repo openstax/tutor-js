@@ -1,11 +1,11 @@
 import { React, useState, observer } from 'vendor'
 import { Button } from 'react-bootstrap'
-import { map, filter, findIndex, every, sumBy } from 'lodash'
+import { map, filter, every, sumBy } from 'lodash'
 import styled from 'styled-components'
 import { colors } from '../../../theme'
 import { Icon } from 'shared'
 import { ID } from '../../../models/types'
-import { currentCourses } from '../../../models'
+import { currentCourses, currentOfferings } from '../../../models'
 import OfferingBlock from './offering-block'
 import AddSubjectDropdown from './add-subject-dropdown'
 import { DeleteOfferingModal, DeleteOfferingWarningModal } from './delete-offering-modal'
@@ -130,22 +130,19 @@ export const MyCoursesDashboard = observer(() => {
 
     // delete offering
     const deleteOffering = () => {
-        const tempDisplayedOfferingIds = [...displayedOfferingIds]
-        const index = findIndex(tempDisplayedOfferingIds, id => id === deleteOfferingIdModal)
-        if (index >= 0 && deleteOfferingIdModal) {
-            const offeringCourses = filter(courses.array, c => c.offering_id === deleteOfferingIdModal && !c.is_preview)
-            Promise.all(map(offeringCourses, async c => {
-                return c.teachers.current?.drop() || Promise.resolve()
-            })).then(() => {
-                tempDisplayedOfferingIds.splice(index, 1)
-                setDisplayedOfferingIds(tempDisplayedOfferingIds)
-                setDeleteOfferingIdModal(null)
-            })
-        }
+        if (!deleteOfferingIdModal) return
+        const offering = currentOfferings.get(deleteOfferingIdModal)
+        if (!offering) return
+        Promise.all(courses.forOffering(offering).array.map(c => {
+            return c.teachers.current?.drop() || Promise.resolve()
+        })).then(() => {
+            setDisplayedOfferingIds(displayedOfferingIds.filter(id => id != offering.id))
+            setDeleteOfferingIdModal(null)
+        })
     }
 
     const renderDeleteModal = () => {
-        const offeringCourses = filter(courses.array, c => c.offering_id === deleteOfferingIdModal)
+        const offeringCourses = courses.array.filter(c => c.offering_id == deleteOfferingIdModal)
         const areAllPreviewCourses = every(offeringCourses, oc => oc.is_preview)
         const areAllNonPreviewCoursesWithoutStudents = every(filter(offeringCourses, c => String(c.term) !== 'preview'), oc => sumBy(oc?.periods, (p:any) => {
             return p.num_enrolled_students
