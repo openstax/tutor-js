@@ -1,5 +1,6 @@
 import { React, styled, css, observer } from 'vendor';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { QuestionDropType } from '../models/types';
 import {
     TaskPlanScoreHeading, TaskPlanScoreStudentQuestion,
 } from '../models/task-plans/teacher/scores';
@@ -142,7 +143,6 @@ const DroppedTutorQuestionIndicator: React.FC<DroppedTutorQuestionIndicatorProps
             tooltip={tooltip}
             preventOverflow={preventOverflow}
             size={size}
-            data-test-id="dropped-question-indicator"
             data-question-id={result.question_id}
         />
     )
@@ -157,20 +157,28 @@ interface DroppedReviewExerciseIndicatorProps {
         }
         heading: TaskPlanScoreHeading
         responses: any[]
+        question: { id: number }
     }
 }
 
 export const DroppedReviewExerciseIndicator: React.FC<DroppedReviewExerciseIndicatorProps> = observer(({
     info,
 }) => {
-    const { droppedQuestion, heading } = info
+    const { droppedQuestion } = info
     if (!droppedQuestion || !droppedQuestion.drop_method) return null
 
+    let tooltip
+    if (droppedQuestion.drop_method == 'full_credit') {
+        tooltip = 'Full credit given'
+    } else {
+        tooltip = 'Points changed to 0'
+    }
+    tooltip += ` for ${pluralize('student', info.responses.length, true)}`
+
     return (
-        <DroppedQuestionHeadingIndicator
-            heading={heading}
-            responseCount={info.responses.length}
-            size={1.6}
+        <DroppedIndicator
+            tooltip={tooltip}
+            data-question-id={info.question.id}
         />
     )
 })
@@ -179,7 +187,7 @@ DroppedReviewExerciseIndicator.displayName = 'DroppedReviewExerciseIndicator'
 
 interface DroppedStepIndicatorProps {
     size?: number
-    step: { drop_method?: 'full_credit' | 'zeroed' }
+    step: { drop_method?: QuestionDropType }
 }
 const DroppedStepIndicator: React.FC<DroppedStepIndicatorProps> = observer(({
     step,
