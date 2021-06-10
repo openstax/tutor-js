@@ -91,20 +91,18 @@ const DroppedQuestionHeadingIndicator: React.FC<DroppedQuestionHeadingIndicatorP
 }) => {
     if (!heading.someQuestionsDropped) return null
 
-    const isHomework = heading.tasking.scores.type == 'homework'
-
     let tooltip
 
-    if (heading.droppedQuestion.drop_method == 'full_credit') {
-        tooltip = 'Full credit given '
-    } else {
-        tooltip = 'Points changed to 0 '
-    }
+    const isHomework = heading.tasking.scores.type == 'homework'
 
-    if (isHomework && heading.isCore) {
-        tooltip += 'to all students'
+    if (isHomework) {
+        if (heading.everyQuestionFullCredit) {
+            tooltip = 'Full credit given to all students'
+        } else {
+            tooltip = 'Points changed to 0 for all students'
+        }
     } else {
-        tooltip += `for ${pluralize('student', responseCount, true)}`
+        tooltip = `Question dropped for ${pluralize('student', responseCount, true)}`
     }
 
     return (
