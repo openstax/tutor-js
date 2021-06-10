@@ -159,7 +159,7 @@ exports[`Exercise Preview Component callbacks are called when overlay and action
             <div
               className="header"
             >
-              Detailed solution
+              Detailed solution:
             </div>
             <div
               dangerouslySetInnerHTML={
@@ -253,7 +253,7 @@ exports[`Exercise Preview Component can hide the answers 1`] = `
             <div
               className="header"
             >
-              Detailed solution
+              Detailed solution:
             </div>
             <div
               dangerouslySetInnerHTML={
@@ -421,6 +421,22 @@ exports[`Exercise Preview Component can render question formats 1`] = `
             </div>
           </div>
           <div
+            className="detailed-solution"
+          >
+            <div
+              className="header"
+            >
+              Detailed solution:
+            </div>
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "four",
+                }
+              }
+            />
+          </div>
+          <div
             className="formats-listing"
           >
             <div
@@ -434,22 +450,6 @@ exports[`Exercise Preview Component can render question formats 1`] = `
             <span>
               multiple-choice
             </span>
-          </div>
-          <div
-            className="detailed-solution"
-          >
-            <div
-              className="header"
-            >
-              Detailed solution
-            </div>
-            <div
-              dangerouslySetInnerHTML={
-                Object {
-                  "__html": "four",
-                }
-              }
-            />
           </div>
         </div>
       </div>
@@ -703,7 +703,7 @@ exports[`Exercise Preview Component hides context if missing 1`] = `
             <div
               className="header"
             >
-              Detailed solution
+              Detailed solution:
             </div>
             <div
               dangerouslySetInnerHTML={
@@ -876,7 +876,7 @@ exports[`Exercise Preview Component limits tags 1`] = `
             <div
               className="header"
             >
-              Detailed solution
+              Detailed solution:
             </div>
             <div
               dangerouslySetInnerHTML={
@@ -1101,7 +1101,7 @@ exports[`Exercise Preview Component renders and matches snapshot 1`] = `
             <div
               className="header"
             >
-              Detailed solution
+              Detailed solution:
             </div>
             <div
               dangerouslySetInnerHTML={
@@ -1315,7 +1315,7 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
             <div
               className="header"
             >
-              Detailed solution
+              Detailed solution:
             </div>
             <div
               dangerouslySetInnerHTML={
