@@ -2,6 +2,8 @@ export type ID = string | number
 
 export type CourseTermName = 'spring' | 'summer' | 'fall' | 'winter' | 'unknown'
 
+export type QuestionDropType = 'full_credit' | 'zeroed'
+
 export interface RoleData {
     id: ID
     joined_at: string
