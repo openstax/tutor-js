@@ -7,24 +7,14 @@ import Controls from './search/controls';
 import { observer, inject } from 'mobx-react';
 import BSPagination from 'shared/components/pagination';
 import Loading from 'shared/components/loading-animation';
-import { modelize, action } from 'shared/model';
+import { modelize, action, autorun } from 'shared/model';
 import UX from '../ux';
-import pluralize from 'pluralize';
-import { toSentence } from 'shared/helpers/string'
+
 
 const Pagination = styled(BSPagination)`
   justify-content: center;
   margin-top: 2rem;
 `;
-
-const Title = ({ exercises, clauses }) => {
-    if (!exercises.length) {
-        return null;
-    }
-    return (
-        <h6 className="search-title">{pluralize('exercise', exercises.length, true)} found for {toSentence(clauses.map(c => c.asString))}</h6>
-    )
-}
 
 @inject('ux')
 @observer
@@ -41,6 +31,14 @@ class Search extends React.Component {
     constructor(props) {
         super(props);
         modelize(this);
+        this.titleChangeDisposer = autorun(() => {
+            document.title = this.search.title
+        })
+    }
+
+    componentWillUnmount() {
+        this.titleChangeDisposer()
+        document.title = 'OpenStax Exercises'
     }
 
     get search() {
@@ -62,7 +60,6 @@ class Search extends React.Component {
             <div className="panel search">
                 {clauses.map((c, i) => <Clause key={i} clause={c} />)}
                 {pagination && <Pagination hideFirstAndLastPageLinks {...pagination} />}
-                <Title clauses={clauses} exercises={exercises} />
                 {body}
             </div>
         );

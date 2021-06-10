@@ -4,6 +4,8 @@ import {
 } from 'shared/model';
 import Exercise from './exercises/exercise';
 import urlFor from '../api'
+import pluralize from 'pluralize';
+import { toSentence } from 'shared/helpers/string'
 
 class Clause extends BaseModel {
 
@@ -76,6 +78,12 @@ class Search extends BaseModel {
         this.perform();
     }
 
+    @computed get title() {
+        if (!this.exercises.length) {
+            return 'Exercise Search';
+        }
+        return `${pluralize('exercise', this.exercises.length, true)} found for ${toSentence(this.clauses.map(c => c.asString))}`
+    }
 
     @action.bound onPageChange(pg: number) {
         this.currentPage = pg;
