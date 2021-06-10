@@ -135,7 +135,7 @@ class Question extends React.Component {
             solution =
                 <div className="detailed-solution">
                     <div className="header">
-                        Detailed solution
+                        Detailed solution:
                     </div>
                     <ArbitraryHtmlAndMath
                         {...htmlAndMathProps}
@@ -153,8 +153,8 @@ class Question extends React.Component {
                 <QuestionHtml type="stem" html={stem_html} hidden={hidePreambles} questionNumber={questionNumber} />
                 {this.props.children}
                 <AnswersTable {...this.props} hasCorrectAnswer={hasCorrectAnswer} />
-                {this.props.displayFormats ? <FormatsListing formats={formats} /> : undefined}
                 {solution}
+                {this.props.displayFormats ? <FormatsListing formats={formats} /> : undefined}
                 {exerciseUid}
             </div>
         );
