@@ -130,6 +130,7 @@ export const MyCoursesDashboard = observer(() => {
 
     // delete offering
     const deleteOffering = () => {
+        if (!deleteOfferingIdModal) return
         const offering = currentOfferings.get(deleteOfferingIdModal)
         if (!offering) return
         Promise.all(courses.forOffering(offering).array.map(c => {
