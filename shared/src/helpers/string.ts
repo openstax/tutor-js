@@ -1,4 +1,4 @@
-import { isNaN, isString, isNumber, trimStart, trimEnd } from 'lodash';
+import { isNaN, isString, isNumber, isEmpty as _isEmpty, trimStart, trimEnd } from 'lodash';
 
 const SMALL_WORDS = /^(a|an|and|as|at|but|by|en|for|if|in|nor|of|on|or|per|the|to|vs?\.?|via)$/i;
 const UUID_REGEX = /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/;
@@ -86,7 +86,7 @@ export function toSentence(arry: string | string[], join = 'and') {
 
 export function isEmpty(s: string | null | undefined): boolean {
     return Boolean(
-        isEmpty(s) || (isString(s) && !s.match(/\S/))
+        _isEmpty(s) || (isString(s) && !s.match(/\S/))
     );
 }
 
