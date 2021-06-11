@@ -7,6 +7,7 @@ import CourseOfferingTitle from './offering-title';
 import OXFancyLoader from 'shared/components/staxly-animation';
 import BuilderUX from './ux';
 import * as Steps from './steps';
+import Sociology3eNudge from './sociology-3e-nudge';
 
 const componentFor = key => Steps[ key ];
 
@@ -66,7 +67,6 @@ Header.propTypes = {
     ux: PropTypes.object,
 };
 
-
 @withRouter
 @observer
 export default
@@ -111,6 +111,7 @@ class NewCourseWizard extends React.Component {
                         message={this.ux.isBuilding ? 'Building your course' : 'Loading…'}
                     />
                     {!this.ux.isBusy && <Component ux={this.ux} />}
+                    <Sociology3eNudge ux={this.ux} />
                 </Card.Body>
                 <Card.Footer>
                     <Footer ux={this.ux} />

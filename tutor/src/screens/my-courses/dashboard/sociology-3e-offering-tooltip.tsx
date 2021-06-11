@@ -1,6 +1,7 @@
-import { React, useState, styled } from 'vendor'
+import { React, useState, styled, observer } from 'vendor'
 import TutorTooltip, { Variants as TooltipVariants } from '../../../components/tutor-tooltip'
 import { Icon } from 'shared'
+import { Offering, currentOfferings } from '../../../models'
 
 const IconWrapper = styled.div`
     float: right;
@@ -15,7 +16,10 @@ const StyledBody = styled.div`
 `
 
 
-const Sociology3eOfferingTooltip = () => {
+const Sociology3eOfferingTooltip = observer(({ offering }: { offering: Offering }) => {
+    if (!(offering.isSociology2e && currentOfferings.soc3eAvailable)) {
+        return null
+    }
     const [showSoc3eTooltip, setShowSoc3eTooltip] = useState(false)
 
     const body = (
@@ -48,6 +52,6 @@ const Sociology3eOfferingTooltip = () => {
             </TutorTooltip>
         </IconWrapper>
     )
-}
+})
 
 export default Sociology3eOfferingTooltip

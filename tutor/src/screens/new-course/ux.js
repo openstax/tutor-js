@@ -186,6 +186,14 @@ export default class CourseBuilderUX extends BaseModel {
         return !!(result(this, `skip_${this.stage}`, false) && this.currentStageIndex < this.stages.length - 1);
     }
 
+    @computed get displaySoc3eSoonNudge() {
+        return this.offering.isSociology2e && currentOfferings.soc3eExists && !currentOfferings.soc3eAvailable
+    }
+
+    @computed get displaySoc3eAvailableNudge() {
+        return this.offering.isSociology2e && currentOfferings.soc3eAvailable
+    }
+
     @action.bound
     afterCreate() {
         const c = this.newCourse.createdCourse;
