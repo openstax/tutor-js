@@ -1,5 +1,5 @@
 import { React, styled } from 'vendor'
-import { colors } from 'theme'
+import { colors } from '../../theme'
 
 const Text = styled.div`
     margin-top: 8px;
@@ -15,7 +15,7 @@ const Text = styled.div`
     }
 `
 
-const Sociology3eNudge = ({ ux }) => {
+const Sociology3eNudge = ({ ux }: { ux: any }) => {
     if (ux.displaySoc3eSoonNudge) {
         return (
             <Text>
