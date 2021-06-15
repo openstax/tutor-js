@@ -27,27 +27,36 @@ class ExerciseEditingPreview extends React.Component {
             <Preview>
                 <CornerRibbon
                     shadow
-                    color={exercise.canEdit ? 'green' : 'navy'}
-                    position="topRight"
-                    hidden={exercise.canEdit && !exercise.is_vocab}
-                    label={[
-                        <div key="ro">{ exercise.canEdit ? 'VOCABULARY' : 'READ ONLY' }</div>,
-                        <div key="n">{exercise.readOnlyReason}</div>,
-                    ]}
+                    color={'grey'}
+                    position="topLeft"
+                    hidden={!exercise.isDraft}
+                    label="DRAFT"
                 >
-                    <ExercisePreview
-                        questionType="teacher-preview"
-                        className='exercise-editing-preview'
-                        isInteractive
-                        displayAllTags
-                        displayFeedback
-                        displayFormats
-                        displayNickname
-                        exercise={exercise}
-                        {...previewProps}
+
+                    <CornerRibbon
+                        shadow
+                        color={exercise.canEdit ? 'green' : 'navy'}
+                        position="topRight"
+                        hidden={exercise.canEdit && !exercise.is_vocab}
+                        label={[
+                            <div key="ro">{ exercise.canEdit ? 'VOCABULARY' : 'READ ONLY' }</div>,
+                            <div key="n">{exercise.readOnlyReason}</div>,
+                        ]}
                     >
-                        {showEdit && exercise.canEdit && <Link className="btn" to={`/exercise/${exercise.uid}`}>EDIT</Link>}
-                    </ExercisePreview>
+                        <ExercisePreview
+                            questionType="teacher-preview"
+                            className='exercise-editing-preview'
+                            isInteractive
+                            displayAllTags
+                            displayFeedback
+                            displayFormats
+                            displayNickname
+                            exercise={exercise}
+                            {...previewProps}
+                        >
+                            {showEdit && exercise.canEdit && <Link className="btn" to={`/exercise/${exercise.uid}`}>EDIT</Link>}
+                        </ExercisePreview>
+                    </CornerRibbon>
                 </CornerRibbon>
             </Preview>
         );
