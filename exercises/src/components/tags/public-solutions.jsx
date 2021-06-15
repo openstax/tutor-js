@@ -22,14 +22,12 @@ class PublicSolutions extends React.Component {
 
     render() {
         return (
-            <Wrapper label="Public Solutions?">
-                <div className="tag">
-                    <input
-                        type="checkbox"
-                        label=""
-                        onChange={this.updateValue}
-                        checked={this.props.exercise.solutions_are_public} />
-                </div>
+            <Wrapper label="Solution is public">
+                <input
+                    type="checkbox"
+                    label=""
+                    onChange={this.updateValue}
+                    checked={this.props.exercise.solutions_are_public} />
             </Wrapper>
         );
     }
