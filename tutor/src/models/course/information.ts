@@ -87,4 +87,6 @@ export const CourseInformation = {
 
     openstaxSubjects: 'https://openstax.org/subjects/view-all',
 
+    soc3eFaq: 'https://openstax.secure.force.com/help/articles/FAQ/Introduction-to-Sociology-3e-Frequently-Asked-Questions',
+
 };

@@ -4,25 +4,26 @@ import UiSettings from 'shared/model/ui-settings'
 import Theme, { breakpoint, colors } from '../../../theme'
 import { Offering, currentOfferings } from '../../../models'
 import Router from '../../../helpers/router'
+import { CourseInformation } from '../../../models/course/information'
 
 const DORMANT_TIME = 86400000 * 30 * 4
 
-interface OverlayProps {
-    fullscreen: boolean
+interface StyledOverlayProps {
+    fullscreen?: boolean
 }
 
-const Overlay = styled.div<OverlayProps>`
-    position: ${(props: OverlayProps) => props.fullscreen ? 'fixed' : 'absolute'};
+const Overlay = styled.div<StyledOverlayProps>`
+    position: ${(props: StyledOverlayProps) => props.fullscreen ? 'fixed' : 'absolute'};
     left: 0;
     right: 0;
     top: 0;
     bottom: 0;
-    z-index: ${(props: OverlayProps) => props.fullscreen ? Theme.zIndex.navbar + 1 : 1};
-    padding: ${(props: OverlayProps) => props.fullscreen ? '12rem' : '6.4rem'} 8rem 2rem;
+    z-index: ${(props: StyledOverlayProps) => props.fullscreen ? Theme.zIndex.navbar + 1 : 1};
+    padding: ${(props: StyledOverlayProps) => props.fullscreen ? '12rem' : '6.4rem'} 8rem 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: position: ${(props: OverlayProps) => props.fullscreen ? 'flex-start' : 'center'};
+    justify-content: position: ${(props: StyledOverlayProps) => props.fullscreen ? 'flex-start' : 'center'};
     ${breakpoint.tablet`
         padding: 12rem 3.2rem;
     `}
@@ -89,7 +90,7 @@ const Overlay = styled.div<OverlayProps>`
     }
 `
 
-const Sociology3eOverlay = observer(({ offering, fullscreen }: { offering: Offering, fullscreen: boolean }) => {
+const Sociology3eOverlay = observer(({ offering, fullscreen }: { offering: Offering, fullscreen?: boolean }) => {
     if (!(offering.isSociology2e && currentOfferings.soc3eAvailable)) {
         return null
     }
@@ -128,7 +129,7 @@ const Sociology3eOverlay = observer(({ offering, fullscreen }: { offering: Offer
             <a className="btn create-soc3e" onClick={() => markAsViewed(history)}>
                 <b>Create a</b> Introduction to Sociology 3e <b>course</b>
             </a>
-            <a className="faq" href="TODO: GET LINK">Frequently Asked Questions</a>
+            <a className="faq" href={CourseInformation.soc3eFaq}>Frequently Asked Questions</a>
         </Overlay>
     )
 })
