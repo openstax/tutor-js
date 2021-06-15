@@ -134,7 +134,7 @@ const Sociology3eOverlay = observer(({ offering, fullscreen }: { offering: Offer
             <a className="btn create-soc3e" onClick={() => markAsViewed(history)}>
                 <b>Create a</b> Introduction to Sociology 3e <b>course</b>
             </a>
-            <a className="faq" href={CourseInformation.soc3eFaq}>Frequently Asked Questions</a>
+            <a className="faq" href={CourseInformation.soc3eFaq} target="_blank">Frequently Asked Questions</a>
         </Overlay>
     )
 })
