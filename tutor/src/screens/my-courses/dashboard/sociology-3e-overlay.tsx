@@ -114,7 +114,12 @@ const Sociology3eOverlay = observer(({ offering, fullscreen }: { offering: Offer
 
     return (
         <Overlay fullscreen={fullscreen} data-test-id="sociology-3e-overlay">
-            <button className="close-overlay" aria-label="Close" onClick={() => markAsViewed()}>
+            <button
+                className="close-overlay"
+                aria-label="Close"
+                data-test-id="soc3e-close-overlay"
+                onClick={() => markAsViewed()}
+            >
                 <Icon type="close" />
             </button>
             <h1>New edition! <span>Introduction to Sociology 3e</span></h1>

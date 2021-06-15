@@ -46,5 +46,13 @@ describe('Soc3e Announcement and Launch', () => {
             offering.is_available = true
         })
         await expect(page).toHaveSelector('testEl=sociology-3e-overlay')
+        await page.click('testEl=soc3e-close-overlay')
+        await expect(page).not.toHaveSelector('testEl=sociology-3e-overlay', { timeout: 10 })
+        await page.evaluate(() => {
+            const date = new Date()
+            date.setDate(date.getDate() - 120)
+            window._MODELS.settings.set('soc3eOverlayViewedAt', date)
+        })
+        await expect(page).toHaveSelector('testEl=sociology-3e-overlay', { timeout: 10 })
     })
 })
