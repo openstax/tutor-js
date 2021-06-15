@@ -15,7 +15,7 @@ export const useDisplayedOfferingsIds = (courses: CoursesMap = currentCourses) =
 const useDisplayedOfferings = () : ReturnUseDisplayedOfferings => {
     // getting all the data: offerings and courses
     const courses = currentCourses
-    const offerings = currentOfferings.available //useAvailableOfferings(courses)
+    const offerings = currentOfferings.array
 
     const [displayedOfferingIds, setDisplayedOfferingIds] = useState<ID[]>(
         useDisplayedOfferingsIds(courses)
@@ -28,7 +28,7 @@ const useDisplayedOfferings = () : ReturnUseDisplayedOfferings => {
 
     // re-compute the `displayedOfferings` if `displayedOfferingIds` is modified
     const displayedOfferings = useMemo(() => {
-        const filteredOfferings = filter(offerings.array, o => includes(displayedOfferingIds, o.id))
+        const filteredOfferings = filter(offerings, o => includes(displayedOfferingIds, o.id))
         return filteredOfferings.sort((a, b) => {
             return indexOf(displayedOfferingIds, a.id) - indexOf(displayedOfferingIds, b.id)
         })

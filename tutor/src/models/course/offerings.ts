@@ -28,6 +28,10 @@ export class OfferingsMap extends Map<ID, Offering> {
         return this.where(c => c.is_available && !c.is_concept_coach);
     }
 
+    @computed get displayable() {
+        return this.where(c => c.is_available || c.is_preview_available)
+    }
+
     @computed get biology2e() {
         return this.available.where(c => c.appearance_code == 'biology_2e');
     }
