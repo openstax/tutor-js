@@ -6,7 +6,7 @@ describe('Soc3e Announcement and Launch', () => {
         await setTimeouts()
         await loginAs('reviewteacher')
         await visitPage(page, '/course/1')
-        await page.waitForNavigation()
+        await page.waitForSelector('css=.course-page')
         await disableTours(page)
         await page.evaluate(() => {
             const offering = window._MODELS.courses.get(1).offering
