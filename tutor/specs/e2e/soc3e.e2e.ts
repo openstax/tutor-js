@@ -21,7 +21,7 @@ describe('Soc3e Announcement and Launch', () => {
 
     it('displays a banner on a Sociology 2e dashboard before 3e is available', async () => {
         // Don't display it when Soc3e doesn't exist
-        await expect(page).not.toHaveSelector('testEl=sociology-3e-banner')
+        await expect(page).not.toHaveSelector('testEl=sociology-3e-banner', { timeout: 30 })
 
         // Display it when Soc3e exists but is not yet available
         await page.evaluate(() => {
