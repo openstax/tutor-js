@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
 import Preview from './exercise/preview';
+import BookSections from './search/book-sections';
 import Clause from './search/clause';
 import Controls from './search/controls';
 import { observer, inject } from 'mobx-react';
@@ -66,6 +67,7 @@ class Search extends React.Component<SearchProps> {
 
         return (
             <div className="panel search">
+                <BookSections search={this.search}/>
                 {clauses.map((c, i) => <Clause key={i} clause={c} />)}
                 {pagination && <Pagination hideFirstAndLastPageLinks {...pagination} />}
                 {body}

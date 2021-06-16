@@ -59,6 +59,7 @@ class Search extends BaseModel {
     @observable total_count = 0;
     @observable perPageSize = 25;
     @observable currentPage = 1;
+    @observable sectionUuid:string;
 
     constructor() {
         super();
@@ -105,9 +106,12 @@ class Search extends BaseModel {
 
     //called by api
     async perform() {
+        const query = map(this.clauses, 'asQuery').join(' ')
+        if (this.sectionUuid) query += ` tag:"context-cnxmod:${this.sectionUuid}"`
+
         const { total_count, items } = await this.api.request<{ total_count: number, items: Exercise[] }>(
             urlFor('search', {}, {
-                q: map(this.clauses, 'asQuery').join(' '),
+                q: query,
                 per_page: this.perPageSize,
                 page: this.currentPage,
             })
