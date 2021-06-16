@@ -1317,7 +1317,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
               </div>
             </div>
             <div
-              className="tag-type publicSolutions"
+              className="tag-type solutionIsPublic"
             >
               <div
                 className="heading"
@@ -1325,22 +1325,18 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                 <span
                   className="label"
                 >
-                  Public Solutions?
+                  Solution is public
                 </span>
                 <div
                   className="controls"
                 />
               </div>
-              <div
-                className="tag"
-              >
-                <input
-                  checked={false}
-                  label=""
-                  onChange={[Function]}
-                  type="checkbox"
-                />
-              </div>
+              <input
+                checked={false}
+                label=""
+                onChange={[Function]}
+                type="checkbox"
+              />
             </div>
           </div>
         </div>
@@ -4290,7 +4286,7 @@ exports[`Exercises component renders with intro and a multiple questions when ex
               </div>
             </div>
             <div
-              className="tag-type publicSolutions"
+              className="tag-type solutionIsPublic"
             >
               <div
                 className="heading"
@@ -4298,22 +4294,18 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                 <span
                   className="label"
                 >
-                  Public Solutions?
+                  Solution is public
                 </span>
                 <div
                   className="controls"
                 />
               </div>
-              <div
-                className="tag"
-              >
-                <input
-                  checked={false}
-                  label=""
-                  onChange={[Function]}
-                  type="checkbox"
-                />
-              </div>
+              <input
+                checked={false}
+                label=""
+                onChange={[Function]}
+                type="checkbox"
+              />
             </div>
           </div>
         </div>
@@ -6053,17 +6045,15 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                   </SingleDropdown>
                                 </TimeTag>
                                 <PublicSolutions exercise={{...}}>
-                                  <TagWrapper label=\\"Public Solutions?\\">
-                                    <div className=\\"tag-type publicSolutions\\">
+                                  <TagWrapper label=\\"Solution is public\\">
+                                    <div className=\\"tag-type solutionIsPublic\\">
                                       <div className=\\"heading\\">
                                         <span className=\\"label\\">
-                                          Public Solutions?
+                                          Solution is public
                                         </span>
                                         <div className=\\"controls\\" />
                                       </div>
-                                      <div className=\\"tag\\">
-                                        <input type=\\"checkbox\\" label=\\"\\" onChange={[Function: updateValue] { isMobxAction: true }} checked={false} />
-                                      </div>
+                                      <input type=\\"checkbox\\" label=\\"\\" onChange={[Function: updateValue] { isMobxAction: true }} checked={false} />
                                     </div>
                                   </TagWrapper>
                                 </PublicSolutions>
