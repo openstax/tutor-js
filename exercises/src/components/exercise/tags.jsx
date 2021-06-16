@@ -14,6 +14,7 @@ import HistoricalThinking from '../tags/historical-thinking';
 import ReasoningProcess from '../tags/reasoning-process';
 import ApLo from '../tags/aplo';
 import SciencePractice from '../tags/science-practice';
+import PublicSolutions from '../tags/public-solutions';
 import Exercise from '../../models/exercises/exercise';
 
 function ExerciseTags({ exercise }) {
@@ -36,6 +37,7 @@ function ExerciseTags({ exercise }) {
                 <Dok {...tagProps} />
                 <Blooms {...tagProps} />
                 <Time {...tagProps} />
+                <PublicSolutions {...tagProps} />
             </div>
         </div>
     );

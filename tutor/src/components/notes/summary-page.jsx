@@ -51,7 +51,7 @@ class NoteSummaryPage extends React.Component {
         modelize(this);
     }
 
-    resetCurrentPage() {
+    @action resetCurrentPage() {
         this.selectedPages.clear();
         this.props.notes.ensurePageExists(this.props.page);
         const summary = this.props.notes.summary.forPage(this.props.page);

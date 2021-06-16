@@ -226,7 +226,7 @@ exports[`Exercise Preview Wrapper Component renders and matches snapshot 1`] = `
               <div
                 className="header"
               >
-                Detailed solution
+                Detailed solution:
               </div>
               <div
                 className="solution"

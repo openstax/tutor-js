@@ -3,18 +3,18 @@
   //@include clearfix;
 
   .detailed-solution {
-    margin-bottom: 1.5rem;
-
-    .header {
-      color: #5e6062;
-      font-weight: bold;
-      margin-bottom: 0.5rem;
-    }
-
-    .solution {
-      color: #6f6f6f;
       margin-bottom: 1rem;
-    }
+      .header {
+          display: inline;
+          float: left;
+          margin-right: 0.5rem;
+          color: #5e6062;
+          font-weight: bold;
+          flex-basis: 0;
+      }
+      .solution {
+          color: #6f6f6f;
+      }
   }
 
   img {

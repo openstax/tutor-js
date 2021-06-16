@@ -1,0 +1,53 @@
+@media print {
+    .panel.search {
+
+        .card-footer,
+        .pagination,
+        .search-filter
+        {
+            display: none;
+        }
+
+        .search-title {
+            position: fixed;
+            top: 0;
+            display: none;
+        }
+
+        .openstax-exercise-preview {
+            page-break-inside: avoid;
+            border: 1px solid black;
+
+            .card-body {
+                .answers-table {
+                    margin-bottom: 0.5rem;
+                    line-height: inherit;
+                    label {
+                        margin-bottom: 0;
+                    }
+                    .question-feedback-content {
+                        line-height: 1rem;
+                        margin: 0;
+                    }
+                }
+                .question-stem {
+                    margin-bottom: 0;
+                }
+            }
+
+
+            .openstax-question {
+                .detailed-solution {
+                    margin-bottom: 0;
+                    .solution,
+                    .header {
+                        margin-bottom: 0;
+                    }
+
+                }
+            }
+        }
+    }
+
+}
+

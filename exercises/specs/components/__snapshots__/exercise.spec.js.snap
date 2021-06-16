@@ -1316,6 +1316,28 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                 </select>
               </div>
             </div>
+            <div
+              className="tag-type solutionIsPublic"
+            >
+              <div
+                className="heading"
+              >
+                <span
+                  className="label"
+                >
+                  Solution is public
+                </span>
+                <div
+                  className="controls"
+                />
+              </div>
+              <input
+                checked={false}
+                label=""
+                onChange={[Function]}
+                type="checkbox"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -1508,6 +1530,22 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                   </div>
                 </div>
                 <div
+                  className="detailed-solution"
+                >
+                  <div
+                    className="header"
+                  >
+                    Detailed solution:
+                  </div>
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "four",
+                      }
+                    }
+                  />
+                </div>
+                <div
                   className="formats-listing"
                 >
                   <div
@@ -1521,22 +1559,6 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                   <span>
                     multiple-choice
                   </span>
-                </div>
-                <div
-                  className="detailed-solution"
-                >
-                  <div
-                    className="header"
-                  >
-                    Detailed solution
-                  </div>
-                  <div
-                    dangerouslySetInnerHTML={
-                      Object {
-                        "__html": "four",
-                      }
-                    }
-                  />
                 </div>
               </div>
             </div>
@@ -4263,6 +4285,28 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                 </select>
               </div>
             </div>
+            <div
+              className="tag-type solutionIsPublic"
+            >
+              <div
+                className="heading"
+              >
+                <span
+                  className="label"
+                >
+                  Solution is public
+                </span>
+                <div
+                  className="controls"
+                />
+              </div>
+              <input
+                checked={false}
+                label=""
+                onChange={[Function]}
+                type="checkbox"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -4445,6 +4489,22 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                   </div>
                 </div>
                 <div
+                  className="detailed-solution"
+                >
+                  <div
+                    className="header"
+                  >
+                    Detailed solution:
+                  </div>
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "four",
+                      }
+                    }
+                  />
+                </div>
+                <div
                   className="formats-listing"
                 >
                   <div
@@ -4458,22 +4518,6 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                   <span>
                     multiple-choice
                   </span>
-                </div>
-                <div
-                  className="detailed-solution"
-                >
-                  <div
-                    className="header"
-                  >
-                    Detailed solution
-                  </div>
-                  <div
-                    dangerouslySetInnerHTML={
-                      Object {
-                        "__html": "four",
-                      }
-                    }
-                  />
                 </div>
               </div>
             </div>
@@ -4743,6 +4787,22 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                   </div>
                 </div>
                 <div
+                  className="detailed-solution"
+                >
+                  <div
+                    className="header"
+                  >
+                    Detailed solution:
+                  </div>
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "four",
+                      }
+                    }
+                  />
+                </div>
+                <div
                   className="formats-listing"
                 >
                   <div
@@ -4756,22 +4816,6 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                   <span>
                     multiple-choice
                   </span>
-                </div>
-                <div
-                  className="detailed-solution"
-                >
-                  <div
-                    className="header"
-                  >
-                    Detailed solution
-                  </div>
-                  <div
-                    dangerouslySetInnerHTML={
-                      Object {
-                        "__html": "four",
-                      }
-                    }
-                  />
                 </div>
               </div>
             </div>
@@ -4901,6 +4945,22 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                   </div>
                 </div>
                 <div
+                  className="detailed-solution"
+                >
+                  <div
+                    className="header"
+                  >
+                    Detailed solution:
+                  </div>
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "four",
+                      }
+                    }
+                  />
+                </div>
+                <div
                   className="formats-listing"
                 >
                   <div
@@ -4914,22 +4974,6 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                   <span>
                     multiple-choice
                   </span>
-                </div>
-                <div
-                  className="detailed-solution"
-                >
-                  <div
-                    className="header"
-                  >
-                    Detailed solution
-                  </div>
-                  <div
-                    dangerouslySetInnerHTML={
-                      Object {
-                        "__html": "four",
-                      }
-                    }
-                  />
                 </div>
               </div>
             </div>
@@ -6000,6 +6044,19 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                     </TagWrapper>
                                   </SingleDropdown>
                                 </TimeTag>
+                                <PublicSolutions exercise={{...}}>
+                                  <TagWrapper label=\\"Solution is public\\">
+                                    <div className=\\"tag-type solutionIsPublic\\">
+                                      <div className=\\"heading\\">
+                                        <span className=\\"label\\">
+                                          Solution is public
+                                        </span>
+                                        <div className=\\"controls\\" />
+                                      </div>
+                                      <input type=\\"checkbox\\" label=\\"\\" onChange={[Function: updateValue] { isMobxAction: true }} checked={false} />
+                                    </div>
+                                  </TagWrapper>
+                                </PublicSolutions>
                               </div>
                             </div>
                           </ExerciseTags>
@@ -6205,6 +6262,14 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                           </Answer>
                                         </div>
                                       </AnswersTable>
+                                      <div className=\\"detailed-solution\\">
+                                        <div className=\\"header\\">
+                                          Detailed solution:
+                                        </div>
+                                        <Component className=\\"solution\\" block={true} html=\\"four\\">
+                                          <div dangerouslySetInnerHTML={{...}} />
+                                        </Component>
+                                      </div>
                                       <FormatsListing formats={{...}}>
                                         <div className=\\"formats-listing\\">
                                           <div className=\\"header\\">
@@ -6218,14 +6283,6 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                           </span>
                                         </div>
                                       </FormatsListing>
-                                      <div className=\\"detailed-solution\\">
-                                        <div className=\\"header\\">
-                                          Detailed solution
-                                        </div>
-                                        <Component className=\\"solution\\" block={true} html=\\"four\\">
-                                          <div dangerouslySetInnerHTML={{...}} />
-                                        </Component>
-                                      </div>
                                     </div>
                                   </Question>
                                 </div>

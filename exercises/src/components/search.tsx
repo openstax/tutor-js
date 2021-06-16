@@ -5,20 +5,26 @@ import Preview from './exercise/preview';
 import Clause from './search/clause';
 import Controls from './search/controls';
 import { observer, inject } from 'mobx-react';
+import type { IReactionDisposer } from 'mobx';
 import BSPagination from 'shared/components/pagination';
 import Loading from 'shared/components/loading-animation';
-import { modelize, action } from 'shared/model';
+import { modelize, action, autorun } from 'shared/model';
 import UX from '../ux';
+
 
 const Pagination = styled(BSPagination)`
   justify-content: center;
   margin-top: 2rem;
-
 `;
+
+interface SearchProps {
+    ux: UX
+    history: any
+}
 
 @inject('ux')
 @observer
-class Search extends React.Component {
+class Search extends React.Component<SearchProps> {
     static Controls = Controls;
 
     static propTypes = {
@@ -28,16 +34,26 @@ class Search extends React.Component {
         }).isRequired,
     };
 
-    constructor(props) {
+    titleChangeDisposer: IReactionDisposer
+
+    constructor(props: SearchProps) {
         super(props);
         modelize(this);
+        this.titleChangeDisposer = autorun(() => {
+            document.title = this.search.title
+        })
+    }
+
+    componentWillUnmount() {
+        this.titleChangeDisposer()
+        document.title = 'OpenStax Exercises'
     }
 
     get search() {
         return this.props.ux.search;
     }
 
-    @action.bound onEdit(ev) {
+    @action.bound onEdit(ev: React.MouseEvent<HTMLAnchorElement>) {
         ev.preventDefault();
         this.props.history.push(ev.currentTarget.pathname);
     }
@@ -49,7 +65,7 @@ class Search extends React.Component {
             exercises.map((e) => <Preview key={e.uuid} exercise={e} showEdit />);
 
         return (
-            <div className="search">
+            <div className="panel search">
                 {clauses.map((c, i) => <Clause key={i} clause={c} />)}
                 {pagination && <Pagination hideFirstAndLastPageLinks {...pagination} />}
                 {body}

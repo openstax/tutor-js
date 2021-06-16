@@ -18,7 +18,7 @@ class Clause extends React.Component {
         const { clause } = this.props;
 
         return (
-            <Row>
+            <Row className="search-filter">
                 <Col xs={8}>
                     <InputGroup>
                         <DropdownButton
@@ -61,7 +61,7 @@ class Clause extends React.Component {
                                 waitingText="Searching…"
                                 onClick={clause.search.execute}
                             >
-                Go
+                                Go
                             </AsyncButton>
 
                         </InputGroup.Append>
