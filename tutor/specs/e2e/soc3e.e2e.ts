@@ -53,6 +53,6 @@ describe('Soc3e Announcement and Launch', () => {
             date.setDate(date.getDate() - 120)
             window._MODELS.settings.set('soc3eOverlayViewedAt', date)
         })
-        await expect(page).toHaveSelector('testEl=sociology-3e-overlay', { timeout: 10 })
+        await expect(page).toHaveSelector('testEl=sociology-3e-overlay')
     })
 })
