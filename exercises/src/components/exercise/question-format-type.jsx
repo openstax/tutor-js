@@ -79,7 +79,7 @@ class QuestionFormatType extends React.Component {
                         </label>
                     </div>
                 ))}
-                {question.isMultipleChoice && (
+                {question.hasFormat('multiple-choice') && (
                     <div className="multi-choice-boxes">
                         <div className="requires-choices">
                             <input
@@ -89,7 +89,7 @@ class QuestionFormatType extends React.Component {
                                 onChange={this.setChoiceRequired}
                             />
                             <label htmlFor="input-rq">
-                Two Step Question
+                                 Two Step Question
                             </label>
                             {this.renderTwoStepInfo()}
                         </div>
@@ -101,7 +101,7 @@ class QuestionFormatType extends React.Component {
                                 onChange={this.preserveOrderClicked}
                             />
                             <label htmlFor="input-om">
-                Order Matters
+                                Order Matters
                             </label>
                         </div>
                     </div>
