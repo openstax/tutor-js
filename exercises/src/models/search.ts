@@ -110,7 +110,7 @@ class Search extends BaseModel {
         const clauses = this.clauses.filter(c => c.value)
         if (this.sectionUuid) {
             clauses.push(hydrateModel(
-                Clause, {filter: 'tag', value: `context-cnxmod:${this.sectionUuid}`}, this
+                Clause, { filter: 'tag', value: `context-cnxmod:${this.sectionUuid}` }, this
             ))
         }
 

@@ -5,9 +5,9 @@ import { Box } from 'boxible'
 import { Row, Col } from 'react-bootstrap'
 import ReactSelect, { components } from 'react-select'
 import { observer } from 'mobx-react'
-import { field, action, modelize, computed } from 'shared/model'
+import { action, modelize, computed } from 'shared/model'
 import Books from '../../models/books'
-import Book, { BookPart } from  '../../models/book'
+import { BookPart } from  '../../models/book'
 import Search from '../../models/search'
 
 interface OptionType {
@@ -84,7 +84,7 @@ class BookSections extends React.Component<BookSectionsProps> {
         })
     }
 
-    findInOptions(value: string, options?: OptionType[]): OptionType {
+    findInOptions(value: string, options?: OptionType[]): OptionType | undefined {
         if (!options) return undefined
 
         for (const option of options) {
