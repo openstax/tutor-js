@@ -213,7 +213,7 @@ exports[`Homework Row renders in progress 1`] = `
               onMouseOut={[Function]}
               onMouseOver={[Function]}
             >
-              Sat, Oct 14, 12:00am
+              Sun, Oct 15, 7:00am
             </time>
           </div>
           <div
@@ -513,7 +513,7 @@ exports[`Homework Row renders with completed count 1`] = `
               onMouseOut={[Function]}
               onMouseOver={[Function]}
             >
-              Sat, Oct 14, 12:00am
+              Sat, Oct 14, 7:00am
             </time>
           </div>
           <div

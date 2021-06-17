@@ -568,7 +568,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                           onMouseOut={[Function]}
                           onMouseOver={[Function]}
                         >
-                          Wed, Oct 14, 12:00am
+                          Wed, Oct 21, 7:00am
                         </time>
                       </div>
                       <div
@@ -653,7 +653,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                           onMouseOut={[Function]}
                           onMouseOver={[Function]}
                         >
-                          Wed, Oct 14, 12:00am
+                          Wed, Oct 21, 7:00am
                         </time>
                       </div>
                       <div
@@ -738,7 +738,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                           onMouseOut={[Function]}
                           onMouseOver={[Function]}
                         >
-                          Wed, Oct 14, 12:00am
+                          Wed, Oct 21, 7:00am
                         </time>
                       </div>
                       <div
@@ -823,7 +823,7 @@ exports[`Student Dashboard displays as loading 1`] = `
                           onMouseOut={[Function]}
                           onMouseOver={[Function]}
                         >
-                          Wed, Oct 14, 12:00am
+                          Wed, Oct 21, 7:00am
                         </time>
                       </div>
                       <div
@@ -1494,7 +1494,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                           onMouseOut={[Function]}
                           onMouseOver={[Function]}
                         >
-                          Wed, Oct 14, 12:00am
+                          Wed, Oct 21, 7:00am
                         </time>
                       </div>
                       <div
@@ -1579,7 +1579,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                           onMouseOut={[Function]}
                           onMouseOver={[Function]}
                         >
-                          Wed, Oct 14, 12:00am
+                          Wed, Oct 21, 7:00am
                         </time>
                       </div>
                       <div
@@ -1664,7 +1664,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                           onMouseOut={[Function]}
                           onMouseOver={[Function]}
                         >
-                          Wed, Oct 14, 12:00am
+                          Wed, Oct 21, 7:00am
                         </time>
                       </div>
                       <div
@@ -1749,7 +1749,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                           onMouseOut={[Function]}
                           onMouseOver={[Function]}
                         >
-                          Wed, Oct 14, 12:00am
+                          Wed, Oct 21, 7:00am
                         </time>
                       </div>
                       <div

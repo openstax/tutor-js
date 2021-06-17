@@ -206,7 +206,7 @@ exports[`Event Row renders and matches snapshot 1`] = `
               onMouseOut={[Function]}
               onMouseOver={[Function]}
             >
-              Wed, Oct 30, 12:00am
+              Wed, Oct 30, 7:00am
             </time>
           </div>
           <div
