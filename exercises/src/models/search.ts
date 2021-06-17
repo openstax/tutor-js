@@ -107,12 +107,16 @@ class Search extends BaseModel {
 
     //called by api
     async perform() {
-        let query = map(this.clauses, 'asQuery').join(' ')
-        if (this.sectionUuid) query += ` tag:"context-cnxmod:${this.sectionUuid}"`
+        const clauses = this.clauses.filter(c => c.value)
+        if (this.sectionUuid) {
+            clauses.push(hydrateModel(
+                Clause, {filter: 'tag', value: `context-cnxmod:${this.sectionUuid}`}, this
+            ))
+        }
 
         const { total_count, items } = await this.api.request<{ total_count: number, items: Exercise[] }>(
             urlFor('search', {}, {
-                q: query,
+                q: map(clauses, 'asQuery').join(' '),
                 per_page: this.perPageSize,
                 page: this.currentPage,
             })
