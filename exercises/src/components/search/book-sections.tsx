@@ -18,6 +18,7 @@ interface OptionType {
 
 const Select = styled(ReactSelect)`
     flex: 1;
+    z-index: 4;
 `
 const { Option, GroupHeading, SingleValue } = components
 
