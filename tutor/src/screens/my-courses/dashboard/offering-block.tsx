@@ -9,7 +9,8 @@ import CreateACourse from './create-course'
 import CoursePreview from './preview-course'
 import ViewCourse from './view-course'
 import Resource from './resource'
-
+import Sociology3eOfferingTooltip from './sociology-3e-offering-tooltip'
+import Sociology3eOverlay from './sociology-3e-overlay'
 
 const sortByCourseEndsAt = (courseA: Course, courseB: Course) => {
     if (courseA.ends_at.isAfter(courseB.ends_at)) { return 1 }
@@ -191,6 +192,8 @@ const OfferingBlock: React.FC<OfferingBlockProps> = ({ offering, courses, swapOf
     return (
         <div className={cn('offering-container', { 'is-edit-mode': isEditMode })} data-offering-id={offering.id} data-test-id="offering-container">
             {editModeIcons}
+            <Sociology3eOverlay offering={offering} />
+            <Sociology3eOfferingTooltip offering={offering} />
             <h3>{offering.title}</h3>
             <Tabs
                 tabs={['current', 'past', 'resources']}

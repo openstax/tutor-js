@@ -34,6 +34,7 @@ const StyledMyCoursesDashboard = styled.div`
         padding-top: 2.4rem;
         padding: 2.4rem 3.2rem 6.4rem;
         min-height: 40rem;
+        position: relative;
         h3 {
             color: ${colors.neutral.std};
         }

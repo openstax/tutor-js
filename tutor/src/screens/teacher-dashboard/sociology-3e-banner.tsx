@@ -8,14 +8,14 @@ const NotificationBar = styled.div`
   font-size: 2rem;
 
   a {
-    &, &:hover { color: #fff; }
-    text-decoration: underline;
-    font-weight: bold;
+      &, &:hover { color: #fff; }
+      text-decoration: underline;
+      font-weight: bold;
   }
 
   .dismiss.ox-icon {
-    font-size: 2.33rem;
-    margin-top: 5px;
+      font-size: 2.33rem;
+      margin-top: 5px;
   }
 `;
 
@@ -33,7 +33,7 @@ const Sociology3eBanner = observer(({ course }: { course: Course }) => {
     }
 
     return (
-        <NotificationBar className="openstax-notifications-bar">
+        <NotificationBar className="openstax-notifications-bar" data-test-id="sociology-3e-banner">
             <div className="notification">
                 <div className="content">
                     A new edition&nbsp;<i>Introduction to Sociology 3e</i>&nbsp;will be available soon.&nbsp;<a href="https://openstax.org/blog/what-makes-openstax-introduction-to-sociology-unique" target="_blank">Learn more</a>

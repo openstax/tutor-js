@@ -2,9 +2,8 @@ import {
     React, PropTypes, observer,
 } from 'vendor';
 import Spotlight from './spotlight';
-import Floater from 'react-floater';
 import STEPS from './custom';
-import { colors } from 'theme';
+import TutorTooltip from '../tutor-tooltip';
 
 @observer
 export default class TourStep extends React.Component {
@@ -14,55 +13,18 @@ export default class TourStep extends React.Component {
         ride: PropTypes.object.isRequired,
     }
 
-    styles = {
-        floater: {
-            maxWidth: '100%',
-        },
-        container: {
-            padding: 0,
-            borderRadius: '4px',
-        },
-        options: {
-            zIndex: 1501,
-        },
-    };
-
-    classNameStyles = {
-        green: {
-            arrow: {
-                color: colors.secondary,
-                spread: 16,
-                length: 10,
-            },
-        },
-        greenNoBody: {
-            arrow: {
-                color: colors.secondary,
-                spread: 16,
-                length: 10,
-                margin: 20,
-            },
-            container: {
-                minHeight: 0,
-                padding: 0,
-            },
-        },
-    };
-
-
     render() {
         const { step, ride } = this.props;
         const Step = STEPS[step.customComponent || 'Standard'];
-        const styles = { ...this.styles, ...this.classNameStyles[step.className] };
 
         const tip = (
-            <Floater
+            <TutorTooltip
                 open={true}
                 debug={ride.context.emitDebugInfo}
                 autoOpen={true}
                 key={step.anchor_id}
                 target={step.target}
-                styles={styles}
+                variant={step.variant}
                 disableAnimation={true}
                 placement={step.placement}
                 content={<Step step={step} ride={ride} />}

@@ -13,6 +13,7 @@ import TeacherBecomesStudent from '../../components/buttons/teacher-become-stude
 import Dashboard from './dashboard';
 import CourseCalendarHeader from './header';
 import Sociology3eBanner from './sociology-3e-banner';
+import Sociology3eOverlay from '../my-courses/dashboard/sociology-3e-overlay';
 
 import './styles.scss';
 
@@ -197,6 +198,7 @@ class TeacherDashboardDateWrapper extends React.Component {
 
         return (
             <ScrollToTop>
+                <Sociology3eOverlay offering={this.course.offering} fullscreen={true} history={history} />
                 <TeacherDashboardWrapper
                     date={date}
                     course={this.course}
