@@ -9,8 +9,7 @@ const Definitions = {
     saveExistingDraft: r<{ number: ID }>('PUT', 'exercises/{number}@draft'),
     publish:           r<{uid: string}>('PUT', 'exercises/{uid}/publish'),
     books:             r<{archive_version?: string}>('GET', 'books'),
-    book:              r<{uuid: string, version?: string,
-                          archive_version?: string}>('GET', 'books/{uuid}'),
+    book:              r<{uuid: string, version?: string, archive_version?: string}>('GET', 'books/{uuid}'),
 
 }
 
