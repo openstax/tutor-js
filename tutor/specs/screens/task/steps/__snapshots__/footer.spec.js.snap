@@ -33,7 +33,7 @@ exports[`Task Step Footer matches snapshot 1`] = `
                                                         Comes from
                                                       </span>
                                                     </styled.span>
-                                                    <BrowseTheBook unstyled={true} chapterSection={{...}} course={{...}} tabIndex={-1} tag=\\"a\\" windowImpl={{...}}>
+                                                    <BrowseTheBook unstyled={true} chapterSection={{...}} page={{...}} course={{...}} tabIndex={-1} tag=\\"a\\" windowImpl={{...}}>
                                                       <a data-test-id=\\"browse-the-book-btn\\" aria-label=\\"Browse course reference book\\" onClick={[Function: onClick] { isMobxAction: true }} tabIndex={-1} href=\\"/book/2/section/1.2\\" target=\\"_blank\\" className=\\"browse-the-book\\">
                                                         <BookPartTitle displayChapterSection={true} part={{...}}>
                                                           <styled.div boldChapterSection={[undefined]} hideChapterSection={false} className=\\"book-part-title\\" style={[undefined]}>

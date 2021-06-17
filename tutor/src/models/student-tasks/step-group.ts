@@ -1,4 +1,4 @@
-import { BaseModel, model, modelize, computed, action, field, NEW_ID, array, hydrateInstance } from 'shared/model';
+import { BaseModel, observable, modelize, computed, action, field, NEW_ID, hydrateInstance } from 'shared/model';
 import { StudentTaskStep } from '../../models'
 import { readonly } from 'core-decorators';
 
@@ -12,7 +12,9 @@ export class StudentTaskStepGroup extends BaseModel {
 
 
     @field uid = NEW_ID;
-    @model(StudentTaskStep) steps = array<StudentTaskStep>()
+    // DO NOT convert to @model
+    // doing so will re-assign the step's parent if they're added to it
+    @observable steps:StudentTaskStep[] = []
 
     @readonly isGrouped = true;
     @readonly type = 'mpq';

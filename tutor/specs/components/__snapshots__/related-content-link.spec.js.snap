@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Related Content Link renders and matches snapshot 1`] = `
+exports[`Related Content Link renders and matches snapshot with chapter_section 1`] = `
 .c3 {
   font-weight: 700;
   color: #424242;
@@ -79,6 +79,88 @@ exports[`Related Content Link renders and matches snapshot 1`] = `
       >
         1
       </span>
+      <span
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Intro",
+          }
+        }
+        data-test-id="book-title"
+        data-title="Intro"
+      />
+    </div>
+  </a>
+</div>
+`;
+
+exports[`Related Content Link renders and matches snapshot without chapter_section 1`] = `
+.c2 {
+  display: inline-block;
+}
+
+.c2 .os-number {
+  font-weight: normal;
+}
+
+.c2 .os-number .os-part-text {
+  font-weight: normal;
+}
+
+.c2 .chapter-section {
+  font-weight: normal;
+  margin-right: 0.5rem;
+}
+
+.c2 .label {
+  margin-right: 0.5rem;
+}
+
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.c0 .chapter-section {
+  font-weight: normal;
+  color: inherit;
+}
+
+.c0 .browse-the-book {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c1 {
+  margin-right: 0.5rem;
+}
+
+<div
+  className="c0 related-content-link"
+>
+  <span
+    className="c1 preamble"
+  >
+    Comes from
+  </span>
+  <a
+    aria-label="Browse course reference book"
+    className="browse-the-book"
+    data-test-id="browse-the-book-btn"
+    href="/book/2/page/42"
+    onClick={[Function]}
+    tabIndex={-1}
+    target="_blank"
+  >
+    <div
+      className="c2 book-part-title"
+    >
       <span
         dangerouslySetInnerHTML={
           Object {

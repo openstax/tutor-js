@@ -27,6 +27,7 @@ const RelatedContentLink = ({ className, linkPrefix, course, content, preamble }
                     key={i}
                     unstyled={true}
                     chapterSection={rl.chapter_section}
+                    page={{ id: rl.page_id }}
                     course={course}
                     tabIndex={-1}
                 >

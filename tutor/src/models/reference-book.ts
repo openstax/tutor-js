@@ -9,7 +9,7 @@ import urlFor from '../api'
 
 class PageIdMap extends Map<ID, Node>{
     static Model = Node
-} 
+}
 
 function mapPages(page: ReferenceBook | Node, pages: any) {
     if (page.isPage) {
