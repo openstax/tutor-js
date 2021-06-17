@@ -24,9 +24,6 @@ const StyledMyCoursesDashboard = styled.div`
     .controls {
         display: flex;
         justify-content: flex-end;
-        &.bottom-controls {
-            margin-top: 1.2rem;
-        }
     }
     .offering-container {
         margin: 1.6rem 0 1.6rem 0;
@@ -88,8 +85,8 @@ const StyledMyCoursesDashboard = styled.div`
         }
     }
     .add-subject-dropdown {
-        margin-top: 3.2rem;
-        padding-bottom: 8rem;
+        margin: 3.2rem 0;
+        padding-bottom: 3.2rem;
         border-bottom: 1px solid ${colors.neutral.pale};
         .dropdown-toggle {
             width: 35rem;
@@ -164,13 +161,14 @@ export const MyCoursesDashboard = observer(() => {
         )
     }
 
-    const settingsButton =
+    const settingsButton = (
         <Button
             data-test-id="dashboard-settings-btn"
             variant="link"
             onClick={() => setIsEditMode(prevState => !prevState)}>
             <Icon type="cog" />{isEditMode ? 'Exit settings' : 'Manage subjects'}
         </Button>
+    )
 
     return (
         <StyledMyCoursesDashboard>
@@ -178,7 +176,14 @@ export const MyCoursesDashboard = observer(() => {
             <div className="controls">
                 {settingsButton}
             </div>
-            { map(displayedOfferings, (o, i) =>
+            {isEditMode &&
+             <>
+                 <AddSubjectDropdown
+                     displayedOfferings={displayedOfferings}
+                     setDisplayedOfferingIds={setDisplayedOfferingIds} />
+             </>
+            }
+            {map(displayedOfferings, (o, i) =>
                 <OfferingBlock
                     key={o.id}
                     offering={o}
@@ -188,16 +193,6 @@ export const MyCoursesDashboard = observer(() => {
                     isEditMode={isEditMode}
                     isFirstBlock={i === 0}
                     isLastBlock={i === displayedOfferings.length - 1} />)
-            }
-            { isEditMode &&
-                <>
-                    <AddSubjectDropdown
-                        displayedOfferings={displayedOfferings}
-                        setDisplayedOfferingIds={setDisplayedOfferingIds} />
-                    <div className="controls bottom-controls">
-                        {settingsButton}
-                    </div>
-                </>
             }
             {renderDeleteModal()}
         </StyledMyCoursesDashboard>
