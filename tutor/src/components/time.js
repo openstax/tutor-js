@@ -2,7 +2,6 @@ import TimeModel from 'shared/model/time';
 import PropTypes from 'prop-types';
 import React from 'react';
 import TimeHelper from '../helpers/time';
-import { moment } from 'vendor';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 export default class Time extends React.Component {
@@ -31,19 +30,19 @@ export default class Time extends React.Component {
     } };
 
     render() {
-        let { format, date } = this.props;
-
+        let { format, date: rawDate } = this.props;
+        const date = new TimeModel(rawDate)
         return (
             <OverlayTrigger
                 placement="right"
                 overlay={
                     <Tooltip>
-                        {moment(date).format(this.dateFormat('medium'))} {TimeHelper.browserTzName()}
+                        {date.format(this.dateFormat('medium'))} {TimeHelper.browserTzName()}
                     </Tooltip>
                 }
             >
                 <time>
-                    {moment(date).format(this.dateFormat(format))}
+                    {date.format(this.dateFormat(format))}
                 </time>
             </OverlayTrigger>
         );
