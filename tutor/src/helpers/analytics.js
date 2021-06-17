@@ -87,7 +87,7 @@ var Analytics = {
             f.parentNode.insertBefore(j, f);
         }
     },
-  
+
     // Set the Command Queue (ga) and cache the (possibly multiple) tracker names
     setGa(ga) {
         trackerNames = undefined;
