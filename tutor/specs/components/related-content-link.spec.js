@@ -6,14 +6,14 @@ describe('Related Content Link', () => {
     const content = [
         hydrateModel(RelatedContent, {
             title: 'Intro',
-            page: { id: 42 },
+            page_id: '42',
             chapter_section: hydrateModel(ChapterSection, [1, 0]),
         }),
     ];
     const noChapterSectionContent = [
         hydrateModel(RelatedContent, {
             title: 'Intro',
-            page: { id: 42 },
+            page_id: '42',
             chapter_section: hydrateModel(ChapterSection, [undefined, undefined]),
         }),
     ];

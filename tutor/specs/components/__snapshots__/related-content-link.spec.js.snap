@@ -153,7 +153,7 @@ exports[`Related Content Link renders and matches snapshot without chapter_secti
     aria-label="Browse course reference book"
     className="browse-the-book"
     data-test-id="browse-the-book-btn"
-    href="/book/2/page/0"
+    href="/book/2/page/42"
     onClick={[Function]}
     tabIndex={-1}
     target="_blank"
