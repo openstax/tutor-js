@@ -76,7 +76,7 @@ class BookSections extends React.Component<BookSectionsProps> {
                 option.options = this.partsToOptions(part.contents)
             }
             else {
-                option.value = part.id
+                option.value = part.id.split('@', 1)[0]
             }
 
             return option
