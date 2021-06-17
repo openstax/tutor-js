@@ -14,6 +14,7 @@ export default class Time extends React.Component {
         date: PropTypes.oneOfType([
             PropTypes.string,
             PropTypes.instanceOf(Date),
+            PropTypes.object, // momentjs
             PropTypes.instanceOf(TimeModel),
         ]).isRequired,
 
