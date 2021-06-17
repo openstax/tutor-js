@@ -1,10 +1,23 @@
-import { BaseModel, field, modelize, computed } from 'shared/model';
+import { BaseModel, field, modelize, computed, runInAction } from 'shared/model';
 import urlFor from '../api'
 
+export interface BookPart {
+    id: string
+    slug: string
+    title: string
+    contents?: BookPart[]
+}
 
+interface Query {
+    uuid: string
+    version?: string
+}
 export default
 class Book extends BaseModel {
-    @field contents: string
+    @field contents?: BookPart[]
+    @field title = ''
+    @field version = ''
+    @field uuid = ''
 
     constructor() {
         super()
@@ -12,13 +25,14 @@ class Book extends BaseModel {
     }
 
     @computed get query() {
-        const qq = { uuid: this.uuid }
+        const qq:Query = { uuid: this.uuid }
         if (this.version) qq.version = this.version
         return qq
     }
 
     async fetch(): Promise<any>{
-        this.contents = await this.api.request<any>(urlFor('book', this.query))
+        const contents = await this.api.request<any>(urlFor('book', this.query))
+        runInAction(() => this.contents = contents)
     }
 
     async ensureLoaded(): Promise<any> {

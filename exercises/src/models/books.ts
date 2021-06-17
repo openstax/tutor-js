@@ -1,5 +1,4 @@
-import Map from 'shared/model/map'
-import { BaseModel, model, modelize, array, hydrateModel, hydrateInstance } from 'shared/model'
+import { BaseModel, model, modelize, array, runInAction, hydrateModel } from 'shared/model'
 import Book from './book'
 import urlFor from '../api'
 
@@ -14,7 +13,9 @@ export class Books extends BaseModel {
 
     async fetch(): Promise<any> {
         const books = await this.api.request<Book[]>(urlFor('books'))
-        this.all.replace(books.map((book:Book) => hydrateModel(Book, book, this)))
+        runInAction(() => {
+            this.all.replace(books.map((book:Book) => hydrateModel(Book, book, this)))
+        })
     }
 
     async ensureLoaded(): Promise<any> {

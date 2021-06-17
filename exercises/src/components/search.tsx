@@ -18,10 +18,18 @@ const Pagination = styled(BSPagination)`
   margin-top: 2rem;
 `;
 
+
 interface SearchProps {
     ux: UX
     history: any
 }
+
+const SearchWrapper = styled.div`
+    .input-group-prepend .btn,
+    .input-group-append .btn {
+        z-index: 0;
+    }
+`
 
 @inject('ux')
 @observer
@@ -66,12 +74,12 @@ class Search extends React.Component<SearchProps> {
             exercises.map((e) => <Preview key={e.uuid} exercise={e} showEdit />);
 
         return (
-            <div className="panel search">
+            <SearchWrapper className="panel search">
                 <BookSections search={this.search}/>
                 {clauses.map((c, i) => <Clause key={i} clause={c} />)}
                 {pagination && <Pagination hideFirstAndLastPageLinks {...pagination} />}
                 {body}
-            </div>
+            </SearchWrapper>
         );
     }
 }
