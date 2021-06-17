@@ -40,7 +40,7 @@ class extends React.Component {
 
     @computed get routeName() {
         const { props } = this;
-        if (props.chapterSection) {
+        if (props.chapterSection && !props.chapterSection.isEmpty) {
             return 'viewReferenceBookSection';
         }
         if (props.page) {

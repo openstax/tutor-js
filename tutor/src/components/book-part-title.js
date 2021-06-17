@@ -29,7 +29,6 @@ const StyledBookPartTitle = styled.div`
 const hasChapterSection = /os-number/;
 
 const BookPartTitle = ({ part, style, label, className, boldChapterSection, displayChapterSection }) => {
-
     return (
         <StyledBookPartTitle
             boldChapterSection={boldChapterSection}

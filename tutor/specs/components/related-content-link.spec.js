@@ -5,13 +5,28 @@ import RelatedContentLink from '../../src/components/related-content-link';
 describe('Related Content Link', () => {
     const content = [
         hydrateModel(RelatedContent, {
-            title: 'Intro', chapter_section: hydrateModel(ChapterSection, [1,0]),
+            title: 'Intro',
+            page: { id: 42 },
+            chapter_section: hydrateModel(ChapterSection, [1, 0]),
+        }),
+    ];
+    const noChapterSectionContent = [
+        hydrateModel(RelatedContent, {
+            title: 'Intro',
+            page: { id: 42 },
+            chapter_section: hydrateModel(ChapterSection, [undefined, undefined]),
         }),
     ];
 
-    it('renders and matches snapshot', () => {
+    it('renders and matches snapshot with chapter_section', () => {
         expect.snapshot(
             <RelatedContentLink course={Factory.course()} content={content} />
+        ).toMatchSnapshot();
+    });
+
+    it('renders and matches snapshot without chapter_section', () => {
+        expect.snapshot(
+            <RelatedContentLink course={Factory.course()} content={noChapterSectionContent} />
         ).toMatchSnapshot();
     });
 
