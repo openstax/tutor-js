@@ -56,9 +56,10 @@ class Search extends BaseModel {
 
     @model(Clause) clauses = array<Clause>()
     @model(Exercise) exercises = array<Exercise>()
-    @observable total_count = 0;
-    @observable perPageSize = 25;
-    @observable currentPage = 1;
+    @observable total_count = 0
+    @observable perPageSize = 25
+    @observable currentPage = 1
+    @observable bookUuid = ''
     @observable sectionUuid = ''
 
     constructor() {

@@ -60,17 +60,6 @@ class BookSections extends React.Component<BookSectionsProps> {
 
     static Books = Books
 
-    @field book?: Book
-
-    @computed get books() {
-        return Books.all.map(b => { return { label: b.title, value: b.uuid }})
-    }
-
-    @computed get sections() {
-        if (!this.book || !this.book.contents) return []
-        return this.partsToOptions(this.book.contents)
-    }
-
     constructor(props: BookSectionsProps) {
         super(props)
         modelize(this)
@@ -94,24 +83,55 @@ class BookSections extends React.Component<BookSectionsProps> {
         })
     }
 
-    @action.bound handleBookChange(option?: OptionType) {
-        this.book = option ? Books.all.find(b => b.uuid == option.value) : undefined
+    findInOptions(value: string, options?: OptionType[]): OptionType {
+        if (!options) return undefined
+
+        for (const option of options) {
+            if (option.options) {
+                const nestedResult = this.findInOptions(value, option.options)
+                if (nestedResult) return nestedResult
+            } else {
+                if (option.value == value) return option
+            }
+        }
+
+        return undefined
+    }
+
+    @computed get selectedBook(): OptionType | undefined {
         if (this.book) {
-            this.book.ensureLoaded()
-        } else {
-            this.props.search.sectionUuid = ''
+            return { label: this.book.title, value: this.book.uuid }
+        }
+        return undefined
+    }
+
+    @computed get selectedBookChapterSection(): OptionType | undefined {
+        return this.findInOptions(this.props.search.sectionUuid, this.sections)
+    }
+
+    @computed get books() {
+        return Books.all.map(b => { return { label: b.title, value: b.uuid }})
+    }
+
+    @computed get book() {
+        return Books.all.find(b => b.uuid == this.props.search.bookUuid)
+    }
+
+    @computed get sections() {
+        if (!this.book || !this.book.contents) return []
+        return this.partsToOptions(this.book.contents)
+    }
+
+    @action.bound handleBookChange(option?: OptionType) {
+        this.props.search.bookUuid = option?.value || ''
+        this.props.search.sectionUuid = ''
+        if (this.props.search.bookUuid) {
+            Books.all.find(b => b.uuid == this.props.search.bookUuid)?.ensureLoaded()
         }
     }
 
     @action.bound handleSectionChange(option?: OptionType) {
         this.props.search.sectionUuid = option?.value || ''
-    }
-
-    get selectedBookChapterSection(): OptionType | undefined {
-        if (this.props.search.sectionUuid) {
-            this.sections.find(s => s.value == this.props.search.sectionUuid)
-        }
-        return undefined
     }
 
     render() {
@@ -122,6 +142,7 @@ class BookSections extends React.Component<BookSectionsProps> {
                         <b>Limit results to book/section:</b>
                         <Select
                             isClearable
+                            value={this.selectedBook}
                             options={this.books}
                             onChange={this.handleBookChange}
                         />
