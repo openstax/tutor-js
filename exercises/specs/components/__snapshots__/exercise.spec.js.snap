@@ -154,6 +154,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
             <div>
               <input
                 checked={false}
+                disabled={true}
                 id="input-open-ended"
                 name="0-formats"
                 onChange={[Function]}
@@ -169,6 +170,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
             <div>
               <input
                 checked={true}
+                disabled={false}
                 id="input-multiple-choice"
                 name="0-formats"
                 onChange={[Function]}
@@ -184,6 +186,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
             <div>
               <input
                 checked={false}
+                disabled={false}
                 id="input-true-false"
                 name="0-formats"
                 onChange={[Function]}
@@ -1929,6 +1932,7 @@ exports[`Exercises component renders with intro and a multiple questions when ex
             <div>
               <input
                 checked={false}
+                disabled={true}
                 id="input-open-ended"
                 name="0-formats"
                 onChange={[Function]}
@@ -1944,6 +1948,7 @@ exports[`Exercises component renders with intro and a multiple questions when ex
             <div>
               <input
                 checked={true}
+                disabled={false}
                 id="input-multiple-choice"
                 name="0-formats"
                 onChange={[Function]}
@@ -1959,6 +1964,7 @@ exports[`Exercises component renders with intro and a multiple questions when ex
             <div>
               <input
                 checked={false}
+                disabled={false}
                 id="input-true-false"
                 name="0-formats"
                 onChange={[Function]}
@@ -2365,6 +2371,7 @@ exports[`Exercises component renders with intro and a multiple questions when ex
             <div>
               <input
                 checked={false}
+                disabled={true}
                 id="input-open-ended"
                 name="1-formats"
                 onChange={[Function]}
@@ -2380,6 +2387,7 @@ exports[`Exercises component renders with intro and a multiple questions when ex
             <div>
               <input
                 checked={true}
+                disabled={false}
                 id="input-multiple-choice"
                 name="1-formats"
                 onChange={[Function]}
@@ -2395,6 +2403,7 @@ exports[`Exercises component renders with intro and a multiple questions when ex
             <div>
               <input
                 checked={false}
+                disabled={false}
                 id="input-true-false"
                 name="1-formats"
                 onChange={[Function]}
@@ -3134,6 +3143,7 @@ exports[`Exercises component renders with intro and a multiple questions when ex
             <div>
               <input
                 checked={false}
+                disabled={true}
                 id="input-open-ended"
                 name="2-formats"
                 onChange={[Function]}
@@ -3149,6 +3159,7 @@ exports[`Exercises component renders with intro and a multiple questions when ex
             <div>
               <input
                 checked={true}
+                disabled={false}
                 id="input-multiple-choice"
                 name="2-formats"
                 onChange={[Function]}
@@ -3164,6 +3175,7 @@ exports[`Exercises component renders with intro and a multiple questions when ex
             <div>
               <input
                 checked={false}
+                disabled={false}
                 id="input-true-false"
                 name="2-formats"
                 onChange={[Function]}
@@ -5129,22 +5141,22 @@ exports[`Exercises component resets fields when model is new 1`] = `
                           </div>
                           <Question onRemove={[Function: onRemove]} onMove={[Function: onMove]} question={{...}}>
                             <div className=\\"question\\">
-                              <QuestionFormatType question={{...}}>
+                              <QuestionFormatType question={{...}} addAnswer={[Function: addAnswer] { isMobxAction: true }}>
                                 <div className=\\"format-type\\">
                                   <div>
-                                    <input type=\\"radio\\" id=\\"input-open-ended\\" name=\\"0-formats\\" value=\\"open-ended\\" onChange={[Function: updateRadioFormat] { isMobxAction: true }} checked={false} />
+                                    <input type=\\"radio\\" id=\\"input-open-ended\\" name=\\"0-formats\\" value=\\"open-ended\\" onChange={[Function: updateRadioFormat] { isMobxAction: true }} checked={false} disabled={true} />
                                     <label htmlFor=\\"input-open-ended\\">
                                       Open Ended
                                     </label>
                                   </div>
                                   <div>
-                                    <input type=\\"radio\\" id=\\"input-multiple-choice\\" name=\\"0-formats\\" value=\\"multiple-choice\\" onChange={[Function: updateRadioFormat] { isMobxAction: true }} checked={true} />
+                                    <input type=\\"radio\\" id=\\"input-multiple-choice\\" name=\\"0-formats\\" value=\\"multiple-choice\\" onChange={[Function: updateRadioFormat] { isMobxAction: true }} checked={true} disabled={false} />
                                     <label htmlFor=\\"input-multiple-choice\\">
                                       Multiple Choice
                                     </label>
                                   </div>
                                   <div>
-                                    <input type=\\"radio\\" id=\\"input-true-false\\" name=\\"0-formats\\" value=\\"true-false\\" onChange={[Function: updateRadioFormat] { isMobxAction: true }} checked={false} />
+                                    <input type=\\"radio\\" id=\\"input-true-false\\" name=\\"0-formats\\" value=\\"true-false\\" onChange={[Function: updateRadioFormat] { isMobxAction: true }} checked={false} disabled={false} />
                                     <label htmlFor=\\"input-true-false\\">
                                       True/False
                                     </label>
