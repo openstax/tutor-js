@@ -10,7 +10,7 @@ const ServerErrorMessage = observer((props) => {
     const statusMessage = message || apiResponse?.statusText || 'No response was received'
     const status = apiResponse?.status || 0
 
-    const noRsponseMessage = apiResponse ? '' : <h4>It looks like your internet connection was interrupted,<br />please check your connection and retry</h4>;
+    const fetchFailure = apiResponse?.statusText?.match(/Failed to fetch/) && <h4>It looks like your internet connection was interrupted,<br />please check your connection and retry</h4>;
 
     if (data) {
         dataMessage = <span>Information returned was: <pre>{JSON.stringify(data, null, 2)}</pre></span>;
@@ -21,9 +21,9 @@ const ServerErrorMessage = observer((props) => {
     return (
         <div className="server-error">
             <h3>
-                An error with code {status} {statusMessage} has occured
+                {status} {statusMessage}
             </h3>
-            {noRsponseMessage}
+            {fetchFailure}
             <p>
                 Please <a href={mailTo}>contact us</a> to file a bug report.
             </p>

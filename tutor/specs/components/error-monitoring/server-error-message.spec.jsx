@@ -22,7 +22,7 @@ describe('Error monitoring: server-error message', function() {
     });
 
     it('shows interrupted message', function() {
-        props.apiResponse = undefined;
+        props.apiResponse = { statusText: 'Failed to fetch' }
         const wrapper = shallow(<ErrorMessage {...props} />);
         expect(wrapper.text()).toContain('It looks like your internet connection was interrupted');
     });
