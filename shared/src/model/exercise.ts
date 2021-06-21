@@ -59,6 +59,10 @@ export default class SharedExercise extends BaseModel {
         return map(filter(this.tags, { type: 'context-cnxmod' }), 'value');
     }
 
+    get isDraft() {
+        return isNil(this.published_at)
+    }
+
     get validity() {
         return reduce(([] as any[]).concat(this.questions, this.tags.all), (memo, model) => ({
             valid: memo.valid && model.validity.valid,
