@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import TutorLink from '../../../components/link'
 import IconAdd from '../../../components/icons/add'
 import type { Offering } from '../../../models'
+import { currentUser } from '../../../models'
 import TourAnchor from '../../../components/tours/anchor'
 import { colors } from '../../../theme'
 
@@ -28,7 +29,7 @@ interface CreateCourseProps {
 }
 
 const CreateCourse: React.FC<CreateCourseProps> = ({ offering }) => {
-    if (!offering.is_available) { return null }
+    if ((!offering.is_available) || (!currentUser.canCreateCourses)) { return null }
 
     return (
         <StyledCreateCourse data-test-id="create-course">
