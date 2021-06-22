@@ -480,7 +480,7 @@ export default class AssignmentUX {
     @computed get showPreWRMCloneHelp() {
         if (!(this.plan.isClone && this.plan.isHomework)) { return false; }
         const clonedFrom = this.course.pastTaskPlans.get(this.plan.cloned_from_id);
-        return Boolean(clonedFrom && clonedFrom.duration.start.isBefore(WRM_START_DATE));
+        return Boolean(clonedFrom && clonedFrom.interval.start.isBefore(WRM_START_DATE));
     }
 
     @computed get canEditSettings() {
