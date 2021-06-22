@@ -7,6 +7,11 @@ import urlFor from '../api'
 import pluralize from 'pluralize';
 import { toSentence } from 'shared/helpers/string'
 
+interface SearchResponse {
+    total_count: number
+    items: Exercise[]
+}
+
 class Clause extends BaseModel {
 
     @observable filter = 'uid';
@@ -55,12 +60,14 @@ export default
 class Search extends BaseModel {
 
     @model(Clause) clauses = array<Clause>()
+
     @model(Exercise) exercises = array<Exercise>()
     @observable total_count = 0
     @observable perPageSize = 25
     @observable currentPage = 1
     @observable bookUuid = ''
     @observable sectionUuid = ''
+    @observable isPending = false
 
     constructor() {
         super();
@@ -99,14 +106,30 @@ class Search extends BaseModel {
 
         return {
             currentPage: this.currentPage ,
-            totalPages: Math.floor(this.total_count / this.perPageSize) + 1,
+            totalPages: this.exercises.length == this.total_count ? 1 : Math.floor(this.total_count / this.perPageSize) + 1,
             onChange: this.onPageChange,
         };
     }
 
+    @action async fetchAll() {
+        let { totalPages } = this.pagination || { totalPages: 1 }
+        let totalCount = this.total_count;
+        let exercises: Exercise[] = []
+        this.isPending = true
+        for(let pg = 1; pg<totalPages+1;pg++){
+            const { total_count, items } = await this.fetchPage(pg)
+            totalPages = Math.floor(total_count / this.perPageSize) + 1
+            totalCount = total_count
+            exercises = exercises.concat(items)
+        }
+        runInAction(() => {
+            this.total_count = totalCount;
+            this.exercises.replace(exercises)
+            this.isPending = false
+        })
+    }
 
-    //called by api
-    async perform() {
+    async fetchPage(page: number) {
         const clauses = this.clauses.filter(c => c.value)
         if (this.sectionUuid) {
             clauses.push(hydrateModel(
@@ -114,18 +137,23 @@ class Search extends BaseModel {
             ))
         }
 
-        const { total_count, items } = await this.api.request<{ total_count: number, items: Exercise[] }>(
+        return await this.api.request<SearchResponse>(
             urlFor('search', {}, {
                 q: map(clauses, 'asQuery').join(' '),
                 per_page: this.perPageSize,
-                page: this.currentPage,
+                page,
             })
         )
+    }
 
-
+    //called by api
+    @action async perform() {
+        this.isPending = true
+        const { total_count, items } = await this.fetchPage(this.currentPage)
         runInAction(() => {
             this.total_count = total_count;
-            this.exercises.replace( items.map((ex:any) => hydrateModel(Exercise, ex, this)) );
+            this.exercises.replace(items)
+            this.isPending = false
         })
     }
 

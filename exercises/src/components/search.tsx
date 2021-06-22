@@ -3,20 +3,14 @@ import React from 'react';
 import styled from 'styled-components';
 import Preview from './exercise/preview';
 import BookSections from './search/book-sections';
+import { Pagination } from './search/pagination'
 import Clause from './search/clause';
 import Controls from './search/controls';
 import { observer, inject } from 'mobx-react';
 import type { IReactionDisposer } from 'mobx';
-import BSPagination from 'shared/components/pagination';
 import Loading from 'shared/components/loading-animation';
 import { modelize, action, autorun } from 'shared/model';
 import UX from '../ux';
-
-
-const Pagination = styled(BSPagination)`
-  justify-content: center;
-  margin-top: 2rem;
-`;
 
 
 interface SearchProps {
@@ -67,18 +61,24 @@ class Search extends React.Component<SearchProps> {
         this.props.history.push(ev.currentTarget.pathname);
     }
 
-    render() {
-        const { clauses, exercises, pagination, api } = this.search;
-        const body = api.isPending ?
-            <Loading message="Searching…" /> :
-            exercises.map((e) => <Preview key={e.uuid} exercise={e} showEdit />);
+    get body() {
+        if (this.search.isPending) {
+            return <Loading message="Searching…" />
+        }
+        if (this.search.api.hasBeenFetched && this.search.exercises.length == 0) {
+            return <h3 className="mt-4 text-center">No exercises found</h3>
+        }
 
+        return this.search.exercises.map((e) => <Preview key={e.uuid} exercise={e} showEdit />);
+    }
+
+    render() {
         return (
             <SearchWrapper className="panel search">
                 <BookSections search={this.search}/>
-                {clauses.map((c, i) => <Clause key={i} clause={c} />)}
-                {pagination && <Pagination hideFirstAndLastPageLinks {...pagination} />}
-                {body}
+                {this.search.clauses.map((c, i) => <Clause key={i} clause={c} />)}
+                <Pagination search={this.search} />
+                {this.body}
             </SearchWrapper>
         );
     }

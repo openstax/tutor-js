@@ -137,10 +137,10 @@ class BookSections extends React.Component<BookSectionsProps> {
 
     render() {
         return (
-            <Row>
+            <Row className="book-limit">
                 <Col xs={8}>
                     <Box align="center" gap margin="bottom">
-                        <b>Limit results to book/section:</b>
+                        <b>Limit results to book section:</b>
                         <Select
                             isClearable
                             value={this.selectedBook}
