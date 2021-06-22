@@ -325,7 +325,7 @@ export class Course extends BaseModel {
 
     @action async saveExerciseExclusion({ exercise, is_excluded }: { exercise: Exercise, is_excluded: boolean }) {
         exercise.is_excluded = is_excluded; // eagerly set exclusion
-        const data = await this.api.request(
+        const data = await this.api.request<CourseData>(
             urlFor('saveExerciseExclusion', { courseId: this.id }),
             { data: [{ id: exercise.id, is_excluded }] },
         )

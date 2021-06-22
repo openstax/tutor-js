@@ -44,6 +44,17 @@ export interface TeacherProfileData {
     name: string
 }
 
+export interface CourseLMSData {
+    id: ID
+    key: string
+    secret: string
+    launch_url: string
+    configuration_url: string
+    xml: string
+    created_at: string
+    updated_at: string
+}
+
 export interface CoursePeriodData {
     id: ID
     enrollment_code: string
