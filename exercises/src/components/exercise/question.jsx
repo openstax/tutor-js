@@ -99,7 +99,7 @@ class Question extends React.Component {
                         To save your work, you must fill out the {validity.part}
                     </Alert>)}
 
-                <QuestionFormatType question={question} />
+                <QuestionFormatType question={question} addAnswer={this.addAnswer} />
                 {!question.exercise.isMultiPart && (
                     <div className="question-stimulus">
                         <label>
@@ -136,7 +136,7 @@ class Question extends React.Component {
                 </div>
                 <div>
                     <label>
-            Detailed Solution
+                        Detailed Solution
                     </label>
                     <textarea onChange={this.updateSolution} value={question.collaborator_solution_html} />
                 </div>

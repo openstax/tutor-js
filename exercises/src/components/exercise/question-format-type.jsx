@@ -17,6 +17,7 @@ const StyledTwoStepInfo = styled(Popover)`
 class QuestionFormatType extends React.Component {
     static propTypes = {
         question: PropTypes.instanceOf(Question).isRequired,
+        addAnswer: PropTypes.func,
     };
 
     constructor(props) {
@@ -25,6 +26,9 @@ class QuestionFormatType extends React.Component {
     }
 
     @action.bound updateRadioFormat(ev) {
+        if (ev.target.value === 'multiple-choice' && this.props.question.answers.length === 0) {
+            this.props.addAnswer()
+        }
         this.props.question.setExclusiveFormat(ev.target.value);
     }
 
@@ -44,9 +48,9 @@ class QuestionFormatType extends React.Component {
                 overlay={
                     <StyledTwoStepInfo>
                         <p>
-              A two-step question requires students to recall an answer from memory
-              before viewing the multiple-choice options.
-              Our research shows that retrieval practice helps to improve knowledge retention.
+                            A two-step question requires students to recall an answer from memory
+                            before viewing the multiple-choice options.
+                            Our research shows that retrieval practice helps to improve knowledge retention.
                         </p>
                     </StyledTwoStepInfo>
                 }
@@ -73,6 +77,7 @@ class QuestionFormatType extends React.Component {
                             value={id}
                             onChange={this.updateRadioFormat}
                             checked={question.hasFormat(id)}
+                            disabled={id === 'open-ended' && question.answers.length > 0}
                         />
                         <label htmlFor={`input-${id}`}>
                             {name}
@@ -89,7 +94,7 @@ class QuestionFormatType extends React.Component {
                                 onChange={this.setChoiceRequired}
                             />
                             <label htmlFor="input-rq">
-                                 Two Step Question
+                                Two Step Question
                             </label>
                             {this.renderTwoStepInfo()}
                         </div>
