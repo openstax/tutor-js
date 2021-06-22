@@ -5,6 +5,7 @@ import urlFor from '../../api'
 import type { Course } from '../../models'
 import Time from 'shared/model/time';
 import UiSettings from 'shared/model/ui-settings';
+import { CourseLMSData } from '../types';
 
 const LMS_VENDOR = 'lmsv';
 
@@ -36,7 +37,7 @@ export class CourseLMS extends BaseModel {
     }
 
     async fetch() {
-        const json = await this.api.request(urlFor('fetchCourseLMS', { courseId: this.course.id }))
+        const json = await this.api.request<CourseLMSData>(urlFor('fetchCourseLMS', { courseId: this.course.id }))
         hydrateInstance(this, json)
     }
 

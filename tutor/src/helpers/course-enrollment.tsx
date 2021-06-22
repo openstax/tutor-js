@@ -13,6 +13,7 @@ import Enroll from '../components/enroll';
 import urlFor from '../api';
 import { ApiErrorData, isApiError } from 'shared/api/request';
 import type { User, CoursesMap } from '../models';
+import { CourseData } from '../models/types';
 
 export class CourseEnrollment extends BaseModel {
 
@@ -188,7 +189,7 @@ export class CourseEnrollment extends BaseModel {
     @action async create() {
         if (this.needsPeriodSelection) {
             this.courseToJoin = new Course()
-            const courseData = await this.api.request(
+            const courseData = await this.api.request<CourseData>(
                 urlFor('fetchEnrollmentChoices', { enrollmentCode: this.originalEnrollmentCode }),
             )
             this.courseToJoin = hydrateModel(Course, courseData)
