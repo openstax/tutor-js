@@ -124,11 +124,13 @@ export default class GradeBookUX {
         return this.scores.periods.get(this.coursePeriod.id);
     }
 
-    @computed get students() {
-        if(!this.currentPeriodScores) return [];
+    @computed get allStudents() {
+        return this.currentPeriodScores?.students || [];
+    }
 
+    @computed get students() {
         const students = sortBy(
-            filter(this.currentPeriodScores.students, s => !s.is_dropped),
+            filter(this.allStudents, s => !s.is_dropped),
             this.studentRowSorter,
         );
         if (!this.rowSort.asc) {
@@ -145,17 +147,17 @@ export default class GradeBookUX {
 
     @computed get droppedStudents() {
         return sortBy(
-            filter(this.currentPeriodScores.students, 'is_dropped'),
+            filter(this.allStudents, 'is_dropped'),
             this.studentRowSorter,
         );
     }
 
     @computed get hasDroppedStudents() {
-        return Boolean(find(this.currentPeriodScores.students, 'is_dropped'));
+        return Boolean(find(this.allStudents, 'is_dropped'));
     }
 
     @computed get hasAnyStudents() {
-        return some(this.currentPeriodScores.students, s => !s.is_dropped);
+        return some(this.allStudents, s => !s.is_dropped);
     }
 
     @computed get hasAnyAssignmentHeadings() {
