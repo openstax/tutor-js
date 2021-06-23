@@ -60,8 +60,12 @@ describe('Exercises component', () => {
         //AP Physics
         ex.find('.tag-type.book select').simulate('change', { target: { value: 'stax-apphys' } });
         expect(ex).toHaveRendered('.tag-type.sciencePractice');
-        ex.find('.tag-type.sciencePractice select').simulate('change', { target: { value: 'argumentation' } });
-        expect(props.exercises.get(exercise.uid).tags.withType('science-practice').raw).toEqual('science-practice:argumentation');
+        ex.find('.tag-type.sciencePractice .select__dropdown-indicator').first().simulate('mouseDown', {
+            button: 0,
+        });
+        ex.find('.tag-type.sciencePractice .select__option').last().simulate('click', null);
+        expect(props.exercises.get(exercise.uid).tags.withType('science-practice').raw)
+            .toEqual('science-practice:making-connections')
         //deletes the science practice field if other than AP Physics or AP Bio is selected
         ex.find('.tag-type.book select').simulate('change', { target: { value: 'stax-econ' } });
         expect(ex).not.toHaveRendered('.tag-type.sciencePractice');

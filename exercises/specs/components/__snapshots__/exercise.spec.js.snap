@@ -8,12 +8,12 @@ exports[`Exercises component renders and matches snapshot 1`] = `
   transition: color 0.3s ease;
 }
 
-.c3 {
+.c4 {
   position: relative;
   overflow: hidden;
 }
 
-.c4 {
+.c5 {
   width: 200px;
   background: #e43;
   position: absolute;
@@ -54,12 +54,12 @@ exports[`Exercises component renders and matches snapshot 1`] = `
   background: #999;
 }
 
-.c4 > div {
+.c5 > div {
   font-size: 13px;
   white-space: nowrap;
 }
 
-.c5 {
+.c6 {
   width: 200px;
   background: #e43;
   position: absolute;
@@ -101,12 +101,12 @@ exports[`Exercises component renders and matches snapshot 1`] = `
   background: #232e66;
 }
 
-.c5 > div {
+.c6 > div {
   font-size: 13px;
   white-space: nowrap;
 }
 
-.c2 {
+.c3 {
   margin-top: 1.5rem;
 }
 
@@ -115,6 +115,13 @@ exports[`Exercises component renders and matches snapshot 1`] = `
   -ms-flex: 1;
   flex: 1;
   margin-right: 0.5rem;
+}
+
+.c2 {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  z-index: 4;
 }
 
 <div
@@ -1231,35 +1238,128 @@ exports[`Exercises component renders and matches snapshot 1`] = `
               <div
                 className="tag"
               >
-                <select
-                  className="form-control"
-                  onChange={[Function]}
-                  value="3"
+                <div
+                  className="c2 css-2b097c-container"
+                  onKeyDown={[Function]}
                 >
-                  <option
-                    value=""
-                  />
-                  <option
-                    value="1"
+                  <div
+                    className="select__control css-yk16xz-control"
+                    onMouseDown={[Function]}
+                    onTouchEnd={[Function]}
                   >
-                    1
-                  </option>
-                  <option
-                    value="2"
-                  >
-                    2
-                  </option>
-                  <option
-                    value="3"
-                  >
-                    3
-                  </option>
-                  <option
-                    value="4"
-                  >
-                    4
-                  </option>
-                </select>
+                    <div
+                      className="select__value-container select__value-container--has-value css-g1d714-ValueContainer"
+                    >
+                      <div
+                        className="select__single-value css-1uccc91-singleValue"
+                      >
+                        3
+                      </div>
+                      <div
+                        className="css-b8ldur-Input"
+                      >
+                        <div
+                          className="select__input"
+                          style={
+                            Object {
+                              "display": "inline-block",
+                            }
+                          }
+                        >
+                          <input
+                            aria-autocomplete="list"
+                            autoCapitalize="none"
+                            autoComplete="off"
+                            autoCorrect="off"
+                            disabled={false}
+                            id="react-select-3-input"
+                            onBlur={[Function]}
+                            onChange={[Function]}
+                            onFocus={[Function]}
+                            spellCheck="false"
+                            style={
+                              Object {
+                                "background": 0,
+                                "border": 0,
+                                "boxSizing": "content-box",
+                                "color": "inherit",
+                                "fontSize": "inherit",
+                                "label": "input",
+                                "opacity": 1,
+                                "outline": 0,
+                                "padding": 0,
+                                "width": "1px",
+                              }
+                            }
+                            tabIndex="0"
+                            type="text"
+                            value=""
+                          />
+                          <div
+                            style={
+                              Object {
+                                "height": 0,
+                                "left": 0,
+                                "overflow": "scroll",
+                                "position": "absolute",
+                                "top": 0,
+                                "visibility": "hidden",
+                                "whiteSpace": "pre",
+                              }
+                            }
+                          >
+                            
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      className="select__indicators css-1hb7zxy-IndicatorsContainer"
+                    >
+                      <div
+                        aria-hidden="true"
+                        className="select__indicator select__clear-indicator css-tlfecz-indicatorContainer"
+                        onMouseDown={[Function]}
+                        onTouchEnd={[Function]}
+                      >
+                        <svg
+                          aria-hidden="true"
+                          className="css-6q0nyr-Svg"
+                          focusable="false"
+                          height={20}
+                          viewBox="0 0 20 20"
+                          width={20}
+                        >
+                          <path
+                            d="M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z"
+                          />
+                        </svg>
+                      </div>
+                      <span
+                        className="select__indicator-separator css-1okebmr-indicatorSeparator"
+                      />
+                      <div
+                        aria-hidden="true"
+                        className="select__indicator select__dropdown-indicator css-tlfecz-indicatorContainer"
+                        onMouseDown={[Function]}
+                        onTouchEnd={[Function]}
+                      >
+                        <svg
+                          aria-hidden="true"
+                          className="css-6q0nyr-Svg"
+                          focusable="false"
+                          height={20}
+                          viewBox="0 0 20 20"
+                          width={20}
+                        >
+                          <path
+                            d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             <div
@@ -1280,45 +1380,128 @@ exports[`Exercises component renders and matches snapshot 1`] = `
               <div
                 className="tag"
               >
-                <select
-                  className="form-control"
-                  onChange={[Function]}
-                  value="3"
+                <div
+                  className="c2 css-2b097c-container"
+                  onKeyDown={[Function]}
                 >
-                  <option
-                    value=""
-                  />
-                  <option
-                    value="1"
+                  <div
+                    className="select__control css-yk16xz-control"
+                    onMouseDown={[Function]}
+                    onTouchEnd={[Function]}
                   >
-                    1
-                  </option>
-                  <option
-                    value="2"
-                  >
-                    2
-                  </option>
-                  <option
-                    value="3"
-                  >
-                    3
-                  </option>
-                  <option
-                    value="4"
-                  >
-                    4
-                  </option>
-                  <option
-                    value="5"
-                  >
-                    5
-                  </option>
-                  <option
-                    value="6"
-                  >
-                    6
-                  </option>
-                </select>
+                    <div
+                      className="select__value-container select__value-container--has-value css-g1d714-ValueContainer"
+                    >
+                      <div
+                        className="select__single-value css-1uccc91-singleValue"
+                      >
+                        3
+                      </div>
+                      <div
+                        className="css-b8ldur-Input"
+                      >
+                        <div
+                          className="select__input"
+                          style={
+                            Object {
+                              "display": "inline-block",
+                            }
+                          }
+                        >
+                          <input
+                            aria-autocomplete="list"
+                            autoCapitalize="none"
+                            autoComplete="off"
+                            autoCorrect="off"
+                            disabled={false}
+                            id="react-select-4-input"
+                            onBlur={[Function]}
+                            onChange={[Function]}
+                            onFocus={[Function]}
+                            spellCheck="false"
+                            style={
+                              Object {
+                                "background": 0,
+                                "border": 0,
+                                "boxSizing": "content-box",
+                                "color": "inherit",
+                                "fontSize": "inherit",
+                                "label": "input",
+                                "opacity": 1,
+                                "outline": 0,
+                                "padding": 0,
+                                "width": "1px",
+                              }
+                            }
+                            tabIndex="0"
+                            type="text"
+                            value=""
+                          />
+                          <div
+                            style={
+                              Object {
+                                "height": 0,
+                                "left": 0,
+                                "overflow": "scroll",
+                                "position": "absolute",
+                                "top": 0,
+                                "visibility": "hidden",
+                                "whiteSpace": "pre",
+                              }
+                            }
+                          >
+                            
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      className="select__indicators css-1hb7zxy-IndicatorsContainer"
+                    >
+                      <div
+                        aria-hidden="true"
+                        className="select__indicator select__clear-indicator css-tlfecz-indicatorContainer"
+                        onMouseDown={[Function]}
+                        onTouchEnd={[Function]}
+                      >
+                        <svg
+                          aria-hidden="true"
+                          className="css-6q0nyr-Svg"
+                          focusable="false"
+                          height={20}
+                          viewBox="0 0 20 20"
+                          width={20}
+                        >
+                          <path
+                            d="M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z"
+                          />
+                        </svg>
+                      </div>
+                      <span
+                        className="select__indicator-separator css-1okebmr-indicatorSeparator"
+                      />
+                      <div
+                        aria-hidden="true"
+                        className="select__indicator select__dropdown-indicator css-tlfecz-indicatorContainer"
+                        onMouseDown={[Function]}
+                        onTouchEnd={[Function]}
+                      >
+                        <svg
+                          aria-hidden="true"
+                          className="css-6q0nyr-Svg"
+                          focusable="false"
+                          height={20}
+                          viewBox="0 0 20 20"
+                          width={20}
+                        >
+                          <path
+                            d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             <div
@@ -1339,30 +1522,128 @@ exports[`Exercises component renders and matches snapshot 1`] = `
               <div
                 className="tag"
               >
-                <select
-                  className="form-control"
-                  onChange={[Function]}
-                  value="long"
+                <div
+                  className="c2 css-2b097c-container"
+                  onKeyDown={[Function]}
                 >
-                  <option
-                    value=""
-                  />
-                  <option
-                    value="short"
+                  <div
+                    className="select__control css-yk16xz-control"
+                    onMouseDown={[Function]}
+                    onTouchEnd={[Function]}
                   >
-                    Short
-                  </option>
-                  <option
-                    value="medium"
-                  >
-                    Medium
-                  </option>
-                  <option
-                    value="long"
-                  >
-                    Long
-                  </option>
-                </select>
+                    <div
+                      className="select__value-container select__value-container--has-value css-g1d714-ValueContainer"
+                    >
+                      <div
+                        className="select__single-value css-1uccc91-singleValue"
+                      >
+                        Long
+                      </div>
+                      <div
+                        className="css-b8ldur-Input"
+                      >
+                        <div
+                          className="select__input"
+                          style={
+                            Object {
+                              "display": "inline-block",
+                            }
+                          }
+                        >
+                          <input
+                            aria-autocomplete="list"
+                            autoCapitalize="none"
+                            autoComplete="off"
+                            autoCorrect="off"
+                            disabled={false}
+                            id="react-select-5-input"
+                            onBlur={[Function]}
+                            onChange={[Function]}
+                            onFocus={[Function]}
+                            spellCheck="false"
+                            style={
+                              Object {
+                                "background": 0,
+                                "border": 0,
+                                "boxSizing": "content-box",
+                                "color": "inherit",
+                                "fontSize": "inherit",
+                                "label": "input",
+                                "opacity": 1,
+                                "outline": 0,
+                                "padding": 0,
+                                "width": "1px",
+                              }
+                            }
+                            tabIndex="0"
+                            type="text"
+                            value=""
+                          />
+                          <div
+                            style={
+                              Object {
+                                "height": 0,
+                                "left": 0,
+                                "overflow": "scroll",
+                                "position": "absolute",
+                                "top": 0,
+                                "visibility": "hidden",
+                                "whiteSpace": "pre",
+                              }
+                            }
+                          >
+                            
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      className="select__indicators css-1hb7zxy-IndicatorsContainer"
+                    >
+                      <div
+                        aria-hidden="true"
+                        className="select__indicator select__clear-indicator css-tlfecz-indicatorContainer"
+                        onMouseDown={[Function]}
+                        onTouchEnd={[Function]}
+                      >
+                        <svg
+                          aria-hidden="true"
+                          className="css-6q0nyr-Svg"
+                          focusable="false"
+                          height={20}
+                          viewBox="0 0 20 20"
+                          width={20}
+                        >
+                          <path
+                            d="M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z"
+                          />
+                        </svg>
+                      </div>
+                      <span
+                        className="select__indicator-separator css-1okebmr-indicatorSeparator"
+                      />
+                      <div
+                        aria-hidden="true"
+                        className="select__indicator select__dropdown-indicator css-tlfecz-indicatorContainer"
+                        onMouseDown={[Function]}
+                        onTouchEnd={[Function]}
+                      >
+                        <svg
+                          aria-hidden="true"
+                          className="css-6q0nyr-Svg"
+                          focusable="false"
+                          height={20}
+                          viewBox="0 0 20 20"
+                          width={20}
+                        >
+                          <path
+                            d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             <div
@@ -1425,23 +1706,23 @@ exports[`Exercises component renders and matches snapshot 1`] = `
     </div>
   </div>
   <div
-    className="c2"
+    className="c3"
   >
     <div
-      className="c3"
+      className="c4"
     >
       <div
-        className="c4"
+        className="c5"
         color="grey"
         hidden={false}
       >
         DRAFT
       </div>
       <div
-        className="c3"
+        className="c4"
       >
         <div
-          className="c5"
+          className="c6"
           color="navy"
           hidden={false}
         >
@@ -1721,12 +2002,12 @@ exports[`Exercises component renders with intro and a multiple questions when ex
   transition: color 0.3s ease;
 }
 
-.c3 {
+.c4 {
   position: relative;
   overflow: hidden;
 }
 
-.c4 {
+.c5 {
   width: 200px;
   background: #e43;
   position: absolute;
@@ -1767,12 +2048,12 @@ exports[`Exercises component renders with intro and a multiple questions when ex
   background: #999;
 }
 
-.c4 > div {
+.c5 > div {
   font-size: 13px;
   white-space: nowrap;
 }
 
-.c5 {
+.c6 {
   width: 200px;
   background: #e43;
   position: absolute;
@@ -1814,12 +2095,12 @@ exports[`Exercises component renders with intro and a multiple questions when ex
   background: #232e66;
 }
 
-.c5 > div {
+.c6 > div {
   font-size: 13px;
   white-space: nowrap;
 }
 
-.c2 {
+.c3 {
   margin-top: 1.5rem;
 }
 
@@ -1828,6 +2109,13 @@ exports[`Exercises component renders with intro and a multiple questions when ex
   -ms-flex: 1;
   flex: 1;
   margin-right: 0.5rem;
+}
+
+.c2 {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  z-index: 4;
 }
 
 <div
@@ -3996,7 +4284,7 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                             autoComplete="off"
                             autoCorrect="off"
                             disabled={false}
-                            id="react-select-3-input"
+                            id="react-select-6-input"
                             onBlur={[Function]}
                             onChange={[Function]}
                             onFocus={[Function]}
@@ -4266,35 +4554,128 @@ exports[`Exercises component renders with intro and a multiple questions when ex
               <div
                 className="tag"
               >
-                <select
-                  className="form-control"
-                  onChange={[Function]}
-                  value="3"
+                <div
+                  className="c2 css-2b097c-container"
+                  onKeyDown={[Function]}
                 >
-                  <option
-                    value=""
-                  />
-                  <option
-                    value="1"
+                  <div
+                    className="select__control css-yk16xz-control"
+                    onMouseDown={[Function]}
+                    onTouchEnd={[Function]}
                   >
-                    1
-                  </option>
-                  <option
-                    value="2"
-                  >
-                    2
-                  </option>
-                  <option
-                    value="3"
-                  >
-                    3
-                  </option>
-                  <option
-                    value="4"
-                  >
-                    4
-                  </option>
-                </select>
+                    <div
+                      className="select__value-container select__value-container--has-value css-g1d714-ValueContainer"
+                    >
+                      <div
+                        className="select__single-value css-1uccc91-singleValue"
+                      >
+                        3
+                      </div>
+                      <div
+                        className="css-b8ldur-Input"
+                      >
+                        <div
+                          className="select__input"
+                          style={
+                            Object {
+                              "display": "inline-block",
+                            }
+                          }
+                        >
+                          <input
+                            aria-autocomplete="list"
+                            autoCapitalize="none"
+                            autoComplete="off"
+                            autoCorrect="off"
+                            disabled={false}
+                            id="react-select-7-input"
+                            onBlur={[Function]}
+                            onChange={[Function]}
+                            onFocus={[Function]}
+                            spellCheck="false"
+                            style={
+                              Object {
+                                "background": 0,
+                                "border": 0,
+                                "boxSizing": "content-box",
+                                "color": "inherit",
+                                "fontSize": "inherit",
+                                "label": "input",
+                                "opacity": 1,
+                                "outline": 0,
+                                "padding": 0,
+                                "width": "1px",
+                              }
+                            }
+                            tabIndex="0"
+                            type="text"
+                            value=""
+                          />
+                          <div
+                            style={
+                              Object {
+                                "height": 0,
+                                "left": 0,
+                                "overflow": "scroll",
+                                "position": "absolute",
+                                "top": 0,
+                                "visibility": "hidden",
+                                "whiteSpace": "pre",
+                              }
+                            }
+                          >
+                            
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      className="select__indicators css-1hb7zxy-IndicatorsContainer"
+                    >
+                      <div
+                        aria-hidden="true"
+                        className="select__indicator select__clear-indicator css-tlfecz-indicatorContainer"
+                        onMouseDown={[Function]}
+                        onTouchEnd={[Function]}
+                      >
+                        <svg
+                          aria-hidden="true"
+                          className="css-6q0nyr-Svg"
+                          focusable="false"
+                          height={20}
+                          viewBox="0 0 20 20"
+                          width={20}
+                        >
+                          <path
+                            d="M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z"
+                          />
+                        </svg>
+                      </div>
+                      <span
+                        className="select__indicator-separator css-1okebmr-indicatorSeparator"
+                      />
+                      <div
+                        aria-hidden="true"
+                        className="select__indicator select__dropdown-indicator css-tlfecz-indicatorContainer"
+                        onMouseDown={[Function]}
+                        onTouchEnd={[Function]}
+                      >
+                        <svg
+                          aria-hidden="true"
+                          className="css-6q0nyr-Svg"
+                          focusable="false"
+                          height={20}
+                          viewBox="0 0 20 20"
+                          width={20}
+                        >
+                          <path
+                            d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             <div
@@ -4315,45 +4696,128 @@ exports[`Exercises component renders with intro and a multiple questions when ex
               <div
                 className="tag"
               >
-                <select
-                  className="form-control"
-                  onChange={[Function]}
-                  value="3"
+                <div
+                  className="c2 css-2b097c-container"
+                  onKeyDown={[Function]}
                 >
-                  <option
-                    value=""
-                  />
-                  <option
-                    value="1"
+                  <div
+                    className="select__control css-yk16xz-control"
+                    onMouseDown={[Function]}
+                    onTouchEnd={[Function]}
                   >
-                    1
-                  </option>
-                  <option
-                    value="2"
-                  >
-                    2
-                  </option>
-                  <option
-                    value="3"
-                  >
-                    3
-                  </option>
-                  <option
-                    value="4"
-                  >
-                    4
-                  </option>
-                  <option
-                    value="5"
-                  >
-                    5
-                  </option>
-                  <option
-                    value="6"
-                  >
-                    6
-                  </option>
-                </select>
+                    <div
+                      className="select__value-container select__value-container--has-value css-g1d714-ValueContainer"
+                    >
+                      <div
+                        className="select__single-value css-1uccc91-singleValue"
+                      >
+                        3
+                      </div>
+                      <div
+                        className="css-b8ldur-Input"
+                      >
+                        <div
+                          className="select__input"
+                          style={
+                            Object {
+                              "display": "inline-block",
+                            }
+                          }
+                        >
+                          <input
+                            aria-autocomplete="list"
+                            autoCapitalize="none"
+                            autoComplete="off"
+                            autoCorrect="off"
+                            disabled={false}
+                            id="react-select-8-input"
+                            onBlur={[Function]}
+                            onChange={[Function]}
+                            onFocus={[Function]}
+                            spellCheck="false"
+                            style={
+                              Object {
+                                "background": 0,
+                                "border": 0,
+                                "boxSizing": "content-box",
+                                "color": "inherit",
+                                "fontSize": "inherit",
+                                "label": "input",
+                                "opacity": 1,
+                                "outline": 0,
+                                "padding": 0,
+                                "width": "1px",
+                              }
+                            }
+                            tabIndex="0"
+                            type="text"
+                            value=""
+                          />
+                          <div
+                            style={
+                              Object {
+                                "height": 0,
+                                "left": 0,
+                                "overflow": "scroll",
+                                "position": "absolute",
+                                "top": 0,
+                                "visibility": "hidden",
+                                "whiteSpace": "pre",
+                              }
+                            }
+                          >
+                            
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      className="select__indicators css-1hb7zxy-IndicatorsContainer"
+                    >
+                      <div
+                        aria-hidden="true"
+                        className="select__indicator select__clear-indicator css-tlfecz-indicatorContainer"
+                        onMouseDown={[Function]}
+                        onTouchEnd={[Function]}
+                      >
+                        <svg
+                          aria-hidden="true"
+                          className="css-6q0nyr-Svg"
+                          focusable="false"
+                          height={20}
+                          viewBox="0 0 20 20"
+                          width={20}
+                        >
+                          <path
+                            d="M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z"
+                          />
+                        </svg>
+                      </div>
+                      <span
+                        className="select__indicator-separator css-1okebmr-indicatorSeparator"
+                      />
+                      <div
+                        aria-hidden="true"
+                        className="select__indicator select__dropdown-indicator css-tlfecz-indicatorContainer"
+                        onMouseDown={[Function]}
+                        onTouchEnd={[Function]}
+                      >
+                        <svg
+                          aria-hidden="true"
+                          className="css-6q0nyr-Svg"
+                          focusable="false"
+                          height={20}
+                          viewBox="0 0 20 20"
+                          width={20}
+                        >
+                          <path
+                            d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             <div
@@ -4374,30 +4838,128 @@ exports[`Exercises component renders with intro and a multiple questions when ex
               <div
                 className="tag"
               >
-                <select
-                  className="form-control"
-                  onChange={[Function]}
-                  value="long"
+                <div
+                  className="c2 css-2b097c-container"
+                  onKeyDown={[Function]}
                 >
-                  <option
-                    value=""
-                  />
-                  <option
-                    value="short"
+                  <div
+                    className="select__control css-yk16xz-control"
+                    onMouseDown={[Function]}
+                    onTouchEnd={[Function]}
                   >
-                    Short
-                  </option>
-                  <option
-                    value="medium"
-                  >
-                    Medium
-                  </option>
-                  <option
-                    value="long"
-                  >
-                    Long
-                  </option>
-                </select>
+                    <div
+                      className="select__value-container select__value-container--has-value css-g1d714-ValueContainer"
+                    >
+                      <div
+                        className="select__single-value css-1uccc91-singleValue"
+                      >
+                        Long
+                      </div>
+                      <div
+                        className="css-b8ldur-Input"
+                      >
+                        <div
+                          className="select__input"
+                          style={
+                            Object {
+                              "display": "inline-block",
+                            }
+                          }
+                        >
+                          <input
+                            aria-autocomplete="list"
+                            autoCapitalize="none"
+                            autoComplete="off"
+                            autoCorrect="off"
+                            disabled={false}
+                            id="react-select-9-input"
+                            onBlur={[Function]}
+                            onChange={[Function]}
+                            onFocus={[Function]}
+                            spellCheck="false"
+                            style={
+                              Object {
+                                "background": 0,
+                                "border": 0,
+                                "boxSizing": "content-box",
+                                "color": "inherit",
+                                "fontSize": "inherit",
+                                "label": "input",
+                                "opacity": 1,
+                                "outline": 0,
+                                "padding": 0,
+                                "width": "1px",
+                              }
+                            }
+                            tabIndex="0"
+                            type="text"
+                            value=""
+                          />
+                          <div
+                            style={
+                              Object {
+                                "height": 0,
+                                "left": 0,
+                                "overflow": "scroll",
+                                "position": "absolute",
+                                "top": 0,
+                                "visibility": "hidden",
+                                "whiteSpace": "pre",
+                              }
+                            }
+                          >
+                            
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      className="select__indicators css-1hb7zxy-IndicatorsContainer"
+                    >
+                      <div
+                        aria-hidden="true"
+                        className="select__indicator select__clear-indicator css-tlfecz-indicatorContainer"
+                        onMouseDown={[Function]}
+                        onTouchEnd={[Function]}
+                      >
+                        <svg
+                          aria-hidden="true"
+                          className="css-6q0nyr-Svg"
+                          focusable="false"
+                          height={20}
+                          viewBox="0 0 20 20"
+                          width={20}
+                        >
+                          <path
+                            d="M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z"
+                          />
+                        </svg>
+                      </div>
+                      <span
+                        className="select__indicator-separator css-1okebmr-indicatorSeparator"
+                      />
+                      <div
+                        aria-hidden="true"
+                        className="select__indicator select__dropdown-indicator css-tlfecz-indicatorContainer"
+                        onMouseDown={[Function]}
+                        onTouchEnd={[Function]}
+                      >
+                        <svg
+                          aria-hidden="true"
+                          className="css-6q0nyr-Svg"
+                          focusable="false"
+                          height={20}
+                          viewBox="0 0 20 20"
+                          width={20}
+                        >
+                          <path
+                            d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             <div
@@ -4460,23 +5022,23 @@ exports[`Exercises component renders with intro and a multiple questions when ex
     </div>
   </div>
   <div
-    className="c2"
+    className="c3"
   >
     <div
-      className="c3"
+      className="c4"
     >
       <div
-        className="c4"
+        className="c5"
         color="grey"
         hidden={false}
       >
         DRAFT
       </div>
       <div
-        className="c3"
+        className="c4"
       >
         <div
-          className="c5"
+          className="c6"
           color="navy"
           hidden={false}
         >
@@ -5904,12 +6466,12 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                                       </MultiValueGeneric>
                                                                     </ForwardRef(render)>
                                                                   </MultiValue>
-                                                                  <Input autoCapitalize=\\"none\\" autoComplete=\\"off\\" autoCorrect=\\"off\\" cx={[Function (anonymous)]} getStyles={[Function (anonymous)]} id=\\"react-select-5-input\\" innerRef={[Function (anonymous)]} isDisabled={false} isHidden={false} onBlur={[Function (anonymous)]} onChange={[Function (anonymous)]} onFocus={[Function (anonymous)]} selectProps={{...}} spellCheck=\\"false\\" tabIndex=\\"0\\" form={[undefined]} theme={{...}} type=\\"text\\" value=\\"\\" aria-autocomplete=\\"list\\" aria-label={[undefined]} aria-labelledby={[undefined]}>
+                                                                  <Input autoCapitalize=\\"none\\" autoComplete=\\"off\\" autoCorrect=\\"off\\" cx={[Function (anonymous)]} getStyles={[Function (anonymous)]} id=\\"react-select-14-input\\" innerRef={[Function (anonymous)]} isDisabled={false} isHidden={false} onBlur={[Function (anonymous)]} onChange={[Function (anonymous)]} onFocus={[Function (anonymous)]} selectProps={{...}} spellCheck=\\"false\\" tabIndex=\\"0\\" form={[undefined]} theme={{...}} type=\\"text\\" value=\\"\\" aria-autocomplete=\\"list\\" aria-label={[undefined]} aria-labelledby={[undefined]}>
                                                                     <EmotionCssPropInternal css={{...}} __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"Input\\">
                                                                       <div className=\\"css-b8ldur-Input\\">
-                                                                        <AutosizeInput className=\\"\\" inputRef={[Function (anonymous)]} inputStyle={{...}} disabled={false} autoCapitalize=\\"none\\" autoComplete=\\"off\\" autoCorrect=\\"off\\" id=\\"react-select-5-input\\" onBlur={[Function (anonymous)]} onChange={[Function (anonymous)]} onFocus={[Function (anonymous)]} spellCheck=\\"false\\" tabIndex=\\"0\\" form={[undefined]} type=\\"text\\" value=\\"\\" aria-autocomplete=\\"list\\" aria-label={[undefined]} aria-labelledby={[undefined]} minWidth={1} injectStyles={true}>
+                                                                        <AutosizeInput className=\\"\\" inputRef={[Function (anonymous)]} inputStyle={{...}} disabled={false} autoCapitalize=\\"none\\" autoComplete=\\"off\\" autoCorrect=\\"off\\" id=\\"react-select-14-input\\" onBlur={[Function (anonymous)]} onChange={[Function (anonymous)]} onFocus={[Function (anonymous)]} spellCheck=\\"false\\" tabIndex=\\"0\\" form={[undefined]} type=\\"text\\" value=\\"\\" aria-autocomplete=\\"list\\" aria-label={[undefined]} aria-labelledby={[undefined]} minWidth={1} injectStyles={true}>
                                                                           <div className=\\"\\" style={{...}}>
-                                                                            <input className={[undefined]} disabled={false} autoCapitalize=\\"none\\" autoComplete=\\"off\\" autoCorrect=\\"off\\" id=\\"react-select-5-input\\" onBlur={[Function (anonymous)]} onChange={[Function (anonymous)]} onFocus={[Function (anonymous)]} spellCheck=\\"false\\" tabIndex=\\"0\\" form={[undefined]} type=\\"text\\" value=\\"\\" aria-autocomplete=\\"list\\" aria-label={[undefined]} aria-labelledby={[undefined]} style={{...}} />
+                                                                            <input className={[undefined]} disabled={false} autoCapitalize=\\"none\\" autoComplete=\\"off\\" autoCorrect=\\"off\\" id=\\"react-select-14-input\\" onBlur={[Function (anonymous)]} onChange={[Function (anonymous)]} onFocus={[Function (anonymous)]} spellCheck=\\"false\\" tabIndex=\\"0\\" form={[undefined]} type=\\"text\\" value=\\"\\" aria-autocomplete=\\"list\\" aria-label={[undefined]} aria-labelledby={[undefined]} style={{...}} />
                                                                             <div style={{...}} />
                                                                           </div>
                                                                         </AutosizeInput>
@@ -6085,21 +6647,90 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                           <div className=\\"controls\\" />
                                         </div>
                                         <div className=\\"tag\\">
-                                          <select className=\\"form-control\\" onChange={[Function: updateTag] { isMobxAction: true }} value=\\"3\\" disabled={[undefined]}>
-                                            <option value=\\"\\" />
-                                            <option value=\\"1\\">
-                                              1
-                                            </option>
-                                            <option value=\\"2\\">
-                                              2
-                                            </option>
-                                            <option value=\\"3\\">
-                                              3
-                                            </option>
-                                            <option value=\\"4\\">
-                                              4
-                                            </option>
-                                          </select>
+                                          <Styled(StateManager) classNamePrefix=\\"select\\" isClearable={true} value={{...}} options={{...}} onChange={[Function: onChange] { isMobxAction: true }}>
+                                            <StateManager classNamePrefix=\\"select\\" isClearable={true} value={{...}} options={{...}} onChange={[Function: onChange] { isMobxAction: true }} className=\\"sc-bdvvaa buQpGB\\" defaultInputValue=\\"\\" defaultMenuIsOpen={false} defaultValue={{...}}>
+                                              <Select classNamePrefix=\\"select\\" isClearable={true} value={{...}} options={{...}} onChange={[Function (anonymous)]} className=\\"sc-bdvvaa buQpGB\\" inputValue=\\"\\" menuIsOpen={false} onInputChange={[Function (anonymous)]} onMenuClose={[Function (anonymous)]} onMenuOpen={[Function (anonymous)]} backspaceRemovesValue={true} blurInputOnSelect={true} captureMenuScroll={false} closeMenuOnSelect={true} closeMenuOnScroll={false} components={{...}} controlShouldRenderValue={true} escapeClearsValue={false} filterOption={[Function (anonymous)]} formatGroupLabel={[Function: formatGroupLabel]} getOptionLabel={[Function: getOptionLabel]} getOptionValue={[Function: getOptionValue]} isDisabled={false} isLoading={false} isMulti={false} isRtl={false} isSearchable={true} isOptionDisabled={[Function: isOptionDisabled]} loadingMessage={[Function: loadingMessage]} maxMenuHeight={300} minMenuHeight={140} menuPlacement=\\"bottom\\" menuPosition=\\"absolute\\" menuShouldBlockScroll={false} menuShouldScrollIntoView={true} noOptionsMessage={[Function: noOptionsMessage]} openMenuOnFocus={false} openMenuOnClick={true} pageSize={5} placeholder=\\"Select...\\" screenReaderStatus={[Function: screenReaderStatus]} styles={{...}} tabIndex=\\"0\\" tabSelectsValue={true}>
+                                                <SelectContainer cx={[Function (anonymous)]} clearValue={[Function (anonymous)]} getStyles={[Function (anonymous)]} getValue={[Function (anonymous)]} hasValue={true} isMulti={false} isRtl={false} options={{...}} selectOption={[Function (anonymous)]} setValue={[Function (anonymous)]} selectProps={{...}} theme={{...}} className=\\"sc-bdvvaa buQpGB\\" innerProps={{...}} isDisabled={false} isFocused={false}>
+                                                  <EmotionCssPropInternal css={{...}} className=\\"sc-bdvvaa buQpGB\\" id={[undefined]} onKeyDown={[Function (anonymous)]} __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"SelectContainer\\">
+                                                    <div className=\\"sc-bdvvaa buQpGB css-2b097c-container\\" id={[undefined]} onKeyDown={[Function (anonymous)]}>
+                                                      <Control cx={[Function (anonymous)]} clearValue={[Function (anonymous)]} getStyles={[Function (anonymous)]} getValue={[Function (anonymous)]} hasValue={true} isMulti={false} isRtl={false} options={{...}} selectOption={[Function (anonymous)]} setValue={[Function (anonymous)]} selectProps={{...}} theme={{...}} innerRef={[Function (anonymous)]} innerProps={{...}} isDisabled={false} isFocused={false} menuIsOpen={false}>
+                                                        <EmotionCssPropInternal css={{...}} className=\\"select__control\\" onMouseDown={[Function (anonymous)]} onTouchEnd={[Function (anonymous)]} __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"Control\\">
+                                                          <div className=\\"select__control css-yk16xz-control\\" onMouseDown={[Function (anonymous)]} onTouchEnd={[Function (anonymous)]}>
+                                                            <ValueContainer cx={[Function (anonymous)]} clearValue={[Function (anonymous)]} getStyles={[Function (anonymous)]} getValue={[Function (anonymous)]} hasValue={true} isMulti={false} isRtl={false} options={{...}} selectOption={[Function (anonymous)]} setValue={[Function (anonymous)]} selectProps={{...}} theme={{...}} isDisabled={false}>
+                                                              <EmotionCssPropInternal css={{...}} className=\\"select__value-container select__value-container--has-value\\" __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"ValueContainer\\">
+                                                                <div className=\\"select__value-container select__value-container--has-value css-g1d714-ValueContainer\\">
+                                                                  <SingleValue cx={[Function (anonymous)]} clearValue={[Function (anonymous)]} getStyles={[Function (anonymous)]} getValue={[Function (anonymous)]} hasValue={true} isMulti={false} isRtl={false} options={{...}} selectOption={[Function (anonymous)]} setValue={[Function (anonymous)]} selectProps={{...}} theme={{...}} data={{...}} isDisabled={false}>
+                                                                    <EmotionCssPropInternal css={{...}} className=\\"select__single-value\\" __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"SingleValue\\">
+                                                                      <div className=\\"select__single-value css-1uccc91-singleValue\\">
+                                                                        3
+                                                                      </div>
+                                                                    </EmotionCssPropInternal>
+                                                                  </SingleValue>
+                                                                  <Input autoCapitalize=\\"none\\" autoComplete=\\"off\\" autoCorrect=\\"off\\" cx={[Function (anonymous)]} getStyles={[Function (anonymous)]} id=\\"react-select-15-input\\" innerRef={[Function (anonymous)]} isDisabled={false} isHidden={false} onBlur={[Function (anonymous)]} onChange={[Function (anonymous)]} onFocus={[Function (anonymous)]} selectProps={{...}} spellCheck=\\"false\\" tabIndex=\\"0\\" form={[undefined]} theme={{...}} type=\\"text\\" value=\\"\\" aria-autocomplete=\\"list\\" aria-label={[undefined]} aria-labelledby={[undefined]}>
+                                                                    <EmotionCssPropInternal css={{...}} __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"Input\\">
+                                                                      <div className=\\"css-b8ldur-Input\\">
+                                                                        <AutosizeInput className=\\"select__input\\" inputRef={[Function (anonymous)]} inputStyle={{...}} disabled={false} autoCapitalize=\\"none\\" autoComplete=\\"off\\" autoCorrect=\\"off\\" id=\\"react-select-15-input\\" onBlur={[Function (anonymous)]} onChange={[Function (anonymous)]} onFocus={[Function (anonymous)]} spellCheck=\\"false\\" tabIndex=\\"0\\" form={[undefined]} type=\\"text\\" value=\\"\\" aria-autocomplete=\\"list\\" aria-label={[undefined]} aria-labelledby={[undefined]} minWidth={1} injectStyles={true}>
+                                                                          <div className=\\"select__input\\" style={{...}}>
+                                                                            <input className={[undefined]} disabled={false} autoCapitalize=\\"none\\" autoComplete=\\"off\\" autoCorrect=\\"off\\" id=\\"react-select-15-input\\" onBlur={[Function (anonymous)]} onChange={[Function (anonymous)]} onFocus={[Function (anonymous)]} spellCheck=\\"false\\" tabIndex=\\"0\\" form={[undefined]} type=\\"text\\" value=\\"\\" aria-autocomplete=\\"list\\" aria-label={[undefined]} aria-labelledby={[undefined]} style={{...}} />
+                                                                            <div style={{...}} />
+                                                                          </div>
+                                                                        </AutosizeInput>
+                                                                      </div>
+                                                                    </EmotionCssPropInternal>
+                                                                  </Input>
+                                                                </div>
+                                                              </EmotionCssPropInternal>
+                                                            </ValueContainer>
+                                                            <IndicatorsContainer cx={[Function (anonymous)]} clearValue={[Function (anonymous)]} getStyles={[Function (anonymous)]} getValue={[Function (anonymous)]} hasValue={true} isMulti={false} isRtl={false} options={{...}} selectOption={[Function (anonymous)]} setValue={[Function (anonymous)]} selectProps={{...}} theme={{...}} isDisabled={false}>
+                                                              <EmotionCssPropInternal css={{...}} className=\\"select__indicators\\" __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"IndicatorsContainer\\">
+                                                                <div className=\\"select__indicators css-1hb7zxy-IndicatorsContainer\\">
+                                                                  <ClearIndicator cx={[Function (anonymous)]} clearValue={[Function (anonymous)]} getStyles={[Function (anonymous)]} getValue={[Function (anonymous)]} hasValue={true} isMulti={false} isRtl={false} options={{...}} selectOption={[Function (anonymous)]} setValue={[Function (anonymous)]} selectProps={{...}} theme={{...}} innerProps={{...}} isFocused={false}>
+                                                                    <EmotionCssPropInternal onMouseDown={[Function (anonymous)]} onTouchEnd={[Function (anonymous)]} aria-hidden=\\"true\\" css={{...}} className=\\"select__indicator select__clear-indicator\\" __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"ClearIndicator\\">
+                                                                      <div onMouseDown={[Function (anonymous)]} onTouchEnd={[Function (anonymous)]} aria-hidden=\\"true\\" className=\\"select__indicator select__clear-indicator css-tlfecz-indicatorContainer\\">
+                                                                        <CrossIcon>
+                                                                          <Svg size={20}>
+                                                                            <EmotionCssPropInternal height={20} width={20} viewBox=\\"0 0 20 20\\" aria-hidden=\\"true\\" focusable=\\"false\\" css={{...}} __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"svg\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"Svg\\">
+                                                                              <svg height={20} width={20} viewBox=\\"0 0 20 20\\" aria-hidden=\\"true\\" focusable=\\"false\\" className=\\"css-6q0nyr-Svg\\">
+                                                                                <path d=\\"M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z\\" />
+                                                                              </svg>
+                                                                            </EmotionCssPropInternal>
+                                                                          </Svg>
+                                                                        </CrossIcon>
+                                                                      </div>
+                                                                    </EmotionCssPropInternal>
+                                                                  </ClearIndicator>
+                                                                  <IndicatorSeparator cx={[Function (anonymous)]} clearValue={[Function (anonymous)]} getStyles={[Function (anonymous)]} getValue={[Function (anonymous)]} hasValue={true} isMulti={false} isRtl={false} options={{...}} selectOption={[Function (anonymous)]} setValue={[Function (anonymous)]} selectProps={{...}} theme={{...}} isDisabled={false} isFocused={false}>
+                                                                    <EmotionCssPropInternal css={{...}} className=\\"select__indicator-separator\\" __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"span\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"IndicatorSeparator\\">
+                                                                      <span className=\\"select__indicator-separator css-1okebmr-indicatorSeparator\\" />
+                                                                    </EmotionCssPropInternal>
+                                                                  </IndicatorSeparator>
+                                                                  <DropdownIndicator cx={[Function (anonymous)]} clearValue={[Function (anonymous)]} getStyles={[Function (anonymous)]} getValue={[Function (anonymous)]} hasValue={true} isMulti={false} isRtl={false} options={{...}} selectOption={[Function (anonymous)]} setValue={[Function (anonymous)]} selectProps={{...}} theme={{...}} innerProps={{...}} isDisabled={false} isFocused={false}>
+                                                                    <EmotionCssPropInternal onMouseDown={[Function (anonymous)]} onTouchEnd={[Function (anonymous)]} aria-hidden=\\"true\\" css={{...}} className=\\"select__indicator select__dropdown-indicator\\" __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"DropdownIndicator\\">
+                                                                      <div onMouseDown={[Function (anonymous)]} onTouchEnd={[Function (anonymous)]} aria-hidden=\\"true\\" className=\\"select__indicator select__dropdown-indicator css-tlfecz-indicatorContainer\\">
+                                                                        <DownChevron>
+                                                                          <Svg size={20}>
+                                                                            <EmotionCssPropInternal height={20} width={20} viewBox=\\"0 0 20 20\\" aria-hidden=\\"true\\" focusable=\\"false\\" css={{...}} __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"svg\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"Svg\\">
+                                                                              <svg height={20} width={20} viewBox=\\"0 0 20 20\\" aria-hidden=\\"true\\" focusable=\\"false\\" className=\\"css-6q0nyr-Svg\\">
+                                                                                <path d=\\"M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z\\" />
+                                                                              </svg>
+                                                                            </EmotionCssPropInternal>
+                                                                          </Svg>
+                                                                        </DownChevron>
+                                                                      </div>
+                                                                    </EmotionCssPropInternal>
+                                                                  </DropdownIndicator>
+                                                                </div>
+                                                              </EmotionCssPropInternal>
+                                                            </IndicatorsContainer>
+                                                          </div>
+                                                        </EmotionCssPropInternal>
+                                                      </Control>
+                                                    </div>
+                                                  </EmotionCssPropInternal>
+                                                </SelectContainer>
+                                              </Select>
+                                            </StateManager>
+                                          </Styled(StateManager)>
                                         </div>
                                       </div>
                                     </TagWrapper>
@@ -6116,27 +6747,90 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                           <div className=\\"controls\\" />
                                         </div>
                                         <div className=\\"tag\\">
-                                          <select className=\\"form-control\\" onChange={[Function: updateTag] { isMobxAction: true }} value=\\"3\\" disabled={[undefined]}>
-                                            <option value=\\"\\" />
-                                            <option value=\\"1\\">
-                                              1
-                                            </option>
-                                            <option value=\\"2\\">
-                                              2
-                                            </option>
-                                            <option value=\\"3\\">
-                                              3
-                                            </option>
-                                            <option value=\\"4\\">
-                                              4
-                                            </option>
-                                            <option value=\\"5\\">
-                                              5
-                                            </option>
-                                            <option value=\\"6\\">
-                                              6
-                                            </option>
-                                          </select>
+                                          <Styled(StateManager) classNamePrefix=\\"select\\" isClearable={true} value={{...}} options={{...}} onChange={[Function: onChange] { isMobxAction: true }}>
+                                            <StateManager classNamePrefix=\\"select\\" isClearable={true} value={{...}} options={{...}} onChange={[Function: onChange] { isMobxAction: true }} className=\\"sc-bdvvaa buQpGB\\" defaultInputValue=\\"\\" defaultMenuIsOpen={false} defaultValue={{...}}>
+                                              <Select classNamePrefix=\\"select\\" isClearable={true} value={{...}} options={{...}} onChange={[Function (anonymous)]} className=\\"sc-bdvvaa buQpGB\\" inputValue=\\"\\" menuIsOpen={false} onInputChange={[Function (anonymous)]} onMenuClose={[Function (anonymous)]} onMenuOpen={[Function (anonymous)]} backspaceRemovesValue={true} blurInputOnSelect={true} captureMenuScroll={false} closeMenuOnSelect={true} closeMenuOnScroll={false} components={{...}} controlShouldRenderValue={true} escapeClearsValue={false} filterOption={[Function (anonymous)]} formatGroupLabel={[Function: formatGroupLabel]} getOptionLabel={[Function: getOptionLabel]} getOptionValue={[Function: getOptionValue]} isDisabled={false} isLoading={false} isMulti={false} isRtl={false} isSearchable={true} isOptionDisabled={[Function: isOptionDisabled]} loadingMessage={[Function: loadingMessage]} maxMenuHeight={300} minMenuHeight={140} menuPlacement=\\"bottom\\" menuPosition=\\"absolute\\" menuShouldBlockScroll={false} menuShouldScrollIntoView={true} noOptionsMessage={[Function: noOptionsMessage]} openMenuOnFocus={false} openMenuOnClick={true} pageSize={5} placeholder=\\"Select...\\" screenReaderStatus={[Function: screenReaderStatus]} styles={{...}} tabIndex=\\"0\\" tabSelectsValue={true}>
+                                                <SelectContainer cx={[Function (anonymous)]} clearValue={[Function (anonymous)]} getStyles={[Function (anonymous)]} getValue={[Function (anonymous)]} hasValue={true} isMulti={false} isRtl={false} options={{...}} selectOption={[Function (anonymous)]} setValue={[Function (anonymous)]} selectProps={{...}} theme={{...}} className=\\"sc-bdvvaa buQpGB\\" innerProps={{...}} isDisabled={false} isFocused={false}>
+                                                  <EmotionCssPropInternal css={{...}} className=\\"sc-bdvvaa buQpGB\\" id={[undefined]} onKeyDown={[Function (anonymous)]} __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"SelectContainer\\">
+                                                    <div className=\\"sc-bdvvaa buQpGB css-2b097c-container\\" id={[undefined]} onKeyDown={[Function (anonymous)]}>
+                                                      <Control cx={[Function (anonymous)]} clearValue={[Function (anonymous)]} getStyles={[Function (anonymous)]} getValue={[Function (anonymous)]} hasValue={true} isMulti={false} isRtl={false} options={{...}} selectOption={[Function (anonymous)]} setValue={[Function (anonymous)]} selectProps={{...}} theme={{...}} innerRef={[Function (anonymous)]} innerProps={{...}} isDisabled={false} isFocused={false} menuIsOpen={false}>
+                                                        <EmotionCssPropInternal css={{...}} className=\\"select__control\\" onMouseDown={[Function (anonymous)]} onTouchEnd={[Function (anonymous)]} __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"Control\\">
+                                                          <div className=\\"select__control css-yk16xz-control\\" onMouseDown={[Function (anonymous)]} onTouchEnd={[Function (anonymous)]}>
+                                                            <ValueContainer cx={[Function (anonymous)]} clearValue={[Function (anonymous)]} getStyles={[Function (anonymous)]} getValue={[Function (anonymous)]} hasValue={true} isMulti={false} isRtl={false} options={{...}} selectOption={[Function (anonymous)]} setValue={[Function (anonymous)]} selectProps={{...}} theme={{...}} isDisabled={false}>
+                                                              <EmotionCssPropInternal css={{...}} className=\\"select__value-container select__value-container--has-value\\" __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"ValueContainer\\">
+                                                                <div className=\\"select__value-container select__value-container--has-value css-g1d714-ValueContainer\\">
+                                                                  <SingleValue cx={[Function (anonymous)]} clearValue={[Function (anonymous)]} getStyles={[Function (anonymous)]} getValue={[Function (anonymous)]} hasValue={true} isMulti={false} isRtl={false} options={{...}} selectOption={[Function (anonymous)]} setValue={[Function (anonymous)]} selectProps={{...}} theme={{...}} data={{...}} isDisabled={false}>
+                                                                    <EmotionCssPropInternal css={{...}} className=\\"select__single-value\\" __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"SingleValue\\">
+                                                                      <div className=\\"select__single-value css-1uccc91-singleValue\\">
+                                                                        3
+                                                                      </div>
+                                                                    </EmotionCssPropInternal>
+                                                                  </SingleValue>
+                                                                  <Input autoCapitalize=\\"none\\" autoComplete=\\"off\\" autoCorrect=\\"off\\" cx={[Function (anonymous)]} getStyles={[Function (anonymous)]} id=\\"react-select-16-input\\" innerRef={[Function (anonymous)]} isDisabled={false} isHidden={false} onBlur={[Function (anonymous)]} onChange={[Function (anonymous)]} onFocus={[Function (anonymous)]} selectProps={{...}} spellCheck=\\"false\\" tabIndex=\\"0\\" form={[undefined]} theme={{...}} type=\\"text\\" value=\\"\\" aria-autocomplete=\\"list\\" aria-label={[undefined]} aria-labelledby={[undefined]}>
+                                                                    <EmotionCssPropInternal css={{...}} __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"Input\\">
+                                                                      <div className=\\"css-b8ldur-Input\\">
+                                                                        <AutosizeInput className=\\"select__input\\" inputRef={[Function (anonymous)]} inputStyle={{...}} disabled={false} autoCapitalize=\\"none\\" autoComplete=\\"off\\" autoCorrect=\\"off\\" id=\\"react-select-16-input\\" onBlur={[Function (anonymous)]} onChange={[Function (anonymous)]} onFocus={[Function (anonymous)]} spellCheck=\\"false\\" tabIndex=\\"0\\" form={[undefined]} type=\\"text\\" value=\\"\\" aria-autocomplete=\\"list\\" aria-label={[undefined]} aria-labelledby={[undefined]} minWidth={1} injectStyles={true}>
+                                                                          <div className=\\"select__input\\" style={{...}}>
+                                                                            <input className={[undefined]} disabled={false} autoCapitalize=\\"none\\" autoComplete=\\"off\\" autoCorrect=\\"off\\" id=\\"react-select-16-input\\" onBlur={[Function (anonymous)]} onChange={[Function (anonymous)]} onFocus={[Function (anonymous)]} spellCheck=\\"false\\" tabIndex=\\"0\\" form={[undefined]} type=\\"text\\" value=\\"\\" aria-autocomplete=\\"list\\" aria-label={[undefined]} aria-labelledby={[undefined]} style={{...}} />
+                                                                            <div style={{...}} />
+                                                                          </div>
+                                                                        </AutosizeInput>
+                                                                      </div>
+                                                                    </EmotionCssPropInternal>
+                                                                  </Input>
+                                                                </div>
+                                                              </EmotionCssPropInternal>
+                                                            </ValueContainer>
+                                                            <IndicatorsContainer cx={[Function (anonymous)]} clearValue={[Function (anonymous)]} getStyles={[Function (anonymous)]} getValue={[Function (anonymous)]} hasValue={true} isMulti={false} isRtl={false} options={{...}} selectOption={[Function (anonymous)]} setValue={[Function (anonymous)]} selectProps={{...}} theme={{...}} isDisabled={false}>
+                                                              <EmotionCssPropInternal css={{...}} className=\\"select__indicators\\" __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"IndicatorsContainer\\">
+                                                                <div className=\\"select__indicators css-1hb7zxy-IndicatorsContainer\\">
+                                                                  <ClearIndicator cx={[Function (anonymous)]} clearValue={[Function (anonymous)]} getStyles={[Function (anonymous)]} getValue={[Function (anonymous)]} hasValue={true} isMulti={false} isRtl={false} options={{...}} selectOption={[Function (anonymous)]} setValue={[Function (anonymous)]} selectProps={{...}} theme={{...}} innerProps={{...}} isFocused={false}>
+                                                                    <EmotionCssPropInternal onMouseDown={[Function (anonymous)]} onTouchEnd={[Function (anonymous)]} aria-hidden=\\"true\\" css={{...}} className=\\"select__indicator select__clear-indicator\\" __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"ClearIndicator\\">
+                                                                      <div onMouseDown={[Function (anonymous)]} onTouchEnd={[Function (anonymous)]} aria-hidden=\\"true\\" className=\\"select__indicator select__clear-indicator css-tlfecz-indicatorContainer\\">
+                                                                        <CrossIcon>
+                                                                          <Svg size={20}>
+                                                                            <EmotionCssPropInternal height={20} width={20} viewBox=\\"0 0 20 20\\" aria-hidden=\\"true\\" focusable=\\"false\\" css={{...}} __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"svg\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"Svg\\">
+                                                                              <svg height={20} width={20} viewBox=\\"0 0 20 20\\" aria-hidden=\\"true\\" focusable=\\"false\\" className=\\"css-6q0nyr-Svg\\">
+                                                                                <path d=\\"M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z\\" />
+                                                                              </svg>
+                                                                            </EmotionCssPropInternal>
+                                                                          </Svg>
+                                                                        </CrossIcon>
+                                                                      </div>
+                                                                    </EmotionCssPropInternal>
+                                                                  </ClearIndicator>
+                                                                  <IndicatorSeparator cx={[Function (anonymous)]} clearValue={[Function (anonymous)]} getStyles={[Function (anonymous)]} getValue={[Function (anonymous)]} hasValue={true} isMulti={false} isRtl={false} options={{...}} selectOption={[Function (anonymous)]} setValue={[Function (anonymous)]} selectProps={{...}} theme={{...}} isDisabled={false} isFocused={false}>
+                                                                    <EmotionCssPropInternal css={{...}} className=\\"select__indicator-separator\\" __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"span\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"IndicatorSeparator\\">
+                                                                      <span className=\\"select__indicator-separator css-1okebmr-indicatorSeparator\\" />
+                                                                    </EmotionCssPropInternal>
+                                                                  </IndicatorSeparator>
+                                                                  <DropdownIndicator cx={[Function (anonymous)]} clearValue={[Function (anonymous)]} getStyles={[Function (anonymous)]} getValue={[Function (anonymous)]} hasValue={true} isMulti={false} isRtl={false} options={{...}} selectOption={[Function (anonymous)]} setValue={[Function (anonymous)]} selectProps={{...}} theme={{...}} innerProps={{...}} isDisabled={false} isFocused={false}>
+                                                                    <EmotionCssPropInternal onMouseDown={[Function (anonymous)]} onTouchEnd={[Function (anonymous)]} aria-hidden=\\"true\\" css={{...}} className=\\"select__indicator select__dropdown-indicator\\" __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"DropdownIndicator\\">
+                                                                      <div onMouseDown={[Function (anonymous)]} onTouchEnd={[Function (anonymous)]} aria-hidden=\\"true\\" className=\\"select__indicator select__dropdown-indicator css-tlfecz-indicatorContainer\\">
+                                                                        <DownChevron>
+                                                                          <Svg size={20}>
+                                                                            <EmotionCssPropInternal height={20} width={20} viewBox=\\"0 0 20 20\\" aria-hidden=\\"true\\" focusable=\\"false\\" css={{...}} __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"svg\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"Svg\\">
+                                                                              <svg height={20} width={20} viewBox=\\"0 0 20 20\\" aria-hidden=\\"true\\" focusable=\\"false\\" className=\\"css-6q0nyr-Svg\\">
+                                                                                <path d=\\"M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z\\" />
+                                                                              </svg>
+                                                                            </EmotionCssPropInternal>
+                                                                          </Svg>
+                                                                        </DownChevron>
+                                                                      </div>
+                                                                    </EmotionCssPropInternal>
+                                                                  </DropdownIndicator>
+                                                                </div>
+                                                              </EmotionCssPropInternal>
+                                                            </IndicatorsContainer>
+                                                          </div>
+                                                        </EmotionCssPropInternal>
+                                                      </Control>
+                                                    </div>
+                                                  </EmotionCssPropInternal>
+                                                </SelectContainer>
+                                              </Select>
+                                            </StateManager>
+                                          </Styled(StateManager)>
                                         </div>
                                       </div>
                                     </TagWrapper>
@@ -6153,18 +6847,90 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                           <div className=\\"controls\\" />
                                         </div>
                                         <div className=\\"tag\\">
-                                          <select className=\\"form-control\\" onChange={[Function: updateTag] { isMobxAction: true }} value=\\"long\\" disabled={[undefined]}>
-                                            <option value=\\"\\" />
-                                            <option value=\\"short\\">
-                                              Short
-                                            </option>
-                                            <option value=\\"medium\\">
-                                              Medium
-                                            </option>
-                                            <option value=\\"long\\">
-                                              Long
-                                            </option>
-                                          </select>
+                                          <Styled(StateManager) classNamePrefix=\\"select\\" isClearable={true} value={{...}} options={{...}} onChange={[Function: onChange] { isMobxAction: true }}>
+                                            <StateManager classNamePrefix=\\"select\\" isClearable={true} value={{...}} options={{...}} onChange={[Function: onChange] { isMobxAction: true }} className=\\"sc-bdvvaa buQpGB\\" defaultInputValue=\\"\\" defaultMenuIsOpen={false} defaultValue={{...}}>
+                                              <Select classNamePrefix=\\"select\\" isClearable={true} value={{...}} options={{...}} onChange={[Function (anonymous)]} className=\\"sc-bdvvaa buQpGB\\" inputValue=\\"\\" menuIsOpen={false} onInputChange={[Function (anonymous)]} onMenuClose={[Function (anonymous)]} onMenuOpen={[Function (anonymous)]} backspaceRemovesValue={true} blurInputOnSelect={true} captureMenuScroll={false} closeMenuOnSelect={true} closeMenuOnScroll={false} components={{...}} controlShouldRenderValue={true} escapeClearsValue={false} filterOption={[Function (anonymous)]} formatGroupLabel={[Function: formatGroupLabel]} getOptionLabel={[Function: getOptionLabel]} getOptionValue={[Function: getOptionValue]} isDisabled={false} isLoading={false} isMulti={false} isRtl={false} isSearchable={true} isOptionDisabled={[Function: isOptionDisabled]} loadingMessage={[Function: loadingMessage]} maxMenuHeight={300} minMenuHeight={140} menuPlacement=\\"bottom\\" menuPosition=\\"absolute\\" menuShouldBlockScroll={false} menuShouldScrollIntoView={true} noOptionsMessage={[Function: noOptionsMessage]} openMenuOnFocus={false} openMenuOnClick={true} pageSize={5} placeholder=\\"Select...\\" screenReaderStatus={[Function: screenReaderStatus]} styles={{...}} tabIndex=\\"0\\" tabSelectsValue={true}>
+                                                <SelectContainer cx={[Function (anonymous)]} clearValue={[Function (anonymous)]} getStyles={[Function (anonymous)]} getValue={[Function (anonymous)]} hasValue={true} isMulti={false} isRtl={false} options={{...}} selectOption={[Function (anonymous)]} setValue={[Function (anonymous)]} selectProps={{...}} theme={{...}} className=\\"sc-bdvvaa buQpGB\\" innerProps={{...}} isDisabled={false} isFocused={false}>
+                                                  <EmotionCssPropInternal css={{...}} className=\\"sc-bdvvaa buQpGB\\" id={[undefined]} onKeyDown={[Function (anonymous)]} __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"SelectContainer\\">
+                                                    <div className=\\"sc-bdvvaa buQpGB css-2b097c-container\\" id={[undefined]} onKeyDown={[Function (anonymous)]}>
+                                                      <Control cx={[Function (anonymous)]} clearValue={[Function (anonymous)]} getStyles={[Function (anonymous)]} getValue={[Function (anonymous)]} hasValue={true} isMulti={false} isRtl={false} options={{...}} selectOption={[Function (anonymous)]} setValue={[Function (anonymous)]} selectProps={{...}} theme={{...}} innerRef={[Function (anonymous)]} innerProps={{...}} isDisabled={false} isFocused={false} menuIsOpen={false}>
+                                                        <EmotionCssPropInternal css={{...}} className=\\"select__control\\" onMouseDown={[Function (anonymous)]} onTouchEnd={[Function (anonymous)]} __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"Control\\">
+                                                          <div className=\\"select__control css-yk16xz-control\\" onMouseDown={[Function (anonymous)]} onTouchEnd={[Function (anonymous)]}>
+                                                            <ValueContainer cx={[Function (anonymous)]} clearValue={[Function (anonymous)]} getStyles={[Function (anonymous)]} getValue={[Function (anonymous)]} hasValue={true} isMulti={false} isRtl={false} options={{...}} selectOption={[Function (anonymous)]} setValue={[Function (anonymous)]} selectProps={{...}} theme={{...}} isDisabled={false}>
+                                                              <EmotionCssPropInternal css={{...}} className=\\"select__value-container select__value-container--has-value\\" __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"ValueContainer\\">
+                                                                <div className=\\"select__value-container select__value-container--has-value css-g1d714-ValueContainer\\">
+                                                                  <SingleValue cx={[Function (anonymous)]} clearValue={[Function (anonymous)]} getStyles={[Function (anonymous)]} getValue={[Function (anonymous)]} hasValue={true} isMulti={false} isRtl={false} options={{...}} selectOption={[Function (anonymous)]} setValue={[Function (anonymous)]} selectProps={{...}} theme={{...}} data={{...}} isDisabled={false}>
+                                                                    <EmotionCssPropInternal css={{...}} className=\\"select__single-value\\" __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"SingleValue\\">
+                                                                      <div className=\\"select__single-value css-1uccc91-singleValue\\">
+                                                                        Long
+                                                                      </div>
+                                                                    </EmotionCssPropInternal>
+                                                                  </SingleValue>
+                                                                  <Input autoCapitalize=\\"none\\" autoComplete=\\"off\\" autoCorrect=\\"off\\" cx={[Function (anonymous)]} getStyles={[Function (anonymous)]} id=\\"react-select-17-input\\" innerRef={[Function (anonymous)]} isDisabled={false} isHidden={false} onBlur={[Function (anonymous)]} onChange={[Function (anonymous)]} onFocus={[Function (anonymous)]} selectProps={{...}} spellCheck=\\"false\\" tabIndex=\\"0\\" form={[undefined]} theme={{...}} type=\\"text\\" value=\\"\\" aria-autocomplete=\\"list\\" aria-label={[undefined]} aria-labelledby={[undefined]}>
+                                                                    <EmotionCssPropInternal css={{...}} __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"Input\\">
+                                                                      <div className=\\"css-b8ldur-Input\\">
+                                                                        <AutosizeInput className=\\"select__input\\" inputRef={[Function (anonymous)]} inputStyle={{...}} disabled={false} autoCapitalize=\\"none\\" autoComplete=\\"off\\" autoCorrect=\\"off\\" id=\\"react-select-17-input\\" onBlur={[Function (anonymous)]} onChange={[Function (anonymous)]} onFocus={[Function (anonymous)]} spellCheck=\\"false\\" tabIndex=\\"0\\" form={[undefined]} type=\\"text\\" value=\\"\\" aria-autocomplete=\\"list\\" aria-label={[undefined]} aria-labelledby={[undefined]} minWidth={1} injectStyles={true}>
+                                                                          <div className=\\"select__input\\" style={{...}}>
+                                                                            <input className={[undefined]} disabled={false} autoCapitalize=\\"none\\" autoComplete=\\"off\\" autoCorrect=\\"off\\" id=\\"react-select-17-input\\" onBlur={[Function (anonymous)]} onChange={[Function (anonymous)]} onFocus={[Function (anonymous)]} spellCheck=\\"false\\" tabIndex=\\"0\\" form={[undefined]} type=\\"text\\" value=\\"\\" aria-autocomplete=\\"list\\" aria-label={[undefined]} aria-labelledby={[undefined]} style={{...}} />
+                                                                            <div style={{...}} />
+                                                                          </div>
+                                                                        </AutosizeInput>
+                                                                      </div>
+                                                                    </EmotionCssPropInternal>
+                                                                  </Input>
+                                                                </div>
+                                                              </EmotionCssPropInternal>
+                                                            </ValueContainer>
+                                                            <IndicatorsContainer cx={[Function (anonymous)]} clearValue={[Function (anonymous)]} getStyles={[Function (anonymous)]} getValue={[Function (anonymous)]} hasValue={true} isMulti={false} isRtl={false} options={{...}} selectOption={[Function (anonymous)]} setValue={[Function (anonymous)]} selectProps={{...}} theme={{...}} isDisabled={false}>
+                                                              <EmotionCssPropInternal css={{...}} className=\\"select__indicators\\" __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"IndicatorsContainer\\">
+                                                                <div className=\\"select__indicators css-1hb7zxy-IndicatorsContainer\\">
+                                                                  <ClearIndicator cx={[Function (anonymous)]} clearValue={[Function (anonymous)]} getStyles={[Function (anonymous)]} getValue={[Function (anonymous)]} hasValue={true} isMulti={false} isRtl={false} options={{...}} selectOption={[Function (anonymous)]} setValue={[Function (anonymous)]} selectProps={{...}} theme={{...}} innerProps={{...}} isFocused={false}>
+                                                                    <EmotionCssPropInternal onMouseDown={[Function (anonymous)]} onTouchEnd={[Function (anonymous)]} aria-hidden=\\"true\\" css={{...}} className=\\"select__indicator select__clear-indicator\\" __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"ClearIndicator\\">
+                                                                      <div onMouseDown={[Function (anonymous)]} onTouchEnd={[Function (anonymous)]} aria-hidden=\\"true\\" className=\\"select__indicator select__clear-indicator css-tlfecz-indicatorContainer\\">
+                                                                        <CrossIcon>
+                                                                          <Svg size={20}>
+                                                                            <EmotionCssPropInternal height={20} width={20} viewBox=\\"0 0 20 20\\" aria-hidden=\\"true\\" focusable=\\"false\\" css={{...}} __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"svg\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"Svg\\">
+                                                                              <svg height={20} width={20} viewBox=\\"0 0 20 20\\" aria-hidden=\\"true\\" focusable=\\"false\\" className=\\"css-6q0nyr-Svg\\">
+                                                                                <path d=\\"M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z\\" />
+                                                                              </svg>
+                                                                            </EmotionCssPropInternal>
+                                                                          </Svg>
+                                                                        </CrossIcon>
+                                                                      </div>
+                                                                    </EmotionCssPropInternal>
+                                                                  </ClearIndicator>
+                                                                  <IndicatorSeparator cx={[Function (anonymous)]} clearValue={[Function (anonymous)]} getStyles={[Function (anonymous)]} getValue={[Function (anonymous)]} hasValue={true} isMulti={false} isRtl={false} options={{...}} selectOption={[Function (anonymous)]} setValue={[Function (anonymous)]} selectProps={{...}} theme={{...}} isDisabled={false} isFocused={false}>
+                                                                    <EmotionCssPropInternal css={{...}} className=\\"select__indicator-separator\\" __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"span\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"IndicatorSeparator\\">
+                                                                      <span className=\\"select__indicator-separator css-1okebmr-indicatorSeparator\\" />
+                                                                    </EmotionCssPropInternal>
+                                                                  </IndicatorSeparator>
+                                                                  <DropdownIndicator cx={[Function (anonymous)]} clearValue={[Function (anonymous)]} getStyles={[Function (anonymous)]} getValue={[Function (anonymous)]} hasValue={true} isMulti={false} isRtl={false} options={{...}} selectOption={[Function (anonymous)]} setValue={[Function (anonymous)]} selectProps={{...}} theme={{...}} innerProps={{...}} isDisabled={false} isFocused={false}>
+                                                                    <EmotionCssPropInternal onMouseDown={[Function (anonymous)]} onTouchEnd={[Function (anonymous)]} aria-hidden=\\"true\\" css={{...}} className=\\"select__indicator select__dropdown-indicator\\" __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"div\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"DropdownIndicator\\">
+                                                                      <div onMouseDown={[Function (anonymous)]} onTouchEnd={[Function (anonymous)]} aria-hidden=\\"true\\" className=\\"select__indicator select__dropdown-indicator css-tlfecz-indicatorContainer\\">
+                                                                        <DownChevron>
+                                                                          <Svg size={20}>
+                                                                            <EmotionCssPropInternal height={20} width={20} viewBox=\\"0 0 20 20\\" aria-hidden=\\"true\\" focusable=\\"false\\" css={{...}} __EMOTION_TYPE_PLEASE_DO_NOT_USE__=\\"svg\\" __EMOTION_LABEL_PLEASE_DO_NOT_USE__=\\"Svg\\">
+                                                                              <svg height={20} width={20} viewBox=\\"0 0 20 20\\" aria-hidden=\\"true\\" focusable=\\"false\\" className=\\"css-6q0nyr-Svg\\">
+                                                                                <path d=\\"M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z\\" />
+                                                                              </svg>
+                                                                            </EmotionCssPropInternal>
+                                                                          </Svg>
+                                                                        </DownChevron>
+                                                                      </div>
+                                                                    </EmotionCssPropInternal>
+                                                                  </DropdownIndicator>
+                                                                </div>
+                                                              </EmotionCssPropInternal>
+                                                            </IndicatorsContainer>
+                                                          </div>
+                                                        </EmotionCssPropInternal>
+                                                      </Control>
+                                                    </div>
+                                                  </EmotionCssPropInternal>
+                                                </SelectContainer>
+                                              </Select>
+                                            </StateManager>
+                                          </Styled(StateManager)>
                                         </div>
                                       </div>
                                     </TagWrapper>
