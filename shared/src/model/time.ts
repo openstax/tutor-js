@@ -122,6 +122,12 @@ export default class Time {
     isSameOrBefore(other: ComparableValue, unit: DurationUnit = 'millisecond') { return this.isSame(other, unit) || this.diff(other, unit) <= 0 }
     isSameOrAfter(other: ComparableValue, unit: DurationUnit = 'seconds') { return this.isSame(other, unit) || this.diff(other, unit) >= 0 }
 
+    isBetween(start: ComparableValue, end: ComparableValue, unit: DurationUnit = 'millisecond') {
+        return Boolean(
+            this.isAfter(start, unit) && this.isBefore(end, unit)
+        )
+    }
+
     get isUnknown() { return this._value === Time.unknown._value }
     get isValid() { return Boolean(!this.isUnknown && this._value.isValid) }
 
