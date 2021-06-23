@@ -64,7 +64,7 @@ class PastAssignments extends React.Component {
         return (
             <div className={cn('past-assignments', this.props.className)}>
                 <div className="section-label">
-          Copied
+                    Copied
                 </div>
                 <div className="plans">
                     {plans.array.map((plan) =>

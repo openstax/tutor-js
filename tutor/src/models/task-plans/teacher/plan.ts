@@ -382,10 +382,10 @@ export class TeacherTaskPlan extends BaseModel {
     @computed get clonedAttributes() {
         return extend(pick(
             this,
-            'description', 'title', 'type', 'ecosystem_id', 'is_feedback_immediate', 'grading_template_id'
+            'description', 'title', 'type', 'ecosystem_id',
+            'is_feedback_immediate', 'grading_template_id', 'settings',
         ), {
             tasking_plans: map(this.tasking_plans, 'clonedAttributes'),
-            settings: this.canEdit ? this.settings : null,
         });
     }
 

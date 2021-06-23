@@ -14,6 +14,7 @@ import Plan from './plan';
 class Month extends React.Component {
     static propTypes = {
         date: TimeHelper.PropTypes.time,
+        hoveredDay: PropTypes.instanceOf(Time),
         course: PropTypes.instanceOf(Course).isRequired,
         onDrop: PropTypes.func.isRequired,
         onDrag: PropTypes.func.isRequired,
@@ -60,7 +61,7 @@ class Month extends React.Component {
 
     getClassNameForDate = (date) => {
         const classes = [];
-        const { course, cloningPlan } = this.props;
+        const { course, cloningPlan, hoveredDay } = this.props;
         const now = Time.now
         if (now.isSame(date, 'day')) {
             classes.push('today');
@@ -70,7 +71,9 @@ class Month extends React.Component {
         } else if (now.isBefore(date)) {
             classes.push('upcoming');
         }
-
+        if (hoveredDay?.isSame(date, 'day')) {
+            classes.push('hover')
+        }
         if (course.starts_at.isAfter(date)) {
             classes.push('before-term');
         } else if (course.ends_at.isBefore(date, 'day')) {
@@ -78,11 +81,9 @@ class Month extends React.Component {
         } else {
             classes.push('in-term');
         }
-
         if (cloningPlan && cloningPlan.due_at.isSame(date, 'day')) {
             classes.push('pending-clone');
         }
-
         return cn(...classes);
     };
 

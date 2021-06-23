@@ -25,10 +25,10 @@ const IntroPopover = ({ show, onClose }) => (
         <Popover id="drag-intro">
             <Popover.Content>
                 <p>
-          Click to add, or just drag to calendar.
+                    Click to add, or just drag to calendar.
                 </p>
                 <Button size="small" onClick={onClose}>
-          Got it
+                    Got it
                 </Button>
             </Popover.Content>
         </Popover>
