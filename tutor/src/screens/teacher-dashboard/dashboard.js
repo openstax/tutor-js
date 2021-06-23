@@ -91,8 +91,9 @@ export default class TeacherDashboard extends React.Component {
         const { course: { bounds: { start, end } } } = this.props;
 
         if (!this.hoveredDay ||
-      !this.hoveredDay.isBetween(start, end, 'day', '[]') ||
-      !this.hoveredDay.isSameOrAfter(Time.now, 'day')) { return; }
+            !this.hoveredDay.isBetween(start, end, 'day') ||
+            !this.hoveredDay.isSameOrAfter(Time.now, 'day')) { return; }
+
         if (item.pathname) { // is a link to create an assignment
             const url = item.pathname + '?' + qs.stringify({
                 due_at: this.hoveredDay.format(this.props.dateFormat),
@@ -110,13 +111,13 @@ export default class TeacherDashboard extends React.Component {
         return document.querySelector(`.day[data-date="${date}"]`);
     };
 
-    onDragHover = (day) => {
-        this.hoveredDay = day;
-    };
+    @action.bound onDragHover(day) {
+        this.hoveredDay = new Time(day);
+    }
 
-    onEditorHide = () => {
+    @action.bound onEditorHide() {
         this.editingPlan = null;
-    };
+    }
 
     @action.bound onDayClick(ev, date) {
         this.activeAddAssignment = {
@@ -162,6 +163,7 @@ export default class TeacherDashboard extends React.Component {
                             setDate={this.setDate}
                         />
                         <Month
+                            hoveredDay={this.hoveredDay}
                             onDayClick={this.onDayClick}
                             cloningPlan={this.cloningPlan}
                             course={course}
