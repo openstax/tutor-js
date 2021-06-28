@@ -45,6 +45,7 @@ class Search extends React.Component<SearchProps> {
         this.titleChangeDisposer = autorun(() => {
             document.title = this.search.title
         })
+        props.ux.setSearchDefault(props.history.location.search.replace(/^\?/, ''))
     }
 
     componentWillUnmount() {
