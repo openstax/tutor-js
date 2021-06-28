@@ -12,7 +12,8 @@ import { now as getNow } from 'mobx-utils'
 
 const { range } = extendMoment(moment as any);
 
-//console.log({ range })
+// https://moment.github.io/luxon/docs/manual/formatting
+type LocaleFormat = 'DATE_SHORT' | 'DATE_MED' | 'DATE_MED_WITH_WEEKDAY' | 'DATE_FULL' | 'DATE_HUGE' | 'TIME_SIMPLE' | 'TIME_WITH_SECONDS' | 'TIME_WITH_SHORT_OFFSET' | 'TIME_WITH_LONG_OFFSET' | 'TIME_24_SIMPLE' | 'TIME_24_WITH_SECONDS' | 'TIME_24_WITH_SHORT_OFFSET' | 'TIME_24_WITH_LONG_OFFSET' | 'DATETIME_SHORT' | 'DATETIME_MED' | 'DATETIME_FULL' | 'DATETIME_HUGE' | 'DATETIME_SHORT_WITH_SECONDS' | 'DATETIME_MED_WITH_SECONDS' | 'DATETIME_FULL_WITH_SECONDS' | 'DATETIME_HUGE_WITH_SECONDS'
 
 let shiftMs = 0;
 const defaultResolution = 1000 * 60; // one minute resolution
@@ -41,6 +42,8 @@ const Store = {
 export type { DurationUnit }
 export type ComparableValue = Date | Time | LDT
 export type TimeInputs = Time | Date | string | number | LDT
+
+export type DATE_TIME_FORMAT = keyof typeof LDT // DateTimeFormatOptions
 
 
 export default class Time {
@@ -130,6 +133,8 @@ export default class Time {
 
     get isUnknown() { return this._value === Time.unknown._value }
     get isValid() { return Boolean(!this.isUnknown && this._value.isValid) }
+
+    toLocaleString(fmt: LocaleFormat) { return this._value.toLocaleString(LDT[fmt]) }
 
     toFormat(fmt: string) { return this._value.toFormat(fmt) }
     // left for comatibility with momentjs, do not use for new code

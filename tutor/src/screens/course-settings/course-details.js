@@ -1,10 +1,10 @@
-import { React, PropTypes, moment, styled, cn, observer, useState, action } from 'vendor';
+import { React, PropTypes, styled, cn, observer, useState, action } from 'vendor';
 import { Form, Row, Col } from 'react-bootstrap';
 import { Formik } from 'formik';
 import { isEmpty } from 'lodash';
 import DeleteCourseModal from './delete-course-button';
 import Timezone from './timezone';
-import { Course, currentToasts } from '../../models'
+import { Course, currentToasts, Time } from '../../models'
 import { AsyncButton } from 'shared';
 import { colors, breakpoint } from 'theme';
 
@@ -115,7 +115,7 @@ const StyledCourseDetails = styled.div`
   }
 `;
 
-const df = (d) => moment(d).format('MMM DD, YYYY');
+const df = (d) => new Time(d).toLocaleString('DATE_MED')
 
 const CourseDetails = observer(({ course, history }) => {
     const [isSaving, setIsSaving] = useState(false);
@@ -221,7 +221,7 @@ const CourseDetails = observer(({ course, history }) => {
                             <Col sm="4" md="5">
                                 <Form.Control
                                     id="endDate"
-                                    defaultValue={df(values.endDate)}
+                                    value={df(values.endDate)}
                                     type="text"
                                     name="endDate"
                                     readOnly/>
