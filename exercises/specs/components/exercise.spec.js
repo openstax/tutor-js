@@ -27,6 +27,7 @@ describe('Exercises component', () => {
     });
 
     it('renders and matches snapshot', () => {
+        exercise.context = '<h3>read this chapter first</h3>'
         expect.snapshot(<Router><Exercise {...props} /></Router>).toMatchSnapshot();
     });
 
