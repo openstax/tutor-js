@@ -1,8 +1,9 @@
 import { pick, extend } from 'lodash';
-import { BaseModel, field, model, computed, modelize, NEW_ID } from 'shared/model';
+import { BaseModel, field, model, computed, action, modelize, NEW_ID } from 'shared/model';
 import Time from 'shared/model/time';
 import S from '../../helpers/string';
 import { currentCourses } from '../../../src/models'
+import urlFor from '../../api'
 
 class Product extends BaseModel {
     @field uuid = '';
@@ -67,15 +68,16 @@ export class Purchase extends BaseModel {
         return amount;
     }
 
-    refund() {
-        return { item_uuid: this.product_instance_uuid, refund_survey: this.refund_survey };
+    @action async refund() {
+        await this.api.request(urlFor('requestRefund', { itemUUID: this.product_instance_uuid }), {
+            data: { refund_survey: this.refund_survey },
+        })
+        this.onRefunded()
     }
 
-    onRefunded() {
+    @action onRefunded() {
         this.is_refunded = true;
-        if (this.course) {
-            this.course.userStudentRecord?.markRefunded();
-        }
+        this.course?.userStudentRecord?.markRefunded();
     }
 
 }

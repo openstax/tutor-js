@@ -30,7 +30,7 @@ export class ModelApi {
             }
             return null
         },
-    })) //observable.map<string, ApiError>({}, { deep: false })
+    }))
 
     @readonly requestCounts = observable({
         read: 0,
