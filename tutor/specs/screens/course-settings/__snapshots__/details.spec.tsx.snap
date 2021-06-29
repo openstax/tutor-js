@@ -1,0 +1,415 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Course Settings, course details matches snapshot 1`] = `
+.c4 {
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+  -webkit-transition: color 0.3s ease;
+  transition: color 0.3s ease;
+}
+
+.c3 {
+  max-width: 25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.c1 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+.c1 .dropdown-item {
+  white-space: break-spaces;
+}
+
+.c2.c2.c2 {
+  border: 1px solid #d5d5d5;
+  color: #424242;
+  background: #fff;
+  height: 3.4rem;
+  width: 25rem;
+  text-align: left;
+  padding: 0 1rem;
+  font-size: 1.4rem;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 0.4rem;
+}
+
+.c2.c2.c2:focus {
+  border-color: #0dc0dc;
+  box-shadow: 0 0 4px 0 rgba(13,192,220,0.5);
+}
+
+.c2.c2.c2:after {
+  color: #818181;
+  -webkit-flex-basis: 0;
+  -ms-flex-preferred-size: 0;
+  flex-basis: 0;
+  font-size: 24px;
+}
+
+.c2.c2.c2.has-error {
+  border-color: #e298a0;
+  background-color: #f8e8ea;
+}
+
+.c0.c0.c0 form .form-controls {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+  width: 75%;
+}
+
+.c0.c0.c0 form .form-controls .btn.btn-primary {
+  padding: 0.75rem 2rem;
+}
+
+.c0.c0.c0 form .form-controls .btn.btn-primary.hidden {
+  display: none;
+}
+
+.c0.c0.c0 form .form-controls .btn.btn-link {
+  margin-left: -15px;
+  padding-top: 15px;
+}
+
+.c0.c0.c0 form .form-group {
+  margin-bottom: 2.4rem;
+}
+
+.c0.c0.c0 form .form-group.row {
+  margin-left: 0;
+}
+
+.c0.c0.c0 form .form-group .dropdown {
+  width: 100%;
+}
+
+.c0.c0.c0 form .form-group .dropdown .dropdown-toggle {
+  height: 45px;
+  width: 25%;
+}
+
+.c0.c0.c0 form .form-group .dropdown .dropdown-menu {
+  min-width: 25%;
+}
+
+.c0.c0.c0 form .form-group span.error-message {
+  color: red;
+  margin-top: 2px;
+}
+
+.c0.c0.c0 form .form-group label,
+.c0.c0.c0 form .form-group .timezone-label {
+  font-weight: 700;
+  font-size: 1.4rem;
+  line-height: 2rem;
+  padding: 10px 0;
+}
+
+.c0.c0.c0 form .form-group .form-control {
+  height: 45px;
+  font-size: 1.6rem;
+  width: 25%;
+}
+
+.c0.c0.c0 form .form-group .form-control.error-input {
+  background: #fbe7ea;
+  color: red;
+  border-color: #f4c0c5;
+  border-width: 2px;
+}
+
+.c0.c0.c0 form .form-group .form-control#course-name {
+  width: 60%;
+}
+
+.c0.c0.c0 form .form-group .form-control#endDate,
+.c0.c0.c0 form .form-group .form-control#startDate {
+  width: 57%;
+}
+
+.c0.c0.c0 form .form-group.dates .end-date-label {
+  margin-left: -15rem;
+}
+
+.c0.c0.c0 form hr {
+  width: 80%;
+  margin: 0;
+  margin-bottom: 1.5rem;
+}
+
+.c0.c0.c0 .disabled-delete-course {
+  color: #027EB5;
+  opacity: 40%;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  font-weight: 500;
+  font-size: 1.4rem;
+}
+
+@media (max-width:999px) {
+  .c0.c0.c0 form .form-group .dropdown .dropdown-toggle {
+    width: 100%;
+  }
+}
+
+@media (max-width:999px) {
+  .c0.c0.c0 form .form-group .dropdown .dropdown-menu {
+    width: 100%;
+  }
+}
+
+@media (max-width:999px) {
+  .c0.c0.c0 form .form-group .form-control#course-name {
+    width: 100%;
+  }
+}
+
+@media (max-width:999px) {
+  .c0.c0.c0 form .form-group .form-control#endDate,
+  .c0.c0.c0 form .form-group .form-control#startDate {
+    width: 100%;
+  }
+}
+
+@media (max-width:999px) {
+  .c0.c0.c0 form .form-group .form-control {
+    width: 100%;
+  }
+}
+
+@media (max-width:999px) {
+  .c0.c0.c0 form .form-group.dates .end-date-label {
+    margin-left: 0;
+  }
+}
+
+@media (max-width:999px) {
+  .c0.c0.c0 form hr {
+    width: 100%;
+  }
+}
+
+<div
+  className="c0"
+  data-test-id="course-details"
+>
+  <form
+    className="course-detail-settings-form"
+  >
+    <div
+      className="form-group row"
+    >
+      <label
+        className="form-label col-form-label col-md-1 col-sm-2"
+        htmlFor="course-name"
+      >
+        Course name
+      </label>
+      <div
+        className="col-md-11 col-sm-10"
+      >
+        <input
+          className="form-control"
+          disabled={false}
+          id="course-name"
+          name="courseName"
+          onChange={[Function]}
+          placeholder="Course Name"
+          type="text"
+          value="College Physics"
+        />
+      </div>
+    </div>
+    <div
+      className="form-group row"
+    >
+      <label
+        className="form-label col-form-label col-md-1 col-sm-2"
+        htmlFor="course-code"
+      >
+        Course code
+      </label>
+      <div
+        className="col-md-11 col-sm-10"
+      >
+        <input
+          className="form-control"
+          disabled={false}
+          id="course-code"
+          name="courseCode"
+          onChange={[Function]}
+          placeholder="SOC-101. Optional"
+          type="text"
+          value="OX-1"
+        />
+      </div>
+    </div>
+    <div
+      className="form-group row"
+    >
+      <label
+        className="form-label col-form-label col-md-1 col-sm-2"
+        htmlFor="term"
+      >
+        Term
+      </label>
+      <div
+        className="col-md-11 col-sm-10"
+      >
+        <input
+          className="form-control"
+          id="term"
+          name="term"
+          readOnly={true}
+          type="text"
+          value="Spring 2017"
+        />
+      </div>
+    </div>
+    <div
+      className="dates form-group row"
+    >
+      <label
+        className="form-label col-form-label col-md-1 col-sm-2"
+        htmlFor="startDate"
+      >
+        Start date
+      </label>
+      <div
+        className="col-md-5 col-sm-4"
+      >
+        <input
+          className="form-control"
+          id="startDate"
+          name="startDate"
+          readOnly={true}
+          type="text"
+          value="Mar 28, 2021"
+        />
+      </div>
+      <label
+        className="end-date-label form-label col-form-label col-md-1 col-sm-2"
+        htmlFor="endDate"
+      >
+        End date
+      </label>
+      <div
+        className="col-md-5 col-sm-4"
+      >
+        <input
+          className="form-control"
+          id="endDate"
+          name="endDate"
+          readOnly={true}
+          type="text"
+          value="Jul 28, 2021"
+        />
+      </div>
+    </div>
+    <div
+      className="form-group row"
+    >
+      <div
+        className="timezone-label col-md-1 col-sm-2"
+      >
+        <span>
+          Time zone
+        </span>
+      </div>
+      <div
+        className="col-md-11 col-sm-10"
+      >
+        <div
+          className="c1 dropdown"
+          data-test-id="timezone-dropdown"
+          onKeyDown={[Function]}
+        >
+          <button
+            aria-expanded={false}
+            aria-haspopup={true}
+            className="c2 dropdown-toggle btn btn-outline"
+            data-test-id=""
+            disabled={false}
+            onClick={[Function]}
+            type="button"
+          >
+            <div
+              className="c3"
+            >
+              US/Central
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+    <hr />
+    <div
+      className="form-controls"
+    >
+      <button
+        className="btn btn-link"
+        data-test-id="delete-course-btn"
+        disabled={false}
+        onClick={[Function]}
+        type="button"
+      >
+        <svg
+          aria-hidden="true"
+          className="svg-inline--fa fa-trash-alt fa-w-14 c4 ox-icon ox-icon-trash"
+          data-icon="trash-alt"
+          data-prefix="fas"
+          focusable="false"
+          role="img"
+          style={Object {}}
+          viewBox="0 0 448 512"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z"
+            fill="currentColor"
+            style={Object {}}
+          />
+        </svg>
+         Delete this course
+      </button>
+      <button
+        className="async-button save-changes-button hidden btn btn-primary"
+        disabled={false}
+        onClick={[Function]}
+        type="button"
+      >
+        Save changes
+      </button>
+    </div>
+  </form>
+</div>
+`;
