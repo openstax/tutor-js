@@ -5,6 +5,7 @@ import { ExercisePreview } from 'shared';
 import { Link } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { CornerRibbon } from 'shared';
+import { ArbitraryHtmlAndMath as HTML } from 'shared';
 
 const Preview = styled.div`
   margin-top: 1.5rem;
@@ -43,6 +44,8 @@ class ExerciseEditingPreview extends React.Component {
                             <div key="n">{exercise.readOnlyReason}</div>,
                         ]}
                     >
+                        {exercise.context && <HTML html={exercise.context} />}
+
                         <ExercisePreview
                             questionType="teacher-preview"
                             className='exercise-editing-preview'

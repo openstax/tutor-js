@@ -1734,6 +1734,13 @@ exports[`Exercises component renders and matches snapshot 1`] = `
           </div>
         </div>
         <div
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<h3>read this chapter first</h3>",
+            }
+          }
+        />
+        <div
           className="openstax-exercise-preview exercise-editing-preview is-displaying-formats is-displaying-feedback card"
           data-exercise-id="1@1"
           tabIndex={-1}
@@ -5049,6 +5056,7 @@ exports[`Exercises component renders with intro and a multiple questions when ex
             Author: Louvenia
           </div>
         </div>
+        
         <div
           className="openstax-exercise-preview exercise-editing-preview is-displaying-formats is-displaying-feedback card"
           data-exercise-id="9@1"

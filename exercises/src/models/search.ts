@@ -2,6 +2,7 @@ import { map } from 'lodash';
 import {
     BaseModel, model, runInAction, array, hydrateModel, modelize, observable, computed, action, getParentOf,
 } from 'shared/model';
+import { override } from 'mobx'
 import Exercise from './exercises/exercise';
 import urlFor from '../api'
 import pluralize from 'pluralize';
@@ -146,6 +147,11 @@ class Search extends BaseModel {
         )
     }
 
+    @override update(clause: string) {
+        const [filter, value] = clause.split(':')
+        this.clauses.replace([{ filter, value } as any])
+
+    }
     //called by api
     @action async perform() {
         this.isPending = true

@@ -9,6 +9,7 @@ import { idType } from 'shared';
 import { Loading, NotFound } from './exercise-state';
 import Controls from './preview/controls';
 import { ExercisePreview } from 'shared';
+import { ArbitraryHtmlAndMath as HTML } from 'shared';
 
 @observer
 export default
@@ -52,6 +53,7 @@ class Preview extends React.Component {
 
         return (
             <div className="preview-screen">
+                {exercise.context && <HTML html={exercise.context} />}
                 <ExercisePreview
                     displayAllTags
                     displayFeedback

@@ -25,7 +25,7 @@ export default class SharedExercise extends BaseModel {
 
     @field published_at?: Time | Date
     @field stem_html = ''
-
+    @field context = '';
     @model(Attachment) attachments = array<Attachment>()
     @model(Author) authors = array<Author>()
     @model(Author) copyright_holders = array<Author>()
