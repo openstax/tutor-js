@@ -1,5 +1,5 @@
 import { Purchase, Course } from '../../../src/models'
-import { Factory, hydrateModel } from '../../helpers'
+import { Factory, hydrateModel, ApiMock } from '../../helpers'
 
 describe('Purchase Model', () => {
     let course!:Course
@@ -16,8 +16,11 @@ describe('Purchase Model', () => {
         expect(purchase.course).toBe(course)
     });
 
-    test('#onRefunded', () => {
-        purchase.onRefunded();
+    test('#onRefunded', async () => {
+        ApiMock.mock({
+            [`purchases/${purchase.product_instance_uuid}/refund`]: { ok: true },
+        })
+        await purchase.refund();
         expect(course.userStudentRecord!.is_paid).toBe(false);
         expect(course.userStudentRecord!.prompt_student_to_pay).toBe(true);
     });
