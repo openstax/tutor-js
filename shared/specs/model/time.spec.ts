@@ -57,4 +57,13 @@ describe('time class', () => {
         expect(future.isAfter(past, 'hour')).toBe(false)
     })
 
+    it('converts to interval with human display', () => {
+        const past = new Time('2021-01-15T10:00:00.000Z')
+        const future = new Time('2021-01-15T10:58:00.000Z')
+        const interval = future.intervalTo(past)
+        // it flipped start/end so start always comes first
+        expect(interval.start.isSame(past, 'millisecond')).toBe(true)
+        expect(interval.humanized).toEqual('58 minutes')
+    })
+
 })
