@@ -1,5 +1,5 @@
 import {
-    DateTime as LDT, DurationUnit, Interval as LDTInterval, DateObjectUnits, DurationObject, Zone, Settings,
+    DateTime as LDT, DurationUnit, Interval as LDTInterval, DateObjectUnits, DurationObject, Zone, Settings, DurationObjectUnits,
 } from 'luxon'
 import { map, compact, flatten, max, min, isString, isNumber, isDate } from 'lodash';
 import { readonly } from 'core-decorators'
@@ -184,6 +184,17 @@ export class Interval {
     }
 
     get humanized() {
+        const durations = ['years', 'months', 'days', 'hours', 'minutes', 'seconds'] as any as keyof DurationObjectUnits
+        const values = this.asLuxon.toDuration(durations)
+        for (let i = 0; i < durations.length - 1; i++) {
+            if (values[durations[i]]) {
+                return pluralize(durations[i], values[durations[i]], true)
+            }
+        }
+        return 'now'
+    }
+
+    get asSentence() {
         const { days, hours, minutes } = this.asLuxon.toDuration(['days', 'hours', 'minutes', 'seconds'])
         let str: string[] = []
         if (days)  str.push(pluralize('day', days, true))
