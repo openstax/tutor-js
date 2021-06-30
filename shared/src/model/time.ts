@@ -96,8 +96,15 @@ export default class Time {
     get asDate() { return this._value.toJSDate() }
     get asDateTime() { return this._value }
 
-    get intervalToNow() { return new Interval({ start: this, end: Time.now }) }
-    intervalTo(other: TimeInputs) { return new Interval({ start: this, end: toLDT(other) }) }
+    get intervalToNow() { return this.intervalTo(Time.now) }
+    intervalTo(other: TimeInputs) {
+        const end = toLDT(other)
+        if (this.isBefore(end)) {
+            return new Interval({ start: this, end })
+        }
+        return new Interval({ start: end, end: this })
+    }
+
 
     toISOString() { return this.asISOString }
     toString() { return this.asISOString }
