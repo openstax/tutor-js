@@ -9,6 +9,7 @@ import moment from 'moment';
 import { extendMoment } from 'moment-range';
 import pluralize from 'pluralize';
 import { now as getNow } from 'mobx-utils'
+import { toSentence } from '../helpers/string';
 
 const { range } = extendMoment(moment as any);
 
@@ -188,12 +189,12 @@ export class Interval {
     }
 
     get humanized() {
-        const { days, hours, minutes } = this.asLuxon.toDuration(['days', 'hours', 'minutes'])
+        const { days, hours, minutes } = this.asLuxon.toDuration(['days', 'hours', 'minutes', 'seconds'])
         let str: string[] = []
         if (days)  str.push(pluralize('day', days, true))
         if (hours) str.push(pluralize('hour', hours, true))
         if (minutes) str.push(pluralize('minute', minutes, true))
-        return str.join(' ')
+        return toSentence(str)
     }
 
     get asMoment() {

@@ -58,12 +58,12 @@ describe('time class', () => {
     })
 
     it('converts to interval with human display', () => {
-        const past = new Time('2021-01-15T10:00:00.000Z')
-        const future = new Time('2021-01-15T10:58:00.000Z')
+        const past = new Time('2021-01-14T03:00:00.000Z')
+        const future = new Time('2021-01-15T10:58:03.330Z')
         const interval = future.intervalTo(past)
         // it flipped start/end so start always comes first
         expect(interval.start.isSame(past, 'millisecond')).toBe(true)
-        expect(interval.humanized).toEqual('58 minutes')
+        expect(interval.humanized).toEqual('1 day, 7 hours and 58 minutes')
     })
 
 })
