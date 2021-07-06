@@ -1,4 +1,5 @@
 import BookSections from '../../../src/components/search/book-sections';
+import Books from '../../../src/models/books'
 import Search from '../../../src/models/search'
 
 describe('Search book sections', function() {
@@ -7,6 +8,7 @@ describe('Search book sections', function() {
 
         it('ignores units', () => {
             const search = new Search();
+            Books.ensureLoaded = jest.fn()
             const props = { search: search };
             const bookSections = new BookSections(props);
             expect(bookSections.partsToOptions(
