@@ -70,17 +70,28 @@ class BookSections extends React.Component<BookSectionsProps> {
     partsToOptions(parts?: BookPart[]): OptionType[] {
         if (!parts) return []
 
-        return parts.map(part => {
+        return parts.flatMap(part => {
             const option:OptionType = { label: part.title }
 
             if (part.contents) {
-                option.options = this.partsToOptions(part.contents)
+                // Chapter or Unit
+                const nestedOptions = this.partsToOptions(part.contents)
+
+                if (part.contents.some(content => content.contents)) {
+                    // Unit
+                    return nestedOptions
+                }
+                else {
+                    // Chapter
+                    option.options = nestedOptions
+                }
             }
             else {
+                // Page
                 option.value = part.id.split('@', 1)[0]
             }
 
-            return option
+            return [option]
         })
     }
 
