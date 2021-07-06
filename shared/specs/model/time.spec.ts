@@ -1,4 +1,4 @@
-import Time, { setNow, setResolution } from '../../src/model/time'
+import Time, { Interval, setNow, setResolution } from '../../src/model/time'
 import { autorun } from 'mobx'
 import moment from 'moment'
 
@@ -57,13 +57,40 @@ describe('time class', () => {
         expect(future.isAfter(past, 'hour')).toBe(false)
     })
 
-    it('converts to interval with human display', () => {
+    it('has a humanized representation', () => {
+        expect(new Interval({
+            start: '2020-01-14T03:00:00.000Z',
+            end: '2021-01-15T10:58:03.330Z',
+        }).humanized).toEqual('1 year')
+        expect(new Interval({
+            start: '2021-01-14T03:00:00.000Z',
+            end: '2021-04-15T10:58:03.330Z',
+        }).humanized).toEqual('3 months')
+        expect(new Interval({
+            start: '2021-01-14T03:00:00.000Z',
+            end: '2021-01-18T10:58:03.330Z',
+        }).humanized).toEqual('4 days')
+        expect(new Interval({
+            start: '2021-01-14T03:00:00.000Z',
+            end: '2021-01-14T10:58:03.330Z',
+        }).humanized).toEqual('7 hours')
+        expect(new Interval({
+            start: '2021-01-14T03:00:00.000Z',
+            end: '2021-01-14T03:58:03.330Z',
+        }).humanized).toEqual('58 minutes')
+        expect(new Interval({
+            start: '2021-01-14T03:00:00.000Z',
+            end: '2021-01-14T03:0:03.330Z',
+        }).humanized).toEqual('now')
+    })
+
+    it('converts to sentence', () => {
         const past = new Time('2021-01-14T03:00:00.000Z')
         const future = new Time('2021-01-15T10:58:03.330Z')
         const interval = future.intervalTo(past)
         // it flipped start/end so start always comes first
         expect(interval.start.isSame(past, 'millisecond')).toBe(true)
-        expect(interval.humanized).toEqual('1 day, 7 hours and 58 minutes')
+        expect(interval.asSentence).toEqual('1 day, 7 hours and 58 minutes')
     })
 
 })
