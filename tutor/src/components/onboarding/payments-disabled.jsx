@@ -23,14 +23,14 @@ class PaymentsDisabled extends React.Component {
                 <Body>
 
                     <h3>
-            You are now enrolled in {ux.course.name}
+                        You are now enrolled in {ux.course.name}
                     </h3>
 
                     <Button variant="primary" onClick={ux.acknowledgeTrial}>
-            Start your free trial
+                        Start your free trial
                     </Button>
                     <p>
-            You will be prompted to pay once the trial period is complete.
+                        You will be prompted to pay once the trial period is complete.
                     </p>
 
                 </Body>

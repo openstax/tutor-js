@@ -64,7 +64,7 @@ const StyledContainer = styled.div`
 
 `;
 
-const PaymentInfoRows = styled.div` 
+const PaymentInfoRows = styled.div`
   .manage-payment-info-row:nth-child(odd) {
     background-color: ${colors.neutral.bright};
   }
@@ -219,7 +219,7 @@ class ManagePayments extends React.Component {
                 href={purchase.invoiceURL}
                 className="invoice-link"
             >
-          Invoice
+                Invoice
             </a>
         );
     }
@@ -264,31 +264,31 @@ class ManagePayments extends React.Component {
                 {currentPurchases.withRefunds.map(purchase =>
                     <div className="manage-payment-info-row" key={purchase.identifier}>
                         <div className="manage-payment-info">
-                            <span>Item</span> 
+                            <span>Item</span>
                             <span>
                                 {purchase.product.name}
                             </span>
                         </div>
                         <div className="manage-payment-info">
-                            <span>Transaction date</span> 
+                            <span>Transaction date</span>
                             <span>
                                 {formatDate(purchase.purchased_at)}
                             </span>
                         </div>
                         <div className="manage-payment-info">
-                            <span>Order number</span> 
+                            <span>Order number</span>
                             <span>
                                 {purchase.identifier}
                             </span>
                         </div>
                         <div className="manage-payment-info">
-                            <span>Amount</span> 
+                            <span>Amount</span>
                             <span className={cn({ refunded: purchase.is_refund_record })}>
                                 {purchase.formattedTotal}
                             </span>
                         </div>
                         <div className="manage-payment-info">
-                            <span>Invoice</span> 
+                            <span>Invoice</span>
                             <span>
                                 {this.renderInvoiceButton(purchase)}
                             </span>
@@ -315,7 +315,7 @@ class ManagePayments extends React.Component {
         const back = backInfo();
         return (
             <>
-                <Header 
+                <Header
                     unDocked={true}
                     title="Manage Payments"
                     backTo={back.to}
@@ -329,7 +329,7 @@ class ManagePayments extends React.Component {
                     />
                     {currentPurchases.api.isPending
                         ? <OXFancyLoader isLoading />
-                        : <Responsive mobile={this.renderList()} tablet={this.renderList()} desktop={this.renderTable()} /> 
+                        : <Responsive mobile={this.renderList()} tablet={this.renderList()} desktop={this.renderTable()} />
                     }
                     <div className="footer">
                         <NewTabLink

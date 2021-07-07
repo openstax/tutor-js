@@ -22,7 +22,7 @@ jest.useFakeTimers();
 
 const mockedSettings = UiSettings as any
 describe('Student Course Onboarding', () => {
-    let ux:CourseUX;
+    let ux: CourseUX;
 
     beforeEach(() => {
         mockedSettings.get.mockImplementation(() => undefined);
@@ -49,7 +49,7 @@ describe('Student Course Onboarding', () => {
     });
 
     afterEach(() => {
-        runInAction(() => ux!.close() )
+        runInAction(() => ux!.close())
     });
 
     it('#nagComponent', () => {
@@ -64,6 +64,13 @@ describe('Student Course Onboarding', () => {
         expect(currentUser.terms.areSignaturesNeeded).toEqual(true);
         (ux.course as any).userStudentRecord = { mustPayImmediately: true };
         expect(ux.nagComponent).toBe(Nags.freeTrialEnded);
+        ux.showPaymentOptions();
+        expect(ux.nagComponent).toBe(Nags.paymentOptions);
+        ux.showRedeemCode();
+        expect(ux.nagComponent).toBe(Nags.redeemCode);
+        (ux.course as any).userStudentRecord = { mustPayImmediately: false };
+        ux.reset();
+        expect(ux.nagComponent).toBe(Nags.payNowOrLater);
     });
 
     it('#payNow', () => {
@@ -88,7 +95,7 @@ describe('Student Course Onboarding', () => {
             (ux.course as any).userStudentRecord = { mustPayImmediately: false };
         });
         (UiSettings.get as any).mockImplementation(() => true);
-        runInAction(() => ux.mount() )
+        runInAction(() => ux.mount())
         expect(ux.tourContext.otherModal).toBe(ux);
         runInAction(() => {
             (ux.course as any).needsPayment = true
@@ -119,5 +126,16 @@ describe('Student Course Onboarding', () => {
         jest.runOnlyPendingTimers();
         expect(forceReload).toHaveBeenCalled();
     });
+
+    it('redeems payment codes', async () => {
+        (ux.course as any).needsPayment = true
+        expect(ux.codeRedeemable).toBe(false)
+        ux.setCode('abc-1234567890')
+        expect(ux.paymentCode.code).toBe('abc-1234567890')
+        expect(ux.codeRedeemable).toBe(true)
+        await ux.redeemCode()
+        expect(ux.paymentCodeError).toBe('')
+        expect(ux.codeRedeemed).toBe(true)
+    })
 
 });

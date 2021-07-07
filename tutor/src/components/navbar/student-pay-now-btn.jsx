@@ -1,13 +1,14 @@
-import { React, PropTypes, action, observable, observer, modelize } from 'vendor';
+import { React, PropTypes, action, observer, modelize } from 'vendor';
 import { Button } from 'react-bootstrap';
-import PaymentsModal from '../payments/modal';
-import { FeatureFlags, Course } from '../../models'
+import { FeatureFlags, Course } from '../../models';
 import { Icon } from 'shared';
+import { PAY_LATER_CHOICE } from '../onboarding/ux/student-course';
+import UiSettings from 'shared/model/ui-settings';
 
 const FREE_TRIAL_MESSAGE = `
-When the free trial ends, you'll be prompted to pay to maintain access
-to your course. You will not lose any of the work you have completed
-during the free trial.
+    When the free trial ends, you'll be prompted to pay to maintain access
+    to your course. You will not lose any of the work you have completed
+    during the free trial.
 `;
 const isInTrialPeriod = (course) => {
     return Boolean(course && !FeatureFlags.is_payments_enabled && course.isInTrialPeriod);
@@ -34,8 +35,6 @@ class StudentPayNowBtn extends React.Component {
         course: PropTypes.instanceOf(Course),
     }
 
-    @observable isShowingModal = false;
-
     constructor(props) {
         super(props);
         modelize(this);
@@ -43,31 +42,8 @@ class StudentPayNowBtn extends React.Component {
 
     @action.bound
     onClick() {
-        this.isShowingModal = true;
-    }
-
-    @action.bound
-    onComplete() {
-        this.props.course.userStudentRecord.markPaid();
-        this.isShowingModal = false;
-    }
-
-    @action.bound
-    onCancel() {
-        this.isShowingModal = false;
-    }
-
-    renderModal() {
-        if (this.isShowingModal) {
-            return (
-                <PaymentsModal
-                    onPaymentComplete={this.onComplete}
-                    onCancel={this.onCancel}
-                    course={this.props.course}
-                />
-            );
-        }
-        return null;
+        // Unsetting the PL choice will render the normal fullscreen onboarding component
+        UiSettings.set(PAY_LATER_CHOICE, null);
     }
 
     render() {
@@ -76,7 +52,7 @@ class StudentPayNowBtn extends React.Component {
         if (isInTrialPeriod(this.props.course)) {
             return (
                 <span className="student-pay-now">
-          Free trial <Icon type="info-circle" tooltip={FREE_TRIAL_MESSAGE} />
+                    Free trial <Icon type="info-circle" tooltip={FREE_TRIAL_MESSAGE} />
                 </span>
             );
         }
@@ -84,11 +60,10 @@ class StudentPayNowBtn extends React.Component {
         return (
             <span className="student-pay-now">
                 <span className="days">
-          You have {this.props.course.userStudentRecord.trialTimeRemaining} left in your free trial
+                    You have {this.props.course.userStudentRecord.trialTimeRemaining} left in your free trial
                 </span>
-                {this.renderModal()}
                 <Button variant="primary" onClick={this.onClick}>
-          Pay now
+                    Pay now
                 </Button>
             </span>
         );

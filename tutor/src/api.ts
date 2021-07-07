@@ -143,6 +143,7 @@ const Definitions = {
 
     requestRefund:          r<{ itemUUID: string }>('PUT', 'purchases/{itemUUID}/refund'),
     fetchPaymentHistory:    r('GET', 'purchases'),
+    redeemPaymentCode:      r<{ code: string }>('PUT', 'payment_codes/{code}/redeem'),
 
     getMyPerformance:       r<CourseId>('GET', 'courses/{courseId}/guide'),
     getTeacherPerformance:  r<CourseId>('GET', 'courses/{courseId}/teacher_guide'),

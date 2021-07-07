@@ -1,0 +1,168 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Redeem Code renders and matches snapshot 1`] = `
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  box-sizing: border-box;
+  outline: none;
+  max-width: 100%;
+}
+
+.c0 input {
+  width: 200px;
+  padding: 0 16px;
+  height: 48px;
+  border-width: 1px;
+  border-style: solid;
+}
+
+.c0 .has-errors input {
+  background: #F8E8EA;
+  border-color: #E298A0;
+  color: #C22032;
+}
+
+.c0 .error-message {
+  text-align: left;
+  color: #C22032;
+  font-size: 1.4rem;
+}
+
+.c0 h6,
+.c0 p {
+  margin: 0 !important;
+}
+
+.c0 .btn.btn-primary {
+  max-width: 120px;
+}
+
+.c2 {
+  margin: 20px 15px 50px;
+}
+
+.c2 > *:not(:last-child) {
+  margin-right: 16px;
+}
+
+.c3 {
+  font-size: 1.4rem;
+  width: 376px;
+}
+
+.c3 h6 {
+  font-weight: bold;
+}
+
+.c3 p {
+  min-width: 100%;
+}
+
+.c3 a {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+<div
+  className="openstax-debug-content"
+>
+  <div
+    data-purpose="tour-conductor-wrapper"
+  >
+    <div>
+      <div
+        className="onboarding-nag redeem-code"
+      >
+        <div
+          className="body"
+        >
+          <div
+            className="c0"
+          >
+            <h5>
+              Enter your pre-purchased access code below.
+            </h5>
+            <a
+              aria-label="You can buy an access code for OpenStax Tutor at your institution’s bookstore.        Check with your bookstore for availability."
+              href="#"
+              onBlur={[Function]}
+              onFocus={[Function]}
+              onMouseOut={[Function]}
+              onMouseOver={[Function]}
+            >
+              Where to find the access code?
+            </a>
+            <div
+              className="c1 c2"
+            >
+              <div
+                className=""
+              >
+                <input
+                  maxLength={999}
+                  minLength={12}
+                  onChange={[Function]}
+                  placeholder="OST-100234ABCD"
+                  required={true}
+                  type="input"
+                />
+                <div
+                  className="error-message"
+                >
+                  
+                </div>
+              </div>
+              <button
+                className="btn btn-primary"
+                disabled={true}
+                onClick={[Function]}
+                type="button"
+              >
+                Redeem
+              </button>
+            </div>
+            <div
+              className="c3"
+            >
+              <h6>
+                Once redeemed, this access code is non-refundable.
+              </h6>
+              <p>
+                If you’re unsure about enrolling in this class, we recommend taking advantage of our 
+                <a
+                  href="#"
+                  onClick={[Function]}
+                >
+                  14-day free trial period
+                </a>
+                .
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="visible-when-debugging"
+    >
+      <div
+        className="tour-spy-info"
+      >
+        available regions: []; region tour ids: []; audience tags: []; tour tags: []; eligible tours: []; TOUR RIDE: &lt;none&gt;
+      </div>
+    </div>
+  </div>
+  <a
+    aria-hidden="true"
+    className="debug-toggle-link"
+    href="#spy"
+    onClick={[Function]}
+    tabIndex={-1}
+  >
+    π
+  </a>
+</div>
+`;

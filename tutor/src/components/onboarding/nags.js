@@ -6,6 +6,8 @@ import freshlyCreatedCourse from './freshly-created-course';
 import thanksForNow from './thank-you-for-now';
 import displayPreviewMessage from './display-preview-message';
 import payNowOrLater      from './pay-now-or-later';
+import paymentOptions     from './payment-options';
+import redeemCode         from './redeem-code';
 import makePayment        from './make-payment';
 import payDisabled        from './payments-disabled';
 import freeTrialEnded     from './free-trial-ended';
@@ -22,6 +24,8 @@ export default {
 
     payNowOrLater,
     payDisabled,
+    paymentOptions,
+    redeemCode,
     makePayment,
     freeTrialEnded,
     freeTrialActivated,
