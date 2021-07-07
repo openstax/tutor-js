@@ -313,7 +313,7 @@ exports[`Course Settings, course details matches snapshot 1`] = `
           name="startDate"
           readOnly={true}
           type="text"
-          value="Mar 28, 2021"
+          value="Oct 15, 2020"
         />
       </div>
       <label
@@ -331,7 +331,7 @@ exports[`Course Settings, course details matches snapshot 1`] = `
           name="endDate"
           readOnly={true}
           type="text"
-          value="Jul 28, 2021"
+          value="Feb 15, 2021"
         />
       </div>
     </div>
