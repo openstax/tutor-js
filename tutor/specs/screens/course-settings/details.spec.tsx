@@ -1,12 +1,14 @@
 import React from 'react'
 import CourseDetails from '../../../src/screens/course-settings/course-details';
-import { Factory } from '../../helpers'
+import { TimeMock, Factory } from '../../helpers'
 import type { Course } from '../../../src/models'
 import { mount } from 'enzyme'
 
 describe('Course Settings, course details', () => {
     let props: any;
     let course: Course;
+
+    TimeMock.setTo('2021-01-15T12:00:00.000Z');
 
     beforeEach(() => {
         course = Factory.course()
