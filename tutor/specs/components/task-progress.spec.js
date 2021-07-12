@@ -5,7 +5,7 @@ describe('Task Progress', () => {
         describe('incomplete task step', () => {
             const step = {
                 is_completed: false,
-                published_points: null
+                published_points: null,
             }
 
             it('does not render anything', () => {
@@ -16,7 +16,7 @@ describe('Task Progress', () => {
         describe('completed but ungraded task step', () => {
             const step = {
                 is_completed: true,
-                published_points: null
+                published_points: null,
             }
 
             it('renders the "Not yet graded" popup', () => {
