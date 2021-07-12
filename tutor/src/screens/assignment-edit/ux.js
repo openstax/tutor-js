@@ -254,7 +254,7 @@ export default class AssignmentUX {
     }
 
     @action.bound onComplete() {
-        this.history.push(`/course/${this.course.id}`);
+        this.history.push(`/course/${this.course.id}/t/month/${this.dueAt}`);
     }
 
     @action.bound onCancel() {
