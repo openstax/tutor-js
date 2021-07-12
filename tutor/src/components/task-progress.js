@@ -157,8 +157,10 @@ const pointsScoredStatus = (step) => {
     return PointsScoredStatus.PARTIAL;
 };
 
-const renderLateInfoPopover = (step) => {
+export const renderLateInfoPopover = (step) => {
     if(isNil(step.pointsScored)) {
+        if (!step.is_completed) return null;
+
         return (
             <StyledPopover><p><strong>Not yet graded</strong></p></StyledPopover>
         );

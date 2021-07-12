@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Task Progress renderLateInfoPopover completed but ungraded task step renders the "Not yet graded" popup 1`] = `
+<Styled(Component)>
+  <p>
+    <strong>
+      Not yet graded
+    </strong>
+  </p>
+</Styled(Component)>
+`;
