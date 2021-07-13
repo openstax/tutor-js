@@ -16,9 +16,9 @@ const MENU_VISIBLE_BREAKPOINT = 1350;
 export class BookUX {
 
     @observable isMenuVisible = window.innerWidth > MENU_VISIBLE_BREAKPOINT;
-    @observable pageId: ID = NEW_ID;
-    @observable ecosystemId: ID = NEW_ID;
-    @observable courseId: ID = NEW_ID;;
+    @observable pageId?: ID
+    @observable ecosystemId?: ID
+    @observable courseId: ID = NEW_ID
     @observable book?: Book;
     disposers: any[]
     windowImpl: any
