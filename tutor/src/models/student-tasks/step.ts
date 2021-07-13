@@ -4,7 +4,7 @@ import {
 } from 'shared/model';
 import S from '../../helpers/string';
 import { pick, get, isNil, omit } from 'lodash';
-import { extractCnxId } from '../../helpers/content';
+import { extractOxId } from '../../helpers/content';
 import Time from 'shared/model/time';
 import urlFor from '../../api';
 import {
@@ -41,7 +41,7 @@ class StudentTaskReadingStep extends TaskStepContent {
         return hydrateModel(ReferenceBookNode, {
             uuid: this.related_content[0].uuid,
             id: this.related_content[0].page_id,
-            cnx_id: extractCnxId(this.content_url),
+            ox_id: extractOxId(this.content_url),
             content_html: this.html,
             title: this.related_content[0].title,
             chapter_section: this.chapterSection,

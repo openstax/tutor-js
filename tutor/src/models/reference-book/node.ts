@@ -48,7 +48,7 @@ export class ReferenceBookNode extends BaseModel {
     @field title = '';
     @field type = '';
 
-    @field cnx_id = '';
+    @field ox_id = '';
     @field short_id = '';
     @field uuid = '';
     @model(ChapterSection) chapter_section = ChapterSection.blank
@@ -133,7 +133,7 @@ export class ReferenceBookNode extends BaseModel {
 
     async fetchContent() {
         const data = await this.api.request(urlFor('fetchReferenceBookPage', {
-            cnxId: this.cnx_id, ecosystemId: this.book.id,
+            cnxId: this.ox_id, ecosystemId: this.book.id,
         }));
         this.onContentFetchComplete(data);
     }

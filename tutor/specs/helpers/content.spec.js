@@ -12,15 +12,15 @@ describe('ExerciseHelpers', () => {
     });
 
     it('extracts cnx ids', () => {
-        expect(Helpers.extractCnxId(
+        expect(Helpers.extractOxId(
             'this is a uuid without ver d3aa88e2-c754-41e0-8ba6-4198a34aa0a2, it no match'
         )).toBeNull();
 
-        expect(Helpers.extractCnxId(
+        expect(Helpers.extractOxId(
             'blaha at d3aa88e2-c754-41e0-8ba6-4198a34aa0a2@1; is good'
         )).toEqual('d3aa88e2-c754-41e0-8ba6-4198a34aa0a2@1');
 
-        expect(Helpers.extractCnxId(
+        expect(Helpers.extractOxId(
             'https://archive.cnx.org/contents/405335a3-7cff-4df2-a9ad-29062a4af261@7.3:95497188-90c9-4aff-9446-222d4d6f9743@6.3'
         )).toEqual('405335a3-7cff-4df2-a9ad-29062a4af261@7.3');
 

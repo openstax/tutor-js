@@ -111,8 +111,8 @@ class BookPage extends React.Component<BookPageProps> {
     linkNode?: HTMLLinkElement
     removeHistoryChangeListener?: any
 
-    getCnxId() {
-        return this.props.ux.page.cnx_id;
+    getOxId() {
+        return this.props.ux.page.ox_id;
     }
 
     constructor(props: BookPageProps) {
@@ -167,7 +167,7 @@ class BookPage extends React.Component<BookPageProps> {
         return this.removeCanonicalLink();
     }
 
-    getCnxIdOfHref(href: string) {
+    getOxIdOfHref(href: string) {
         const beforeHash = first(href.split('#')) || '';
         return last(beforeHash.split('/'));
     }
@@ -224,7 +224,7 @@ class BookPage extends React.Component<BookPageProps> {
     }
 
     updateCanonicalLink() {
-        const cnxId = this.props.cnxId || this.getCnxId();
+        const cnxId = this.props.cnxId || this.getOxId();
         // leave versioning out of canonical link
         const canonicalCNXId = first(cnxId.split('@'));
 
@@ -284,9 +284,9 @@ class BookPage extends React.Component<BookPageProps> {
         // media id is invalid.
         if (!mediaDOM) { return; }
 
-        const mediaCNXId = this.getCnxIdOfHref(link.getAttribute('href') || '') ||
+        const mediaCNXId = this.getOxIdOfHref(link.getAttribute('href') || '') ||
               this.props.cnxId ||
-              this.getCnxId();
+              this.getOxId();
 
         const previewNode = document.createElement('span');
         previewNode.classList.add('media-preview-wrapper');
@@ -368,7 +368,7 @@ class BookPage extends React.Component<BookPageProps> {
                     <PageTitle
                         page={page}
                         title={title}
-                        contentId={page.cnx_id}
+                        contentId={page.ox_id}
                         chapter_section={page.chapter_section}
                         showObjectivesPreamble={this.needsLearningObjectivesPreamble}
                         isChapterSectionDisplayed={page.isChapterSectionDisplayed}
@@ -377,7 +377,7 @@ class BookPage extends React.Component<BookPageProps> {
                         course={ux.course}
                         page={page}
                         windowImpl={ux.windowImpl}
-                        documentId={page.cnx_id}
+                        documentId={page.ox_id}
                     >
                         <HTML
                             className="book-content"
@@ -387,7 +387,7 @@ class BookPage extends React.Component<BookPageProps> {
                     </NotesWidget>
                 </div>
                 <SpyMode.Content className="ecosystem-info">
-                    Page: {page.cnx_id}, Book: {get(page,'chapter.book.cnx_id')} Ecosystem: {get(page,'chapter.book.uuid')}
+                    Page: {page.ox_id}, Book: {get(page,'chapter.book.ox_id')} Ecosystem: {get(page,'chapter.book.uuid')}
                 </SpyMode.Content>
 
             </div>
