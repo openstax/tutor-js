@@ -5,7 +5,7 @@
     "type": "book",
     "title": "College Physics with Courseware",
     "short_id": "QFM1o3z_",
-    "cnx_id": "405335a3-7cff-4df2-a9ad-29062a4af261@8.1",
+    "ox_id": "405335a3-7cff-4df2-a9ad-29062a4af261@8.1",
     "version": "8.1",
     "uuid": "405335a3-7cff-4df2-a9ad-29062a4af261",
     "is_collated": true,
@@ -20,7 +20,7 @@
             "type": "page",
             "title": "Introduction to Science and the Realm of Physics, Physical Quantities, and Units",
             "short_id": "xrUxB077",
-            "cnx_id": "c6b53107-4efb-48a9-8ccf-4db622f029f3@1",
+            "ox_id": "c6b53107-4efb-48a9-8ccf-4db622f029f3@1",
             "version": "1",
             "uuid": "c6b53107-4efb-48a9-8ccf-4db622f029f3",
             "id": "12862"
@@ -33,7 +33,7 @@
             "type": "page",
             "title": "Physics: An Introduction",
             "short_id": "lUlxiJDJ",
-            "cnx_id": "95497188-90c9-4aff-9446-222d4d6f9743@6",
+            "ox_id": "95497188-90c9-4aff-9446-222d4d6f9743@6",
             "version": "6",
             "uuid": "95497188-90c9-4aff-9446-222d4d6f9743",
             "id": "12863"
@@ -46,7 +46,7 @@
             "type": "page",
             "title": "Physical Quantities and Units",
             "short_id": "G3mkUPaR",
-            "cnx_id": "1b79a450-f691-4301-aef3-d065268ab4a9@4",
+            "ox_id": "1b79a450-f691-4301-aef3-d065268ab4a9@4",
             "version": "4",
             "uuid": "1b79a450-f691-4301-aef3-d065268ab4a9",
             "id": "12864"
@@ -59,7 +59,7 @@
             "type": "page",
             "title": "Accuracy, Precision, and Significant Figures",
             "short_id": "sYerTSma",
-            "cnx_id": "b187ab4d-299a-4be7-8ee1-cb71b10a54cf@6",
+            "ox_id": "b187ab4d-299a-4be7-8ee1-cb71b10a54cf@6",
             "version": "6",
             "uuid": "b187ab4d-299a-4be7-8ee1-cb71b10a54cf",
             "id": "12865"
@@ -72,7 +72,7 @@
             "type": "page",
             "title": "Approximation",
             "short_id": "24VlvoVC",
-            "cnx_id": "db8565be-8542-460c-86d4-096b505cac5a@1",
+            "ox_id": "db8565be-8542-460c-86d4-096b505cac5a@1",
             "version": "1",
             "uuid": "db8565be-8542-460c-86d4-096b505cac5a",
             "id": "12866"
@@ -82,7 +82,7 @@
             "type": "page",
             "title": "Glossary",
             "short_id": "ZOFu6J3v",
-            "cnx_id": "64e16ee8-9def-5900-b897-04d86e36a2d4@8.1",
+            "ox_id": "64e16ee8-9def-5900-b897-04d86e36a2d4@8.1",
             "version": "8.1",
             "uuid": "64e16ee8-9def-5900-b897-04d86e36a2d4",
             "id": "12867"
@@ -92,7 +92,7 @@
             "type": "page",
             "title": "Section Summary",
             "short_id": "rxi4KcuV",
-            "cnx_id": "af18b829-cb95-5157-9de0-c76dffaf571c@8.1",
+            "ox_id": "af18b829-cb95-5157-9de0-c76dffaf571c@8.1",
             "version": "8.1",
             "uuid": "af18b829-cb95-5157-9de0-c76dffaf571c",
             "id": "12868"
@@ -102,7 +102,7 @@
             "type": "page",
             "title": "Conceptual Questions",
             "short_id": "_SrufPNd",
-            "cnx_id": "fd2aee7c-f35d-5249-b50c-1ef7bf800b01@8.1",
+            "ox_id": "fd2aee7c-f35d-5249-b50c-1ef7bf800b01@8.1",
             "version": "8.1",
             "uuid": "fd2aee7c-f35d-5249-b50c-1ef7bf800b01",
             "id": "12869"
@@ -112,7 +112,7 @@
             "type": "page",
             "title": "Problems &amp; Exercises",
             "short_id": "-Buj9vNo",
-            "cnx_id": "f81ba3f6-f368-5706-a0f1-a144e7accfcd@8.1",
+            "ox_id": "f81ba3f6-f368-5706-a0f1-a144e7accfcd@8.1",
             "version": "8.1",
             "uuid": "f81ba3f6-f368-5706-a0f1-a144e7accfcd",
             "id": "12870"
@@ -131,7 +131,7 @@
             "type": "page",
             "title": "Introduction to One-Dimensional Kinematics",
             "short_id": "8YZ3Vbcb",
-            "cnx_id": "f1867755-b71b-41da-985f-abe0a4f77c99@2",
+            "ox_id": "f1867755-b71b-41da-985f-abe0a4f77c99@2",
             "version": "2",
             "uuid": "f1867755-b71b-41da-985f-abe0a4f77c99",
             "id": "12871"
@@ -144,7 +144,7 @@
             "type": "page",
             "title": "Displacement",
             "short_id": "dMNOURlo",
-            "cnx_id": "74c34e51-1968-4e5d-b1d3-e5df6a9be9fb@4",
+            "ox_id": "74c34e51-1968-4e5d-b1d3-e5df6a9be9fb@4",
             "version": "4",
             "uuid": "74c34e51-1968-4e5d-b1d3-e5df6a9be9fb",
             "id": "12872"
@@ -157,7 +157,7 @@
             "type": "page",
             "title": "Vectors, Scalars, and Coordinate Systems",
             "short_id": "sWUlKCKQ",
-            "cnx_id": "b1652528-2290-4e3c-9ff8-710dadafd7bc@2",
+            "ox_id": "b1652528-2290-4e3c-9ff8-710dadafd7bc@2",
             "version": "2",
             "uuid": "b1652528-2290-4e3c-9ff8-710dadafd7bc",
             "id": "12873"
@@ -170,7 +170,7 @@
             "type": "page",
             "title": "Time, Velocity, and Speed",
             "short_id": "BTCkX0Jv",
-            "cnx_id": "0530a45f-426f-4804-b22d-5d72704fa777@5",
+            "ox_id": "0530a45f-426f-4804-b22d-5d72704fa777@5",
             "version": "5",
             "uuid": "0530a45f-426f-4804-b22d-5d72704fa777",
             "id": "12874"
@@ -183,7 +183,7 @@
             "type": "page",
             "title": "Acceleration",
             "short_id": "WUZ4ZkgY",
-            "cnx_id": "59467866-4818-476c-affa-f56028c78f0c@10",
+            "ox_id": "59467866-4818-476c-affa-f56028c78f0c@10",
             "version": "10",
             "uuid": "59467866-4818-476c-affa-f56028c78f0c",
             "id": "12875"
@@ -196,7 +196,7 @@
             "type": "page",
             "title": "Motion Equations for Constant Acceleration in One Dimension",
             "short_id": "977rGOAt",
-            "cnx_id": "f7beeb18-e02d-47d0-ab7a-faa79b7f315c@7",
+            "ox_id": "f7beeb18-e02d-47d0-ab7a-faa79b7f315c@7",
             "version": "7",
             "uuid": "f7beeb18-e02d-47d0-ab7a-faa79b7f315c",
             "id": "12876"
@@ -209,7 +209,7 @@
             "type": "page",
             "title": "Problem-Solving Basics for One-Dimensional Kinematics",
             "short_id": "OSHOdfRT",
-            "cnx_id": "3921ce75-f453-433d-84cc-b50dd486c27d@2",
+            "ox_id": "3921ce75-f453-433d-84cc-b50dd486c27d@2",
             "version": "2",
             "uuid": "3921ce75-f453-433d-84cc-b50dd486c27d",
             "id": "12877"
@@ -222,7 +222,7 @@
             "type": "page",
             "title": "Falling Objects",
             "short_id": "5Cf4-Na_",
-            "cnx_id": "e427f8f8-d6bf-4420-b690-bc28cc328cf8@4",
+            "ox_id": "e427f8f8-d6bf-4420-b690-bc28cc328cf8@4",
             "version": "4",
             "uuid": "e427f8f8-d6bf-4420-b690-bc28cc328cf8",
             "id": "12878"
@@ -235,7 +235,7 @@
             "type": "page",
             "title": "Graphical Analysis of One-Dimensional Motion",
             "short_id": "SOtKkuHm",
-            "cnx_id": "48eb4a92-e1e6-45e5-9f60-c4a3ae79199d@10",
+            "ox_id": "48eb4a92-e1e6-45e5-9f60-c4a3ae79199d@10",
             "version": "10",
             "uuid": "48eb4a92-e1e6-45e5-9f60-c4a3ae79199d",
             "id": "12879"
@@ -245,7 +245,7 @@
             "type": "page",
             "title": "Glossary",
             "short_id": "H8Fewmks",
-            "cnx_id": "1fc15ec2-692c-5b4e-8cb8-cae09557d896@8.1",
+            "ox_id": "1fc15ec2-692c-5b4e-8cb8-cae09557d896@8.1",
             "version": "8.1",
             "uuid": "1fc15ec2-692c-5b4e-8cb8-cae09557d896",
             "id": "12880"
@@ -255,7 +255,7 @@
             "type": "page",
             "title": "Section Summary",
             "short_id": "y0uPpiXN",
-            "cnx_id": "cb4b8fa6-25cd-520b-b9ce-e89512951051@8.1",
+            "ox_id": "cb4b8fa6-25cd-520b-b9ce-e89512951051@8.1",
             "version": "8.1",
             "uuid": "cb4b8fa6-25cd-520b-b9ce-e89512951051",
             "id": "12881"
@@ -265,7 +265,7 @@
             "type": "page",
             "title": "Conceptual Questions",
             "short_id": "45h657Fl",
-            "cnx_id": "e3987ae7-b165-5b28-8196-3f26f2b1eddf@8.1",
+            "ox_id": "e3987ae7-b165-5b28-8196-3f26f2b1eddf@8.1",
             "version": "8.1",
             "uuid": "e3987ae7-b165-5b28-8196-3f26f2b1eddf",
             "id": "12882"
@@ -275,7 +275,7 @@
             "type": "page",
             "title": "Problems &amp; Exercises",
             "short_id": "jr1y4gKE",
-            "cnx_id": "8ebd72e2-0284-5b6b-854b-1557bf3a0aff@8.1",
+            "ox_id": "8ebd72e2-0284-5b6b-854b-1557bf3a0aff@8.1",
             "version": "8.1",
             "uuid": "8ebd72e2-0284-5b6b-854b-1557bf3a0aff",
             "id": "12883"
@@ -294,7 +294,7 @@
             "type": "page",
             "title": "Introduction to Two-Dimensional Kinematics",
             "short_id": "LnpNANOL",
-            "cnx_id": "2e7a4d00-d38b-4a1e-94ab-a899b90ba960@2",
+            "ox_id": "2e7a4d00-d38b-4a1e-94ab-a899b90ba960@2",
             "version": "2",
             "uuid": "2e7a4d00-d38b-4a1e-94ab-a899b90ba960",
             "id": "12884"
@@ -307,7 +307,7 @@
             "type": "page",
             "title": "Kinematics in Two Dimensions: An Introduction",
             "short_id": "IkKoxeix",
-            "cnx_id": "2242a8c5-e8b1-4287-b801-af74ef6f1e5b@5",
+            "ox_id": "2242a8c5-e8b1-4287-b801-af74ef6f1e5b@5",
             "version": "5",
             "uuid": "2242a8c5-e8b1-4287-b801-af74ef6f1e5b",
             "id": "12885"
@@ -320,7 +320,7 @@
             "type": "page",
             "title": "Vector Addition and Subtraction: Graphical Methods",
             "short_id": "_8XEbj2i",
-            "cnx_id": "ffc5c46e-3da2-42be-b747-88b8641a844b@6",
+            "ox_id": "ffc5c46e-3da2-42be-b747-88b8641a844b@6",
             "version": "6",
             "uuid": "ffc5c46e-3da2-42be-b747-88b8641a844b",
             "id": "12886"
@@ -333,7 +333,7 @@
             "type": "page",
             "title": "Vector Addition and Subtraction: Analytical Methods",
             "short_id": "JqPQpcO4",
-            "cnx_id": "26a3d0a5-c3b8-45b9-a763-f0047e12fd7d@5",
+            "ox_id": "26a3d0a5-c3b8-45b9-a763-f0047e12fd7d@5",
             "version": "5",
             "uuid": "26a3d0a5-c3b8-45b9-a763-f0047e12fd7d",
             "id": "12887"
@@ -346,7 +346,7 @@
             "type": "page",
             "title": "Projectile Motion",
             "short_id": "iz5ESB9q",
-            "cnx_id": "8b3e4448-1f6a-44fa-8b83-388f8403a0a7@10",
+            "ox_id": "8b3e4448-1f6a-44fa-8b83-388f8403a0a7@10",
             "version": "10",
             "uuid": "8b3e4448-1f6a-44fa-8b83-388f8403a0a7",
             "id": "12888"
@@ -359,7 +359,7 @@
             "type": "page",
             "title": "Addition of Velocities",
             "short_id": "g8pugZp2",
-            "cnx_id": "83ca6e81-9a76-408a-95f1-243bcbe0a2fc@6",
+            "ox_id": "83ca6e81-9a76-408a-95f1-243bcbe0a2fc@6",
             "version": "6",
             "uuid": "83ca6e81-9a76-408a-95f1-243bcbe0a2fc",
             "id": "12889"
@@ -369,7 +369,7 @@
             "type": "page",
             "title": "Glossary",
             "short_id": "6fOpfeiE",
-            "cnx_id": "e9f3a97d-e884-57f0-9cee-c9a7470729e9@8.1",
+            "ox_id": "e9f3a97d-e884-57f0-9cee-c9a7470729e9@8.1",
             "version": "8.1",
             "uuid": "e9f3a97d-e884-57f0-9cee-c9a7470729e9",
             "id": "12890"
@@ -379,7 +379,7 @@
             "type": "page",
             "title": "Section Summary",
             "short_id": "Oz8tKNFS",
-            "cnx_id": "3b3f2d28-d152-51eb-abaa-d7590bcc9643@8.1",
+            "ox_id": "3b3f2d28-d152-51eb-abaa-d7590bcc9643@8.1",
             "version": "8.1",
             "uuid": "3b3f2d28-d152-51eb-abaa-d7590bcc9643",
             "id": "12891"
@@ -389,7 +389,7 @@
             "type": "page",
             "title": "Conceptual Questions",
             "short_id": "TpcKNyWx",
-            "cnx_id": "4e970a37-25b1-561a-9a51-05b2959a60ba@8.1",
+            "ox_id": "4e970a37-25b1-561a-9a51-05b2959a60ba@8.1",
             "version": "8.1",
             "uuid": "4e970a37-25b1-561a-9a51-05b2959a60ba",
             "id": "12892"
@@ -399,7 +399,7 @@
             "type": "page",
             "title": "Problems &amp; Exercises",
             "short_id": "2ffvF_bT",
-            "cnx_id": "d9f7ef17-f6d3-577a-821e-4a6c34deacd5@8.1",
+            "ox_id": "d9f7ef17-f6d3-577a-821e-4a6c34deacd5@8.1",
             "version": "8.1",
             "uuid": "d9f7ef17-f6d3-577a-821e-4a6c34deacd5",
             "id": "12893"
@@ -418,7 +418,7 @@
             "type": "page",
             "title": "Introduction to Dynamics: Newton’s Laws of Motion",
             "short_id": "DFVuahDQ",
-            "cnx_id": "0c556e6a-10d0-434a-aa98-a3b2f1e59dc7@2",
+            "ox_id": "0c556e6a-10d0-434a-aa98-a3b2f1e59dc7@2",
             "version": "2",
             "uuid": "0c556e6a-10d0-434a-aa98-a3b2f1e59dc7",
             "id": "12894"
@@ -431,7 +431,7 @@
             "type": "page",
             "title": "Development of Force Concept",
             "short_id": "c0SYazB5",
-            "cnx_id": "7344986b-3079-4db2-92b9-78e0644c8610@4",
+            "ox_id": "7344986b-3079-4db2-92b9-78e0644c8610@4",
             "version": "4",
             "uuid": "7344986b-3079-4db2-92b9-78e0644c8610",
             "id": "12895"
@@ -444,7 +444,7 @@
             "type": "page",
             "title": "Newton’s First Law of Motion: Inertia",
             "short_id": "sP_QopyD",
-            "cnx_id": "b0ffd0a2-9c83-4d73-b899-7f2ade2acda6@3",
+            "ox_id": "b0ffd0a2-9c83-4d73-b899-7f2ade2acda6@3",
             "version": "3",
             "uuid": "b0ffd0a2-9c83-4d73-b899-7f2ade2acda6",
             "id": "12896"
@@ -457,7 +457,7 @@
             "type": "page",
             "title": "Newton’s Second Law of Motion: Concept of a System",
             "short_id": "kgclxiKb",
-            "cnx_id": "920725c6-229b-4f50-870b-b87366ce4f9e@4",
+            "ox_id": "920725c6-229b-4f50-870b-b87366ce4f9e@4",
             "version": "4",
             "uuid": "920725c6-229b-4f50-870b-b87366ce4f9e",
             "id": "12897"
@@ -470,7 +470,7 @@
             "type": "page",
             "title": "Newton’s Third Law of Motion: Symmetry in Forces",
             "short_id": "-lclBBb4",
-            "cnx_id": "fa572504-16f8-48c3-ab25-1da9f602d097@3",
+            "ox_id": "fa572504-16f8-48c3-ab25-1da9f602d097@3",
             "version": "3",
             "uuid": "fa572504-16f8-48c3-ab25-1da9f602d097",
             "id": "12898"
@@ -483,7 +483,7 @@
             "type": "page",
             "title": "Normal, Tension, and Other Examples of Forces",
             "short_id": "Uz14Lbze",
-            "cnx_id": "533d782d-bcde-44b0-8913-a03b6470dae1@3",
+            "ox_id": "533d782d-bcde-44b0-8913-a03b6470dae1@3",
             "version": "3",
             "uuid": "533d782d-bcde-44b0-8913-a03b6470dae1",
             "id": "12899"
@@ -496,7 +496,7 @@
             "type": "page",
             "title": "Problem-Solving Strategies",
             "short_id": "3LOMDWUl",
-            "cnx_id": "dcb38c0d-6525-4011-8525-98c16665f266@2",
+            "ox_id": "dcb38c0d-6525-4011-8525-98c16665f266@2",
             "version": "2",
             "uuid": "dcb38c0d-6525-4011-8525-98c16665f266",
             "id": "12900"
@@ -509,7 +509,7 @@
             "type": "page",
             "title": "Further Applications of Newton’s Laws of Motion",
             "short_id": "axgy18kR",
-            "cnx_id": "6b1832d7-c911-4f87-a18e-29e84c54c4e2@3",
+            "ox_id": "6b1832d7-c911-4f87-a18e-29e84c54c4e2@3",
             "version": "3",
             "uuid": "6b1832d7-c911-4f87-a18e-29e84c54c4e2",
             "id": "12901"
@@ -522,7 +522,7 @@
             "type": "page",
             "title": "Extended Topic: The Four Basic Forces—An Introduction",
             "short_id": "zkk-jCeR",
-            "cnx_id": "ce493e8c-2791-42ac-a25a-13a31a7972aa@3",
+            "ox_id": "ce493e8c-2791-42ac-a25a-13a31a7972aa@3",
             "version": "3",
             "uuid": "ce493e8c-2791-42ac-a25a-13a31a7972aa",
             "id": "12902"
@@ -532,7 +532,7 @@
             "type": "page",
             "title": "Glossary",
             "short_id": "atZ9R3ch",
-            "cnx_id": "6ad67d47-7721-557a-a8ad-6cda6f96e19d@8.1",
+            "ox_id": "6ad67d47-7721-557a-a8ad-6cda6f96e19d@8.1",
             "version": "8.1",
             "uuid": "6ad67d47-7721-557a-a8ad-6cda6f96e19d",
             "id": "12903"
@@ -542,7 +542,7 @@
             "type": "page",
             "title": "Section Summary",
             "short_id": "uarH704S",
-            "cnx_id": "b9aac7ef-4e12-5026-afe7-0a1afe559b47@8.1",
+            "ox_id": "b9aac7ef-4e12-5026-afe7-0a1afe559b47@8.1",
             "version": "8.1",
             "uuid": "b9aac7ef-4e12-5026-afe7-0a1afe559b47",
             "id": "12904"
@@ -552,7 +552,7 @@
             "type": "page",
             "title": "Conceptual Questions",
             "short_id": "wdTz0xnE",
-            "cnx_id": "c1d4f3d3-19c4-54b8-8413-a3a3a0ae2aec@8.1",
+            "ox_id": "c1d4f3d3-19c4-54b8-8413-a3a3a0ae2aec@8.1",
             "version": "8.1",
             "uuid": "c1d4f3d3-19c4-54b8-8413-a3a3a0ae2aec",
             "id": "12905"
@@ -562,7 +562,7 @@
             "type": "page",
             "title": "Problems &amp; Exercises",
             "short_id": "MrUdy6io",
-            "cnx_id": "32b51dcb-a8a8-5a9d-b938-b737bb40a289@8.1",
+            "ox_id": "32b51dcb-a8a8-5a9d-b938-b737bb40a289@8.1",
             "version": "8.1",
             "uuid": "32b51dcb-a8a8-5a9d-b938-b737bb40a289",
             "id": "12906"
@@ -581,7 +581,7 @@
             "type": "page",
             "title": "Introduction: Further Applications of Newton’s Laws",
             "short_id": "rGZKf3Fs",
-            "cnx_id": "ac664a7f-716c-42ad-b85c-1770c28f4158@2",
+            "ox_id": "ac664a7f-716c-42ad-b85c-1770c28f4158@2",
             "version": "2",
             "uuid": "ac664a7f-716c-42ad-b85c-1770c28f4158",
             "id": "12907"
@@ -594,7 +594,7 @@
             "type": "page",
             "title": "Friction",
             "short_id": "p4qEMl1o",
-            "cnx_id": "a78a8432-5d68-4476-8fbb-5ae4bfe71d68@8",
+            "ox_id": "a78a8432-5d68-4476-8fbb-5ae4bfe71d68@8",
             "version": "8",
             "uuid": "a78a8432-5d68-4476-8fbb-5ae4bfe71d68",
             "id": "12908"
@@ -607,7 +607,7 @@
             "type": "page",
             "title": "Drag Forces",
             "short_id": "SP54MVIh",
-            "cnx_id": "48fe7831-5221-4284-a7d7-af6af0193f30@5",
+            "ox_id": "48fe7831-5221-4284-a7d7-af6af0193f30@5",
             "version": "5",
             "uuid": "48fe7831-5221-4284-a7d7-af6af0193f30",
             "id": "12909"
@@ -620,7 +620,7 @@
             "type": "page",
             "title": "Elasticity: Stress and Strain",
             "short_id": "hbPXq8DB",
-            "cnx_id": "85b3d7ab-c0c1-4a7a-9bb3-3ea921e2e2b9@8",
+            "ox_id": "85b3d7ab-c0c1-4a7a-9bb3-3ea921e2e2b9@8",
             "version": "8",
             "uuid": "85b3d7ab-c0c1-4a7a-9bb3-3ea921e2e2b9",
             "id": "12910"
@@ -630,7 +630,7 @@
             "type": "page",
             "title": "Glossary",
             "short_id": "W2__7x9d",
-            "cnx_id": "5b6fffef-1f5d-58a8-963f-e72e2aa75f2b@8.1",
+            "ox_id": "5b6fffef-1f5d-58a8-963f-e72e2aa75f2b@8.1",
             "version": "8.1",
             "uuid": "5b6fffef-1f5d-58a8-963f-e72e2aa75f2b",
             "id": "12911"
@@ -640,7 +640,7 @@
             "type": "page",
             "title": "Section Summary",
             "short_id": "PX9NnmJT",
-            "cnx_id": "3d7f4d9e-6253-5dc1-9bd7-2ef0b34f2976@8.1",
+            "ox_id": "3d7f4d9e-6253-5dc1-9bd7-2ef0b34f2976@8.1",
             "version": "8.1",
             "uuid": "3d7f4d9e-6253-5dc1-9bd7-2ef0b34f2976",
             "id": "12912"
@@ -650,7 +650,7 @@
             "type": "page",
             "title": "Conceptual Questions",
             "short_id": "uXSxRbuW",
-            "cnx_id": "b974b145-bb96-587b-a881-ee6637b3cb70@8.1",
+            "ox_id": "b974b145-bb96-587b-a881-ee6637b3cb70@8.1",
             "version": "8.1",
             "uuid": "b974b145-bb96-587b-a881-ee6637b3cb70",
             "id": "12913"
@@ -660,7 +660,7 @@
             "type": "page",
             "title": "Problems &amp; Exercises",
             "short_id": "ey0Pav24",
-            "cnx_id": "7b2d0f6a-fdb8-5240-b5a6-1d22dd1d2b51@8.1",
+            "ox_id": "7b2d0f6a-fdb8-5240-b5a6-1d22dd1d2b51@8.1",
             "version": "8.1",
             "uuid": "7b2d0f6a-fdb8-5240-b5a6-1d22dd1d2b51",
             "id": "12914"
@@ -679,7 +679,7 @@
             "type": "page",
             "title": "Introduction to Uniform Circular Motion and Gravitation",
             "short_id": "V9jrrlpY",
-            "cnx_id": "57d8ebae-5a58-4afa-a317-ce87a0feb787@2",
+            "ox_id": "57d8ebae-5a58-4afa-a317-ce87a0feb787@2",
             "version": "2",
             "uuid": "57d8ebae-5a58-4afa-a317-ce87a0feb787",
             "id": "12915"
@@ -692,7 +692,7 @@
             "type": "page",
             "title": "Rotation Angle and Angular Velocity",
             "short_id": "MWd18od3",
-            "cnx_id": "316775f2-8777-474c-b787-e64ea38cb026@3",
+            "ox_id": "316775f2-8777-474c-b787-e64ea38cb026@3",
             "version": "3",
             "uuid": "316775f2-8777-474c-b787-e64ea38cb026",
             "id": "12916"
@@ -705,7 +705,7 @@
             "type": "page",
             "title": "Centripetal Acceleration",
             "short_id": "3aryWUVW",
-            "cnx_id": "ddaaf259-4556-45b0-8890-86c04aa1afa6@8",
+            "ox_id": "ddaaf259-4556-45b0-8890-86c04aa1afa6@8",
             "version": "8",
             "uuid": "ddaaf259-4556-45b0-8890-86c04aa1afa6",
             "id": "12917"
@@ -718,7 +718,7 @@
             "type": "page",
             "title": "Centripetal Force",
             "short_id": "kDLnO2an",
-            "cnx_id": "9032e73b-66a7-4a84-bde0-d4633a52423d@9",
+            "ox_id": "9032e73b-66a7-4a84-bde0-d4633a52423d@9",
             "version": "9",
             "uuid": "9032e73b-66a7-4a84-bde0-d4633a52423d",
             "id": "12918"
@@ -731,7 +731,7 @@
             "type": "page",
             "title": "Fictitious Forces and Non-inertial Frames: The Coriolis Force",
             "short_id": "NjnWhK-X",
-            "cnx_id": "3639d684-af97-4ad8-9986-2b91609478bf@3",
+            "ox_id": "3639d684-af97-4ad8-9986-2b91609478bf@3",
             "version": "3",
             "uuid": "3639d684-af97-4ad8-9986-2b91609478bf",
             "id": "12919"
@@ -744,7 +744,7 @@
             "type": "page",
             "title": "Newton’s Universal Law of Gravitation",
             "short_id": "IG56FinZ",
-            "cnx_id": "206e7a16-29d9-4453-b60f-07272a7ffe5d@5",
+            "ox_id": "206e7a16-29d9-4453-b60f-07272a7ffe5d@5",
             "version": "5",
             "uuid": "206e7a16-29d9-4453-b60f-07272a7ffe5d",
             "id": "12920"
@@ -757,7 +757,7 @@
             "type": "page",
             "title": "Satellites and Kepler’s Laws: An Argument for Simplicity",
             "short_id": "r3vp-kxX",
-            "cnx_id": "af7be9fa-4c57-4d99-98c5-611e32962dfb@4",
+            "ox_id": "af7be9fa-4c57-4d99-98c5-611e32962dfb@4",
             "version": "4",
             "uuid": "af7be9fa-4c57-4d99-98c5-611e32962dfb",
             "id": "12921"
@@ -767,7 +767,7 @@
             "type": "page",
             "title": "Glossary",
             "short_id": "L-l4VD3r",
-            "cnx_id": "2fe97854-3deb-5d95-abd0-ba9b4762c805@8.1",
+            "ox_id": "2fe97854-3deb-5d95-abd0-ba9b4762c805@8.1",
             "version": "8.1",
             "uuid": "2fe97854-3deb-5d95-abd0-ba9b4762c805",
             "id": "12922"
@@ -777,7 +777,7 @@
             "type": "page",
             "title": "Section Summary",
             "short_id": "I00sQAQJ",
-            "cnx_id": "234d2c40-0409-5541-ab34-019187866ff7@8.1",
+            "ox_id": "234d2c40-0409-5541-ab34-019187866ff7@8.1",
             "version": "8.1",
             "uuid": "234d2c40-0409-5541-ab34-019187866ff7",
             "id": "12923"
@@ -787,7 +787,7 @@
             "type": "page",
             "title": "Conceptual Questions",
             "short_id": "xB137fAJ",
-            "cnx_id": "c41d77ed-f009-56bf-a164-04dc38fcfdf8@8.1",
+            "ox_id": "c41d77ed-f009-56bf-a164-04dc38fcfdf8@8.1",
             "version": "8.1",
             "uuid": "c41d77ed-f009-56bf-a164-04dc38fcfdf8",
             "id": "12924"
@@ -797,7 +797,7 @@
             "type": "page",
             "title": "Problems &amp; Exercises",
             "short_id": "Y_pNbxpx",
-            "cnx_id": "63fa4d6f-1a71-5dd3-ac38-699817aa6024@8.1",
+            "ox_id": "63fa4d6f-1a71-5dd3-ac38-699817aa6024@8.1",
             "version": "8.1",
             "uuid": "63fa4d6f-1a71-5dd3-ac38-699817aa6024",
             "id": "12925"
@@ -816,7 +816,7 @@
             "type": "page",
             "title": "Introduction to Work, Energy, and Energy Resources",
             "short_id": "G6DnY5Ak",
-            "cnx_id": "1ba0e763-9024-4ac0-bae5-c38744b9ab99@2",
+            "ox_id": "1ba0e763-9024-4ac0-bae5-c38744b9ab99@2",
             "version": "2",
             "uuid": "1ba0e763-9024-4ac0-bae5-c38744b9ab99",
             "id": "12926"
@@ -829,7 +829,7 @@
             "type": "page",
             "title": "Work: The Scientific Definition",
             "short_id": "vqtbITJg",
-            "cnx_id": "beab5b21-3260-46fa-9c85-684a9f73184c@6",
+            "ox_id": "beab5b21-3260-46fa-9c85-684a9f73184c@6",
             "version": "6",
             "uuid": "beab5b21-3260-46fa-9c85-684a9f73184c",
             "id": "12927"
@@ -842,7 +842,7 @@
             "type": "page",
             "title": "Kinetic Energy and the Work-Energy Theorem",
             "short_id": "mnckNrFQ",
-            "cnx_id": "9a772436-b150-40c2-8316-8a4ade7a17d8@6",
+            "ox_id": "9a772436-b150-40c2-8316-8a4ade7a17d8@6",
             "version": "6",
             "uuid": "9a772436-b150-40c2-8316-8a4ade7a17d8",
             "id": "12928"
@@ -855,7 +855,7 @@
             "type": "page",
             "title": "Gravitational Potential Energy",
             "short_id": "TJSctQ7u",
-            "cnx_id": "4c949cb5-0eee-4ff3-9c7d-0fdc8d78afef@4",
+            "ox_id": "4c949cb5-0eee-4ff3-9c7d-0fdc8d78afef@4",
             "version": "4",
             "uuid": "4c949cb5-0eee-4ff3-9c7d-0fdc8d78afef",
             "id": "12929"
@@ -868,7 +868,7 @@
             "type": "page",
             "title": "Conservative Forces and Potential Energy",
             "short_id": "Xm00PHQL",
-            "cnx_id": "5e6d343c-740b-41e5-9fd3-4539f5cf2fba@7",
+            "ox_id": "5e6d343c-740b-41e5-9fd3-4539f5cf2fba@7",
             "version": "7",
             "uuid": "5e6d343c-740b-41e5-9fd3-4539f5cf2fba",
             "id": "12930"
@@ -881,7 +881,7 @@
             "type": "page",
             "title": "Nonconservative Forces",
             "short_id": "UD2pmADF",
-            "cnx_id": "503da998-00c5-4af7-8f5a-386f08ac6ec9@6",
+            "ox_id": "503da998-00c5-4af7-8f5a-386f08ac6ec9@6",
             "version": "6",
             "uuid": "503da998-00c5-4af7-8f5a-386f08ac6ec9",
             "id": "12931"
@@ -894,7 +894,7 @@
             "type": "page",
             "title": "Conservation of Energy",
             "short_id": "eUR8LahC",
-            "cnx_id": "79447c2d-a842-4328-b91f-2a53b15782d4@5",
+            "ox_id": "79447c2d-a842-4328-b91f-2a53b15782d4@5",
             "version": "5",
             "uuid": "79447c2d-a842-4328-b91f-2a53b15782d4",
             "id": "12932"
@@ -907,7 +907,7 @@
             "type": "page",
             "title": "Power",
             "short_id": "W3HfbTQ3",
-            "cnx_id": "5b71df6d-3437-4840-b78f-c0258a503ab9@5",
+            "ox_id": "5b71df6d-3437-4840-b78f-c0258a503ab9@5",
             "version": "5",
             "uuid": "5b71df6d-3437-4840-b78f-c0258a503ab9",
             "id": "12933"
@@ -920,7 +920,7 @@
             "type": "page",
             "title": "Work, Energy, and Power in Humans",
             "short_id": "LTJrAd1Z",
-            "cnx_id": "2d326b01-dd59-4a66-b00c-ac6f4b760278@4",
+            "ox_id": "2d326b01-dd59-4a66-b00c-ac6f4b760278@4",
             "version": "4",
             "uuid": "2d326b01-dd59-4a66-b00c-ac6f4b760278",
             "id": "12934"
@@ -933,7 +933,7 @@
             "type": "page",
             "title": "World Energy Use",
             "short_id": "uZ26rDI2",
-            "cnx_id": "b99dbaac-3236-49f4-85f0-746e620ec5e4@5",
+            "ox_id": "b99dbaac-3236-49f4-85f0-746e620ec5e4@5",
             "version": "5",
             "uuid": "b99dbaac-3236-49f4-85f0-746e620ec5e4",
             "id": "12935"
@@ -943,7 +943,7 @@
             "type": "page",
             "title": "Glossary",
             "short_id": "MmpNwyWn",
-            "cnx_id": "326a4dc3-25a7-508e-a0c9-2abe0757bdf6@8.1",
+            "ox_id": "326a4dc3-25a7-508e-a0c9-2abe0757bdf6@8.1",
             "version": "8.1",
             "uuid": "326a4dc3-25a7-508e-a0c9-2abe0757bdf6",
             "id": "12936"
@@ -953,7 +953,7 @@
             "type": "page",
             "title": "Section Summary",
             "short_id": "LrDH3ZBt",
-            "cnx_id": "2eb0c7dd-906d-55cb-868c-708a2ae0331c@8.1",
+            "ox_id": "2eb0c7dd-906d-55cb-868c-708a2ae0331c@8.1",
             "version": "8.1",
             "uuid": "2eb0c7dd-906d-55cb-868c-708a2ae0331c",
             "id": "12937"
@@ -963,7 +963,7 @@
             "type": "page",
             "title": "Conceptual Questions",
             "short_id": "1MLjuYgT",
-            "cnx_id": "d4c2e3b9-8813-5bdb-a63a-261ada2fd488@8.1",
+            "ox_id": "d4c2e3b9-8813-5bdb-a63a-261ada2fd488@8.1",
             "version": "8.1",
             "uuid": "d4c2e3b9-8813-5bdb-a63a-261ada2fd488",
             "id": "12938"
@@ -973,7 +973,7 @@
             "type": "page",
             "title": "Problems &amp; Exercises",
             "short_id": "s_6h0j-e",
-            "cnx_id": "b3fea1d2-3f9e-5bd5-a4fd-fea568eca980@8.1",
+            "ox_id": "b3fea1d2-3f9e-5bd5-a4fd-fea568eca980@8.1",
             "version": "8.1",
             "uuid": "b3fea1d2-3f9e-5bd5-a4fd-fea568eca980",
             "id": "12939"
@@ -992,7 +992,7 @@
             "type": "page",
             "title": "Introduction to Linear Momentum and Collisions",
             "short_id": "Fcq8gOhM",
-            "cnx_id": "15cabc80-e84c-4250-8f87-778c4aa08f39@2",
+            "ox_id": "15cabc80-e84c-4250-8f87-778c4aa08f39@2",
             "version": "2",
             "uuid": "15cabc80-e84c-4250-8f87-778c4aa08f39",
             "id": "12940"
@@ -1005,7 +1005,7 @@
             "type": "page",
             "title": "Linear Momentum and Force",
             "short_id": "Q90Sb645",
-            "cnx_id": "43dd126f-ae39-4d3b-91ce-73c84a8e80d4@2",
+            "ox_id": "43dd126f-ae39-4d3b-91ce-73c84a8e80d4@2",
             "version": "2",
             "uuid": "43dd126f-ae39-4d3b-91ce-73c84a8e80d4",
             "id": "12941"
@@ -1018,7 +1018,7 @@
             "type": "page",
             "title": "Impulse",
             "short_id": "KMJ8zuRp",
-            "cnx_id": "28c27cce-e469-4552-b1d5-1958417de8c7@3",
+            "ox_id": "28c27cce-e469-4552-b1d5-1958417de8c7@3",
             "version": "3",
             "uuid": "28c27cce-e469-4552-b1d5-1958417de8c7",
             "id": "12942"
@@ -1031,7 +1031,7 @@
             "type": "page",
             "title": "Conservation of Momentum",
             "short_id": "tN4TqFnU",
-            "cnx_id": "b4de13a8-59d4-418d-bb91-97ff7fed79a1@5",
+            "ox_id": "b4de13a8-59d4-418d-bb91-97ff7fed79a1@5",
             "version": "5",
             "uuid": "b4de13a8-59d4-418d-bb91-97ff7fed79a1",
             "id": "12943"
@@ -1044,7 +1044,7 @@
             "type": "page",
             "title": "Elastic Collisions in One Dimension",
             "short_id": "pvcNgLZr",
-            "cnx_id": "a6f70d80-b66b-4a66-84f3-3853ee6e6906@5",
+            "ox_id": "a6f70d80-b66b-4a66-84f3-3853ee6e6906@5",
             "version": "5",
             "uuid": "a6f70d80-b66b-4a66-84f3-3853ee6e6906",
             "id": "12944"
@@ -1057,7 +1057,7 @@
             "type": "page",
             "title": "Inelastic Collisions in One Dimension",
             "short_id": "OTrekTx8",
-            "cnx_id": "393ade91-3c7c-43d5-9b66-5018ee059ae2@4",
+            "ox_id": "393ade91-3c7c-43d5-9b66-5018ee059ae2@4",
             "version": "4",
             "uuid": "393ade91-3c7c-43d5-9b66-5018ee059ae2",
             "id": "12945"
@@ -1070,7 +1070,7 @@
             "type": "page",
             "title": "Collisions of Point Masses in Two Dimensions",
             "short_id": "oeCiGFwb",
-            "cnx_id": "a1e0a218-5c1b-43e6-9bdd-06d693117833@4",
+            "ox_id": "a1e0a218-5c1b-43e6-9bdd-06d693117833@4",
             "version": "4",
             "uuid": "a1e0a218-5c1b-43e6-9bdd-06d693117833",
             "id": "12946"
@@ -1083,7 +1083,7 @@
             "type": "page",
             "title": "Introduction to Rocket Propulsion",
             "short_id": "YNwRaC8o",
-            "cnx_id": "60dc1168-2f28-474b-bb49-c879484f22b9@5",
+            "ox_id": "60dc1168-2f28-474b-bb49-c879484f22b9@5",
             "version": "5",
             "uuid": "60dc1168-2f28-474b-bb49-c879484f22b9",
             "id": "12947"
@@ -1093,7 +1093,7 @@
             "type": "page",
             "title": "Glossary",
             "short_id": "JZza_BUx",
-            "cnx_id": "259cdafc-1531-52a8-b6d2-0fbcbff31b18@8.1",
+            "ox_id": "259cdafc-1531-52a8-b6d2-0fbcbff31b18@8.1",
             "version": "8.1",
             "uuid": "259cdafc-1531-52a8-b6d2-0fbcbff31b18",
             "id": "12948"
@@ -1103,7 +1103,7 @@
             "type": "page",
             "title": "Section Summary",
             "short_id": "UXPZ0M2u",
-            "cnx_id": "5173d9d0-cdae-56f8-b36b-7944d5e57843@8.1",
+            "ox_id": "5173d9d0-cdae-56f8-b36b-7944d5e57843@8.1",
             "version": "8.1",
             "uuid": "5173d9d0-cdae-56f8-b36b-7944d5e57843",
             "id": "12949"
@@ -1113,7 +1113,7 @@
             "type": "page",
             "title": "Conceptual Questions",
             "short_id": "CIqISGvS",
-            "cnx_id": "088a8848-6bd2-5c2b-81d1-2f0b6853325b@8.1",
+            "ox_id": "088a8848-6bd2-5c2b-81d1-2f0b6853325b@8.1",
             "version": "8.1",
             "uuid": "088a8848-6bd2-5c2b-81d1-2f0b6853325b",
             "id": "12950"
@@ -1123,7 +1123,7 @@
             "type": "page",
             "title": "Problems &amp; Exercises",
             "short_id": "SctAvg7g",
-            "cnx_id": "49cb40be-0ee0-5013-8d1c-ccae64deb343@8.1",
+            "ox_id": "49cb40be-0ee0-5013-8d1c-ccae64deb343@8.1",
             "version": "8.1",
             "uuid": "49cb40be-0ee0-5013-8d1c-ccae64deb343",
             "id": "12951"
@@ -1142,7 +1142,7 @@
             "type": "page",
             "title": "Introduction to Statics and Torque",
             "short_id": "cQKH1sP-",
-            "cnx_id": "710287d6-c3fe-422f-a17f-477d8ee55d45@2",
+            "ox_id": "710287d6-c3fe-422f-a17f-477d8ee55d45@2",
             "version": "2",
             "uuid": "710287d6-c3fe-422f-a17f-477d8ee55d45",
             "id": "12952"
@@ -1155,7 +1155,7 @@
             "type": "page",
             "title": "The First Condition for Equilibrium",
             "short_id": "vkMhNVY4",
-            "cnx_id": "be432135-5638-4ffe-903b-d2385f11c542@3",
+            "ox_id": "be432135-5638-4ffe-903b-d2385f11c542@3",
             "version": "3",
             "uuid": "be432135-5638-4ffe-903b-d2385f11c542",
             "id": "12953"
@@ -1168,7 +1168,7 @@
             "type": "page",
             "title": "The Second Condition for Equilibrium",
             "short_id": "RWhtG8s2",
-            "cnx_id": "45686d1b-cb36-4318-badd-6d4c4425c4e4@7",
+            "ox_id": "45686d1b-cb36-4318-badd-6d4c4425c4e4@7",
             "version": "7",
             "uuid": "45686d1b-cb36-4318-badd-6d4c4425c4e4",
             "id": "12954"
@@ -1181,7 +1181,7 @@
             "type": "page",
             "title": "Stability",
             "short_id": "GVdzTwmV",
-            "cnx_id": "1957734f-0995-487c-835f-646793a721c5@3",
+            "ox_id": "1957734f-0995-487c-835f-646793a721c5@3",
             "version": "3",
             "uuid": "1957734f-0995-487c-835f-646793a721c5",
             "id": "12955"
@@ -1194,7 +1194,7 @@
             "type": "page",
             "title": "Applications of Statics, Including Problem-Solving Strategies",
             "short_id": "QrEhDrzX",
-            "cnx_id": "42b1210e-bcd7-436a-bf8d-782a9401fd01@5",
+            "ox_id": "42b1210e-bcd7-436a-bf8d-782a9401fd01@5",
             "version": "5",
             "uuid": "42b1210e-bcd7-436a-bf8d-782a9401fd01",
             "id": "12956"
@@ -1207,7 +1207,7 @@
             "type": "page",
             "title": "Simple Machines",
             "short_id": "h-5B-RAN",
-            "cnx_id": "87ee41f9-100d-4b9f-8207-7e08b0cf1602@5",
+            "ox_id": "87ee41f9-100d-4b9f-8207-7e08b0cf1602@5",
             "version": "5",
             "uuid": "87ee41f9-100d-4b9f-8207-7e08b0cf1602",
             "id": "12957"
@@ -1220,7 +1220,7 @@
             "type": "page",
             "title": "Forces and Torques in Muscles and Joints",
             "short_id": "YX2uocsQ",
-            "cnx_id": "617daea1-cb10-4ea5-bfc6-5e81f07acdc2@6",
+            "ox_id": "617daea1-cb10-4ea5-bfc6-5e81f07acdc2@6",
             "version": "6",
             "uuid": "617daea1-cb10-4ea5-bfc6-5e81f07acdc2",
             "id": "12958"
@@ -1230,7 +1230,7 @@
             "type": "page",
             "title": "Glossary",
             "short_id": "gkGVe-gk",
-            "cnx_id": "8241957b-e824-56ef-8a7d-8fc04f466e95@8.1",
+            "ox_id": "8241957b-e824-56ef-8a7d-8fc04f466e95@8.1",
             "version": "8.1",
             "uuid": "8241957b-e824-56ef-8a7d-8fc04f466e95",
             "id": "12959"
@@ -1240,7 +1240,7 @@
             "type": "page",
             "title": "Section Summary",
             "short_id": "b1ylIx6A",
-            "cnx_id": "6f5ca523-1e80-5707-bc33-b06085be2141@8.1",
+            "ox_id": "6f5ca523-1e80-5707-bc33-b06085be2141@8.1",
             "version": "8.1",
             "uuid": "6f5ca523-1e80-5707-bc33-b06085be2141",
             "id": "12960"
@@ -1250,7 +1250,7 @@
             "type": "page",
             "title": "Conceptual Questions",
             "short_id": "arnTn2uG",
-            "cnx_id": "6ab9d39f-6b86-5d8b-b5c5-52822adcf41b@8.1",
+            "ox_id": "6ab9d39f-6b86-5d8b-b5c5-52822adcf41b@8.1",
             "version": "8.1",
             "uuid": "6ab9d39f-6b86-5d8b-b5c5-52822adcf41b",
             "id": "12961"
@@ -1260,7 +1260,7 @@
             "type": "page",
             "title": "Problems &amp; Exercises",
             "short_id": "GFinsaq3",
-            "cnx_id": "1858a7b1-aab7-5b75-8ccc-488d8b21875c@8.1",
+            "ox_id": "1858a7b1-aab7-5b75-8ccc-488d8b21875c@8.1",
             "version": "8.1",
             "uuid": "1858a7b1-aab7-5b75-8ccc-488d8b21875c",
             "id": "12962"
@@ -1279,7 +1279,7 @@
             "type": "page",
             "title": "Introduction to Rotational Motion and Angular Momentum",
             "short_id": "Bb4OkPKA",
-            "cnx_id": "05be0e90-f280-42e1-b8f1-eb0ec18c9e90@3",
+            "ox_id": "05be0e90-f280-42e1-b8f1-eb0ec18c9e90@3",
             "version": "3",
             "uuid": "05be0e90-f280-42e1-b8f1-eb0ec18c9e90",
             "id": "12963"
@@ -1292,7 +1292,7 @@
             "type": "page",
             "title": "Angular Acceleration",
             "short_id": "dE_DYTZG",
-            "cnx_id": "744fc361-3646-440a-8380-3fb173af0cd1@5",
+            "ox_id": "744fc361-3646-440a-8380-3fb173af0cd1@5",
             "version": "5",
             "uuid": "744fc361-3646-440a-8380-3fb173af0cd1",
             "id": "12964"
@@ -1305,7 +1305,7 @@
             "type": "page",
             "title": "Kinematics of Rotational Motion",
             "short_id": "ea-ZyAmu",
-            "cnx_id": "79af99c8-09ae-4a4e-bd0b-8f499fbb1e3a@3",
+            "ox_id": "79af99c8-09ae-4a4e-bd0b-8f499fbb1e3a@3",
             "version": "3",
             "uuid": "79af99c8-09ae-4a4e-bd0b-8f499fbb1e3a",
             "id": "12965"
@@ -1318,7 +1318,7 @@
             "type": "page",
             "title": "Dynamics of Rotational Motion: Rotational Inertia",
             "short_id": "aIIgIGsh",
-            "cnx_id": "68822020-6b21-44a5-b553-c7500036c370@5",
+            "ox_id": "68822020-6b21-44a5-b553-c7500036c370@5",
             "version": "5",
             "uuid": "68822020-6b21-44a5-b553-c7500036c370",
             "id": "12966"
@@ -1331,7 +1331,7 @@
             "type": "page",
             "title": "Rotational Kinetic Energy: Work and Energy Revisited",
             "short_id": "W2CvpGtf",
-            "cnx_id": "5b60afa4-6b5f-456d-a318-7c86660be306@8",
+            "ox_id": "5b60afa4-6b5f-456d-a318-7c86660be306@8",
             "version": "8",
             "uuid": "5b60afa4-6b5f-456d-a318-7c86660be306",
             "id": "12967"
@@ -1344,7 +1344,7 @@
             "type": "page",
             "title": "Angular Momentum and Its Conservation",
             "short_id": "d5VtnN_l",
-            "cnx_id": "77956d9c-dfe5-4857-8caa-3908375cc323@7",
+            "ox_id": "77956d9c-dfe5-4857-8caa-3908375cc323@7",
             "version": "7",
             "uuid": "77956d9c-dfe5-4857-8caa-3908375cc323",
             "id": "12968"
@@ -1357,7 +1357,7 @@
             "type": "page",
             "title": "Collisions of Extended Bodies in Two Dimensions",
             "short_id": "i58ncDao",
-            "cnx_id": "8b9f2770-36a8-497b-a59a-34b2c4eeed99@3",
+            "ox_id": "8b9f2770-36a8-497b-a59a-34b2c4eeed99@3",
             "version": "3",
             "uuid": "8b9f2770-36a8-497b-a59a-34b2c4eeed99",
             "id": "12969"
@@ -1370,7 +1370,7 @@
             "type": "page",
             "title": "Gyroscopic Effects: Vector Aspects of Angular Momentum",
             "short_id": "NBZw1Gcn",
-            "cnx_id": "341670d4-6727-4cc7-8845-68b6a030efa9@3",
+            "ox_id": "341670d4-6727-4cc7-8845-68b6a030efa9@3",
             "version": "3",
             "uuid": "341670d4-6727-4cc7-8845-68b6a030efa9",
             "id": "12970"
@@ -1380,7 +1380,7 @@
             "type": "page",
             "title": "Glossary",
             "short_id": "yxYSl0v0",
-            "cnx_id": "cb161297-4bf4-50a6-bb1e-20d629f273ac@8.1",
+            "ox_id": "cb161297-4bf4-50a6-bb1e-20d629f273ac@8.1",
             "version": "8.1",
             "uuid": "cb161297-4bf4-50a6-bb1e-20d629f273ac",
             "id": "12971"
@@ -1390,7 +1390,7 @@
             "type": "page",
             "title": "Section Summary",
             "short_id": "GKy__2UG",
-            "cnx_id": "18acbfff-6506-592c-945c-1e1bc2cbf91e@8.1",
+            "ox_id": "18acbfff-6506-592c-945c-1e1bc2cbf91e@8.1",
             "version": "8.1",
             "uuid": "18acbfff-6506-592c-945c-1e1bc2cbf91e",
             "id": "12972"
@@ -1400,7 +1400,7 @@
             "type": "page",
             "title": "Conceptual Questions",
             "short_id": "i-EQsJyZ",
-            "cnx_id": "8be110b0-9c99-52a4-be45-c63745164709@8.1",
+            "ox_id": "8be110b0-9c99-52a4-be45-c63745164709@8.1",
             "version": "8.1",
             "uuid": "8be110b0-9c99-52a4-be45-c63745164709",
             "id": "12973"
@@ -1410,7 +1410,7 @@
             "type": "page",
             "title": "Problems &amp; Exercises",
             "short_id": "IbGsdQS8",
-            "cnx_id": "21b1ac75-04bc-50fd-ab24-f787a41aca89@8.1",
+            "ox_id": "21b1ac75-04bc-50fd-ab24-f787a41aca89@8.1",
             "version": "8.1",
             "uuid": "21b1ac75-04bc-50fd-ab24-f787a41aca89",
             "id": "12974"
@@ -1429,7 +1429,7 @@
             "type": "page",
             "title": "Introduction to Fluid Statics",
             "short_id": "_OX949hO",
-            "cnx_id": "fce5fde3-d84e-48b9-8d64-7366d783137e@3",
+            "ox_id": "fce5fde3-d84e-48b9-8d64-7366d783137e@3",
             "version": "3",
             "uuid": "fce5fde3-d84e-48b9-8d64-7366d783137e",
             "id": "12975"
@@ -1442,7 +1442,7 @@
             "type": "page",
             "title": "What Is a Fluid?",
             "short_id": "hruB0bYw",
-            "cnx_id": "86bb81d1-b630-4611-b168-7962a43b88ca@4",
+            "ox_id": "86bb81d1-b630-4611-b168-7962a43b88ca@4",
             "version": "4",
             "uuid": "86bb81d1-b630-4611-b168-7962a43b88ca",
             "id": "12976"
@@ -1455,7 +1455,7 @@
             "type": "page",
             "title": "Density",
             "short_id": "P-cjqIbu",
-            "cnx_id": "3fe723a8-86ee-40f4-afc0-98145fd25ff0@4",
+            "ox_id": "3fe723a8-86ee-40f4-afc0-98145fd25ff0@4",
             "version": "4",
             "uuid": "3fe723a8-86ee-40f4-afc0-98145fd25ff0",
             "id": "12977"
@@ -1468,7 +1468,7 @@
             "type": "page",
             "title": "Pressure",
             "short_id": "0E9Zf-lZ",
-            "cnx_id": "d04f597f-e959-4f4c-b416-4d75e19e076a@3",
+            "ox_id": "d04f597f-e959-4f4c-b416-4d75e19e076a@3",
             "version": "3",
             "uuid": "d04f597f-e959-4f4c-b416-4d75e19e076a",
             "id": "12978"
@@ -1481,7 +1481,7 @@
             "type": "page",
             "title": "Variation of Pressure with Depth in a Fluid",
             "short_id": "R21okHnT",
-            "cnx_id": "476d6890-79d3-4f7d-977c-2cab99257a32@4",
+            "ox_id": "476d6890-79d3-4f7d-977c-2cab99257a32@4",
             "version": "4",
             "uuid": "476d6890-79d3-4f7d-977c-2cab99257a32",
             "id": "12979"
@@ -1494,7 +1494,7 @@
             "type": "page",
             "title": "Pascal’s Principle",
             "short_id": "fb5m7v9w",
-            "cnx_id": "7dbe66ee-ff70-4081-bd90-160dc92fbd5d@6",
+            "ox_id": "7dbe66ee-ff70-4081-bd90-160dc92fbd5d@6",
             "version": "6",
             "uuid": "7dbe66ee-ff70-4081-bd90-160dc92fbd5d",
             "id": "12980"
@@ -1507,7 +1507,7 @@
             "type": "page",
             "title": "Gauge Pressure, Absolute Pressure, and Pressure Measurement",
             "short_id": "JJvbX5Ax",
-            "cnx_id": "249bdb5f-9031-4d3f-b78c-175a61ea026c@5",
+            "ox_id": "249bdb5f-9031-4d3f-b78c-175a61ea026c@5",
             "version": "5",
             "uuid": "249bdb5f-9031-4d3f-b78c-175a61ea026c",
             "id": "12981"
@@ -1520,7 +1520,7 @@
             "type": "page",
             "title": "Archimedes’ Principle",
             "short_id": "CJOUP5-L",
-            "cnx_id": "0893943f-9f8b-4fd8-ab21-85dfd7f9ca48@6",
+            "ox_id": "0893943f-9f8b-4fd8-ab21-85dfd7f9ca48@6",
             "version": "6",
             "uuid": "0893943f-9f8b-4fd8-ab21-85dfd7f9ca48",
             "id": "12982"
@@ -1533,7 +1533,7 @@
             "type": "page",
             "title": "Cohesion and Adhesion in Liquids: Surface Tension and Capillary Action",
             "short_id": "S-I2qWVD",
-            "cnx_id": "4be236a9-6543-4872-9be5-b839f5e8f698@5",
+            "ox_id": "4be236a9-6543-4872-9be5-b839f5e8f698@5",
             "version": "5",
             "uuid": "4be236a9-6543-4872-9be5-b839f5e8f698",
             "id": "12983"
@@ -1546,7 +1546,7 @@
             "type": "page",
             "title": "Pressures in the Body",
             "short_id": "G-Ov3qCQ",
-            "cnx_id": "1be3afde-a090-4499-a302-f39b3bd402dd@3",
+            "ox_id": "1be3afde-a090-4499-a302-f39b3bd402dd@3",
             "version": "3",
             "uuid": "1be3afde-a090-4499-a302-f39b3bd402dd",
             "id": "12984"
@@ -1556,7 +1556,7 @@
             "type": "page",
             "title": "Glossary",
             "short_id": "mQgukhEb",
-            "cnx_id": "99082e92-111b-53d2-a448-1b243e73b14e@8.1",
+            "ox_id": "99082e92-111b-53d2-a448-1b243e73b14e@8.1",
             "version": "8.1",
             "uuid": "99082e92-111b-53d2-a448-1b243e73b14e",
             "id": "12985"
@@ -1566,7 +1566,7 @@
             "type": "page",
             "title": "Section Summary",
             "short_id": "Twpr8L6w",
-            "cnx_id": "4f0a6bf0-beb0-50f3-8fca-ad1ea8a80c28@8.1",
+            "ox_id": "4f0a6bf0-beb0-50f3-8fca-ad1ea8a80c28@8.1",
             "version": "8.1",
             "uuid": "4f0a6bf0-beb0-50f3-8fca-ad1ea8a80c28",
             "id": "12986"
@@ -1576,7 +1576,7 @@
             "type": "page",
             "title": "Conceptual Questions",
             "short_id": "euB_As8D",
-            "cnx_id": "7ae07f02-cf03-5c18-90f0-b11f71a7349b@8.1",
+            "ox_id": "7ae07f02-cf03-5c18-90f0-b11f71a7349b@8.1",
             "version": "8.1",
             "uuid": "7ae07f02-cf03-5c18-90f0-b11f71a7349b",
             "id": "12987"
@@ -1586,7 +1586,7 @@
             "type": "page",
             "title": "Problems &amp; Exercises",
             "short_id": "jAlUPj4C",
-            "cnx_id": "8c09543e-3e02-54f2-ba2e-a6b72733b637@8.1",
+            "ox_id": "8c09543e-3e02-54f2-ba2e-a6b72733b637@8.1",
             "version": "8.1",
             "uuid": "8c09543e-3e02-54f2-ba2e-a6b72733b637",
             "id": "12988"
@@ -1605,7 +1605,7 @@
             "type": "page",
             "title": "Introduction to Fluid Dynamics and Its Biological and Medical Applications",
             "short_id": "PAJVZ8Cn",
-            "cnx_id": "3c025567-c0a7-4298-a9be-290976d1afab@3",
+            "ox_id": "3c025567-c0a7-4298-a9be-290976d1afab@3",
             "version": "3",
             "uuid": "3c025567-c0a7-4298-a9be-290976d1afab",
             "id": "12989"
@@ -1618,7 +1618,7 @@
             "type": "page",
             "title": "Flow Rate and Its Relation to Velocity",
             "short_id": "NtHiK_O3",
-            "cnx_id": "36d1e22b-f3b7-4b76-a39d-ef3972cc403e@3",
+            "ox_id": "36d1e22b-f3b7-4b76-a39d-ef3972cc403e@3",
             "version": "3",
             "uuid": "36d1e22b-f3b7-4b76-a39d-ef3972cc403e",
             "id": "12990"
@@ -1631,7 +1631,7 @@
             "type": "page",
             "title": "Bernoulli’s Equation",
             "short_id": "VPZP5MJX",
-            "cnx_id": "54f64fe4-c257-409a-88ee-f0de6b51fd72@4",
+            "ox_id": "54f64fe4-c257-409a-88ee-f0de6b51fd72@4",
             "version": "4",
             "uuid": "54f64fe4-c257-409a-88ee-f0de6b51fd72",
             "id": "12991"
@@ -1644,7 +1644,7 @@
             "type": "page",
             "title": "The Most General Applications of Bernoulli’s Equation",
             "short_id": "8mLAtZkS",
-            "cnx_id": "f262c0b5-9912-4dfb-8964-9b90251e7dd5@2",
+            "ox_id": "f262c0b5-9912-4dfb-8964-9b90251e7dd5@2",
             "version": "2",
             "uuid": "f262c0b5-9912-4dfb-8964-9b90251e7dd5",
             "id": "12992"
@@ -1657,7 +1657,7 @@
             "type": "page",
             "title": "Viscosity and Laminar Flow; Poiseuille’s Law",
             "short_id": "f-OES3yo",
-            "cnx_id": "7fe3844b-7ca8-404e-8c6b-cee322b1387a@3",
+            "ox_id": "7fe3844b-7ca8-404e-8c6b-cee322b1387a@3",
             "version": "3",
             "uuid": "7fe3844b-7ca8-404e-8c6b-cee322b1387a",
             "id": "12993"
@@ -1670,7 +1670,7 @@
             "type": "page",
             "title": "The Onset of Turbulence",
             "short_id": "qY0gZH3d",
-            "cnx_id": "a98d2064-7ddd-44bc-afff-6605466304ea@3",
+            "ox_id": "a98d2064-7ddd-44bc-afff-6605466304ea@3",
             "version": "3",
             "uuid": "a98d2064-7ddd-44bc-afff-6605466304ea",
             "id": "12994"
@@ -1683,7 +1683,7 @@
             "type": "page",
             "title": "Motion of an Object in a Viscous Fluid",
             "short_id": "hYucI7os",
-            "cnx_id": "858b9c23-ba2c-4351-b874-d5d5c47b7dc3@3",
+            "ox_id": "858b9c23-ba2c-4351-b874-d5d5c47b7dc3@3",
             "version": "3",
             "uuid": "858b9c23-ba2c-4351-b874-d5d5c47b7dc3",
             "id": "12995"
@@ -1696,7 +1696,7 @@
             "type": "page",
             "title": "Molecular Transport Phenomena: Diffusion, Osmosis, and Related Processes",
             "short_id": "HO0kuYck",
-            "cnx_id": "1ced24b9-8724-4ca8-8d72-87e7fafa97ae@3",
+            "ox_id": "1ced24b9-8724-4ca8-8d72-87e7fafa97ae@3",
             "version": "3",
             "uuid": "1ced24b9-8724-4ca8-8d72-87e7fafa97ae",
             "id": "12996"
@@ -1706,7 +1706,7 @@
             "type": "page",
             "title": "Glossary",
             "short_id": "4HP-Y_lj",
-            "cnx_id": "e073fe63-f963-546c-8edd-762a059689e4@8.1",
+            "ox_id": "e073fe63-f963-546c-8edd-762a059689e4@8.1",
             "version": "8.1",
             "uuid": "e073fe63-f963-546c-8edd-762a059689e4",
             "id": "12997"
@@ -1716,7 +1716,7 @@
             "type": "page",
             "title": "Section Summary",
             "short_id": "0YXMZ9Ij",
-            "cnx_id": "d185cc67-d223-535e-b225-60761e4f94cc@8.1",
+            "ox_id": "d185cc67-d223-535e-b225-60761e4f94cc@8.1",
             "version": "8.1",
             "uuid": "d185cc67-d223-535e-b225-60761e4f94cc",
             "id": "12998"
@@ -1726,7 +1726,7 @@
             "type": "page",
             "title": "Conceptual Questions",
             "short_id": "Coumyt9z",
-            "cnx_id": "0a8ba6ca-df73-56e1-87ce-ad07994ed989@8.1",
+            "ox_id": "0a8ba6ca-df73-56e1-87ce-ad07994ed989@8.1",
             "version": "8.1",
             "uuid": "0a8ba6ca-df73-56e1-87ce-ad07994ed989",
             "id": "12999"
@@ -1736,7 +1736,7 @@
             "type": "page",
             "title": "Problems &amp; Exercises",
             "short_id": "4WYFqkvw",
-            "cnx_id": "e16605aa-4bf0-5bee-ac7a-71c5c1caf8b8@8.1",
+            "ox_id": "e16605aa-4bf0-5bee-ac7a-71c5c1caf8b8@8.1",
             "version": "8.1",
             "uuid": "e16605aa-4bf0-5bee-ac7a-71c5c1caf8b8",
             "id": "13000"
@@ -1755,7 +1755,7 @@
             "type": "page",
             "title": "Introduction to Temperature, Kinetic Theory, and the Gas Laws",
             "short_id": "SiPuQtA1",
-            "cnx_id": "4a23ee42-d035-4048-aa1b-863dd4c31a39@2",
+            "ox_id": "4a23ee42-d035-4048-aa1b-863dd4c31a39@2",
             "version": "2",
             "uuid": "4a23ee42-d035-4048-aa1b-863dd4c31a39",
             "id": "13001"
@@ -1768,7 +1768,7 @@
             "type": "page",
             "title": "Temperature",
             "short_id": "fUrjjooG",
-            "cnx_id": "7d4ae38e-8a06-4d3f-bbe2-099ce4b9ab33@7",
+            "ox_id": "7d4ae38e-8a06-4d3f-bbe2-099ce4b9ab33@7",
             "version": "7",
             "uuid": "7d4ae38e-8a06-4d3f-bbe2-099ce4b9ab33",
             "id": "13002"
@@ -1781,7 +1781,7 @@
             "type": "page",
             "title": "Thermal Expansion of Solids and Liquids",
             "short_id": "ZlhjiafR",
-            "cnx_id": "66586389-a7d1-442c-a3c3-23ca8293e182@3",
+            "ox_id": "66586389-a7d1-442c-a3c3-23ca8293e182@3",
             "version": "3",
             "uuid": "66586389-a7d1-442c-a3c3-23ca8293e182",
             "id": "13003"
@@ -1794,7 +1794,7 @@
             "type": "page",
             "title": "The Ideal Gas Law",
             "short_id": "Hd95YNPG",
-            "cnx_id": "1ddf7960-d3c6-438e-a96e-ce0c5d3efd59@6",
+            "ox_id": "1ddf7960-d3c6-438e-a96e-ce0c5d3efd59@6",
             "version": "6",
             "uuid": "1ddf7960-d3c6-438e-a96e-ce0c5d3efd59",
             "id": "13004"
@@ -1807,7 +1807,7 @@
             "type": "page",
             "title": "Kinetic Theory: Atomic and Molecular Explanation of Pressure and Temperature",
             "short_id": "xKNKqlxI",
-            "cnx_id": "c4a34aaa-5c48-4ed3-a41b-1658bd03276c@3",
+            "ox_id": "c4a34aaa-5c48-4ed3-a41b-1658bd03276c@3",
             "version": "3",
             "uuid": "c4a34aaa-5c48-4ed3-a41b-1658bd03276c",
             "id": "13005"
@@ -1820,7 +1820,7 @@
             "type": "page",
             "title": "Phase Changes",
             "short_id": "RLaFB5gc",
-            "cnx_id": "44b68507-981c-4dc8-9683-0a65f9b69c2f@7",
+            "ox_id": "44b68507-981c-4dc8-9683-0a65f9b69c2f@7",
             "version": "7",
             "uuid": "44b68507-981c-4dc8-9683-0a65f9b69c2f",
             "id": "13006"
@@ -1833,7 +1833,7 @@
             "type": "page",
             "title": "Humidity, Evaporation, and Boiling",
             "short_id": "xG0DJNhS",
-            "cnx_id": "c46d0324-d852-499d-aaba-67d49da5323b@7",
+            "ox_id": "c46d0324-d852-499d-aaba-67d49da5323b@7",
             "version": "7",
             "uuid": "c46d0324-d852-499d-aaba-67d49da5323b",
             "id": "13007"
@@ -1843,7 +1843,7 @@
             "type": "page",
             "title": "Glossary",
             "short_id": "4IcWyJDL",
-            "cnx_id": "e08716c8-90cb-5188-ad47-80cddfe8baee@8.1",
+            "ox_id": "e08716c8-90cb-5188-ad47-80cddfe8baee@8.1",
             "version": "8.1",
             "uuid": "e08716c8-90cb-5188-ad47-80cddfe8baee",
             "id": "13008"
@@ -1853,7 +1853,7 @@
             "type": "page",
             "title": "Section Summary",
             "short_id": "XwJQiFKX",
-            "cnx_id": "5f025088-5297-5acd-ad6c-cb4d8d33d396@8.1",
+            "ox_id": "5f025088-5297-5acd-ad6c-cb4d8d33d396@8.1",
             "version": "8.1",
             "uuid": "5f025088-5297-5acd-ad6c-cb4d8d33d396",
             "id": "13009"
@@ -1863,7 +1863,7 @@
             "type": "page",
             "title": "Conceptual Questions",
             "short_id": "XJqbPHGs",
-            "cnx_id": "5c9a9b3c-71ac-5a7c-9a93-044ecb827979@8.1",
+            "ox_id": "5c9a9b3c-71ac-5a7c-9a93-044ecb827979@8.1",
             "version": "8.1",
             "uuid": "5c9a9b3c-71ac-5a7c-9a93-044ecb827979",
             "id": "13010"
@@ -1873,7 +1873,7 @@
             "type": "page",
             "title": "Problems &amp; Exercises",
             "short_id": "_STsdO7t",
-            "cnx_id": "fd24ec74-eeed-5abd-928f-2a4c7ce0b254@8.1",
+            "ox_id": "fd24ec74-eeed-5abd-928f-2a4c7ce0b254@8.1",
             "version": "8.1",
             "uuid": "fd24ec74-eeed-5abd-928f-2a4c7ce0b254",
             "id": "13011"
@@ -1892,7 +1892,7 @@
             "type": "page",
             "title": "Introduction to Heat and Heat Transfer Methods",
             "short_id": "j7jlDOZc",
-            "cnx_id": "8fb8e50c-e65c-4510-be77-0044cb7f5700@2",
+            "ox_id": "8fb8e50c-e65c-4510-be77-0044cb7f5700@2",
             "version": "2",
             "uuid": "8fb8e50c-e65c-4510-be77-0044cb7f5700",
             "id": "13012"
@@ -1905,7 +1905,7 @@
             "type": "page",
             "title": "Heat",
             "short_id": "WEyUEQbq",
-            "cnx_id": "584c9411-06ea-41cc-b4f9-2d3b2873e844@3",
+            "ox_id": "584c9411-06ea-41cc-b4f9-2d3b2873e844@3",
             "version": "3",
             "uuid": "584c9411-06ea-41cc-b4f9-2d3b2873e844",
             "id": "13013"
@@ -1918,7 +1918,7 @@
             "type": "page",
             "title": "Temperature Change and Heat Capacity",
             "short_id": "Em3BZ3bv",
-            "cnx_id": "126dc167-76ef-41c9-a03f-4c8b1d0ac7cf@4",
+            "ox_id": "126dc167-76ef-41c9-a03f-4c8b1d0ac7cf@4",
             "version": "4",
             "uuid": "126dc167-76ef-41c9-a03f-4c8b1d0ac7cf",
             "id": "13014"
@@ -1931,7 +1931,7 @@
             "type": "page",
             "title": "Phase Change and Latent Heat",
             "short_id": "eH5U03uL",
-            "cnx_id": "787e54d3-7b8b-4cc9-bee3-9e9218e10109@5",
+            "ox_id": "787e54d3-7b8b-4cc9-bee3-9e9218e10109@5",
             "version": "5",
             "uuid": "787e54d3-7b8b-4cc9-bee3-9e9218e10109",
             "id": "13015"
@@ -1944,7 +1944,7 @@
             "type": "page",
             "title": "Heat Transfer Methods",
             "short_id": "QKSfbtnU",
-            "cnx_id": "40a49f6e-d9d4-4c32-bc84-a4414f1dbd44@3",
+            "ox_id": "40a49f6e-d9d4-4c32-bc84-a4414f1dbd44@3",
             "version": "3",
             "uuid": "40a49f6e-d9d4-4c32-bc84-a4414f1dbd44",
             "id": "13016"
@@ -1957,7 +1957,7 @@
             "type": "page",
             "title": "Conduction",
             "short_id": "B2W1urSa",
-            "cnx_id": "0765b5ba-b49a-413f-a5a9-fe4ef34e386e@4",
+            "ox_id": "0765b5ba-b49a-413f-a5a9-fe4ef34e386e@4",
             "version": "4",
             "uuid": "0765b5ba-b49a-413f-a5a9-fe4ef34e386e",
             "id": "13017"
@@ -1970,7 +1970,7 @@
             "type": "page",
             "title": "Convection",
             "short_id": "URCpb9zt",
-            "cnx_id": "5110a96f-dced-4c29-af98-a9fc11b69796@5",
+            "ox_id": "5110a96f-dced-4c29-af98-a9fc11b69796@5",
             "version": "5",
             "uuid": "5110a96f-dced-4c29-af98-a9fc11b69796",
             "id": "13018"
@@ -1983,7 +1983,7 @@
             "type": "page",
             "title": "Radiation",
             "short_id": "vzM7eV7S",
-            "cnx_id": "bf333b79-5ed2-4631-a418-fc8efebdf529@4",
+            "ox_id": "bf333b79-5ed2-4631-a418-fc8efebdf529@4",
             "version": "4",
             "uuid": "bf333b79-5ed2-4631-a418-fc8efebdf529",
             "id": "13019"
@@ -1993,7 +1993,7 @@
             "type": "page",
             "title": "Glossary",
             "short_id": "hyKNLTCX",
-            "cnx_id": "87228d2d-3097-5748-b299-134ef0eb6c1a@8.1",
+            "ox_id": "87228d2d-3097-5748-b299-134ef0eb6c1a@8.1",
             "version": "8.1",
             "uuid": "87228d2d-3097-5748-b299-134ef0eb6c1a",
             "id": "13020"
@@ -2003,7 +2003,7 @@
             "type": "page",
             "title": "Section Summary",
             "short_id": "m-wvgyV9",
-            "cnx_id": "9bec2f83-257d-5d90-80d0-07bf0e90aeea@8.1",
+            "ox_id": "9bec2f83-257d-5d90-80d0-07bf0e90aeea@8.1",
             "version": "8.1",
             "uuid": "9bec2f83-257d-5d90-80d0-07bf0e90aeea",
             "id": "13021"
@@ -2013,7 +2013,7 @@
             "type": "page",
             "title": "Conceptual Questions",
             "short_id": "fvbM3eSj",
-            "cnx_id": "7ef6ccdd-e4a3-540d-9671-512069c36cd9@8.1",
+            "ox_id": "7ef6ccdd-e4a3-540d-9671-512069c36cd9@8.1",
             "version": "8.1",
             "uuid": "7ef6ccdd-e4a3-540d-9671-512069c36cd9",
             "id": "13022"
@@ -2023,7 +2023,7 @@
             "type": "page",
             "title": "Problems &amp; Exercises",
             "short_id": "tmCN8I6i",
-            "cnx_id": "b6608df0-8ea2-5510-9d48-b99ef3272e2b@8.1",
+            "ox_id": "b6608df0-8ea2-5510-9d48-b99ef3272e2b@8.1",
             "version": "8.1",
             "uuid": "b6608df0-8ea2-5510-9d48-b99ef3272e2b",
             "id": "13023"
@@ -2042,7 +2042,7 @@
             "type": "page",
             "title": "Introduction to Thermodynamics",
             "short_id": "vR-rK93e",
-            "cnx_id": "bd1fab2b-ddde-4e1d-9c5b-39cf47ffb471@2",
+            "ox_id": "bd1fab2b-ddde-4e1d-9c5b-39cf47ffb471@2",
             "version": "2",
             "uuid": "bd1fab2b-ddde-4e1d-9c5b-39cf47ffb471",
             "id": "13024"
@@ -2055,7 +2055,7 @@
             "type": "page",
             "title": "The First Law of Thermodynamics",
             "short_id": "fpa2QR7-",
-            "cnx_id": "7e96b641-1efe-4920-9b39-2b72c6883215@3",
+            "ox_id": "7e96b641-1efe-4920-9b39-2b72c6883215@3",
             "version": "3",
             "uuid": "7e96b641-1efe-4920-9b39-2b72c6883215",
             "id": "13025"
@@ -2068,7 +2068,7 @@
             "type": "page",
             "title": "The First Law of Thermodynamics and Some Simple Processes",
             "short_id": "ucyg_uaF",
-            "cnx_id": "b9cca0fe-e685-4f2f-a485-f62e6735cf58@6",
+            "ox_id": "b9cca0fe-e685-4f2f-a485-f62e6735cf58@6",
             "version": "6",
             "uuid": "b9cca0fe-e685-4f2f-a485-f62e6735cf58",
             "id": "13026"
@@ -2081,7 +2081,7 @@
             "type": "page",
             "title": "Introduction to the Second Law of Thermodynamics: Heat Engines and Their Efficiency",
             "short_id": "7VpCh5Tr",
-            "cnx_id": "ed5a4287-94eb-4889-b028-69e3363eb378@2",
+            "ox_id": "ed5a4287-94eb-4889-b028-69e3363eb378@2",
             "version": "2",
             "uuid": "ed5a4287-94eb-4889-b028-69e3363eb378",
             "id": "13027"
@@ -2094,7 +2094,7 @@
             "type": "page",
             "title": "Carnot’s Perfect Heat Engine: The Second Law of Thermodynamics Restated",
             "short_id": "uuJ1a6LZ",
-            "cnx_id": "bae2756b-a2d9-473e-9d41-fb61c155ecb8@4",
+            "ox_id": "bae2756b-a2d9-473e-9d41-fb61c155ecb8@4",
             "version": "4",
             "uuid": "bae2756b-a2d9-473e-9d41-fb61c155ecb8",
             "id": "13028"
@@ -2107,7 +2107,7 @@
             "type": "page",
             "title": "Applications of Thermodynamics: Heat Pumps and Refrigerators",
             "short_id": "827iXaeg",
-            "cnx_id": "f36ee25d-a7a0-447c-88da-60f7b64137a1@2",
+            "ox_id": "f36ee25d-a7a0-447c-88da-60f7b64137a1@2",
             "version": "2",
             "uuid": "f36ee25d-a7a0-447c-88da-60f7b64137a1",
             "id": "13029"
@@ -2120,7 +2120,7 @@
             "type": "page",
             "title": "Entropy and the Second Law of Thermodynamics: Disorder and the Unavailability of Energy",
             "short_id": "1K1iWRbD",
-            "cnx_id": "d4ad6259-16c3-49d5-8b98-a2ed6fac30cb@3",
+            "ox_id": "d4ad6259-16c3-49d5-8b98-a2ed6fac30cb@3",
             "version": "3",
             "uuid": "d4ad6259-16c3-49d5-8b98-a2ed6fac30cb",
             "id": "13030"
@@ -2133,7 +2133,7 @@
             "type": "page",
             "title": "Statistical Interpretation of Entropy and the Second Law of Thermodynamics: The Underlying Explanation",
             "short_id": "J9hCkzg4",
-            "cnx_id": "27d84293-3838-4477-bff4-3487ba96fa9a@2",
+            "ox_id": "27d84293-3838-4477-bff4-3487ba96fa9a@2",
             "version": "2",
             "uuid": "27d84293-3838-4477-bff4-3487ba96fa9a",
             "id": "13031"
@@ -2143,7 +2143,7 @@
             "type": "page",
             "title": "Glossary",
             "short_id": "KTHzhsnV",
-            "cnx_id": "2931f386-c9d5-5ee2-ae50-c7a5dd82ff98@8.1",
+            "ox_id": "2931f386-c9d5-5ee2-ae50-c7a5dd82ff98@8.1",
             "version": "8.1",
             "uuid": "2931f386-c9d5-5ee2-ae50-c7a5dd82ff98",
             "id": "13032"
@@ -2153,7 +2153,7 @@
             "type": "page",
             "title": "Section Summary",
             "short_id": "hsB4zBrf",
-            "cnx_id": "86c078cc-1adf-5a2e-a6fe-82f37bbbb328@8.1",
+            "ox_id": "86c078cc-1adf-5a2e-a6fe-82f37bbbb328@8.1",
             "version": "8.1",
             "uuid": "86c078cc-1adf-5a2e-a6fe-82f37bbbb328",
             "id": "13033"
@@ -2163,7 +2163,7 @@
             "type": "page",
             "title": "Conceptual Questions",
             "short_id": "KG_HPuiO",
-            "cnx_id": "286fc73e-e88e-5b9f-87d5-5c84bb688167@8.1",
+            "ox_id": "286fc73e-e88e-5b9f-87d5-5c84bb688167@8.1",
             "version": "8.1",
             "uuid": "286fc73e-e88e-5b9f-87d5-5c84bb688167",
             "id": "13034"
@@ -2173,7 +2173,7 @@
             "type": "page",
             "title": "Problems &amp; Exercises",
             "short_id": "sEZrKOnk",
-            "cnx_id": "b0466b28-e9e4-5535-983c-ccce1c458bd5@8.1",
+            "ox_id": "b0466b28-e9e4-5535-983c-ccce1c458bd5@8.1",
             "version": "8.1",
             "uuid": "b0466b28-e9e4-5535-983c-ccce1c458bd5",
             "id": "13035"
@@ -2192,7 +2192,7 @@
             "type": "page",
             "title": "Introduction to Oscillatory Motion and Waves",
             "short_id": "66Cp_2YS",
-            "cnx_id": "eba0a9ff-6612-4690-9d55-3eda4dd7019c@4",
+            "ox_id": "eba0a9ff-6612-4690-9d55-3eda4dd7019c@4",
             "version": "4",
             "uuid": "eba0a9ff-6612-4690-9d55-3eda4dd7019c",
             "id": "13036"
@@ -2205,7 +2205,7 @@
             "type": "page",
             "title": "Hooke’s Law: Stress and Strain Revisited",
             "short_id": "_RgVcIAs",
-            "cnx_id": "fd181570-802c-40cf-b217-441a935e2b65@8",
+            "ox_id": "fd181570-802c-40cf-b217-441a935e2b65@8",
             "version": "8",
             "uuid": "fd181570-802c-40cf-b217-441a935e2b65",
             "id": "13037"
@@ -2218,7 +2218,7 @@
             "type": "page",
             "title": "Period and Frequency in Oscillations",
             "short_id": "82Ju90m6",
-            "cnx_id": "f3626ef7-49ba-4078-b95d-5452b1fad8df@2",
+            "ox_id": "f3626ef7-49ba-4078-b95d-5452b1fad8df@2",
             "version": "2",
             "uuid": "f3626ef7-49ba-4078-b95d-5452b1fad8df",
             "id": "13038"
@@ -2231,7 +2231,7 @@
             "type": "page",
             "title": "Simple Harmonic Motion: A Special Periodic Motion",
             "short_id": "PL20Iwd0",
-            "cnx_id": "3cbdb423-0774-41fc-bec3-59c2f1480a86@3",
+            "ox_id": "3cbdb423-0774-41fc-bec3-59c2f1480a86@3",
             "version": "3",
             "uuid": "3cbdb423-0774-41fc-bec3-59c2f1480a86",
             "id": "13039"
@@ -2244,7 +2244,7 @@
             "type": "page",
             "title": "The Simple Pendulum",
             "short_id": "EAlMpxhU",
-            "cnx_id": "10094ca7-1854-4ec5-94fb-d7de5fdd18d1@3",
+            "ox_id": "10094ca7-1854-4ec5-94fb-d7de5fdd18d1@3",
             "version": "3",
             "uuid": "10094ca7-1854-4ec5-94fb-d7de5fdd18d1",
             "id": "13040"
@@ -2257,7 +2257,7 @@
             "type": "page",
             "title": "Energy and the Simple Harmonic Oscillator",
             "short_id": "_PRBQWp0",
-            "cnx_id": "fcf44141-6a74-4805-861d-747433bc2063@6",
+            "ox_id": "fcf44141-6a74-4805-861d-747433bc2063@6",
             "version": "6",
             "uuid": "fcf44141-6a74-4805-861d-747433bc2063",
             "id": "13041"
@@ -2270,7 +2270,7 @@
             "type": "page",
             "title": "Uniform Circular Motion and Simple Harmonic Motion",
             "short_id": "xdRYX_vZ",
-            "cnx_id": "c5d4585f-fbd9-4b68-83e2-a7e396dbe5ca@3",
+            "ox_id": "c5d4585f-fbd9-4b68-83e2-a7e396dbe5ca@3",
             "version": "3",
             "uuid": "c5d4585f-fbd9-4b68-83e2-a7e396dbe5ca",
             "id": "13042"
@@ -2283,7 +2283,7 @@
             "type": "page",
             "title": "Damped Harmonic Motion",
             "short_id": "Ry7Eo4v4",
-            "cnx_id": "472ec4a3-8bf8-4d33-9b22-caa9c7e10c6d@7",
+            "ox_id": "472ec4a3-8bf8-4d33-9b22-caa9c7e10c6d@7",
             "version": "7",
             "uuid": "472ec4a3-8bf8-4d33-9b22-caa9c7e10c6d",
             "id": "13043"
@@ -2296,7 +2296,7 @@
             "type": "page",
             "title": "Forced Oscillations and Resonance",
             "short_id": "n0pER_pL",
-            "cnx_id": "9f4a4447-fa4b-4b3e-8904-e24bf1fa673b@2",
+            "ox_id": "9f4a4447-fa4b-4b3e-8904-e24bf1fa673b@2",
             "version": "2",
             "uuid": "9f4a4447-fa4b-4b3e-8904-e24bf1fa673b",
             "id": "13044"
@@ -2309,7 +2309,7 @@
             "type": "page",
             "title": "Waves",
             "short_id": "jm4V-Kab",
-            "cnx_id": "8e6e15f8-a69b-4895-8d27-23eeb265a31f@2",
+            "ox_id": "8e6e15f8-a69b-4895-8d27-23eeb265a31f@2",
             "version": "2",
             "uuid": "8e6e15f8-a69b-4895-8d27-23eeb265a31f",
             "id": "13045"
@@ -2322,7 +2322,7 @@
             "type": "page",
             "title": "Superposition and Interference",
             "short_id": "w8IubavU",
-            "cnx_id": "c3c22e6d-abd4-4ebf-a134-9cb610d82374@3",
+            "ox_id": "c3c22e6d-abd4-4ebf-a134-9cb610d82374@3",
             "version": "3",
             "uuid": "c3c22e6d-abd4-4ebf-a134-9cb610d82374",
             "id": "13046"
@@ -2335,7 +2335,7 @@
             "type": "page",
             "title": "Energy in Waves: Intensity",
             "short_id": "mGc-1V37",
-            "cnx_id": "98673ed5-5dfb-4931-a6cd-33a913315668@3",
+            "ox_id": "98673ed5-5dfb-4931-a6cd-33a913315668@3",
             "version": "3",
             "uuid": "98673ed5-5dfb-4931-a6cd-33a913315668",
             "id": "13047"
@@ -2345,7 +2345,7 @@
             "type": "page",
             "title": "Glossary",
             "short_id": "gBF49MOx",
-            "cnx_id": "801178f4-c3b1-576c-a6d2-1681d7efefde@8.1",
+            "ox_id": "801178f4-c3b1-576c-a6d2-1681d7efefde@8.1",
             "version": "8.1",
             "uuid": "801178f4-c3b1-576c-a6d2-1681d7efefde",
             "id": "13048"
@@ -2355,7 +2355,7 @@
             "type": "page",
             "title": "Section Summary",
             "short_id": "9jw57CWt",
-            "cnx_id": "f63c39ec-25ad-5889-a566-8988ca0c604f@8.1",
+            "ox_id": "f63c39ec-25ad-5889-a566-8988ca0c604f@8.1",
             "version": "8.1",
             "uuid": "f63c39ec-25ad-5889-a566-8988ca0c604f",
             "id": "13049"
@@ -2365,7 +2365,7 @@
             "type": "page",
             "title": "Conceptual Questions",
             "short_id": "vibiTUIM",
-            "cnx_id": "be26e24d-420c-5181-b424-215bd969cc4f@8.1",
+            "ox_id": "be26e24d-420c-5181-b424-215bd969cc4f@8.1",
             "version": "8.1",
             "uuid": "be26e24d-420c-5181-b424-215bd969cc4f",
             "id": "13050"
@@ -2375,7 +2375,7 @@
             "type": "page",
             "title": "Problems &amp; Exercises",
             "short_id": "HCa2hoSG",
-            "cnx_id": "1c26b686-8486-51e7-b992-2a5a35ffac66@8.1",
+            "ox_id": "1c26b686-8486-51e7-b992-2a5a35ffac66@8.1",
             "version": "8.1",
             "uuid": "1c26b686-8486-51e7-b992-2a5a35ffac66",
             "id": "13051"
@@ -2394,7 +2394,7 @@
             "type": "page",
             "title": "Introduction to the Physics of Hearing",
             "short_id": "utWhd1uy",
-            "cnx_id": "bad5a177-5bb2-4f0f-b492-f2f5f88ea8f7@2",
+            "ox_id": "bad5a177-5bb2-4f0f-b492-f2f5f88ea8f7@2",
             "version": "2",
             "uuid": "bad5a177-5bb2-4f0f-b492-f2f5f88ea8f7",
             "id": "13052"
@@ -2407,7 +2407,7 @@
             "type": "page",
             "title": "Sound",
             "short_id": "ChhwZrAF",
-            "cnx_id": "0a187066-b005-470a-825f-a423a4a6a6e7@3",
+            "ox_id": "0a187066-b005-470a-825f-a423a4a6a6e7@3",
             "version": "3",
             "uuid": "0a187066-b005-470a-825f-a423a4a6a6e7",
             "id": "13053"
@@ -2420,7 +2420,7 @@
             "type": "page",
             "title": "Speed of Sound, Frequency, and Wavelength",
             "short_id": "CFWJu56k",
-            "cnx_id": "085589bb-9ea4-443a-84c3-72c56f6b265d@2",
+            "ox_id": "085589bb-9ea4-443a-84c3-72c56f6b265d@2",
             "version": "2",
             "uuid": "085589bb-9ea4-443a-84c3-72c56f6b265d",
             "id": "13054"
@@ -2433,7 +2433,7 @@
             "type": "page",
             "title": "Sound Intensity and Sound Level",
             "short_id": "XBMCdVKD",
-            "cnx_id": "5c130275-5283-49e9-8932-9dd427e28bf9@2",
+            "ox_id": "5c130275-5283-49e9-8932-9dd427e28bf9@2",
             "version": "2",
             "uuid": "5c130275-5283-49e9-8932-9dd427e28bf9",
             "id": "13055"
@@ -2446,7 +2446,7 @@
             "type": "page",
             "title": "Doppler Effect and Sonic Booms",
             "short_id": "kZvQZnlk",
-            "cnx_id": "919bd066-7964-4b5b-b352-bdf63ef6f5f8@2",
+            "ox_id": "919bd066-7964-4b5b-b352-bdf63ef6f5f8@2",
             "version": "2",
             "uuid": "919bd066-7964-4b5b-b352-bdf63ef6f5f8",
             "id": "13056"
@@ -2459,7 +2459,7 @@
             "type": "page",
             "title": "Sound Interference and Resonance: Standing Waves in Air Columns",
             "short_id": "XKJbaGkI",
-            "cnx_id": "5ca25b68-6908-432f-89f8-65d448065af9@3",
+            "ox_id": "5ca25b68-6908-432f-89f8-65d448065af9@3",
             "version": "3",
             "uuid": "5ca25b68-6908-432f-89f8-65d448065af9",
             "id": "13057"
@@ -2472,7 +2472,7 @@
             "type": "page",
             "title": "Hearing",
             "short_id": "KXZwvU2A",
-            "cnx_id": "297670bd-4d80-4d33-be7e-0c51adf40de6@2",
+            "ox_id": "297670bd-4d80-4d33-be7e-0c51adf40de6@2",
             "version": "2",
             "uuid": "297670bd-4d80-4d33-be7e-0c51adf40de6",
             "id": "13058"
@@ -2485,7 +2485,7 @@
             "type": "page",
             "title": "Ultrasound",
             "short_id": "E4x-MAVs",
-            "cnx_id": "138c7e30-056c-4c8e-a781-226126ac062e@3",
+            "ox_id": "138c7e30-056c-4c8e-a781-226126ac062e@3",
             "version": "3",
             "uuid": "138c7e30-056c-4c8e-a781-226126ac062e",
             "id": "13059"
@@ -2495,7 +2495,7 @@
             "type": "page",
             "title": "Glossary",
             "short_id": "SXw1DH6N",
-            "cnx_id": "497c350c-7e8d-5fca-be0a-6efeda84392b@8.1",
+            "ox_id": "497c350c-7e8d-5fca-be0a-6efeda84392b@8.1",
             "version": "8.1",
             "uuid": "497c350c-7e8d-5fca-be0a-6efeda84392b",
             "id": "13060"
@@ -2505,7 +2505,7 @@
             "type": "page",
             "title": "Section Summary",
             "short_id": "P1816vVT",
-            "cnx_id": "3f5f35ea-f553-522f-a072-6871353391d1@8.1",
+            "ox_id": "3f5f35ea-f553-522f-a072-6871353391d1@8.1",
             "version": "8.1",
             "uuid": "3f5f35ea-f553-522f-a072-6871353391d1",
             "id": "13061"
@@ -2515,7 +2515,7 @@
             "type": "page",
             "title": "Conceptual Questions",
             "short_id": "tE-Q8n_p",
-            "cnx_id": "b44f90f2-7fe9-5cf5-af8e-c5f6c81ab343@8.1",
+            "ox_id": "b44f90f2-7fe9-5cf5-af8e-c5f6c81ab343@8.1",
             "version": "8.1",
             "uuid": "b44f90f2-7fe9-5cf5-af8e-c5f6c81ab343",
             "id": "13062"
@@ -2525,7 +2525,7 @@
             "type": "page",
             "title": "Problems &amp; Exercises",
             "short_id": "btfGAy3L",
-            "cnx_id": "6ed7c603-2dcb-5714-b11d-7f370a2b0f71@8.1",
+            "ox_id": "6ed7c603-2dcb-5714-b11d-7f370a2b0f71@8.1",
             "version": "8.1",
             "uuid": "6ed7c603-2dcb-5714-b11d-7f370a2b0f71",
             "id": "13063"
@@ -2544,7 +2544,7 @@
             "type": "page",
             "title": "Introduction to Electric Charge and Electric Field",
             "short_id": "F9kyqYV1",
-            "cnx_id": "17d932a9-8575-40ac-9448-be8c94c09a48@2",
+            "ox_id": "17d932a9-8575-40ac-9448-be8c94c09a48@2",
             "version": "2",
             "uuid": "17d932a9-8575-40ac-9448-be8c94c09a48",
             "id": "13064"
@@ -2557,7 +2557,7 @@
             "type": "page",
             "title": "Static Electricity and Charge: Conservation of Charge",
             "short_id": "u6mVIxr4",
-            "cnx_id": "bba99523-1af8-4cb6-8d42-d85c18b39c88@2",
+            "ox_id": "bba99523-1af8-4cb6-8d42-d85c18b39c88@2",
             "version": "2",
             "uuid": "bba99523-1af8-4cb6-8d42-d85c18b39c88",
             "id": "13065"
@@ -2570,7 +2570,7 @@
             "type": "page",
             "title": "Conductors and Insulators",
             "short_id": "CmTfn2B6",
-            "cnx_id": "0a64df9f-607a-48ab-aec6-885bd47b1b81@3",
+            "ox_id": "0a64df9f-607a-48ab-aec6-885bd47b1b81@3",
             "version": "3",
             "uuid": "0a64df9f-607a-48ab-aec6-885bd47b1b81",
             "id": "13066"
@@ -2583,7 +2583,7 @@
             "type": "page",
             "title": "Coulomb’s Law",
             "short_id": "HFlxy5hJ",
-            "cnx_id": "1c5971cb-9849-466e-b6f1-5dd7bd3958d6@2",
+            "ox_id": "1c5971cb-9849-466e-b6f1-5dd7bd3958d6@2",
             "version": "2",
             "uuid": "1c5971cb-9849-466e-b6f1-5dd7bd3958d6",
             "id": "13067"
@@ -2596,7 +2596,7 @@
             "type": "page",
             "title": "Electric Field: Concept of a Field Revisited",
             "short_id": "JXiDkybA",
-            "cnx_id": "25788393-26c0-49b4-9c1a-1e52bfcbb1b4@4",
+            "ox_id": "25788393-26c0-49b4-9c1a-1e52bfcbb1b4@4",
             "version": "4",
             "uuid": "25788393-26c0-49b4-9c1a-1e52bfcbb1b4",
             "id": "13068"
@@ -2609,7 +2609,7 @@
             "type": "page",
             "title": "Electric Field Lines: Multiple Charges",
             "short_id": "tguVAQpp",
-            "cnx_id": "b60b9501-0a69-4f23-ba0e-500b45291db9@7",
+            "ox_id": "b60b9501-0a69-4f23-ba0e-500b45291db9@7",
             "version": "7",
             "uuid": "b60b9501-0a69-4f23-ba0e-500b45291db9",
             "id": "13069"
@@ -2622,7 +2622,7 @@
             "type": "page",
             "title": "Electric Forces in Biology",
             "short_id": "G9YZJUXg",
-            "cnx_id": "1bd61925-45e0-4318-b1db-ab61507bb1e3@2",
+            "ox_id": "1bd61925-45e0-4318-b1db-ab61507bb1e3@2",
             "version": "2",
             "uuid": "1bd61925-45e0-4318-b1db-ab61507bb1e3",
             "id": "13070"
@@ -2635,7 +2635,7 @@
             "type": "page",
             "title": "Conductors and Electric Fields in Static Equilibrium",
             "short_id": "Gb3Y_Bgz",
-            "cnx_id": "19bdd8fc-1833-40ba-90fd-ca8df2707e6e@2",
+            "ox_id": "19bdd8fc-1833-40ba-90fd-ca8df2707e6e@2",
             "version": "2",
             "uuid": "19bdd8fc-1833-40ba-90fd-ca8df2707e6e",
             "id": "13071"
@@ -2648,7 +2648,7 @@
             "type": "page",
             "title": "Applications of Electrostatics",
             "short_id": "Qf5nUP9r",
-            "cnx_id": "41fe6750-ff6b-4b88-a869-c2befd1da741@3",
+            "ox_id": "41fe6750-ff6b-4b88-a869-c2befd1da741@3",
             "version": "3",
             "uuid": "41fe6750-ff6b-4b88-a869-c2befd1da741",
             "id": "13072"
@@ -2658,7 +2658,7 @@
             "type": "page",
             "title": "Glossary",
             "short_id": "CpvseFXD",
-            "cnx_id": "0a9bec78-55c3-52f9-85a7-cb9942baba08@8.1",
+            "ox_id": "0a9bec78-55c3-52f9-85a7-cb9942baba08@8.1",
             "version": "8.1",
             "uuid": "0a9bec78-55c3-52f9-85a7-cb9942baba08",
             "id": "13073"
@@ -2668,7 +2668,7 @@
             "type": "page",
             "title": "Section Summary",
             "short_id": "ECzb5aXt",
-            "cnx_id": "102cdbe5-a5ed-52ae-8dc8-965a7d599db2@8.1",
+            "ox_id": "102cdbe5-a5ed-52ae-8dc8-965a7d599db2@8.1",
             "version": "8.1",
             "uuid": "102cdbe5-a5ed-52ae-8dc8-965a7d599db2",
             "id": "13074"
@@ -2678,7 +2678,7 @@
             "type": "page",
             "title": "Conceptual Questions",
             "short_id": "jh0UCSYH",
-            "cnx_id": "8e1d1409-2607-5f13-b088-b101a92d4948@8.1",
+            "ox_id": "8e1d1409-2607-5f13-b088-b101a92d4948@8.1",
             "version": "8.1",
             "uuid": "8e1d1409-2607-5f13-b088-b101a92d4948",
             "id": "13075"
@@ -2688,7 +2688,7 @@
             "type": "page",
             "title": "Problems &amp; Exercises",
             "short_id": "Ex37qiaZ",
-            "cnx_id": "131dfbaa-2699-5048-b6ee-cb3c24f70a9e@8.1",
+            "ox_id": "131dfbaa-2699-5048-b6ee-cb3c24f70a9e@8.1",
             "version": "8.1",
             "uuid": "131dfbaa-2699-5048-b6ee-cb3c24f70a9e",
             "id": "13076"
@@ -2707,7 +2707,7 @@
             "type": "page",
             "title": "Introduction to Electric Potential and Electric Energy",
             "short_id": "47dMfWDS",
-            "cnx_id": "e3b74c7d-60d2-4b0c-adea-a6fa4ab36155@3",
+            "ox_id": "e3b74c7d-60d2-4b0c-adea-a6fa4ab36155@3",
             "version": "3",
             "uuid": "e3b74c7d-60d2-4b0c-adea-a6fa4ab36155",
             "id": "13077"
@@ -2720,7 +2720,7 @@
             "type": "page",
             "title": "Electric Potential Energy: Potential Difference",
             "short_id": "2q5Ykxjz",
-            "cnx_id": "daae5893-18f3-4e62-9d77-764436b63ef3@3",
+            "ox_id": "daae5893-18f3-4e62-9d77-764436b63ef3@3",
             "version": "3",
             "uuid": "daae5893-18f3-4e62-9d77-764436b63ef3",
             "id": "13078"
@@ -2733,7 +2733,7 @@
             "type": "page",
             "title": "Electric Potential in a Uniform Electric Field",
             "short_id": "KHfKIuJN",
-            "cnx_id": "2877ca22-e24d-4b73-a889-554e6b98f8f9@4",
+            "ox_id": "2877ca22-e24d-4b73-a889-554e6b98f8f9@4",
             "version": "4",
             "uuid": "2877ca22-e24d-4b73-a889-554e6b98f8f9",
             "id": "13079"
@@ -2746,7 +2746,7 @@
             "type": "page",
             "title": "Electrical Potential Due to a Point Charge",
             "short_id": "xfYeGIHf",
-            "cnx_id": "c5f61e18-81df-4e56-a24b-cb3ba4877083@3",
+            "ox_id": "c5f61e18-81df-4e56-a24b-cb3ba4877083@3",
             "version": "3",
             "uuid": "c5f61e18-81df-4e56-a24b-cb3ba4877083",
             "id": "13080"
@@ -2759,7 +2759,7 @@
             "type": "page",
             "title": "Equipotential Lines",
             "short_id": "QLywG80C",
-            "cnx_id": "40bcb01b-cd02-4809-b2e2-d11cf3eeb955@6",
+            "ox_id": "40bcb01b-cd02-4809-b2e2-d11cf3eeb955@6",
             "version": "6",
             "uuid": "40bcb01b-cd02-4809-b2e2-d11cf3eeb955",
             "id": "13081"
@@ -2772,7 +2772,7 @@
             "type": "page",
             "title": "Capacitors and Dielectrics",
             "short_id": "oylzI_DE",
-            "cnx_id": "a3297323-f0c4-4efc-aef5-c024df86669a@5",
+            "ox_id": "a3297323-f0c4-4efc-aef5-c024df86669a@5",
             "version": "5",
             "uuid": "a3297323-f0c4-4efc-aef5-c024df86669a",
             "id": "13082"
@@ -2785,7 +2785,7 @@
             "type": "page",
             "title": "Capacitors in Series and Parallel",
             "short_id": "RW9lkCT9",
-            "cnx_id": "456f6590-24fd-44ee-8f97-d4cb7f15a706@4",
+            "ox_id": "456f6590-24fd-44ee-8f97-d4cb7f15a706@4",
             "version": "4",
             "uuid": "456f6590-24fd-44ee-8f97-d4cb7f15a706",
             "id": "13083"
@@ -2798,7 +2798,7 @@
             "type": "page",
             "title": "Energy Stored in Capacitors",
             "short_id": "iDrsKq1p",
-            "cnx_id": "883aec2a-ad69-4a5f-a940-9e60897d10c9@4",
+            "ox_id": "883aec2a-ad69-4a5f-a940-9e60897d10c9@4",
             "version": "4",
             "uuid": "883aec2a-ad69-4a5f-a940-9e60897d10c9",
             "id": "13084"
@@ -2808,7 +2808,7 @@
             "type": "page",
             "title": "Glossary",
             "short_id": "nsLSbhFN",
-            "cnx_id": "9ec2d26e-114d-5ea9-8fae-de8a4bbf67a9@8.1",
+            "ox_id": "9ec2d26e-114d-5ea9-8fae-de8a4bbf67a9@8.1",
             "version": "8.1",
             "uuid": "9ec2d26e-114d-5ea9-8fae-de8a4bbf67a9",
             "id": "13085"
@@ -2818,7 +2818,7 @@
             "type": "page",
             "title": "Section Summary",
             "short_id": "GdZ3OSJD",
-            "cnx_id": "19d67739-2243-597a-a159-24f73ed0fcd2@8.1",
+            "ox_id": "19d67739-2243-597a-a159-24f73ed0fcd2@8.1",
             "version": "8.1",
             "uuid": "19d67739-2243-597a-a159-24f73ed0fcd2",
             "id": "13086"
@@ -2828,7 +2828,7 @@
             "type": "page",
             "title": "Conceptual Questions",
             "short_id": "GRZ3gLUG",
-            "cnx_id": "19167780-b506-5fcb-977f-8746ebd30071@8.1",
+            "ox_id": "19167780-b506-5fcb-977f-8746ebd30071@8.1",
             "version": "8.1",
             "uuid": "19167780-b506-5fcb-977f-8746ebd30071",
             "id": "13087"
@@ -2838,7 +2838,7 @@
             "type": "page",
             "title": "Problems &amp; Exercises",
             "short_id": "c-dfWTzy",
-            "cnx_id": "73e75f59-3cf2-52b1-bbbe-9b3829eb6a5e@8.1",
+            "ox_id": "73e75f59-3cf2-52b1-bbbe-9b3829eb6a5e@8.1",
             "version": "8.1",
             "uuid": "73e75f59-3cf2-52b1-bbbe-9b3829eb6a5e",
             "id": "13088"
@@ -2857,7 +2857,7 @@
             "type": "page",
             "title": "Introduction to Electric Current, Resistance, and Ohm's Law",
             "short_id": "IOzMys6N",
-            "cnx_id": "20ecccca-ce8d-4067-9d78-b1cd34d9b582@2",
+            "ox_id": "20ecccca-ce8d-4067-9d78-b1cd34d9b582@2",
             "version": "2",
             "uuid": "20ecccca-ce8d-4067-9d78-b1cd34d9b582",
             "id": "13089"
@@ -2870,7 +2870,7 @@
             "type": "page",
             "title": "Current",
             "short_id": "g7CZrswI",
-            "cnx_id": "83b099ae-cc08-4970-bc1d-439a890ba764@2",
+            "ox_id": "83b099ae-cc08-4970-bc1d-439a890ba764@2",
             "version": "2",
             "uuid": "83b099ae-cc08-4970-bc1d-439a890ba764",
             "id": "13090"
@@ -2883,7 +2883,7 @@
             "type": "page",
             "title": "Ohm’s Law: Resistance and Simple Circuits",
             "short_id": "M27dLea6",
-            "cnx_id": "336edd2d-e6ba-4e31-bdc5-ee8fe5bd4b26@3",
+            "ox_id": "336edd2d-e6ba-4e31-bdc5-ee8fe5bd4b26@3",
             "version": "3",
             "uuid": "336edd2d-e6ba-4e31-bdc5-ee8fe5bd4b26",
             "id": "13091"
@@ -2896,7 +2896,7 @@
             "type": "page",
             "title": "Resistance and Resistivity",
             "short_id": "56bKtq9O",
-            "cnx_id": "e7a6cab6-af4e-4064-9ab1-4787c431d63d@4",
+            "ox_id": "e7a6cab6-af4e-4064-9ab1-4787c431d63d@4",
             "version": "4",
             "uuid": "e7a6cab6-af4e-4064-9ab1-4787c431d63d",
             "id": "13092"
@@ -2909,7 +2909,7 @@
             "type": "page",
             "title": "Electric Power and Energy",
             "short_id": "c5YigJq-",
-            "cnx_id": "73962280-9abe-4429-b127-a1062b1b3fd5@3",
+            "ox_id": "73962280-9abe-4429-b127-a1062b1b3fd5@3",
             "version": "3",
             "uuid": "73962280-9abe-4429-b127-a1062b1b3fd5",
             "id": "13093"
@@ -2922,7 +2922,7 @@
             "type": "page",
             "title": "Alternating Current versus Direct Current",
             "short_id": "nYtR168W",
-            "cnx_id": "9d8b51d7-af16-4db1-8eb5-7bd9d7b29041@6",
+            "ox_id": "9d8b51d7-af16-4db1-8eb5-7bd9d7b29041@6",
             "version": "6",
             "uuid": "9d8b51d7-af16-4db1-8eb5-7bd9d7b29041",
             "id": "13094"
@@ -2935,7 +2935,7 @@
             "type": "page",
             "title": "Electric Hazards and the Human Body",
             "short_id": "6jxvjww2",
-            "cnx_id": "ea3c6f8f-0c36-493d-ac88-1c77014e6eaa@3",
+            "ox_id": "ea3c6f8f-0c36-493d-ac88-1c77014e6eaa@3",
             "version": "3",
             "uuid": "ea3c6f8f-0c36-493d-ac88-1c77014e6eaa",
             "id": "13095"
@@ -2948,7 +2948,7 @@
             "type": "page",
             "title": "Nerve Conduction–Electrocardiograms",
             "short_id": "4HG5XxH_",
-            "cnx_id": "e071b95f-11ff-49d4-8473-73adb0679093@4",
+            "ox_id": "e071b95f-11ff-49d4-8473-73adb0679093@4",
             "version": "4",
             "uuid": "e071b95f-11ff-49d4-8473-73adb0679093",
             "id": "13096"
@@ -2958,7 +2958,7 @@
             "type": "page",
             "title": "Glossary",
             "short_id": "P7qrRK17",
-            "cnx_id": "3fbaab44-ad7b-56fa-a1a3-d3d6c89c089b@8.1",
+            "ox_id": "3fbaab44-ad7b-56fa-a1a3-d3d6c89c089b@8.1",
             "version": "8.1",
             "uuid": "3fbaab44-ad7b-56fa-a1a3-d3d6c89c089b",
             "id": "13097"
@@ -2968,7 +2968,7 @@
             "type": "page",
             "title": "Section Summary",
             "short_id": "IviRUhho",
-            "cnx_id": "22f89152-1868-5819-aade-505eeff462bf@8.1",
+            "ox_id": "22f89152-1868-5819-aade-505eeff462bf@8.1",
             "version": "8.1",
             "uuid": "22f89152-1868-5819-aade-505eeff462bf",
             "id": "13098"
@@ -2978,7 +2978,7 @@
             "type": "page",
             "title": "Conceptual Questions",
             "short_id": "41wn5Wpg",
-            "cnx_id": "e35c27e5-6a60-5ec0-9d38-9fdcbbbeb185@8.1",
+            "ox_id": "e35c27e5-6a60-5ec0-9d38-9fdcbbbeb185@8.1",
             "version": "8.1",
             "uuid": "e35c27e5-6a60-5ec0-9d38-9fdcbbbeb185",
             "id": "13099"
@@ -2988,7 +2988,7 @@
             "type": "page",
             "title": "Problems &amp; Exercises",
             "short_id": "7Ja_K0kv",
-            "cnx_id": "ec96bf2b-492f-5022-bc94-d3a7e460876a@8.1",
+            "ox_id": "ec96bf2b-492f-5022-bc94-d3a7e460876a@8.1",
             "version": "8.1",
             "uuid": "ec96bf2b-492f-5022-bc94-d3a7e460876a",
             "id": "13100"
@@ -3007,7 +3007,7 @@
             "type": "page",
             "title": "Introduction to Circuits and DC Instruments",
             "short_id": "CV0xa8sv",
-            "cnx_id": "095d316b-cb2f-4ae1-9772-296e74ec3216@2",
+            "ox_id": "095d316b-cb2f-4ae1-9772-296e74ec3216@2",
             "version": "2",
             "uuid": "095d316b-cb2f-4ae1-9772-296e74ec3216",
             "id": "13101"
@@ -3020,7 +3020,7 @@
             "type": "page",
             "title": "Resistors in Series and Parallel",
             "short_id": "JjllOYrq",
-            "cnx_id": "26396539-8aea-4808-93ee-181028b36fb2@3",
+            "ox_id": "26396539-8aea-4808-93ee-181028b36fb2@3",
             "version": "3",
             "uuid": "26396539-8aea-4808-93ee-181028b36fb2",
             "id": "13102"
@@ -3033,7 +3033,7 @@
             "type": "page",
             "title": "Electromotive Force: Terminal Voltage",
             "short_id": "3r8rJcZy",
-            "cnx_id": "debf2b25-c672-40ce-97b5-af72f30eccb2@2",
+            "ox_id": "debf2b25-c672-40ce-97b5-af72f30eccb2@2",
             "version": "2",
             "uuid": "debf2b25-c672-40ce-97b5-af72f30eccb2",
             "id": "13103"
@@ -3046,7 +3046,7 @@
             "type": "page",
             "title": "Kirchhoff’s Rules",
             "short_id": "qmmLf-LU",
-            "cnx_id": "aa698b7f-e2d4-4298-a534-3c2cca69c51b@4",
+            "ox_id": "aa698b7f-e2d4-4298-a534-3c2cca69c51b@4",
             "version": "4",
             "uuid": "aa698b7f-e2d4-4298-a534-3c2cca69c51b",
             "id": "13104"
@@ -3059,7 +3059,7 @@
             "type": "page",
             "title": "DC Voltmeters and Ammeters",
             "short_id": "ELGTwMJL",
-            "cnx_id": "10b193c0-c24b-4728-ae7f-897aa25355d8@3",
+            "ox_id": "10b193c0-c24b-4728-ae7f-897aa25355d8@3",
             "version": "3",
             "uuid": "10b193c0-c24b-4728-ae7f-897aa25355d8",
             "id": "13105"
@@ -3072,7 +3072,7 @@
             "type": "page",
             "title": "Null Measurements",
             "short_id": "PVQDm-35",
-            "cnx_id": "3d54039b-edf9-4026-811c-eec45df5eb77@2",
+            "ox_id": "3d54039b-edf9-4026-811c-eec45df5eb77@2",
             "version": "2",
             "uuid": "3d54039b-edf9-4026-811c-eec45df5eb77",
             "id": "13106"
@@ -3085,7 +3085,7 @@
             "type": "page",
             "title": "DC Circuits Containing Resistors and Capacitors",
             "short_id": "k3816nX9",
-            "cnx_id": "937f35ea-75fd-47fb-9123-64e8c4085a39@4",
+            "ox_id": "937f35ea-75fd-47fb-9123-64e8c4085a39@4",
             "version": "4",
             "uuid": "937f35ea-75fd-47fb-9123-64e8c4085a39",
             "id": "13107"
@@ -3095,7 +3095,7 @@
             "type": "page",
             "title": "Glossary",
             "short_id": "T2_Yy3ou",
-            "cnx_id": "4f6fd8cb-7a2e-5700-a952-3cfeabd4360a@8.1",
+            "ox_id": "4f6fd8cb-7a2e-5700-a952-3cfeabd4360a@8.1",
             "version": "8.1",
             "uuid": "4f6fd8cb-7a2e-5700-a952-3cfeabd4360a",
             "id": "13108"
@@ -3105,7 +3105,7 @@
             "type": "page",
             "title": "Section Summary",
             "short_id": "gSjPryX2",
-            "cnx_id": "8128cfaf-25f6-5f03-b8d4-0dd36c45b816@8.1",
+            "ox_id": "8128cfaf-25f6-5f03-b8d4-0dd36c45b816@8.1",
             "version": "8.1",
             "uuid": "8128cfaf-25f6-5f03-b8d4-0dd36c45b816",
             "id": "13109"
@@ -3115,7 +3115,7 @@
             "type": "page",
             "title": "Conceptual Questions",
             "short_id": "dVXLUx1g",
-            "cnx_id": "7555cb53-1d60-5ddc-9ba1-a28d36f8e6cd@8.1",
+            "ox_id": "7555cb53-1d60-5ddc-9ba1-a28d36f8e6cd@8.1",
             "version": "8.1",
             "uuid": "7555cb53-1d60-5ddc-9ba1-a28d36f8e6cd",
             "id": "13110"
@@ -3125,7 +3125,7 @@
             "type": "page",
             "title": "Problems &amp; Exercises",
             "short_id": "7Pwyej3G",
-            "cnx_id": "ecfc327a-3dc6-5918-aebf-ce17c4ff3a38@8.1",
+            "ox_id": "ecfc327a-3dc6-5918-aebf-ce17c4ff3a38@8.1",
             "version": "8.1",
             "uuid": "ecfc327a-3dc6-5918-aebf-ce17c4ff3a38",
             "id": "13111"
@@ -3144,7 +3144,7 @@
             "type": "page",
             "title": "Introduction to Magnetism",
             "short_id": "DQ68PbI7",
-            "cnx_id": "0d0ebc3d-b23b-492f-9c2f-bf546e6677d9@2",
+            "ox_id": "0d0ebc3d-b23b-492f-9c2f-bf546e6677d9@2",
             "version": "2",
             "uuid": "0d0ebc3d-b23b-492f-9c2f-bf546e6677d9",
             "id": "13112"
@@ -3157,7 +3157,7 @@
             "type": "page",
             "title": "Magnets",
             "short_id": "li3dleHQ",
-            "cnx_id": "962ddd95-e1d0-41bc-8460-53416914502c@2",
+            "ox_id": "962ddd95-e1d0-41bc-8460-53416914502c@2",
             "version": "2",
             "uuid": "962ddd95-e1d0-41bc-8460-53416914502c",
             "id": "13113"
@@ -3170,7 +3170,7 @@
             "type": "page",
             "title": "Ferromagnets and Electromagnets",
             "short_id": "Aknutm4S",
-            "cnx_id": "0249eeb6-6e12-4b6c-a18e-87cab964ec98@3",
+            "ox_id": "0249eeb6-6e12-4b6c-a18e-87cab964ec98@3",
             "version": "3",
             "uuid": "0249eeb6-6e12-4b6c-a18e-87cab964ec98",
             "id": "13114"
@@ -3183,7 +3183,7 @@
             "type": "page",
             "title": "Magnetic Fields and Magnetic Field Lines",
             "short_id": "_ZScIcKX",
-            "cnx_id": "fd949c21-c297-455d-8046-6c9b4c7e9f46@2",
+            "ox_id": "fd949c21-c297-455d-8046-6c9b4c7e9f46@2",
             "version": "2",
             "uuid": "fd949c21-c297-455d-8046-6c9b4c7e9f46",
             "id": "13115"
@@ -3196,7 +3196,7 @@
             "type": "page",
             "title": "Magnetic Field Strength: Force on a Moving Charge in a Magnetic Field",
             "short_id": "O2dbppnU",
-            "cnx_id": "3b675ba6-99d4-46cf-ad2e-010568d37861@4",
+            "ox_id": "3b675ba6-99d4-46cf-ad2e-010568d37861@4",
             "version": "4",
             "uuid": "3b675ba6-99d4-46cf-ad2e-010568d37861",
             "id": "13116"
@@ -3209,7 +3209,7 @@
             "type": "page",
             "title": "Force on a Moving Charge in a Magnetic Field: Examples and Applications",
             "short_id": "xtcjhDVx",
-            "cnx_id": "c6d72384-3571-43e0-accd-3f9c738e2691@5",
+            "ox_id": "c6d72384-3571-43e0-accd-3f9c738e2691@5",
             "version": "5",
             "uuid": "c6d72384-3571-43e0-accd-3f9c738e2691",
             "id": "13117"
@@ -3222,7 +3222,7 @@
             "type": "page",
             "title": "The Hall Effect",
             "short_id": "LqHZdd9W",
-            "cnx_id": "2ea1d975-df56-4384-b654-2f0ae0ce76a9@3",
+            "ox_id": "2ea1d975-df56-4384-b654-2f0ae0ce76a9@3",
             "version": "3",
             "uuid": "2ea1d975-df56-4384-b654-2f0ae0ce76a9",
             "id": "13118"
@@ -3235,7 +3235,7 @@
             "type": "page",
             "title": "Magnetic Force on a Current-Carrying Conductor",
             "short_id": "kCsNOMN0",
-            "cnx_id": "902b0d38-c374-493b-84a1-b8f38790d1e6@4",
+            "ox_id": "902b0d38-c374-493b-84a1-b8f38790d1e6@4",
             "version": "4",
             "uuid": "902b0d38-c374-493b-84a1-b8f38790d1e6",
             "id": "13119"
@@ -3248,7 +3248,7 @@
             "type": "page",
             "title": "Torque on a Current Loop: Motors and Meters",
             "short_id": "dzlVYRGJ",
-            "cnx_id": "77395561-1189-4f0c-a5d6-035e5ced5c78@2",
+            "ox_id": "77395561-1189-4f0c-a5d6-035e5ced5c78@2",
             "version": "2",
             "uuid": "77395561-1189-4f0c-a5d6-035e5ced5c78",
             "id": "13120"
@@ -3261,7 +3261,7 @@
             "type": "page",
             "title": "Magnetic Fields Produced by Currents: Ampere’s Law",
             "short_id": "V2UvfhrX",
-            "cnx_id": "57652f7e-1ad7-4a24-bdb2-d350dee60c29@5",
+            "ox_id": "57652f7e-1ad7-4a24-bdb2-d350dee60c29@5",
             "version": "5",
             "uuid": "57652f7e-1ad7-4a24-bdb2-d350dee60c29",
             "id": "13121"
@@ -3274,7 +3274,7 @@
             "type": "page",
             "title": "Magnetic Force between Two Parallel Conductors",
             "short_id": "csF8UMJ1",
-            "cnx_id": "72c17c50-c275-4827-a8ef-fdc672b34b4d@2",
+            "ox_id": "72c17c50-c275-4827-a8ef-fdc672b34b4d@2",
             "version": "2",
             "uuid": "72c17c50-c275-4827-a8ef-fdc672b34b4d",
             "id": "13122"
@@ -3287,7 +3287,7 @@
             "type": "page",
             "title": "More Applications of Magnetism",
             "short_id": "Gjv2yaGi",
-            "cnx_id": "1a3bf6c9-a1a2-4155-b1a7-b86859bc150d@5",
+            "ox_id": "1a3bf6c9-a1a2-4155-b1a7-b86859bc150d@5",
             "version": "5",
             "uuid": "1a3bf6c9-a1a2-4155-b1a7-b86859bc150d",
             "id": "13123"
@@ -3297,7 +3297,7 @@
             "type": "page",
             "title": "Glossary",
             "short_id": "BRQpT6lv",
-            "cnx_id": "0514294f-a96f-54c3-9dc9-f9b98092c133@8.1",
+            "ox_id": "0514294f-a96f-54c3-9dc9-f9b98092c133@8.1",
             "version": "8.1",
             "uuid": "0514294f-a96f-54c3-9dc9-f9b98092c133",
             "id": "13124"
@@ -3307,7 +3307,7 @@
             "type": "page",
             "title": "Section Summary",
             "short_id": "p6BcDdIr",
-            "cnx_id": "a7a05c0d-d22b-51ee-b3a0-0526ea62ccd0@8.1",
+            "ox_id": "a7a05c0d-d22b-51ee-b3a0-0526ea62ccd0@8.1",
             "version": "8.1",
             "uuid": "a7a05c0d-d22b-51ee-b3a0-0526ea62ccd0",
             "id": "13125"
@@ -3317,7 +3317,7 @@
             "type": "page",
             "title": "Conceptual Questions",
             "short_id": "wkG6gUlJ",
-            "cnx_id": "c241ba81-4949-5c90-bf1b-bec9ae77fef0@8.1",
+            "ox_id": "c241ba81-4949-5c90-bf1b-bec9ae77fef0@8.1",
             "version": "8.1",
             "uuid": "c241ba81-4949-5c90-bf1b-bec9ae77fef0",
             "id": "13126"
@@ -3327,7 +3327,7 @@
             "type": "page",
             "title": "Problems &amp; Exercises",
             "short_id": "vNpVBuUQ",
-            "cnx_id": "bcda5506-e510-5087-a3af-009681679f80@8.1",
+            "ox_id": "bcda5506-e510-5087-a3af-009681679f80@8.1",
             "version": "8.1",
             "uuid": "bcda5506-e510-5087-a3af-009681679f80",
             "id": "13127"
@@ -3346,7 +3346,7 @@
             "type": "page",
             "title": "Introduction to Electromagnetic Induction, AC Circuits and Electrical Technologies",
             "short_id": "sPsk9fr6",
-            "cnx_id": "b0fb24f5-fafa-4370-bf57-1b9e7b8ca321@2",
+            "ox_id": "b0fb24f5-fafa-4370-bf57-1b9e7b8ca321@2",
             "version": "2",
             "uuid": "b0fb24f5-fafa-4370-bf57-1b9e7b8ca321",
             "id": "13128"
@@ -3359,7 +3359,7 @@
             "type": "page",
             "title": "Induced Emf and Magnetic Flux",
             "short_id": "2oJiEGuy",
-            "cnx_id": "da826210-6bb2-456a-b65d-1c07003cfb62@4",
+            "ox_id": "da826210-6bb2-456a-b65d-1c07003cfb62@4",
             "version": "4",
             "uuid": "da826210-6bb2-456a-b65d-1c07003cfb62",
             "id": "13129"
@@ -3372,7 +3372,7 @@
             "type": "page",
             "title": "Faraday’s Law of Induction: Lenz’s Law",
             "short_id": "FKIHgzU1",
-            "cnx_id": "14a20783-3535-45f0-8df9-413d24882a89@7",
+            "ox_id": "14a20783-3535-45f0-8df9-413d24882a89@7",
             "version": "7",
             "uuid": "14a20783-3535-45f0-8df9-413d24882a89",
             "id": "13130"
@@ -3385,7 +3385,7 @@
             "type": "page",
             "title": "Motional Emf",
             "short_id": "25351TLs",
-            "cnx_id": "db9df9d5-32ec-4cb1-83af-2d6cab03e26f@4",
+            "ox_id": "db9df9d5-32ec-4cb1-83af-2d6cab03e26f@4",
             "version": "4",
             "uuid": "db9df9d5-32ec-4cb1-83af-2d6cab03e26f",
             "id": "13131"
@@ -3398,7 +3398,7 @@
             "type": "page",
             "title": "Eddy Currents and Magnetic Damping",
             "short_id": "7Y4o6RKx",
-            "cnx_id": "ed8e28e9-12b1-4994-96f0-0bc4aa977a97@3",
+            "ox_id": "ed8e28e9-12b1-4994-96f0-0bc4aa977a97@3",
             "version": "3",
             "uuid": "ed8e28e9-12b1-4994-96f0-0bc4aa977a97",
             "id": "13132"
@@ -3411,7 +3411,7 @@
             "type": "page",
             "title": "Electric Generators",
             "short_id": "p6NyFJgn",
-            "cnx_id": "a7a37214-9827-4d48-8e31-7c644b1ba14d@4",
+            "ox_id": "a7a37214-9827-4d48-8e31-7c644b1ba14d@4",
             "version": "4",
             "uuid": "a7a37214-9827-4d48-8e31-7c644b1ba14d",
             "id": "13133"
@@ -3424,7 +3424,7 @@
             "type": "page",
             "title": "Back Emf",
             "short_id": "ewh6Wtx6",
-            "cnx_id": "7b087a5a-dc7a-41e9-ac47-9c3b84f9018b@2",
+            "ox_id": "7b087a5a-dc7a-41e9-ac47-9c3b84f9018b@2",
             "version": "2",
             "uuid": "7b087a5a-dc7a-41e9-ac47-9c3b84f9018b",
             "id": "13134"
@@ -3437,7 +3437,7 @@
             "type": "page",
             "title": "Transformers",
             "short_id": "tsOxBlos",
-            "cnx_id": "b6c3b106-5a2c-4711-aa01-6bacc62e5621@4",
+            "ox_id": "b6c3b106-5a2c-4711-aa01-6bacc62e5621@4",
             "version": "4",
             "uuid": "b6c3b106-5a2c-4711-aa01-6bacc62e5621",
             "id": "13135"
@@ -3450,7 +3450,7 @@
             "type": "page",
             "title": "Electrical Safety: Systems and Devices",
             "short_id": "feMNPMAE",
-            "cnx_id": "7de30d3c-c004-4b23-b13a-5eb51a65578e@2",
+            "ox_id": "7de30d3c-c004-4b23-b13a-5eb51a65578e@2",
             "version": "2",
             "uuid": "7de30d3c-c004-4b23-b13a-5eb51a65578e",
             "id": "13136"
@@ -3463,7 +3463,7 @@
             "type": "page",
             "title": "Inductance",
             "short_id": "eecIsnIY",
-            "cnx_id": "79e708b2-7218-457e-bc23-82ffd95ce5a0@3",
+            "ox_id": "79e708b2-7218-457e-bc23-82ffd95ce5a0@3",
             "version": "3",
             "uuid": "79e708b2-7218-457e-bc23-82ffd95ce5a0",
             "id": "13137"
@@ -3476,7 +3476,7 @@
             "type": "page",
             "title": "RL Circuits",
             "short_id": "b2Va9lwf",
-            "cnx_id": "6f655af6-5c1f-4c44-9e11-e26660098de8@3",
+            "ox_id": "6f655af6-5c1f-4c44-9e11-e26660098de8@3",
             "version": "3",
             "uuid": "6f655af6-5c1f-4c44-9e11-e26660098de8",
             "id": "13138"
@@ -3489,7 +3489,7 @@
             "type": "page",
             "title": "Reactance, Inductive and Capacitive",
             "short_id": "yQQ12ZQ6",
-            "cnx_id": "c90435d9-943a-431c-ade8-fd2a27772a51@2",
+            "ox_id": "c90435d9-943a-431c-ade8-fd2a27772a51@2",
             "version": "2",
             "uuid": "c90435d9-943a-431c-ade8-fd2a27772a51",
             "id": "13139"
@@ -3502,7 +3502,7 @@
             "type": "page",
             "title": "RLC Series AC Circuits",
             "short_id": "or_TYn2T",
-            "cnx_id": "a2bfd362-7d93-4b62-8e66-aea4c1bf4dae@3",
+            "ox_id": "a2bfd362-7d93-4b62-8e66-aea4c1bf4dae@3",
             "version": "3",
             "uuid": "a2bfd362-7d93-4b62-8e66-aea4c1bf4dae",
             "id": "13140"
@@ -3512,7 +3512,7 @@
             "type": "page",
             "title": "Glossary",
             "short_id": "N1IjWbDu",
-            "cnx_id": "37522359-b0ee-5625-87fc-3a8822533293@8.1",
+            "ox_id": "37522359-b0ee-5625-87fc-3a8822533293@8.1",
             "version": "8.1",
             "uuid": "37522359-b0ee-5625-87fc-3a8822533293",
             "id": "13141"
@@ -3522,7 +3522,7 @@
             "type": "page",
             "title": "Section Summary",
             "short_id": "Tfu9avjD",
-            "cnx_id": "4dfbbd6a-f8c3-5d76-9ff3-667ceef61501@8.1",
+            "ox_id": "4dfbbd6a-f8c3-5d76-9ff3-667ceef61501@8.1",
             "version": "8.1",
             "uuid": "4dfbbd6a-f8c3-5d76-9ff3-667ceef61501",
             "id": "13142"
@@ -3532,7 +3532,7 @@
             "type": "page",
             "title": "Conceptual Questions",
             "short_id": "9azrx1Ur",
-            "cnx_id": "f5acebc7-552b-5014-ae0d-5ce973cb047b@8.1",
+            "ox_id": "f5acebc7-552b-5014-ae0d-5ce973cb047b@8.1",
             "version": "8.1",
             "uuid": "f5acebc7-552b-5014-ae0d-5ce973cb047b",
             "id": "13143"
@@ -3542,7 +3542,7 @@
             "type": "page",
             "title": "Problems &amp; Exercises",
             "short_id": "bWoe-OxO",
-            "cnx_id": "6d6a1ef8-ec4e-5798-bfbe-dafe59d80c7b@8.1",
+            "ox_id": "6d6a1ef8-ec4e-5798-bfbe-dafe59d80c7b@8.1",
             "version": "8.1",
             "uuid": "6d6a1ef8-ec4e-5798-bfbe-dafe59d80c7b",
             "id": "13144"
@@ -3561,7 +3561,7 @@
             "type": "page",
             "title": "Introduction to Electromagnetic Waves",
             "short_id": "gOr8YcoF",
-            "cnx_id": "80eafc61-ca05-4237-8237-89df2a4d0988@2",
+            "ox_id": "80eafc61-ca05-4237-8237-89df2a4d0988@2",
             "version": "2",
             "uuid": "80eafc61-ca05-4237-8237-89df2a4d0988",
             "id": "13145"
@@ -3574,7 +3574,7 @@
             "type": "page",
             "title": "Maxwell’s Equations: Electromagnetic Waves Predicted and Observed",
             "short_id": "5T0iSvZL",
-            "cnx_id": "e53d224a-f64b-4c10-bb78-a8e34083e6bb@3",
+            "ox_id": "e53d224a-f64b-4c10-bb78-a8e34083e6bb@3",
             "version": "3",
             "uuid": "e53d224a-f64b-4c10-bb78-a8e34083e6bb",
             "id": "13146"
@@ -3587,7 +3587,7 @@
             "type": "page",
             "title": "Production of Electromagnetic Waves",
             "short_id": "nPPvrmoE",
-            "cnx_id": "9cf3efae-6a04-4ca8-8769-c6204cf71df2@7",
+            "ox_id": "9cf3efae-6a04-4ca8-8769-c6204cf71df2@7",
             "version": "7",
             "uuid": "9cf3efae-6a04-4ca8-8769-c6204cf71df2",
             "id": "13147"
@@ -3600,7 +3600,7 @@
             "type": "page",
             "title": "The Electromagnetic Spectrum",
             "short_id": "EmX4e_4I",
-            "cnx_id": "1265f87b-fe08-4e80-817c-cf5ca9a03a73@3",
+            "ox_id": "1265f87b-fe08-4e80-817c-cf5ca9a03a73@3",
             "version": "3",
             "uuid": "1265f87b-fe08-4e80-817c-cf5ca9a03a73",
             "id": "13148"
@@ -3613,7 +3613,7 @@
             "type": "page",
             "title": "Energy in Electromagnetic Waves",
             "short_id": "yvS5WKxx",
-            "cnx_id": "caf4b958-ac71-44e8-b4d7-27b38f151850@2",
+            "ox_id": "caf4b958-ac71-44e8-b4d7-27b38f151850@2",
             "version": "2",
             "uuid": "caf4b958-ac71-44e8-b4d7-27b38f151850",
             "id": "13149"
@@ -3623,7 +3623,7 @@
             "type": "page",
             "title": "Glossary",
             "short_id": "KqUTKso-",
-            "cnx_id": "2aa5132a-ca3e-512c-9596-ba0f42e78eff@8.1",
+            "ox_id": "2aa5132a-ca3e-512c-9596-ba0f42e78eff@8.1",
             "version": "8.1",
             "uuid": "2aa5132a-ca3e-512c-9596-ba0f42e78eff",
             "id": "13150"
@@ -3633,7 +3633,7 @@
             "type": "page",
             "title": "Section Summary",
             "short_id": "W_7yo61r",
-            "cnx_id": "5bfef2a3-ad6b-5cb8-8a41-9d089f15ed41@8.1",
+            "ox_id": "5bfef2a3-ad6b-5cb8-8a41-9d089f15ed41@8.1",
             "version": "8.1",
             "uuid": "5bfef2a3-ad6b-5cb8-8a41-9d089f15ed41",
             "id": "13151"
@@ -3643,7 +3643,7 @@
             "type": "page",
             "title": "Conceptual Questions",
             "short_id": "smzJOulX",
-            "cnx_id": "b26cc93a-e957-5ae6-aa0b-e480686c1225@8.1",
+            "ox_id": "b26cc93a-e957-5ae6-aa0b-e480686c1225@8.1",
             "version": "8.1",
             "uuid": "b26cc93a-e957-5ae6-aa0b-e480686c1225",
             "id": "13152"
@@ -3653,7 +3653,7 @@
             "type": "page",
             "title": "Problems &amp; Exercises",
             "short_id": "tG1qt4UI",
-            "cnx_id": "b46d6ab7-8508-51b6-bcc9-d6224154e120@8.1",
+            "ox_id": "b46d6ab7-8508-51b6-bcc9-d6224154e120@8.1",
             "version": "8.1",
             "uuid": "b46d6ab7-8508-51b6-bcc9-d6224154e120",
             "id": "13153"
@@ -3672,7 +3672,7 @@
             "type": "page",
             "title": "Introduction to Geometric Optics",
             "short_id": "rahuKIzC",
-            "cnx_id": "ada86e28-8cc2-4cd1-974f-79cc8153b47b@2",
+            "ox_id": "ada86e28-8cc2-4cd1-974f-79cc8153b47b@2",
             "version": "2",
             "uuid": "ada86e28-8cc2-4cd1-974f-79cc8153b47b",
             "id": "13154"
@@ -3685,7 +3685,7 @@
             "type": "page",
             "title": "The Ray Aspect of Light",
             "short_id": "xvSVtvvx",
-            "cnx_id": "c6f495b6-fbf1-4b16-85f6-945fa7f9c58c@2",
+            "ox_id": "c6f495b6-fbf1-4b16-85f6-945fa7f9c58c@2",
             "version": "2",
             "uuid": "c6f495b6-fbf1-4b16-85f6-945fa7f9c58c",
             "id": "13155"
@@ -3698,7 +3698,7 @@
             "type": "page",
             "title": "The Law of Reflection",
             "short_id": "xH3W06-l",
-            "cnx_id": "c47dd6d3-afa5-4546-b430-d0e3c24108d5@3",
+            "ox_id": "c47dd6d3-afa5-4546-b430-d0e3c24108d5@3",
             "version": "3",
             "uuid": "c47dd6d3-afa5-4546-b430-d0e3c24108d5",
             "id": "13156"
@@ -3711,7 +3711,7 @@
             "type": "page",
             "title": "The Law of Refraction",
             "short_id": "JZmb8tO0",
-            "cnx_id": "25999bf2-d3b4-4763-b10b-86d9e977d218@5",
+            "ox_id": "25999bf2-d3b4-4763-b10b-86d9e977d218@5",
             "version": "5",
             "uuid": "25999bf2-d3b4-4763-b10b-86d9e977d218",
             "id": "13157"
@@ -3724,7 +3724,7 @@
             "type": "page",
             "title": "Total Internal Reflection",
             "short_id": "u2nHQD_x",
-            "cnx_id": "bb69c740-3ff1-4594-be1f-a7e67e7feeba@5",
+            "ox_id": "bb69c740-3ff1-4594-be1f-a7e67e7feeba@5",
             "version": "5",
             "uuid": "bb69c740-3ff1-4594-be1f-a7e67e7feeba",
             "id": "13158"
@@ -3737,7 +3737,7 @@
             "type": "page",
             "title": "Dispersion: The Rainbow and Prisms",
             "short_id": "ZUnVdxDh",
-            "cnx_id": "6549d577-10e1-4231-8742-41eba2332b7a@4",
+            "ox_id": "6549d577-10e1-4231-8742-41eba2332b7a@4",
             "version": "4",
             "uuid": "6549d577-10e1-4231-8742-41eba2332b7a",
             "id": "13159"
@@ -3750,7 +3750,7 @@
             "type": "page",
             "title": "Image Formation by Lenses",
             "short_id": "jc6Ce3PC",
-            "cnx_id": "8dce827b-73c2-4a1e-a800-ca1e9bf61b6b@3",
+            "ox_id": "8dce827b-73c2-4a1e-a800-ca1e9bf61b6b@3",
             "version": "3",
             "uuid": "8dce827b-73c2-4a1e-a800-ca1e9bf61b6b",
             "id": "13160"
@@ -3763,7 +3763,7 @@
             "type": "page",
             "title": "Image Formation by Mirrors",
             "short_id": "xM71dgWd",
-            "cnx_id": "c4cef576-059d-4369-9494-6484d1d6191c@3",
+            "ox_id": "c4cef576-059d-4369-9494-6484d1d6191c@3",
             "version": "3",
             "uuid": "c4cef576-059d-4369-9494-6484d1d6191c",
             "id": "13161"
@@ -3773,7 +3773,7 @@
             "type": "page",
             "title": "Glossary",
             "short_id": "ikycykgC",
-            "cnx_id": "8a4c9cca-4802-5cb6-8f14-6425ad1b0d3f@8.1",
+            "ox_id": "8a4c9cca-4802-5cb6-8f14-6425ad1b0d3f@8.1",
             "version": "8.1",
             "uuid": "8a4c9cca-4802-5cb6-8f14-6425ad1b0d3f",
             "id": "13162"
@@ -3783,7 +3783,7 @@
             "type": "page",
             "title": "Section Summary",
             "short_id": "ejVqj94n",
-            "cnx_id": "7a356a8f-de27-5eed-86ef-9976fb963b0f@8.1",
+            "ox_id": "7a356a8f-de27-5eed-86ef-9976fb963b0f@8.1",
             "version": "8.1",
             "uuid": "7a356a8f-de27-5eed-86ef-9976fb963b0f",
             "id": "13163"
@@ -3793,7 +3793,7 @@
             "type": "page",
             "title": "Conceptual Questions",
             "short_id": "mnV12nZK",
-            "cnx_id": "9a7575da-764a-5b19-8c88-7bdb47fdf65d@8.1",
+            "ox_id": "9a7575da-764a-5b19-8c88-7bdb47fdf65d@8.1",
             "version": "8.1",
             "uuid": "9a7575da-764a-5b19-8c88-7bdb47fdf65d",
             "id": "13164"
@@ -3803,7 +3803,7 @@
             "type": "page",
             "title": "Problems &amp; Exercises",
             "short_id": "GMKnH51m",
-            "cnx_id": "18c2a71f-9d66-547f-a5f0-7253362f8823@8.1",
+            "ox_id": "18c2a71f-9d66-547f-a5f0-7253362f8823@8.1",
             "version": "8.1",
             "uuid": "18c2a71f-9d66-547f-a5f0-7253362f8823",
             "id": "13165"
@@ -3822,7 +3822,7 @@
             "type": "page",
             "title": "Introduction to Vision and Optical Instruments",
             "short_id": "jbeVuoiW",
-            "cnx_id": "8db795ba-8896-468d-8e1b-a3cc577d1daf@2",
+            "ox_id": "8db795ba-8896-468d-8e1b-a3cc577d1daf@2",
             "version": "2",
             "uuid": "8db795ba-8896-468d-8e1b-a3cc577d1daf",
             "id": "13166"
@@ -3835,7 +3835,7 @@
             "type": "page",
             "title": "Physics of the Eye",
             "short_id": "87X3xAcA",
-            "cnx_id": "f3b5f7c4-0700-4afd-a4e7-ecf3805dce4c@3",
+            "ox_id": "f3b5f7c4-0700-4afd-a4e7-ecf3805dce4c@3",
             "version": "3",
             "uuid": "f3b5f7c4-0700-4afd-a4e7-ecf3805dce4c",
             "id": "13167"
@@ -3848,7 +3848,7 @@
             "type": "page",
             "title": "Vision Correction",
             "short_id": "Fgnse_MZ",
-            "cnx_id": "1609ec7b-f319-4a25-b6c2-2cb58aff976b@3",
+            "ox_id": "1609ec7b-f319-4a25-b6c2-2cb58aff976b@3",
             "version": "3",
             "uuid": "1609ec7b-f319-4a25-b6c2-2cb58aff976b",
             "id": "13168"
@@ -3861,7 +3861,7 @@
             "type": "page",
             "title": "Color and Color Vision",
             "short_id": "D1m_f8zq",
-            "cnx_id": "0f59bf7f-ccea-41d0-85aa-eaddc271ed44@2",
+            "ox_id": "0f59bf7f-ccea-41d0-85aa-eaddc271ed44@2",
             "version": "2",
             "uuid": "0f59bf7f-ccea-41d0-85aa-eaddc271ed44",
             "id": "13169"
@@ -3874,7 +3874,7 @@
             "type": "page",
             "title": "Microscopes",
             "short_id": "UULZjW1Q",
-            "cnx_id": "5142d98d-6d50-4752-a015-fb0231e5a6de@2",
+            "ox_id": "5142d98d-6d50-4752-a015-fb0231e5a6de@2",
             "version": "2",
             "uuid": "5142d98d-6d50-4752-a015-fb0231e5a6de",
             "id": "13170"
@@ -3887,7 +3887,7 @@
             "type": "page",
             "title": "Telescopes",
             "short_id": "pdxO2sG1",
-            "cnx_id": "a5dc4eda-c1b5-472c-922d-0b27f5c14d6a@2",
+            "ox_id": "a5dc4eda-c1b5-472c-922d-0b27f5c14d6a@2",
             "version": "2",
             "uuid": "a5dc4eda-c1b5-472c-922d-0b27f5c14d6a",
             "id": "13171"
@@ -3900,7 +3900,7 @@
             "type": "page",
             "title": "Aberrations",
             "short_id": "Do1xM1G8",
-            "cnx_id": "0e8d7133-51bc-42a8-a6f3-d066686e650a@3",
+            "ox_id": "0e8d7133-51bc-42a8-a6f3-d066686e650a@3",
             "version": "3",
             "uuid": "0e8d7133-51bc-42a8-a6f3-d066686e650a",
             "id": "13172"
@@ -3910,7 +3910,7 @@
             "type": "page",
             "title": "Glossary",
             "short_id": "JLSl3Ga0",
-            "cnx_id": "24b4a5dc-66b4-5906-a15b-72e93a0bab86@8.1",
+            "ox_id": "24b4a5dc-66b4-5906-a15b-72e93a0bab86@8.1",
             "version": "8.1",
             "uuid": "24b4a5dc-66b4-5906-a15b-72e93a0bab86",
             "id": "13173"
@@ -3920,7 +3920,7 @@
             "type": "page",
             "title": "Section Summary",
             "short_id": "dg5mZnJp",
-            "cnx_id": "760e6666-7269-5111-b525-79940abd2b08@8.1",
+            "ox_id": "760e6666-7269-5111-b525-79940abd2b08@8.1",
             "version": "8.1",
             "uuid": "760e6666-7269-5111-b525-79940abd2b08",
             "id": "13174"
@@ -3930,7 +3930,7 @@
             "type": "page",
             "title": "Conceptual Questions",
             "short_id": "uh0qeRzU",
-            "cnx_id": "ba1d2a79-1cd4-5c5f-8e77-507b1e96551d@8.1",
+            "ox_id": "ba1d2a79-1cd4-5c5f-8e77-507b1e96551d@8.1",
             "version": "8.1",
             "uuid": "ba1d2a79-1cd4-5c5f-8e77-507b1e96551d",
             "id": "13175"
@@ -3940,7 +3940,7 @@
             "type": "page",
             "title": "Problems &amp; Exercises",
             "short_id": "RgVdrQ4r",
-            "cnx_id": "46055dad-0e2b-5b5b-aefb-5e9976ecb48d@8.1",
+            "ox_id": "46055dad-0e2b-5b5b-aefb-5e9976ecb48d@8.1",
             "version": "8.1",
             "uuid": "46055dad-0e2b-5b5b-aefb-5e9976ecb48d",
             "id": "13176"
@@ -3959,7 +3959,7 @@
             "type": "page",
             "title": "Introduction to Wave Optics",
             "short_id": "LgvtCwxJ",
-            "cnx_id": "2e0bed0b-0c49-48ef-bc1b-782106cb211d@2",
+            "ox_id": "2e0bed0b-0c49-48ef-bc1b-782106cb211d@2",
             "version": "2",
             "uuid": "2e0bed0b-0c49-48ef-bc1b-782106cb211d",
             "id": "13177"
@@ -3972,7 +3972,7 @@
             "type": "page",
             "title": "The Wave Aspect of Light: Interference",
             "short_id": "bUOVlys2",
-            "cnx_id": "6d439597-2b36-4076-9dbc-89d6c334c4fd@3",
+            "ox_id": "6d439597-2b36-4076-9dbc-89d6c334c4fd@3",
             "version": "3",
             "uuid": "6d439597-2b36-4076-9dbc-89d6c334c4fd",
             "id": "13178"
@@ -3985,7 +3985,7 @@
             "type": "page",
             "title": "Huygens's Principle: Diffraction",
             "short_id": "C1zrg5lC",
-            "cnx_id": "0b5ceb83-9942-4f31-97ea-e86ea0c335d5@3",
+            "ox_id": "0b5ceb83-9942-4f31-97ea-e86ea0c335d5@3",
             "version": "3",
             "uuid": "0b5ceb83-9942-4f31-97ea-e86ea0c335d5",
             "id": "13179"
@@ -3998,7 +3998,7 @@
             "type": "page",
             "title": "Young’s Double Slit Experiment",
             "short_id": "Cp2zUlbM",
-            "cnx_id": "0a9db352-56cc-40a3-a57c-296990f8ac42@2",
+            "ox_id": "0a9db352-56cc-40a3-a57c-296990f8ac42@2",
             "version": "2",
             "uuid": "0a9db352-56cc-40a3-a57c-296990f8ac42",
             "id": "13180"
@@ -4011,7 +4011,7 @@
             "type": "page",
             "title": "Multiple Slit Diffraction",
             "short_id": "sZiSqaEo",
-            "cnx_id": "b19892a9-a128-4a8f-8810-0505518daced@4",
+            "ox_id": "b19892a9-a128-4a8f-8810-0505518daced@4",
             "version": "4",
             "uuid": "b19892a9-a128-4a8f-8810-0505518daced",
             "id": "13181"
@@ -4024,7 +4024,7 @@
             "type": "page",
             "title": "Single Slit Diffraction",
             "short_id": "pLcYTkWV",
-            "cnx_id": "a4b7184e-4595-4041-b53b-59a1d2a859b5@3",
+            "ox_id": "a4b7184e-4595-4041-b53b-59a1d2a859b5@3",
             "version": "3",
             "uuid": "a4b7184e-4595-4041-b53b-59a1d2a859b5",
             "id": "13182"
@@ -4037,7 +4037,7 @@
             "type": "page",
             "title": "Limits of Resolution: The Rayleigh Criterion",
             "short_id": "6p2BhiLH",
-            "cnx_id": "ea9d8186-22c7-4102-a0dc-dac63e00dc3a@4",
+            "ox_id": "ea9d8186-22c7-4102-a0dc-dac63e00dc3a@4",
             "version": "4",
             "uuid": "ea9d8186-22c7-4102-a0dc-dac63e00dc3a",
             "id": "13183"
@@ -4050,7 +4050,7 @@
             "type": "page",
             "title": "Thin Film Interference",
             "short_id": "3CvvFgit",
-            "cnx_id": "dc2bef16-08ad-4f45-a730-83e978a744c0@3",
+            "ox_id": "dc2bef16-08ad-4f45-a730-83e978a744c0@3",
             "version": "3",
             "uuid": "dc2bef16-08ad-4f45-a730-83e978a744c0",
             "id": "13184"
@@ -4063,7 +4063,7 @@
             "type": "page",
             "title": "Polarization",
             "short_id": "B-5xTuRT",
-            "cnx_id": "07ee714e-e453-4866-ba35-3f2ec6916a4f@4",
+            "ox_id": "07ee714e-e453-4866-ba35-3f2ec6916a4f@4",
             "version": "4",
             "uuid": "07ee714e-e453-4866-ba35-3f2ec6916a4f",
             "id": "13185"
@@ -4076,7 +4076,7 @@
             "type": "page",
             "title": "*Extended Topic* Microscopy Enhanced by the Wave Characteristics of Light",
             "short_id": "TP08LdrR",
-            "cnx_id": "4cfd3c2d-dad1-4133-8dae-0c321a6577a4@3",
+            "ox_id": "4cfd3c2d-dad1-4133-8dae-0c321a6577a4@3",
             "version": "3",
             "uuid": "4cfd3c2d-dad1-4133-8dae-0c321a6577a4",
             "id": "13186"
@@ -4086,7 +4086,7 @@
             "type": "page",
             "title": "Glossary",
             "short_id": "TFImY98s",
-            "cnx_id": "4c522663-df2c-5123-a225-3b3d285bb815@8.1",
+            "ox_id": "4c522663-df2c-5123-a225-3b3d285bb815@8.1",
             "version": "8.1",
             "uuid": "4c522663-df2c-5123-a225-3b3d285bb815",
             "id": "13187"
@@ -4096,7 +4096,7 @@
             "type": "page",
             "title": "Section Summary",
             "short_id": "15hlS3c5",
-            "cnx_id": "d798654b-7739-54c0-84e3-6d8cfe711f62@8.1",
+            "ox_id": "d798654b-7739-54c0-84e3-6d8cfe711f62@8.1",
             "version": "8.1",
             "uuid": "d798654b-7739-54c0-84e3-6d8cfe711f62",
             "id": "13188"
@@ -4106,7 +4106,7 @@
             "type": "page",
             "title": "Conceptual Questions",
             "short_id": "tceV-awA",
-            "cnx_id": "b5c795f9-ac00-5ca5-9b5c-241f9b18513e@8.1",
+            "ox_id": "b5c795f9-ac00-5ca5-9b5c-241f9b18513e@8.1",
             "version": "8.1",
             "uuid": "b5c795f9-ac00-5ca5-9b5c-241f9b18513e",
             "id": "13189"
@@ -4116,7 +4116,7 @@
             "type": "page",
             "title": "Problems &amp; Exercises",
             "short_id": "25ElpBU7",
-            "cnx_id": "db9125a4-153b-532b-862a-a3a0d152e445@8.1",
+            "ox_id": "db9125a4-153b-532b-862a-a3a0d152e445@8.1",
             "version": "8.1",
             "uuid": "db9125a4-153b-532b-862a-a3a0d152e445",
             "id": "13190"
@@ -4135,7 +4135,7 @@
             "type": "page",
             "title": "Introduction to Special Relativity",
             "short_id": "nyNwz5hH",
-            "cnx_id": "9f2370cf-9847-458a-a37d-a5dd24587cfd@3",
+            "ox_id": "9f2370cf-9847-458a-a37d-a5dd24587cfd@3",
             "version": "3",
             "uuid": "9f2370cf-9847-458a-a37d-a5dd24587cfd",
             "id": "13191"
@@ -4148,7 +4148,7 @@
             "type": "page",
             "title": "Einstein’s Postulates",
             "short_id": "oKoVG8EE",
-            "cnx_id": "a0aa151b-c104-49a6-a0a7-7d2cb965d23d@3",
+            "ox_id": "a0aa151b-c104-49a6-a0a7-7d2cb965d23d@3",
             "version": "3",
             "uuid": "a0aa151b-c104-49a6-a0a7-7d2cb965d23d",
             "id": "13192"
@@ -4161,7 +4161,7 @@
             "type": "page",
             "title": "Simultaneity And Time Dilation",
             "short_id": "yk2EQ6QQ",
-            "cnx_id": "ca4d8443-a410-413a-8fa8-62355cb676e4@6",
+            "ox_id": "ca4d8443-a410-413a-8fa8-62355cb676e4@6",
             "version": "6",
             "uuid": "ca4d8443-a410-413a-8fa8-62355cb676e4",
             "id": "13193"
@@ -4174,7 +4174,7 @@
             "type": "page",
             "title": "Length Contraction",
             "short_id": "QMR7H0Bi",
-            "cnx_id": "40c47b1f-4062-4577-94de-5bc1a6472a11@4",
+            "ox_id": "40c47b1f-4062-4577-94de-5bc1a6472a11@4",
             "version": "4",
             "uuid": "40c47b1f-4062-4577-94de-5bc1a6472a11",
             "id": "13194"
@@ -4187,7 +4187,7 @@
             "type": "page",
             "title": "Relativistic Addition of Velocities",
             "short_id": "eMtKCTYN",
-            "cnx_id": "78cb4a09-360d-4155-933c-195a2ae5b262@4",
+            "ox_id": "78cb4a09-360d-4155-933c-195a2ae5b262@4",
             "version": "4",
             "uuid": "78cb4a09-360d-4155-933c-195a2ae5b262",
             "id": "13195"
@@ -4200,7 +4200,7 @@
             "type": "page",
             "title": "Relativistic Momentum",
             "short_id": "o1Z5OyVV",
-            "cnx_id": "a356793b-2555-4156-a939-1edfdf939fb1@3",
+            "ox_id": "a356793b-2555-4156-a939-1edfdf939fb1@3",
             "version": "3",
             "uuid": "a356793b-2555-4156-a939-1edfdf939fb1",
             "id": "13196"
@@ -4213,7 +4213,7 @@
             "type": "page",
             "title": "Relativistic Energy",
             "short_id": "vxw5E5hc",
-            "cnx_id": "bf1c3913-985c-4aec-a926-a409b470c476@5",
+            "ox_id": "bf1c3913-985c-4aec-a926-a409b470c476@5",
             "version": "5",
             "uuid": "bf1c3913-985c-4aec-a926-a409b470c476",
             "id": "13197"
@@ -4223,7 +4223,7 @@
             "type": "page",
             "title": "Glossary",
             "short_id": "b57Fds1Y",
-            "cnx_id": "6f9ec576-cd58-5fa9-a4f9-2f727dcda458@8.1",
+            "ox_id": "6f9ec576-cd58-5fa9-a4f9-2f727dcda458@8.1",
             "version": "8.1",
             "uuid": "6f9ec576-cd58-5fa9-a4f9-2f727dcda458",
             "id": "13198"
@@ -4233,7 +4233,7 @@
             "type": "page",
             "title": "Section Summary",
             "short_id": "CH3IB-qu",
-            "cnx_id": "087dc807-eaae-5b52-be2a-1dbc4812cc02@8.1",
+            "ox_id": "087dc807-eaae-5b52-be2a-1dbc4812cc02@8.1",
             "version": "8.1",
             "uuid": "087dc807-eaae-5b52-be2a-1dbc4812cc02",
             "id": "13199"
@@ -4243,7 +4243,7 @@
             "type": "page",
             "title": "Conceptual Questions",
             "short_id": "9v1doiYC",
-            "cnx_id": "f6fd5da2-2602-5cf4-8001-1cf6d78ca806@8.1",
+            "ox_id": "f6fd5da2-2602-5cf4-8001-1cf6d78ca806@8.1",
             "version": "8.1",
             "uuid": "f6fd5da2-2602-5cf4-8001-1cf6d78ca806",
             "id": "13200"
@@ -4253,7 +4253,7 @@
             "type": "page",
             "title": "Problems &amp; Exercises",
             "short_id": "la5Be8o1",
-            "cnx_id": "95ae417b-ca35-5329-bf5c-f52491bd649b@8.1",
+            "ox_id": "95ae417b-ca35-5329-bf5c-f52491bd649b@8.1",
             "version": "8.1",
             "uuid": "95ae417b-ca35-5329-bf5c-f52491bd649b",
             "id": "13201"
@@ -4272,7 +4272,7 @@
             "type": "page",
             "title": "Introduction to Quantum Physics",
             "short_id": "X4us9aU_",
-            "cnx_id": "5f8bacf5-a53f-46c1-b6a4-70014ace238d@3",
+            "ox_id": "5f8bacf5-a53f-46c1-b6a4-70014ace238d@3",
             "version": "3",
             "uuid": "5f8bacf5-a53f-46c1-b6a4-70014ace238d",
             "id": "13202"
@@ -4285,7 +4285,7 @@
             "type": "page",
             "title": "Quantization of Energy",
             "short_id": "94zcIjer",
-            "cnx_id": "f78cdc22-37ab-42b8-b0a4-db74a8ae7a3f@3",
+            "ox_id": "f78cdc22-37ab-42b8-b0a4-db74a8ae7a3f@3",
             "version": "3",
             "uuid": "f78cdc22-37ab-42b8-b0a4-db74a8ae7a3f",
             "id": "13203"
@@ -4298,7 +4298,7 @@
             "type": "page",
             "title": "The Photoelectric Effect",
             "short_id": "d7RMVsFh",
-            "cnx_id": "77b44c56-c161-4234-815b-f90a130c30ec@4",
+            "ox_id": "77b44c56-c161-4234-815b-f90a130c30ec@4",
             "version": "4",
             "uuid": "77b44c56-c161-4234-815b-f90a130c30ec",
             "id": "13204"
@@ -4311,7 +4311,7 @@
             "type": "page",
             "title": "Photon Energies and the Electromagnetic Spectrum",
             "short_id": "WrNZ57ki",
-            "cnx_id": "5ab359e7-b922-4b27-b86b-aff3cc82175e@3",
+            "ox_id": "5ab359e7-b922-4b27-b86b-aff3cc82175e@3",
             "version": "3",
             "uuid": "5ab359e7-b922-4b27-b86b-aff3cc82175e",
             "id": "13205"
@@ -4324,7 +4324,7 @@
             "type": "page",
             "title": "Photon Momentum",
             "short_id": "wrjshtA6",
-            "cnx_id": "c2b8ec86-d03a-46d9-9d42-49484a195ed8@2",
+            "ox_id": "c2b8ec86-d03a-46d9-9d42-49484a195ed8@2",
             "version": "2",
             "uuid": "c2b8ec86-d03a-46d9-9d42-49484a195ed8",
             "id": "13206"
@@ -4337,7 +4337,7 @@
             "type": "page",
             "title": "The Particle-Wave Duality",
             "short_id": "q_3GB3mw",
-            "cnx_id": "abfdc607-79b0-4255-8c26-4b9116fb9e2f@2",
+            "ox_id": "abfdc607-79b0-4255-8c26-4b9116fb9e2f@2",
             "version": "2",
             "uuid": "abfdc607-79b0-4255-8c26-4b9116fb9e2f",
             "id": "13207"
@@ -4350,7 +4350,7 @@
             "type": "page",
             "title": "The Wave Nature of Matter",
             "short_id": "Vcn9JcfF",
-            "cnx_id": "55c9fd25-c7c5-4d43-a8c1-c75cd40fb8b1@2",
+            "ox_id": "55c9fd25-c7c5-4d43-a8c1-c75cd40fb8b1@2",
             "version": "2",
             "uuid": "55c9fd25-c7c5-4d43-a8c1-c75cd40fb8b1",
             "id": "13208"
@@ -4363,7 +4363,7 @@
             "type": "page",
             "title": "Probability: The Heisenberg Uncertainty Principle",
             "short_id": "pinpuG6L",
-            "cnx_id": "a629e9b8-6e8b-49e2-a5fd-9d33832d5086@3",
+            "ox_id": "a629e9b8-6e8b-49e2-a5fd-9d33832d5086@3",
             "version": "3",
             "uuid": "a629e9b8-6e8b-49e2-a5fd-9d33832d5086",
             "id": "13209"
@@ -4376,7 +4376,7 @@
             "type": "page",
             "title": "The Particle-Wave Duality Reviewed",
             "short_id": "wA5FTbbC",
-            "cnx_id": "c00e454d-b6c2-4c78-ad85-ce2e91074590@3",
+            "ox_id": "c00e454d-b6c2-4c78-ad85-ce2e91074590@3",
             "version": "3",
             "uuid": "c00e454d-b6c2-4c78-ad85-ce2e91074590",
             "id": "13210"
@@ -4386,7 +4386,7 @@
             "type": "page",
             "title": "Glossary",
             "short_id": "PEykXadO",
-            "cnx_id": "3c4ca45d-a74e-5e55-a2f8-ebd5f78f93df@8.1",
+            "ox_id": "3c4ca45d-a74e-5e55-a2f8-ebd5f78f93df@8.1",
             "version": "8.1",
             "uuid": "3c4ca45d-a74e-5e55-a2f8-ebd5f78f93df",
             "id": "13211"
@@ -4396,7 +4396,7 @@
             "type": "page",
             "title": "Section Summary",
             "short_id": "JoJSTwo8",
-            "cnx_id": "2682524f-0a3c-51a0-a089-0a7eb3e2a774@8.1",
+            "ox_id": "2682524f-0a3c-51a0-a089-0a7eb3e2a774@8.1",
             "version": "8.1",
             "uuid": "2682524f-0a3c-51a0-a089-0a7eb3e2a774",
             "id": "13212"
@@ -4406,7 +4406,7 @@
             "type": "page",
             "title": "Conceptual Questions",
             "short_id": "NvMymM9l",
-            "cnx_id": "36f33298-cf65-5ac7-903d-b1906838e4f0@8.1",
+            "ox_id": "36f33298-cf65-5ac7-903d-b1906838e4f0@8.1",
             "version": "8.1",
             "uuid": "36f33298-cf65-5ac7-903d-b1906838e4f0",
             "id": "13213"
@@ -4416,7 +4416,7 @@
             "type": "page",
             "title": "Problems &amp; Exercises",
             "short_id": "u7qygmP-",
-            "cnx_id": "bbbab282-63fe-5d1b-a1a3-f5b62fd24907@8.1",
+            "ox_id": "bbbab282-63fe-5d1b-a1a3-f5b62fd24907@8.1",
             "version": "8.1",
             "uuid": "bbbab282-63fe-5d1b-a1a3-f5b62fd24907",
             "id": "13214"
@@ -4435,7 +4435,7 @@
             "type": "page",
             "title": "Introduction to Atomic Physics",
             "short_id": "q1n-vQOl",
-            "cnx_id": "ab59febd-03a5-4e33-9c67-072e3ad2d860@2",
+            "ox_id": "ab59febd-03a5-4e33-9c67-072e3ad2d860@2",
             "version": "2",
             "uuid": "ab59febd-03a5-4e33-9c67-072e3ad2d860",
             "id": "13215"
@@ -4448,7 +4448,7 @@
             "type": "page",
             "title": "Discovery of the Atom",
             "short_id": "fT0Sdmlq",
-            "cnx_id": "7d3d1276-696a-4a41-ab53-c12804b57470@3",
+            "ox_id": "7d3d1276-696a-4a41-ab53-c12804b57470@3",
             "version": "3",
             "uuid": "7d3d1276-696a-4a41-ab53-c12804b57470",
             "id": "13216"
@@ -4461,7 +4461,7 @@
             "type": "page",
             "title": "Discovery of the Parts of the Atom: Electrons and Nuclei",
             "short_id": "VZTCmSl9",
-            "cnx_id": "5594c299-297d-400d-82ac-54c4158282b5@6",
+            "ox_id": "5594c299-297d-400d-82ac-54c4158282b5@6",
             "version": "6",
             "uuid": "5594c299-297d-400d-82ac-54c4158282b5",
             "id": "13217"
@@ -4474,7 +4474,7 @@
             "type": "page",
             "title": "Bohr’s Theory of the Hydrogen Atom",
             "short_id": "sx0eWeyN",
-            "cnx_id": "b31d1e59-ec8d-452f-bb0a-288af5338a46@4",
+            "ox_id": "b31d1e59-ec8d-452f-bb0a-288af5338a46@4",
             "version": "4",
             "uuid": "b31d1e59-ec8d-452f-bb0a-288af5338a46",
             "id": "13218"
@@ -4487,7 +4487,7 @@
             "type": "page",
             "title": "X Rays: Atomic Origins and Applications",
             "short_id": "8-wJRMy6",
-            "cnx_id": "f3ec0944-ccba-4ac0-b620-f0a426527512@3",
+            "ox_id": "f3ec0944-ccba-4ac0-b620-f0a426527512@3",
             "version": "3",
             "uuid": "f3ec0944-ccba-4ac0-b620-f0a426527512",
             "id": "13219"
@@ -4500,7 +4500,7 @@
             "type": "page",
             "title": "Applications of Atomic Excitations and De-Excitations",
             "short_id": "3hqnl0Hf",
-            "cnx_id": "de1aa797-41df-4bcf-80e4-c8d860b1c4e6@2",
+            "ox_id": "de1aa797-41df-4bcf-80e4-c8d860b1c4e6@2",
             "version": "2",
             "uuid": "de1aa797-41df-4bcf-80e4-c8d860b1c4e6",
             "id": "13220"
@@ -4513,7 +4513,7 @@
             "type": "page",
             "title": "The Wave Nature of Matter Causes Quantization",
             "short_id": "w7dlA_-v",
-            "cnx_id": "c3b76503-ffaf-43c0-9c02-21b2b3bad53e@2",
+            "ox_id": "c3b76503-ffaf-43c0-9c02-21b2b3bad53e@2",
             "version": "2",
             "uuid": "c3b76503-ffaf-43c0-9c02-21b2b3bad53e",
             "id": "13221"
@@ -4526,7 +4526,7 @@
             "type": "page",
             "title": "Patterns in Spectra Reveal More Quantization",
             "short_id": "jXpQ1UNl",
-            "cnx_id": "8d7a50d5-4365-4137-9b7e-96ee7c7cf4c0@2",
+            "ox_id": "8d7a50d5-4365-4137-9b7e-96ee7c7cf4c0@2",
             "version": "2",
             "uuid": "8d7a50d5-4365-4137-9b7e-96ee7c7cf4c0",
             "id": "13222"
@@ -4539,7 +4539,7 @@
             "type": "page",
             "title": "Quantum Numbers and Rules",
             "short_id": "Ji_SDs9o",
-            "cnx_id": "262fd20e-cf68-4786-b740-e85d6c88dbe6@4",
+            "ox_id": "262fd20e-cf68-4786-b740-e85d6c88dbe6@4",
             "version": "4",
             "uuid": "262fd20e-cf68-4786-b740-e85d6c88dbe6",
             "id": "13223"
@@ -4552,7 +4552,7 @@
             "type": "page",
             "title": "The Pauli Exclusion Principle",
             "short_id": "gH2CihQz",
-            "cnx_id": "807d828a-1433-42f6-8f3c-ff255c57da40@3",
+            "ox_id": "807d828a-1433-42f6-8f3c-ff255c57da40@3",
             "version": "3",
             "uuid": "807d828a-1433-42f6-8f3c-ff255c57da40",
             "id": "13224"
@@ -4562,7 +4562,7 @@
             "type": "page",
             "title": "Glossary",
             "short_id": "-BW6IMpV",
-            "cnx_id": "f815ba20-ca55-5324-a460-14697df85f87@8.1",
+            "ox_id": "f815ba20-ca55-5324-a460-14697df85f87@8.1",
             "version": "8.1",
             "uuid": "f815ba20-ca55-5324-a460-14697df85f87",
             "id": "13225"
@@ -4572,7 +4572,7 @@
             "type": "page",
             "title": "Section Summary",
             "short_id": "HHh6i6ST",
-            "cnx_id": "1c787a8b-a493-56f5-a00c-752996761ba4@8.1",
+            "ox_id": "1c787a8b-a493-56f5-a00c-752996761ba4@8.1",
             "version": "8.1",
             "uuid": "1c787a8b-a493-56f5-a00c-752996761ba4",
             "id": "13226"
@@ -4582,7 +4582,7 @@
             "type": "page",
             "title": "Conceptual Questions",
             "short_id": "8kPDM7j0",
-            "cnx_id": "f243c333-b8f4-509a-9a13-92e377aac4ce@8.1",
+            "ox_id": "f243c333-b8f4-509a-9a13-92e377aac4ce@8.1",
             "version": "8.1",
             "uuid": "f243c333-b8f4-509a-9a13-92e377aac4ce",
             "id": "13227"
@@ -4592,7 +4592,7 @@
             "type": "page",
             "title": "Problems &amp; Exercises",
             "short_id": "1EJtBGQz",
-            "cnx_id": "d4426d04-6433-5498-a871-553c74e5a58b@8.1",
+            "ox_id": "d4426d04-6433-5498-a871-553c74e5a58b@8.1",
             "version": "8.1",
             "uuid": "d4426d04-6433-5498-a871-553c74e5a58b",
             "id": "13228"
@@ -4611,7 +4611,7 @@
             "type": "page",
             "title": "Introduction to Radioactivity and Nuclear Physics",
             "short_id": "XfpQvvQS",
-            "cnx_id": "5dfa50be-f412-411c-a108-f59810c13d25@2",
+            "ox_id": "5dfa50be-f412-411c-a108-f59810c13d25@2",
             "version": "2",
             "uuid": "5dfa50be-f412-411c-a108-f59810c13d25",
             "id": "13229"
@@ -4624,7 +4624,7 @@
             "type": "page",
             "title": "Nuclear Radioactivity",
             "short_id": "5MAG8e_h",
-            "cnx_id": "e4c006f1-efe1-437c-aed1-94210be0e07b@5",
+            "ox_id": "e4c006f1-efe1-437c-aed1-94210be0e07b@5",
             "version": "5",
             "uuid": "e4c006f1-efe1-437c-aed1-94210be0e07b",
             "id": "13230"
@@ -4637,7 +4637,7 @@
             "type": "page",
             "title": "Radiation Detection and Detectors",
             "short_id": "0IuvHvTM",
-            "cnx_id": "d08baf1e-f4cc-4cab-946c-e43051660ef1@4",
+            "ox_id": "d08baf1e-f4cc-4cab-946c-e43051660ef1@4",
             "version": "4",
             "uuid": "d08baf1e-f4cc-4cab-946c-e43051660ef1",
             "id": "13231"
@@ -4650,7 +4650,7 @@
             "type": "page",
             "title": "Substructure of the Nucleus",
             "short_id": "cU0bvDYr",
-            "cnx_id": "714d1bbc-362b-4038-8888-15c420313c95@3",
+            "ox_id": "714d1bbc-362b-4038-8888-15c420313c95@3",
             "version": "3",
             "uuid": "714d1bbc-362b-4038-8888-15c420313c95",
             "id": "13232"
@@ -4663,7 +4663,7 @@
             "type": "page",
             "title": "Nuclear Decay and Conservation Laws",
             "short_id": "WB246Rp7",
-            "cnx_id": "581db8e9-1a7b-4d58-9748-dc2e3115e0a7@3",
+            "ox_id": "581db8e9-1a7b-4d58-9748-dc2e3115e0a7@3",
             "version": "3",
             "uuid": "581db8e9-1a7b-4d58-9748-dc2e3115e0a7",
             "id": "13233"
@@ -4676,7 +4676,7 @@
             "type": "page",
             "title": "Half-Life and Activity",
             "short_id": "sBcbznDA",
-            "cnx_id": "b0171bce-70c0-47d8-a0e9-ca33dfc6dd98@4",
+            "ox_id": "b0171bce-70c0-47d8-a0e9-ca33dfc6dd98@4",
             "version": "4",
             "uuid": "b0171bce-70c0-47d8-a0e9-ca33dfc6dd98",
             "id": "13234"
@@ -4689,7 +4689,7 @@
             "type": "page",
             "title": "Binding Energy",
             "short_id": "HVFnjsOS",
-            "cnx_id": "1d51678e-c392-4a22-91c4-0ea057561cc5@6",
+            "ox_id": "1d51678e-c392-4a22-91c4-0ea057561cc5@6",
             "version": "6",
             "uuid": "1d51678e-c392-4a22-91c4-0ea057561cc5",
             "id": "13235"
@@ -4702,7 +4702,7 @@
             "type": "page",
             "title": "Tunneling",
             "short_id": "jkxi27t3",
-            "cnx_id": "8e4c62db-bb77-40b6-b667-11ae1d2f5e3c@2",
+            "ox_id": "8e4c62db-bb77-40b6-b667-11ae1d2f5e3c@2",
             "version": "2",
             "uuid": "8e4c62db-bb77-40b6-b667-11ae1d2f5e3c",
             "id": "13236"
@@ -4712,7 +4712,7 @@
             "type": "page",
             "title": "Glossary",
             "short_id": "Hs4Bj0CS",
-            "cnx_id": "1ece018f-4092-5b5e-84c2-f8ec123a7096@8.1",
+            "ox_id": "1ece018f-4092-5b5e-84c2-f8ec123a7096@8.1",
             "version": "8.1",
             "uuid": "1ece018f-4092-5b5e-84c2-f8ec123a7096",
             "id": "13237"
@@ -4722,7 +4722,7 @@
             "type": "page",
             "title": "Section Summary",
             "short_id": "OtXHc-br",
-            "cnx_id": "3ad5c773-e6eb-5ad1-b7fb-1937f694c3a3@8.1",
+            "ox_id": "3ad5c773-e6eb-5ad1-b7fb-1937f694c3a3@8.1",
             "version": "8.1",
             "uuid": "3ad5c773-e6eb-5ad1-b7fb-1937f694c3a3",
             "id": "13238"
@@ -4732,7 +4732,7 @@
             "type": "page",
             "title": "Conceptual Questions",
             "short_id": "iNGCCrq-",
-            "cnx_id": "88d1820a-babe-54e4-9371-b803d04fb1aa@8.1",
+            "ox_id": "88d1820a-babe-54e4-9371-b803d04fb1aa@8.1",
             "version": "8.1",
             "uuid": "88d1820a-babe-54e4-9371-b803d04fb1aa",
             "id": "13239"
@@ -4742,7 +4742,7 @@
             "type": "page",
             "title": "Problems &amp; Exercises",
             "short_id": "ZpD6Sh5Y",
-            "cnx_id": "6690fa4a-1e58-5d16-bcdc-0acf29890921@8.1",
+            "ox_id": "6690fa4a-1e58-5d16-bcdc-0acf29890921@8.1",
             "version": "8.1",
             "uuid": "6690fa4a-1e58-5d16-bcdc-0acf29890921",
             "id": "13240"
@@ -4761,7 +4761,7 @@
             "type": "page",
             "title": "Introduction to Applications of Nuclear Physics",
             "short_id": "jxTbkeE6",
-            "cnx_id": "8f14db91-e13a-4cbb-8ac2-d53e4093ddbf@2",
+            "ox_id": "8f14db91-e13a-4cbb-8ac2-d53e4093ddbf@2",
             "version": "2",
             "uuid": "8f14db91-e13a-4cbb-8ac2-d53e4093ddbf",
             "id": "13241"
@@ -4774,7 +4774,7 @@
             "type": "page",
             "title": "Medical Imaging and Diagnostics",
             "short_id": "d9ZQ-52b",
-            "cnx_id": "77d650fb-9d9b-4bb2-8289-adeef4196a5d@3",
+            "ox_id": "77d650fb-9d9b-4bb2-8289-adeef4196a5d@3",
             "version": "3",
             "uuid": "77d650fb-9d9b-4bb2-8289-adeef4196a5d",
             "id": "13242"
@@ -4787,7 +4787,7 @@
             "type": "page",
             "title": "Biological Effects of Ionizing Radiation",
             "short_id": "gh-5biGf",
-            "cnx_id": "821fb96e-219f-49ec-9be7-e0bdf98f9149@3",
+            "ox_id": "821fb96e-219f-49ec-9be7-e0bdf98f9149@3",
             "version": "3",
             "uuid": "821fb96e-219f-49ec-9be7-e0bdf98f9149",
             "id": "13243"
@@ -4800,7 +4800,7 @@
             "type": "page",
             "title": "Therapeutic Uses of Ionizing Radiation",
             "short_id": "KFaMyvS5",
-            "cnx_id": "28568cca-f4b9-446d-bca5-ea6a6f768afa@2",
+            "ox_id": "28568cca-f4b9-446d-bca5-ea6a6f768afa@2",
             "version": "2",
             "uuid": "28568cca-f4b9-446d-bca5-ea6a6f768afa",
             "id": "13244"
@@ -4813,7 +4813,7 @@
             "type": "page",
             "title": "Food Irradiation",
             "short_id": "iXBHRoIM",
-            "cnx_id": "89704746-820c-4235-b2a9-5422418a4997@2",
+            "ox_id": "89704746-820c-4235-b2a9-5422418a4997@2",
             "version": "2",
             "uuid": "89704746-820c-4235-b2a9-5422418a4997",
             "id": "13245"
@@ -4826,7 +4826,7 @@
             "type": "page",
             "title": "Fusion",
             "short_id": "IvSyyP7z",
-            "cnx_id": "22f4b2c8-fef3-4376-b312-f150a671c089@3",
+            "ox_id": "22f4b2c8-fef3-4376-b312-f150a671c089@3",
             "version": "3",
             "uuid": "22f4b2c8-fef3-4376-b312-f150a671c089",
             "id": "13246"
@@ -4839,7 +4839,7 @@
             "type": "page",
             "title": "Fission",
             "short_id": "phky3OwX",
-            "cnx_id": "a61932dc-ec17-406a-abd5-96e09ccf47bf@6",
+            "ox_id": "a61932dc-ec17-406a-abd5-96e09ccf47bf@6",
             "version": "6",
             "uuid": "a61932dc-ec17-406a-abd5-96e09ccf47bf",
             "id": "13247"
@@ -4852,7 +4852,7 @@
             "type": "page",
             "title": "Nuclear Weapons",
             "short_id": "VXeCYSA0",
-            "cnx_id": "55778261-2034-4da6-91b9-56362e4a4a9c@2",
+            "ox_id": "55778261-2034-4da6-91b9-56362e4a4a9c@2",
             "version": "2",
             "uuid": "55778261-2034-4da6-91b9-56362e4a4a9c",
             "id": "13248"
@@ -4862,7 +4862,7 @@
             "type": "page",
             "title": "Glossary",
             "short_id": "nZPHBszN",
-            "cnx_id": "9d93c706-cccd-5418-b5e4-2c9b2b45c160@8.1",
+            "ox_id": "9d93c706-cccd-5418-b5e4-2c9b2b45c160@8.1",
             "version": "8.1",
             "uuid": "9d93c706-cccd-5418-b5e4-2c9b2b45c160",
             "id": "13249"
@@ -4872,7 +4872,7 @@
             "type": "page",
             "title": "Section Summary",
             "short_id": "ONVyBI0W",
-            "cnx_id": "38d57204-8d16-57e9-b33a-2ddc7e454faf@8.1",
+            "ox_id": "38d57204-8d16-57e9-b33a-2ddc7e454faf@8.1",
             "version": "8.1",
             "uuid": "38d57204-8d16-57e9-b33a-2ddc7e454faf",
             "id": "13250"
@@ -4882,7 +4882,7 @@
             "type": "page",
             "title": "Conceptual Questions",
             "short_id": "z7d3KDzB",
-            "cnx_id": "cfb77728-3cc1-54bb-84fb-fa8c1b4193e9@8.1",
+            "ox_id": "cfb77728-3cc1-54bb-84fb-fa8c1b4193e9@8.1",
             "version": "8.1",
             "uuid": "cfb77728-3cc1-54bb-84fb-fa8c1b4193e9",
             "id": "13251"
@@ -4892,7 +4892,7 @@
             "type": "page",
             "title": "Problems &amp; Exercises",
             "short_id": "oVYG1CTi",
-            "cnx_id": "a15606d4-24e2-5957-b56b-4ff12d462e99@8.1",
+            "ox_id": "a15606d4-24e2-5957-b56b-4ff12d462e99@8.1",
             "version": "8.1",
             "uuid": "a15606d4-24e2-5957-b56b-4ff12d462e99",
             "id": "13252"
@@ -4911,7 +4911,7 @@
             "type": "page",
             "title": "Introduction to Particle Physics",
             "short_id": "pL44KOvT",
-            "cnx_id": "a4be3828-ebd3-45a6-92f4-bc13a9a848b5@2",
+            "ox_id": "a4be3828-ebd3-45a6-92f4-bc13a9a848b5@2",
             "version": "2",
             "uuid": "a4be3828-ebd3-45a6-92f4-bc13a9a848b5",
             "id": "13253"
@@ -4924,7 +4924,7 @@
             "type": "page",
             "title": "The Yukawa Particle and the Heisenberg Uncertainty Principle Revisited",
             "short_id": "XIxM6Lsm",
-            "cnx_id": "5c8c4ce8-bb26-4f80-a6d8-92d1fb6a96e3@3",
+            "ox_id": "5c8c4ce8-bb26-4f80-a6d8-92d1fb6a96e3@3",
             "version": "3",
             "uuid": "5c8c4ce8-bb26-4f80-a6d8-92d1fb6a96e3",
             "id": "13254"
@@ -4937,7 +4937,7 @@
             "type": "page",
             "title": "The Four Basic Forces",
             "short_id": "97qIQRdU",
-            "cnx_id": "f7ba8841-1754-4b4f-b2b3-b732339a2e4e@3",
+            "ox_id": "f7ba8841-1754-4b4f-b2b3-b732339a2e4e@3",
             "version": "3",
             "uuid": "f7ba8841-1754-4b4f-b2b3-b732339a2e4e",
             "id": "13255"
@@ -4950,7 +4950,7 @@
             "type": "page",
             "title": "Accelerators Create Matter from Energy",
             "short_id": "TBEewIeD",
-            "cnx_id": "4c111ec0-8783-4adf-90f0-f4a274e77cc1@2",
+            "ox_id": "4c111ec0-8783-4adf-90f0-f4a274e77cc1@2",
             "version": "2",
             "uuid": "4c111ec0-8783-4adf-90f0-f4a274e77cc1",
             "id": "13256"
@@ -4963,7 +4963,7 @@
             "type": "page",
             "title": "Particles, Patterns, and Conservation Laws",
             "short_id": "WgBmrWBN",
-            "cnx_id": "5a0066ad-604d-48cc-b6c9-b3d06e154d7d@3",
+            "ox_id": "5a0066ad-604d-48cc-b6c9-b3d06e154d7d@3",
             "version": "3",
             "uuid": "5a0066ad-604d-48cc-b6c9-b3d06e154d7d",
             "id": "13257"
@@ -4976,7 +4976,7 @@
             "type": "page",
             "title": "Quarks: Is That All There Is?",
             "short_id": "bNUTfEwn",
-            "cnx_id": "6cd5137c-4c27-4175-a5e7-caf448561fd7@4",
+            "ox_id": "6cd5137c-4c27-4175-a5e7-caf448561fd7@4",
             "version": "4",
             "uuid": "6cd5137c-4c27-4175-a5e7-caf448561fd7",
             "id": "13258"
@@ -4989,7 +4989,7 @@
             "type": "page",
             "title": "GUTs: The Unification of Forces",
             "short_id": "4wTdUYbe",
-            "cnx_id": "e304dd51-86de-4012-af91-8689a9eb4733@3",
+            "ox_id": "e304dd51-86de-4012-af91-8689a9eb4733@3",
             "version": "3",
             "uuid": "e304dd51-86de-4012-af91-8689a9eb4733",
             "id": "13259"
@@ -4999,7 +4999,7 @@
             "type": "page",
             "title": "Glossary",
             "short_id": "WC2X-my4",
-            "cnx_id": "582d97fa-6cb8-5401-ad2a-4ded5d5c9a58@8.1",
+            "ox_id": "582d97fa-6cb8-5401-ad2a-4ded5d5c9a58@8.1",
             "version": "8.1",
             "uuid": "582d97fa-6cb8-5401-ad2a-4ded5d5c9a58",
             "id": "13260"
@@ -5009,7 +5009,7 @@
             "type": "page",
             "title": "Section Summary",
             "short_id": "idBXH1P9",
-            "cnx_id": "89d0571f-53fd-5407-96f4-738c860d8569@8.1",
+            "ox_id": "89d0571f-53fd-5407-96f4-738c860d8569@8.1",
             "version": "8.1",
             "uuid": "89d0571f-53fd-5407-96f4-738c860d8569",
             "id": "13261"
@@ -5019,7 +5019,7 @@
             "type": "page",
             "title": "Conceptual Questions",
             "short_id": "rZGZHUcJ",
-            "cnx_id": "ad91991d-4709-5aeb-a283-a21577a21347@8.1",
+            "ox_id": "ad91991d-4709-5aeb-a283-a21577a21347@8.1",
             "version": "8.1",
             "uuid": "ad91991d-4709-5aeb-a283-a21577a21347",
             "id": "13262"
@@ -5029,7 +5029,7 @@
             "type": "page",
             "title": "Problems &amp; Exercises",
             "short_id": "rXajlo5Q",
-            "cnx_id": "ad76a396-8e50-5466-82d1-cbda7c08fd59@8.1",
+            "ox_id": "ad76a396-8e50-5466-82d1-cbda7c08fd59@8.1",
             "version": "8.1",
             "uuid": "ad76a396-8e50-5466-82d1-cbda7c08fd59",
             "id": "13263"
@@ -5048,7 +5048,7 @@
             "type": "page",
             "title": "Introduction to Frontiers of Physics",
             "short_id": "wwyg-3El",
-            "cnx_id": "c30ca0fb-7125-440a-b4fb-34addf9eef04@2",
+            "ox_id": "c30ca0fb-7125-440a-b4fb-34addf9eef04@2",
             "version": "2",
             "uuid": "c30ca0fb-7125-440a-b4fb-34addf9eef04",
             "id": "13264"
@@ -5061,7 +5061,7 @@
             "type": "page",
             "title": "Cosmology and Particle Physics",
             "short_id": "OZy00Q8U",
-            "cnx_id": "399cb4d1-0f14-44df-8a92-5c0d34ba3d57@3",
+            "ox_id": "399cb4d1-0f14-44df-8a92-5c0d34ba3d57@3",
             "version": "3",
             "uuid": "399cb4d1-0f14-44df-8a92-5c0d34ba3d57",
             "id": "13265"
@@ -5074,7 +5074,7 @@
             "type": "page",
             "title": "General Relativity and Quantum Gravity",
             "short_id": "pgH22yvP",
-            "cnx_id": "a601f6db-2bcf-4764-adf5-5b22c15336cc@5",
+            "ox_id": "a601f6db-2bcf-4764-adf5-5b22c15336cc@5",
             "version": "5",
             "uuid": "a601f6db-2bcf-4764-adf5-5b22c15336cc",
             "id": "13266"
@@ -5087,7 +5087,7 @@
             "type": "page",
             "title": "Superstrings",
             "short_id": "U-ikPO7f",
-            "cnx_id": "53e8a43c-eedf-4b8a-9744-3571a2108561@3",
+            "ox_id": "53e8a43c-eedf-4b8a-9744-3571a2108561@3",
             "version": "3",
             "uuid": "53e8a43c-eedf-4b8a-9744-3571a2108561",
             "id": "13267"
@@ -5100,7 +5100,7 @@
             "type": "page",
             "title": "Dark Matter and Closure",
             "short_id": "xPAZUFxl",
-            "cnx_id": "c4f01950-5c65-4ef9-bd50-26bfffdfa848@4",
+            "ox_id": "c4f01950-5c65-4ef9-bd50-26bfffdfa848@4",
             "version": "4",
             "uuid": "c4f01950-5c65-4ef9-bd50-26bfffdfa848",
             "id": "13268"
@@ -5113,7 +5113,7 @@
             "type": "page",
             "title": "Complexity and Chaos",
             "short_id": "fp4GyAjs",
-            "cnx_id": "7e9e06c8-08ec-48a1-9661-8968801596e5@3",
+            "ox_id": "7e9e06c8-08ec-48a1-9661-8968801596e5@3",
             "version": "3",
             "uuid": "7e9e06c8-08ec-48a1-9661-8968801596e5",
             "id": "13269"
@@ -5126,7 +5126,7 @@
             "type": "page",
             "title": "High-temperature Superconductors",
             "short_id": "JoMzrLrO",
-            "cnx_id": "268333ac-bace-432d-9e5b-0c8a58bac4b5@2",
+            "ox_id": "268333ac-bace-432d-9e5b-0c8a58bac4b5@2",
             "version": "2",
             "uuid": "268333ac-bace-432d-9e5b-0c8a58bac4b5",
             "id": "13270"
@@ -5139,7 +5139,7 @@
             "type": "page",
             "title": "Some Questions We Know to Ask",
             "short_id": "NzLsYngW",
-            "cnx_id": "3732ec62-7816-452c-b100-334a28464590@2",
+            "ox_id": "3732ec62-7816-452c-b100-334a28464590@2",
             "version": "2",
             "uuid": "3732ec62-7816-452c-b100-334a28464590",
             "id": "13271"
@@ -5149,7 +5149,7 @@
             "type": "page",
             "title": "Glossary",
             "short_id": "-eVw6y73",
-            "cnx_id": "f9e570eb-2ef7-592d-9919-8bdfd51d2efd@8.1",
+            "ox_id": "f9e570eb-2ef7-592d-9919-8bdfd51d2efd@8.1",
             "version": "8.1",
             "uuid": "f9e570eb-2ef7-592d-9919-8bdfd51d2efd",
             "id": "13272"
@@ -5159,7 +5159,7 @@
             "type": "page",
             "title": "Section Summary",
             "short_id": "1soIumUT",
-            "cnx_id": "d6ca08ba-6513-5e6d-9dae-1c780c7a7420@8.1",
+            "ox_id": "d6ca08ba-6513-5e6d-9dae-1c780c7a7420@8.1",
             "version": "8.1",
             "uuid": "d6ca08ba-6513-5e6d-9dae-1c780c7a7420",
             "id": "13273"
@@ -5169,7 +5169,7 @@
             "type": "page",
             "title": "Conceptual Questions",
             "short_id": "w0cECmaA",
-            "cnx_id": "c347040a-6680-550f-87d5-23f9a27c68c5@8.1",
+            "ox_id": "c347040a-6680-550f-87d5-23f9a27c68c5@8.1",
             "version": "8.1",
             "uuid": "c347040a-6680-550f-87d5-23f9a27c68c5",
             "id": "13274"
@@ -5179,7 +5179,7 @@
             "type": "page",
             "title": "Problems &amp; Exercises",
             "short_id": "BwhtsbBr",
-            "cnx_id": "07086db1-b06b-5dcf-b446-f3b4217f5d04@8.1",
+            "ox_id": "07086db1-b06b-5dcf-b446-f3b4217f5d04@8.1",
             "version": "8.1",
             "uuid": "07086db1-b06b-5dcf-b446-f3b4217f5d04",
             "id": "13275"
@@ -5196,7 +5196,7 @@
         "type": "page",
         "title": "Atomic Masses",
         "short_id": "LVJcVPpQ",
-        "cnx_id": "2d525c54-fa50-4de3-8271-c0d2fb5fea9c@3",
+        "ox_id": "2d525c54-fa50-4de3-8271-c0d2fb5fea9c@3",
         "version": "3",
         "uuid": "2d525c54-fa50-4de3-8271-c0d2fb5fea9c",
         "id": "13276"
@@ -5206,7 +5206,7 @@
         "type": "page",
         "title": "Selected Radioactive Isotopes",
         "short_id": "g-5HrOHb",
-        "cnx_id": "83ee47ac-e1db-471e-967a-d134a140c6c7@2",
+        "ox_id": "83ee47ac-e1db-471e-967a-d134a140c6c7@2",
         "version": "2",
         "uuid": "83ee47ac-e1db-471e-967a-d134a140c6c7",
         "id": "13277"
@@ -5216,7 +5216,7 @@
         "type": "page",
         "title": "Useful Information",
         "short_id": "Ki6b5ENH",
-        "cnx_id": "2a2e9be4-4347-436c-a23f-4793524d359e@2",
+        "ox_id": "2a2e9be4-4347-436c-a23f-4793524d359e@2",
         "version": "2",
         "uuid": "2a2e9be4-4347-436c-a23f-4793524d359e",
         "id": "13278"
@@ -5226,7 +5226,7 @@
         "type": "page",
         "title": "Glossary of Key Symbols and Notation",
         "short_id": "ThTeo0KM",
-        "cnx_id": "4e14dea3-428c-4028-9acf-09950810a2f5@3",
+        "ox_id": "4e14dea3-428c-4028-9acf-09950810a2f5@3",
         "version": "3",
         "uuid": "4e14dea3-428c-4028-9acf-09950810a2f5",
         "id": "13279"
@@ -5236,7 +5236,7 @@
         "type": "page",
         "title": "Index",
         "short_id": "NdERuEMH",
-        "cnx_id": "35d111b8-4307-56bb-ae3c-c5ed8324793b@8.1",
+        "ox_id": "35d111b8-4307-56bb-ae3c-c5ed8324793b@8.1",
         "version": "8.1",
         "uuid": "35d111b8-4307-56bb-ae3c-c5ed8324793b",
         "id": "13280"
