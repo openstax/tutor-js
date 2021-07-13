@@ -13,12 +13,12 @@ export function chapterSectionToNumber(chapter_section) {
 }
 
 // uuid from validator library
-const CNX_ID_REGEX = (
+const UUID_REGEX = (
     /[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}@\d+(?:\.\d+)?/i
 );
 
 // looks for a uuid@version
-export function extractCnxId(text) {
-    const match = CNX_ID_REGEX.exec(text);
+export function extractOxId(text) {
+    const match = UUID_REGEX.exec(text);
     return match ? match[0] : null;
 }

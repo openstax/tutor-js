@@ -156,7 +156,7 @@ class ChapterAccordion extends React.Component {
                 <Collapse in={this.expanded}>
                     <div className="sections">
                         {chapter.children.assignable.map((section) =>
-                            <Section key={section.cnx_id} {...this.props} section={section} />)}
+                            <Section key={section.ox_id} {...this.props} section={section} />)}
                     </div>
                 </Collapse>
             </ChapterWrapper>

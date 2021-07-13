@@ -35,7 +35,7 @@ export class ReferenceBook extends BaseModel {
 
     @model(Node) children = array<Node>()
 
-    @field cnx_id = '';
+    @field ox_id = '';
     @field short_id = '';
     @field title = '';
     @field type = '';

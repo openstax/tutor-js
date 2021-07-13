@@ -199,7 +199,7 @@ export interface HighlightedPageData {
 export interface ReferenceBookNodeData {
     chapter_section: number[]
     children: ReferenceBookNodeData[]
-    cnx_id: string
+    ox_id: string
     type: 'unit' | 'chapter' | 'page'
     uuid: string
 }
@@ -207,7 +207,7 @@ export interface ReferenceBookNodeData {
 export interface ReferenceBookData {
     id: ID
     title: string
-    cnx_id: string
+    ox_id: string
     type: 'book'
     uuid: string
     short_id: string
