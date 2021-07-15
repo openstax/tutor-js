@@ -1,4 +1,4 @@
-import { ApiMock, React, Factory } from '../../helpers';
+import { Factory } from '../../helpers';
 import BuilderUX from '../../../src/screens/new-course/ux';
 import Sociology3eNudge from '../../../src/screens/new-course/sociology-3e-nudge';
 
