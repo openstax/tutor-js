@@ -14,6 +14,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: bahmutov/npm-install@v1
+        env:
+            PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
       - name: Run tests
         run: yarn run ci ${{ matrix.project }}
       - name: Save screenshots of failures
