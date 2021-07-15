@@ -114,6 +114,8 @@ const ERROR_HANDLERS = {
           OK
                 </Button>,
             ],
+            onOk: hideModal,
+            onCancel: hideModal,
         };
     },
 
