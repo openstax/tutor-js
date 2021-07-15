@@ -28,7 +28,7 @@ const Sociology3eNudge = ({ ux }: { ux: any }) => {
     if (ux.displaySoc3eAvailableNudge) {
         return (
             <Text>
-                Introduction to Sociology 2e is available until Summer 2022. Upgrade to <cite>Introduction to Sociology 3e</cite>.
+                Introduction to Sociology 2e is available until Summer 2022. <a href={`/new-course/offering/${ux.offerings.sociology3e.array[0].id}`}>Upgrade to <cite>Introduction to Sociology 3e</cite>.</a>
             </Text>
         )
     }

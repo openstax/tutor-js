@@ -188,12 +188,12 @@ export default class CourseBuilderUX extends BaseModel {
 
     @computed get displaySoc3eSoonNudge() {
         if (!this.offering) return false;
-        return this.offering.isSociology2e && currentOfferings.soc3eExists && !currentOfferings.soc3eAvailable;
+        return this.offering.isSociology2e && this.offerings.soc3eExists && !this.offerings.soc3eAvailable;
     }
 
     @computed get displaySoc3eAvailableNudge() {
         if (!this.offering) return false;
-        return this.offering.isSociology2e && currentOfferings.soc3eAvailable
+        return this.offering.isSociology2e && this.offerings.soc3eAvailable
     }
 
     @action.bound
