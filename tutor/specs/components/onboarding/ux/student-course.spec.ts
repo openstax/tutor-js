@@ -116,17 +116,6 @@ describe('Student Course Onboarding', () => {
         expect(ux.course.studentTaskPlans.refreshTasks).toHaveBeenCalledTimes(1);
     });
 
-    it('reloads page when paid after being locked out', () => {
-        (ux.course as any).userStudentRecord = {
-            mustPayImmediately: true, markPaid: jest.fn(() => Promise.resolve()),
-        };
-        expect(ux.paymentIsPastDue).toEqual(true);
-        ux.onPaymentComplete();
-        expect(setTimeout).toHaveBeenCalled();
-        jest.runOnlyPendingTimers();
-        expect(forceReload).toHaveBeenCalled();
-    });
-
     it('redeems payment codes', async () => {
         (ux.course as any).needsPayment = true
         expect(ux.codeRedeemable).toBe(false)
