@@ -10,8 +10,6 @@ interface PaymentOptionsProps {
 
 @observer
 export default class PaymentOptions extends React.Component<PaymentOptionsProps> {
-    static className = 'payment-options';
-
     render() {
         const { ux } = this.props;
 

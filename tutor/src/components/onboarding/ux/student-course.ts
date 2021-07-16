@@ -5,7 +5,6 @@ import { BaseOnboarding } from './base';
 import Nags from '../../../components/onboarding/nags';
 import { Course, TourContext } from '../../../models';
 import { Payments } from '../../../helpers/payments';
-import { forceReload } from '../../../helpers/reload';
 import { PaymentCode } from '../../../models'
 
 export const PAY_LATER_CHOICE = 'PL';
@@ -103,15 +102,10 @@ export class StudentCourseOnboarding extends BaseOnboarding {
 
     @action.bound
     onPaymentComplete() {
-        if (this.paymentIsPastDue) {
-            // in this case we have to reload since network requests have been failing silently
-            setTimeout(forceReload);
-        } else {
-            this.displayPayment = false;
-            this.course.userStudentRecord?.markPaid();
-            // start fetch tasks since they could not be fetched while student was in unpaid status
-            this.course.studentTaskPlans.startFetching();
-        }
+        this.displayPayment = false;
+        this.course.userStudentRecord?.markPaid();
+        // start fetch tasks since they could not be fetched while student was in unpaid status
+        this.course.studentTaskPlans.startFetching();
     }
 
     @action.bound setCode(code: string) {
