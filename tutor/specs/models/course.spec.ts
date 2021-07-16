@@ -88,7 +88,7 @@ describe('Course Model', () => {
         it('extends when given initial data', () => {
             const data = cloneDeep(COURSE);
             data.periods = shuffle(data.periods);
-            jest.spyOn(PH, 'sort');
+            const spy = jest.spyOn(PH, 'sort');
 
             const course = hydrateModel(Course, data);
             const len = course.periods.length;
@@ -108,6 +108,8 @@ describe('Course Model', () => {
             runInAction(() => course.periods.remove(course.periods.find(p => p.id == 1)!) )
             expect(course.periods.length).toEqual(len - 1);
             expect(course.periods.sorted.length).toEqual(len - 1);
+
+            spy.mockRestore();
         });
 
         it('extends new course', () => {

@@ -40,8 +40,9 @@ describe('Tour Ride Model', () => {
         runInAction(() => {
             ride.tour.steps.forEach((s) => s.anchor_id = '1234');
         })
-        jest.spyOn(document, 'querySelector').mockImplementation(() => null);
+        const spy = jest.spyOn(document, 'querySelector').mockImplementation(() => null);
         expect(ride.hasMultipleSteps).toBe(false);
+        spy.mockRestore();
     });
 
 });

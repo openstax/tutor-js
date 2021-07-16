@@ -35,11 +35,12 @@ describe('Homework ExerciseTaskHeader Component', () => {
 
     it('goes to step', () => {
         const { ux } = props;
-        jest.spyOn(props.ux.history, 'push');
+        const spy = jest.spyOn(props.ux.history, 'push');
         const ms = mount(<C><ExerciseTaskHeader {...props} /></C>);
         ms.find('.sticky-table-row').at(0).find('.sticky-table-cell').at(1).simulate('click');
         expect(ux.history.push).toHaveBeenCalledWith(`/course/${task.tasksMap.course.id}/task/${task.id}/step/instructions`);
         ms.unmount();
+        spy.mockRestore();
     });
 
 });

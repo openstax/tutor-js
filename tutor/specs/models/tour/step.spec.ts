@@ -32,11 +32,12 @@ describe('TourStep Model', () => {
         expect(step.isViewable).toBe(true);
         step.anchor_id = '1234';
         expect(step.isViewable).toBe(false);
-        jest.spyOn(document, 'querySelector').mockImplementation(() => '<div>hi</div>' as any as HTMLElement);
+        const spy = jest.spyOn(document, 'querySelector').mockImplementation(() => '<div>hi</div>' as any as HTMLElement);
         expect(step.target).toBeTruthy();
         expect(step.element).toBeTruthy();
         expect(document.querySelector).toHaveBeenCalledWith(step.target);
         expect(step.isViewable).toBe(true);
+        spy.mockRestore();
     });
 
     it('is not viewable if the viewport matches a disabled breakpoint', () => {
