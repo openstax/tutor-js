@@ -126,7 +126,7 @@ export default class RedeemCode extends React.Component<PaymentOptionsProps> {
         return (
             <>
                 <SuccessHeading>Access code successfully redeemed!</SuccessHeading>
-                <Button variant="primary" className="now" onClick={ux.onAccessCourse}>
+                <Button variant="primary" className="now" onClick={ux.finalizeRedemption}>
                     Continue
                 </Button>
             </>

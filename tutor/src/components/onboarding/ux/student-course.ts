@@ -90,6 +90,7 @@ export class StudentCourseOnboarding extends BaseOnboarding {
     @action.bound
     onAccessCourse() {
         this.displayRedeemCode = false;
+        this.displayPaymentOptions = false;
         this.displayTrialActive = false;
     }
 
@@ -137,6 +138,11 @@ export class StudentCourseOnboarding extends BaseOnboarding {
 
         this.codeRedeemed = true
         return this.paymentCode
+    }
+
+    @action.bound finalizeRedemption() {
+        this.reset()
+        this.onPaymentComplete()
     }
 
     @action mount() {
