@@ -25,6 +25,13 @@ describe('Exercise Preview Component', function() {
         preview.unmount();
     });
 
+    it('displays "solution is public" for exercises with public solutions', () => {
+        props.exercise.solutions_are_public = true;
+        const preview = Snapshot.create(<ExercisePreview {...props} />);
+        expect(preview.toJSON()).toMatchSnapshot();
+        preview.unmount();
+    });
+
     it('sets the className when displaying feedback', () => {
         const preview = mount(<ExercisePreview {...props} displayFeedback={true} />);
         expect(preview).toHaveRendered('.card.openstax-exercise-preview.is-displaying-feedback');

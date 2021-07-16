@@ -101,10 +101,13 @@ class ExercisePreview extends React.Component {
     }
 
     @computed get tags() {
-        const { displayAllTags, displayNickname, exercise } = this.props;
+        const { displayAllTags, displayNickname, exercise, hideAnswers } = this.props;
         let tags = exercise.tags.all.slice();
         if (!displayAllTags) { tags = filter(tags, 'isImportant'); }
         tags = sortBy(tags, 'sortValue', 'title');
+        if (!hideAnswers && this.props.exercise.solutions_are_public) {
+            tags.push(new Tag('solution is public'));
+        }
         if (displayNickname && exercise.nickname) {
             tags.push(new Tag(`Nickname:${exercise.nickname}`));
         }
