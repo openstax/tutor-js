@@ -57,6 +57,17 @@ export class CourseStudent extends BaseModel {
         );
     }
 
+    @computed get paymentCodeAsPurchase() {
+        if (!this.payment_code) { return null }
+
+        return {
+            product: { name: this.course.name },
+            purchased_at: this.payment_code.redeemed_at,
+            identifier: this.payment_code.code,
+            is_payment_code: true,
+        }
+    }
+
     @computed get isUnPaid() {
         return Boolean(
             this.course.does_cost &&
