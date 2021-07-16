@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Sociology 3e nudge matches snapshot 1`] = `
+.c0 {
+  margin-top: 8px;
+  line-height: 2rem;
+  color: #6f6f6f;
+}
+
+.c0 a {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 cite {
+  font-weight: bold;
+}
+
+<div
+  className="c0"
+>
+  Introduction to Sociology 2e is available until Summer 2022. 
+  <a
+    href="/new-course/offering/2"
+    onClick={[Function]}
+  >
+    Upgrade to 
+    <cite>
+      Introduction to Sociology 3e
+    </cite>
+    .
+  </a>
+</div>
+`;
