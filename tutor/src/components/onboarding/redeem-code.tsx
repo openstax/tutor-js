@@ -82,8 +82,8 @@ export default class RedeemCode extends React.Component<PaymentOptionsProps> {
                     popperConfig={{
                         modifiers: {
                             preventOverflow: { enabled: false },
-                            disableFlip: true
-                        }
+                            disableFlip: true,
+                        },
                     }}
                     overlay={
                         <Tooltip id="redeem-code-tooltip">
