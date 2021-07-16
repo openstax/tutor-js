@@ -22,13 +22,22 @@ exports[`Freshly Created Course prompt student renders and matches snapshot 1`] 
   <FreshlyCreatedCourse
     ux={
       StudentCourseOnboarding {
+        "codeRedeemed": false,
         "course": Object {},
         "dismissNag": [MockFunction],
         "displayPayment": false,
+        "displayPaymentOptions": false,
+        "displayRedeemCode": false,
         "displayTrialActive": false,
         "isDismissed": false,
         "needsTermsSigned": false,
         "otherModalsAreDisplaying": false,
+        "paymentCode": Object {
+          "code": "",
+          "courseId": undefined,
+          "redeemed_at": "1970-01-01T00:00:00.000Z",
+        },
+        "paymentCodeError": "",
         "priority": 3,
         "tourContext": Object {},
       }

@@ -1,6 +1,8 @@
 import { Factory, TimeMock, runInAction } from '../../helpers';
 import GetAccess from '../../../src/components/navbar/student-pay-now-btn';
 import { FeatureFlagsApi } from '../../../src/models'
+import UiSettings from 'shared/model/ui-settings'
+import { PAY_LATER_CHOICE } from '../../../src/components/onboarding/ux/student-course'
 
 jest.mock('../../../src/models/course');
 
@@ -35,22 +37,12 @@ describe('Student get access button', function() {
         expect(btn.text()).toContain('Free trial');
     });
 
-    it('marks as paid when complete', () => {
-        props.course.userStudentRecord = { is_paid: false, markPaid: jest.fn() };
-        const btn = shallow(<GetAccess {...props} />);
-        btn.instance().onComplete();
-        expect(props.course.userStudentRecord.markPaid).toHaveBeenCalled();
-    });
-
-    it('hides and does not mark as paid when complete', () => {
+    it('changes settings to get the payment screen to show', () => {
         props.course.needsPayment = true;
         props.course.userStudentRecord = { trialTimeRemaining: '1 day', markPaid: jest.fn() };
         const btn = mount(<GetAccess {...props} />);
         btn.find('Button').simulate('click');
-        expect(btn).toHaveRendered('PaymentsModal');
-        btn.instance().onCancel();
-        expect(btn).not.toHaveRendered('PaymentsModal');
-        expect(props.course.userStudentRecord.markPaid).not.toHaveBeenCalled();
+        expect(UiSettings.get(PAY_LATER_CHOICE)).toBeNull()
     });
 
 });

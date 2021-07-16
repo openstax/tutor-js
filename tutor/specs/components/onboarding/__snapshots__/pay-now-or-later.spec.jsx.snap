@@ -23,7 +23,7 @@ exports[`pay now or later modal renders and matches snapshot 1`] = `
             Buy access now
           </button>
           <p>
-            You may request a refund within 14 days of purchasing
+            You may pay with a credit/debit card or enter a pre-purchased access code
           </p>
           <div
             className="or"
@@ -31,7 +31,7 @@ exports[`pay now or later modal renders and matches snapshot 1`] = `
             or
           </div>
           <button
-            className="later btn btn-primary"
+            className="secondary btn btn-primary"
             disabled={false}
             onClick={[Function]}
             type="button"

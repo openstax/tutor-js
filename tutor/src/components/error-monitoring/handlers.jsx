@@ -232,6 +232,10 @@ const ERROR_HANDLERS = {
         };
     },
 
+    already_redeemed() {
+        return null;
+    },
+
     // The default error dialog that's displayed when we have no idea what's going on
     default(error, message, context) {
         if (context == null) { context = {}; }

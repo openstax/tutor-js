@@ -400,6 +400,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
             "is_refund_pending": false,
             "last_name": "Bogan",
             "name": "",
+            "payment_code": undefined,
             "payment_due_at": "2017-10-17T12:00:00.000Z",
             "period_id": 0,
             "prompt_student_to_pay": false,

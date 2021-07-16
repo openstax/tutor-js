@@ -27,7 +27,7 @@
       height: 100%;
       .free-trial-activated, .free-trial-ended {
         padding: 16px;
-    
+
         .heading {
           padding: 15px 0 0;
           font-size: 16px;
@@ -59,7 +59,6 @@
     }
 
     .body {
-      font-weight: 500;
       font-size: 16px;
       line-height: 24px;
       padding: 50px;
@@ -91,7 +90,7 @@
     &.free-trial-activated
     {
       .footer {
-        .btn { 
+        .btn {
           width: inherit;
           @media screen and ( max-width: $mobile-collapse-breakpoint ){
             width: 100%;
@@ -102,23 +101,46 @@
     }
 
     &.pay-now-or-later,
-    &.payments-disabled {
+    &.payments-disabled,
+    &.payment-options,
+    &.redeem-code {
       padding: 50px;
+      &.redeem-code {
+          padding: 50px 0;
+      }
       background-color: $tutor-neutral-bright;
-      text-align: center;
-      .btn.later {
-        background-color: $tutor-neutral;
-        color: $tutor-neutral-lightest;
+      .body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        > *:not(.or) {
+          align-self: center;
+          text-align: center;
+        }
+      }
+      .btn, p {
+        width: 258px;
+      }
+      .btn {
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        &.secondary {
+          background-color: $tutor-neutral;
+          color: $tutor-neutral-lightest;
+          border: 0;
+        }
       }
       p {
         font-size: 1.4rem;
-        margin: 20px 0;
-
+        margin: 16px 0 0;
+        text-align: center;
       }
       .or {
         overflow: hidden;
         text-align: center;
-        margin: 20px 0;
+        margin: 32px 0;
         &:before,
         &:after {
           background-color: $tutor-neutral-light;

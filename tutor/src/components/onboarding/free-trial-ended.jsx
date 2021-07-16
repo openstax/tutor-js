@@ -64,17 +64,17 @@ class FreeTrialEnded extends React.Component {
         return (
             <OnboardingNag className="free-trial-ended">
                 <Heading>
-            Your free trial for {ux.course.name} has ended
+                    Your free trial for {ux.course.name} has ended
                 </Heading>
                 <Body>
                     <p>
-              To continue accessing your course, click the button below to pay your
-              one-time {CourseUX.formattedStudentCost} fee for the semester.
+                        To continue accessing your course, click the button below to pay your
+                        one-time {CourseUX.formattedStudentCost} fee for the semester.
                     </p>
                 </Body>
                 <Footer>
-                    <Button variant="primary" onClick={ux.payNow}>
-              Buy access now
+                    <Button variant="primary" onClick={ux.showPaymentOptions}>
+                        Buy access now
                     </Button>
                     {this.renderBackLink()}
                 </Footer>

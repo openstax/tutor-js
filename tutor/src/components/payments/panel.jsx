@@ -35,7 +35,7 @@ class PaymentsCard extends React.Component {
                 <div className="error-message">
                     <p>{payments.errorMessage}</p>
                     <Button variant="primary" onClick={this.props.onCancel}>
-            Close
+                        Close
                     </Button>
                 </div>
             );

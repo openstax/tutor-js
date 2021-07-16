@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
-import { observable, action, modelize } from 'shared/model'
+import { observable, action, modelize, computed } from 'shared/model'
 import { Table } from 'react-bootstrap';
 import moment from 'moment';
-import { map, extend, isFunction } from 'lodash';
+import { map, extend, isFunction, isEmpty, sortBy } from 'lodash';
 import styled from 'styled-components';
 import cn from 'classnames';
 import backInfo from '../../helpers/backInfo';
-import { currentPurchases, UserMenu } from '../../models';
+import { currentPurchases, UserMenu, currentUser } from '../../models';
 import OXFancyLoader from 'shared/components/staxly-animation';
 import { AsyncButton } from 'shared';
 import NewTabLink from '../new-tab-link';
@@ -64,7 +64,7 @@ const StyledContainer = styled.div`
 
 `;
 
-const PaymentInfoRows = styled.div` 
+const PaymentInfoRows = styled.div`
   .manage-payment-info-row:nth-child(odd) {
     background-color: ${colors.neutral.bright};
   }
@@ -219,13 +219,18 @@ class ManagePayments extends React.Component {
                 href={purchase.invoiceURL}
                 className="invoice-link"
             >
-          Invoice
+                Invoice
             </a>
         );
     }
 
+    @computed get mergedPurchases() {
+        const purchases = currentPurchases.isEmpty ? [] : currentPurchases.withRefunds
+        return sortBy(purchases.concat(currentUser.paymentCodePurchases), 'purchased_at')
+    }
+
     renderTable() {
-        if (currentPurchases.isEmpty) { return this.renderEmpty(); }
+        if (isEmpty(this.mergedPurchases)) { return this.renderEmpty(); }
 
         return (
             <Table striped>
@@ -240,16 +245,16 @@ class ManagePayments extends React.Component {
                     </tr>
                 </thead>
                 <tbody>
-                    {currentPurchases.withRefunds.map(purchase =>
+                    {this.mergedPurchases.map(purchase =>
                         <tr key={purchase.identifier} className={cn({ refunded: purchase.is_refund_record })}>
                             <td>{purchase.product.name}</td>
                             <td>{formatDate(purchase.purchased_at)}</td>
                             <td>{purchase.identifier}</td>
                             <td className="total">
-                                {purchase.formattedTotal}
+                                {purchase.is_payment_code ? 'n/a' : purchase.formattedTotal}
                             </td>
-                            <td>{this.renderInvoiceButton(purchase)}</td>
-                            {currentPurchases.isAnyRefundable && <td className="refund">{this.renderRefundCell(purchase)}</td>}
+                            <td>{purchase.is_payment_code ? 'Bookstore' : this.renderInvoiceButton(purchase)}</td>
+                            {currentPurchases.isAnyRefundable && !purchase.is_payment_code && <td className="refund">{this.renderRefundCell(purchase)}</td>}
                         </tr>
                     )}
                 </tbody>
@@ -264,31 +269,31 @@ class ManagePayments extends React.Component {
                 {currentPurchases.withRefunds.map(purchase =>
                     <div className="manage-payment-info-row" key={purchase.identifier}>
                         <div className="manage-payment-info">
-                            <span>Item</span> 
+                            <span>Item</span>
                             <span>
                                 {purchase.product.name}
                             </span>
                         </div>
                         <div className="manage-payment-info">
-                            <span>Transaction date</span> 
+                            <span>Transaction date</span>
                             <span>
                                 {formatDate(purchase.purchased_at)}
                             </span>
                         </div>
                         <div className="manage-payment-info">
-                            <span>Order number</span> 
+                            <span>Order number</span>
                             <span>
                                 {purchase.identifier}
                             </span>
                         </div>
                         <div className="manage-payment-info">
-                            <span>Amount</span> 
+                            <span>Amount</span>
                             <span className={cn({ refunded: purchase.is_refund_record })}>
                                 {purchase.formattedTotal}
                             </span>
                         </div>
                         <div className="manage-payment-info">
-                            <span>Invoice</span> 
+                            <span>Invoice</span>
                             <span>
                                 {this.renderInvoiceButton(purchase)}
                             </span>
@@ -315,7 +320,7 @@ class ManagePayments extends React.Component {
         const back = backInfo();
         return (
             <>
-                <Header 
+                <Header
                     unDocked={true}
                     title="Manage Payments"
                     backTo={back.to}
@@ -329,7 +334,7 @@ class ManagePayments extends React.Component {
                     />
                     {currentPurchases.api.isPending
                         ? <OXFancyLoader isLoading />
-                        : <Responsive mobile={this.renderList()} tablet={this.renderList()} desktop={this.renderTable()} /> 
+                        : <Responsive mobile={this.renderList()} tablet={this.renderList()} desktop={this.renderTable()} />
                     }
                     <div className="footer">
                         <NewTabLink

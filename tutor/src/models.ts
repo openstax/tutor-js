@@ -104,6 +104,7 @@ export * from './models/practice-questions'
 
 export * from './models/purchases/purchase'
 export * from './models/purchases'
+export * from './models/payment-code'
 
 export * from './models/research-surveys'
 

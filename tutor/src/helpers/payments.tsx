@@ -1,7 +1,7 @@
 import React from 'react'
 import { BaseModel, modelize } from 'shared/model';
 import { merge, extend } from 'lodash';
-import { action, observable, when, computed } from 'mobx';
+import { action, observable, when, computed, runInAction } from 'mobx';
 import loadjs from 'loadjs';
 import { readonly } from 'core-decorators';
 import invariant from 'invariant';
@@ -36,7 +36,7 @@ export class Payments extends BaseModel {
     @observable options: any
     @observable remote: any
 
-    constructor(options: {user: User, course: Course, windowImpl?: any, timeoutLength?: number }) {
+    constructor(options: { user: User, course: Course, windowImpl?: any, timeoutLength?: number }) {
         super();
         modelize(this);
         this.options = merge({
@@ -79,7 +79,7 @@ export class Payments extends BaseModel {
 
     @action.bound async fetch() {
         if (!Payments.config.js_url) { return this.logFailure('Attempted to load payments without a url set'); }
-        this.pendingTimeout = setTimeout(this.onTimeout, this.options.timeoutLength);
+        runInAction(() => this.pendingTimeout = setTimeout(this.onTimeout, this.options.timeoutLength));
         if (this.OSaymentClass) { // may already be loaded
             return this.createIframe();
         } else {
@@ -144,7 +144,7 @@ export class Payments extends BaseModel {
 
 }
 
-NotificationActions.on('tutor-update', ({ payments }: {payments: any}) => {
+NotificationActions.on('tutor-update', ({ payments }: { payments: any }) => {
     // eslint-disable-next-line
-  extend(Payments.config, payments);
+    extend(Payments.config, payments);
 });

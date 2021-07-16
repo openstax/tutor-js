@@ -3,7 +3,7 @@ import {
     computed, action, readonly, getParentOf,
 } from 'shared/model';
 import type { StudentData, CoursePeriod, Course } from '../../models'
-import { FeatureFlags } from '../../models'
+import { FeatureFlags, PaymentCode } from '../../models'
 import Time from 'shared/model/time'
 import urlFor from '../../api'
 import { pick } from 'lodash';
@@ -26,6 +26,7 @@ export class CourseStudent extends BaseModel {
     @field period_id: ID = NEW_ID;
     @field role_id: ID = NEW_ID;
     @field student_identifier = '';
+    @field payment_code?: PaymentCode
     @model(Time) payment_due_at = Time.unknown
 
     get course() { return getParentOf<Course>(this) }
@@ -54,6 +55,17 @@ export class CourseStudent extends BaseModel {
         return Boolean(
             FeatureFlags.is_payments_enabled && this.isUnPaid
         );
+    }
+
+    @computed get paymentCodeAsPurchase() {
+        if (!this.payment_code) { return null }
+
+        return {
+            product: { name: this.course.name },
+            purchased_at: this.payment_code.redeemed_at,
+            identifier: this.payment_code.code,
+            is_payment_code: true,
+        }
     }
 
     @computed get isUnPaid() {

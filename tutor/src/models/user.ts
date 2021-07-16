@@ -3,7 +3,7 @@ import {
     hydrateModel, array,
 } from 'shared/model';
 import Time from 'shared/model/time';
-import { find, startsWith, map, uniq, max, remove, omit } from 'lodash';
+import { find, startsWith, map, uniq, max, remove, omit, flatMap, compact } from 'lodash';
 import UiSettings from 'shared/model/ui-settings';
 import { FeatureFlags, currentCourses, Tour, Course, UserTermsMap, UserTerm } from '../models'
 import ViewedTourStat from './user/viewed-tour-stat';
@@ -202,6 +202,12 @@ export class User extends BaseModel {
             course_enrollment_types: getValues((c:Course) => c.is_lms_enabled ? 'lms' : 'links'),
             max_course_enrollment: max(courses.map((c:Course) => c.currentRole.isTeacher ? c.num_enrolled_students : -1)),
         };
+    }
+
+    @computed get paymentCodePurchases() {
+        return compact(flatMap(this.courses.array, (c) => (
+            flatMap(c.students, 'paymentCodeAsPurchase')
+        )))
     }
 
     async fetch() {
