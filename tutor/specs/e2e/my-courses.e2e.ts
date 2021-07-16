@@ -93,7 +93,7 @@ describe('My Courses', () => {
                 await expect(page).toHaveText('testEl=getting-started-video', ' Video Tutorials ')
             })
 
-            it('moves offerings', async () => {
+            xit('moves offerings', async () => {
                 await expect(page).toHaveSelector('testEl=existing-teacher-screen')
 
                 await page.click('testEl=dashboard-settings-btn')
