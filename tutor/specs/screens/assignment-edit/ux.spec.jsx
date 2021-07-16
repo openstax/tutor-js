@@ -51,4 +51,14 @@ describe('AssignmentUX', function() {
             ecosystem_id: 142,
         }))
     });
+
+    it('sends the user back to the assignment\'s default dueAt month when complete', async () => {
+        const ux = new AssignmentUX()
+        attrs['course']['id'] = 42
+        attrs['due_at'] = '2021-06-12'
+        attrs['history'] = { push: jest.fn() }
+        await ux.initialize(attrs)
+        ux.onComplete()
+        expect(ux.history.push).toHaveBeenCalledWith('/course/42/t/month/2021-06-12')
+    });
 });
