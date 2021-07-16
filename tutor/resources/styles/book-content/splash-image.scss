@@ -12,9 +12,13 @@
     margin-bottom: 2rem;
     padding-bottom: 2rem;
 
+
     img {
       border: 0;
       margin: 0;
+      max-height: 70vh;
+      object-fit: cover;
+      object-position: center;
     }
     .frame-wrapper {
       margin-top: 0;
