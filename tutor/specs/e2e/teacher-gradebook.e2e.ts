@@ -1,21 +1,6 @@
-import { Factory, visitPage, Mocker, setTimeouts, loginAs, deleteText } from './helpers'
+import { visitPage, setTimeouts, loginAs, deleteText } from './helpers'
 
-xdescribe('Teacher Gradebook', () => {
-    Mocker.mock({
-        page,
-        options: {
-            feature_flags: { tours: false },
-        },
-        routes: {
-            '/api/courses/:id/performance': async ({ mock, params: { id } }) => {
-                const course = mock.course(id)
-                const scores = course.periods.map(
-                    period =>Factory.create('ScoresForPeriod', { period }),
-                );
-                return scores
-            },
-        },
-    })
+describe('Teacher Gradebook', () => {
 
     beforeEach(async () => {
         await setTimeouts()
@@ -41,7 +26,7 @@ xdescribe('Teacher Gradebook', () => {
 
     it('sets preferences', async () => {
         await page.click('testEl=settings-btn')
-        const settings = ['displayScoresAsPoints', 'arrangeColumnsByType','showDroppedStudents']
+        const settings = ['displayScoresAsPoints', 'arrangeColumnsByType', 'showDroppedStudents']
         await page.click(`testEl=${settings[0]}-checkbox`, { timeout: 1000, force: true })
         await page.click(`testEl=${settings[1]}-checkbox`, { timeout: 1000, force: true })
         await page.click(`testEl=${settings[2]}-checkbox`, { timeout: 1000, force: true })

@@ -23,7 +23,7 @@ const Filters = styled.div`
   padding: 1.5rem 5rem;
   border-top: 1px solid ${colors.neutral.pale};
   background-color: ${colors.neutral.lightest};
-  
+
   .question-filters {
     margin-top: 0.75rem;
     .dropdown-menu.show {
@@ -244,7 +244,7 @@ class ExerciseControls extends React.Component {
         if(showingDetails) {
             return null;
         }
-    
+
         return (
             <Wrapper>
                 <Columns>
@@ -255,19 +255,19 @@ class ExerciseControls extends React.Component {
                         <Columns>
                             <Indicator>
                                 <div>
-                  My Selections
+                                    My Selections
                                 </div>
                                 <Columns>
                                     <Counter>
                                         <Title>MCQs</Title>
-                                        <span data-test-id="selection-count">{numMCQs}</span>
+                                        <span data-test-id="selection-count-mcq">{numMCQs}</span>
                                     </Counter>
                                     <Counter variant="plus">
-                    +
+                                        +
                                     </Counter>
                                     <Counter>
                                         <Title>WRQs</Title>
-                                        <span data-test-id="selection-count">{numWRQs}</span>
+                                        <span data-test-id="selection-count-wrq">{numWRQs}</span>
                                     </Counter>
                                 </Columns>
                             </Indicator>
@@ -287,7 +287,7 @@ class ExerciseControls extends React.Component {
                                 </TourAnchor>
                             </Indicator>
                             <Indicator>
-                Total
+                                Total
                                 <Counter data-test-id="total-count">
                                     {totalSelections}
                                 </Counter>
