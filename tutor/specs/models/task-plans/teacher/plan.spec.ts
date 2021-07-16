@@ -48,11 +48,12 @@ describe('Task Plan Model', function() {
 
     it('removes itself from course when deleted', () => {
         const onDelete = jest.fn();
-        jest.spyOn(plan.course, 'teacherTaskPlans', 'get').mockImplementation(() => ({
+        const spy = jest.spyOn(plan.course, 'teacherTaskPlans', 'get').mockImplementation(() => ({
             delete: onDelete,
         } as any));
         plan.onDeleteComplete();
         expect(onDelete).toHaveBeenCalledWith(plan.id);
+        spy.mockRestore();
     });
 
     it('calculates duration', () => {

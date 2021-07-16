@@ -5,7 +5,13 @@ import moment from 'moment-timezone';
 import { partial } from 'lodash';
 import FactoryBot from 'object-factory-bot';
 
-const TimeMock = {
+const TimeMock: {
+    spies: jest.SpyInstance[],
+    setTo: (dateTime: string | Time | Date) => Time,
+    mock: (now: Time) => void,
+    restore: () => void
+} = {
+    spies: [],
 
     setTo(dateTime: string | Time | Date) {
         const now = new Time(dateTime)
@@ -19,10 +25,12 @@ const TimeMock = {
         Time.defaultZoneName = tz;
         MockDate.set(now.asDate, -360);
         FactoryBot.defaults!.now = now.asDate
-        const spy = jest.spyOn(Time, 'now', 'get');
-        spy.mockImplementation(() => now);
-
-        jest.spyOn(moment.tz, 'guess').mockImplementation(() => tz);
+        const nowSpy = jest.spyOn(Time, 'now', 'get');
+        nowSpy.mockImplementation(() => now);
+        TimeMock.spies.push(nowSpy);
+        const guessSpy = jest.spyOn(moment.tz, 'guess');
+        guessSpy.mockImplementation(() => tz);
+        TimeMock.spies.push(guessSpy);
         moment.tz.setDefault(tz);
         moment.locale('en');
     },
@@ -30,6 +38,11 @@ const TimeMock = {
     restore() {
         delete FactoryBot.defaults!.now;
         MockDate.reset();
+        let spy = TimeMock.spies.pop();
+        while (spy) {
+            spy.mockRestore();
+            spy = TimeMock.spies.pop();
+        }
     },
 
 };
