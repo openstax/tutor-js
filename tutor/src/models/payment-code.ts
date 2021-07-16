@@ -4,7 +4,9 @@ import {
     field,
     modelize,
     computed,
+    model,
 } from 'shared/model'
+import Time from 'shared/model/time'
 
 interface PaymentCodeData {
     code: string
@@ -14,6 +16,7 @@ interface PaymentCodeData {
 export class PaymentCode extends BaseModel {
     @field code = ''
     @field courseId = ''
+    @model(Time) redeemed_at = Time.unknown
 
     constructor() {
         super()

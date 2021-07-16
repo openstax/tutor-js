@@ -3,7 +3,7 @@ import {
     computed, action, readonly, getParentOf,
 } from 'shared/model';
 import type { StudentData, CoursePeriod, Course } from '../../models'
-import { FeatureFlags } from '../../models'
+import { FeatureFlags, PaymentCode } from '../../models'
 import Time from 'shared/model/time'
 import urlFor from '../../api'
 import { pick } from 'lodash';
@@ -26,6 +26,7 @@ export class CourseStudent extends BaseModel {
     @field period_id: ID = NEW_ID;
     @field role_id: ID = NEW_ID;
     @field student_identifier = '';
+    @field payment_code?: PaymentCode
     @model(Time) payment_due_at = Time.unknown
 
     get course() { return getParentOf<Course>(this) }
