@@ -1,4 +1,4 @@
-import { Factory } from '../../helpers';
+import { Factory, R } from '../../helpers';
 import BuilderUX from '../../../src/screens/new-course/ux';
 import Sociology3eNudge from '../../../src/screens/new-course/sociology-3e-nudge';
 
@@ -19,6 +19,6 @@ describe('Sociology 3e nudge', function() {
     });
 
     it('matches snapshot', function() {
-        expect.snapshot(<Sociology3eNudge ux={ux}/>).toMatchSnapshot();
+        expect.snapshot(<R><Sociology3eNudge ux={ux}/></R>).toMatchSnapshot();
     });
 });

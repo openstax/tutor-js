@@ -1,5 +1,6 @@
 import { React, styled } from 'vendor'
 import { colors } from '../../theme'
+import TutorLink from '../../components/link';
 
 const Text = styled.div`
     margin-top: 8px;
@@ -26,9 +27,13 @@ const Sociology3eNudge = ({ ux }: { ux: any }) => {
     }
 
     if (ux.displaySoc3eAvailableNudge) {
+        const soc3eOfferingId = ux.offerings.sociology3e.array[0].id
+
         return (
             <Text>
-                Introduction to Sociology 2e is available until Summer 2022. <a href={`/new-course/offering/${ux.offerings.sociology3e.array[0].id}`}>Upgrade to <cite>Introduction to Sociology 3e</cite>.</a>
+                Introduction to Sociology 2e is available until Summer 2022. <TutorLink to="createNewCourseFromOffering" params={{ offeringId: soc3eOfferingId }}>
+                    Upgrade to <cite>Introduction to Sociology 3e</cite>.
+                </TutorLink>
             </Text>
         )
     }
