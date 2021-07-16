@@ -71,8 +71,7 @@ const SuccessHeading = styled.h3`
 @observer
 export default class RedeemCode extends React.Component<PaymentOptionsProps> {
     static className = 'redeem-code';
-    static tooltipText = 'You can buy an access code for OpenStax Tutor at your institution’s bookstore.\
-        Check with your bookstore for availability.';
+    static tooltipText = 'You can purchase access codes at your institution’s bookstore. Check with your bookstore for availability.';
 
     renderForm(ux: StudentCourseOnboarding) {
         return (
@@ -80,7 +79,12 @@ export default class RedeemCode extends React.Component<PaymentOptionsProps> {
                 <h5>Enter your pre-purchased access code below.</h5>
                 <OverlayTrigger
                     placement="top"
-                    popperConfig={{ modifiers: { preventOverflow: { enabled: false } } }}
+                    popperConfig={{
+                        modifiers: {
+                            preventOverflow: { enabled: false },
+                            disableFlip: true
+                        }
+                    }}
                     overlay={
                         <Tooltip id="redeem-code-tooltip">
                             {RedeemCode.tooltipText}
@@ -98,6 +102,7 @@ export default class RedeemCode extends React.Component<PaymentOptionsProps> {
                             onChange={(e) => { ux.setCode(e.target.value) }}
                             minLength={12}
                             maxLength={999}
+                            autoFocus
                         />
                         <div className="error-message">
                             {ux.paymentCodeError}

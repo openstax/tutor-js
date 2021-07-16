@@ -123,6 +123,9 @@
       }
       .btn {
         height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         &.secondary {
           background-color: $tutor-neutral;
           color: $tutor-neutral-lightest;

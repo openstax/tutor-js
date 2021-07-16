@@ -86,7 +86,7 @@ exports[`Redeem Code renders and matches snapshot 1`] = `
               Enter your pre-purchased access code below.
             </h5>
             <a
-              aria-label="You can buy an access code for OpenStax Tutor at your institution’s bookstore.        Check with your bookstore for availability."
+              aria-label="You can purchase access codes at your institution’s bookstore. Check with your bookstore for availability."
               href="#"
               onBlur={[Function]}
               onFocus={[Function]}
@@ -102,6 +102,7 @@ exports[`Redeem Code renders and matches snapshot 1`] = `
                 className=""
               >
                 <input
+                  autoFocus={true}
                   maxLength={999}
                   minLength={12}
                   onChange={[Function]}
