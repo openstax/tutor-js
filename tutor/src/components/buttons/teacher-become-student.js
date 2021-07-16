@@ -125,6 +125,7 @@ export default class TeacherBecomesStudent extends React.Component {
 
         return (
             <PeriodSelector
+                className="theme-colored-control control"
                 onToggle={this.onPeriodMenuToggle}
                 onSelect={this.onBecomeStudentPeriodSelect}
             >

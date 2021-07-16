@@ -159,10 +159,20 @@ $openstax-books: (
     control    : $tutor-neutral-lightest,
   ),
   intro_sociology: (
-    primary    : $openstax-book-black,
-    secondary  : $openstax-book-yellow,
+    primary    : $openstax-book-white,
+    secondary  : #21306B,
     text       : $openstax-book-text-on-dark-labels,
-    tertiary   : $tutor-tertiary,  // dark blue
+    tertiary   : #213469,
+    quaternary : $tutor-quaternary,
+    highlight  : $tutor-highlight,
+    accent     : white,
+    control    : #cbcccb,
+  ),
+  us_history: (
+    primary    : #222e65,
+    secondary  : #f37640,
+    text       : $openstax-book-text-on-dark-labels,
+    tertiary   : #213469,
     quaternary : $tutor-quaternary,
     highlight  : $tutor-highlight,
     accent     : lighten($tutor-primary, 5%),
