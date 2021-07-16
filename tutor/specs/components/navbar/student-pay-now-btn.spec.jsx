@@ -35,13 +35,6 @@ describe('Student get access button', function() {
         expect(btn.text()).toContain('Free trial');
     });
 
-    it('marks as paid when complete', () => {
-        props.course.userStudentRecord = { is_paid: false, markPaid: jest.fn() };
-        const btn = shallow(<GetAccess {...props} />);
-        btn.instance().onComplete();
-        expect(props.course.userStudentRecord.markPaid).toHaveBeenCalled();
-    });
-
     it('hides and does not mark as paid when complete', () => {
         props.course.needsPayment = true;
         props.course.userStudentRecord = { trialTimeRemaining: '1 day', markPaid: jest.fn() };
