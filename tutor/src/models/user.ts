@@ -5,7 +5,7 @@ import {
 import Time from 'shared/model/time';
 import { find, startsWith, map, uniq, max, remove, omit } from 'lodash';
 import UiSettings from 'shared/model/ui-settings';
-import { FeatureFlags, currentCourses, Tour, Course, UserTermsMap, UserTerm } from '../models'
+import { FeatureFlags, currentCourses, Tour, Course, UserTermsMap, UserTerm, Raven } from '../models'
 import ViewedTourStat from './user/viewed-tour-stat';
 import { FacultyStatus, SelfReportedRoles, UserData } from './types'
 import urlFor from '../api'
@@ -205,6 +205,12 @@ export class User extends BaseModel {
     }
 
     async fetch() {
+        if (!this.api?.request) {
+            // NS: we've logged several requests to sentry about api.request being undefined
+            // but have been completly unable to replicate, nor has any user reported it :rage-emoji:
+            Raven.log('undefined User.api.request')
+            return
+        }
         const data = await this.api.request<UserData>(urlFor('fetchUser', { courseId: this.id }))
         this.update(omit(data, 'available_terms'))
         this.terms.onLoaded(data.available_terms)
