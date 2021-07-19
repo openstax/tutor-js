@@ -4,7 +4,11 @@ set -e
 
 args=${@:2}
 if [[ ! $args ]]; then
-   args='--watch'
+    args='--watch'
+fi
+
+if [[ -z "$NODE_OPTIONS" ]]; then
+    export NODE_OPTIONS="--max-old-space-size=512"
 fi
 
 $(npm bin)/jest --verbose false --config ./configs/test/jest.$1.js $args
