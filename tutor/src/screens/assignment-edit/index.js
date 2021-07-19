@@ -11,8 +11,6 @@ import { BackgroundWrapper, ContentWrapper } from '../../helpers/background-wrap
 import CourseBreadcrumb from '../../components/course-breadcrumb';
 import { assignmentHeaderText } from '../../helpers/string';
 
-import './styles.scss';
-
 // Toolbar in step 3 needs to be sticked at the top but the overflow: hidden property prevents that to happen.
 const StyledBackgroundWrapper = styled(BackgroundWrapper)`
   &.questions {

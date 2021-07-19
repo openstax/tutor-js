@@ -2,6 +2,8 @@
 // and then converting the css to scss using css2sass to re-nest the rules
 // TODO: convert colors to use their closes Tutor equilivent and use scss variables
 
+@import '../../../src/screens/screen-styles';
+
 .oxdt-panel {
   display: inline-block;
   text-align: center;
@@ -1285,6 +1287,11 @@ textarea.oxdt-input > input {
   .oxdt-ok {
     float: right;
     margin-left: 8px;
+    button {
+      @include btn-tutor-primary;
+      text-transform: uppercase;
+      min-width: 5rem;
+    }
   }
 }
 
