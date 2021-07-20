@@ -52,9 +52,28 @@ describe('AssignmentUX', function() {
         }))
     });
 
-    it('sends the user back to the assignment\'s default dueAt month when complete', async () => {
+    it('sends the user to the assignment\'s first tasking_plan\'s dueAt when done', async () => {
         const ux = new AssignmentUX()
         attrs['course']['id'] = 42
+        attrs['plan'] = {
+            tasking_plans: [{ dueAt: { asISODateString: '2021-06-12' } }],
+            ensureLoaded: jest.fn(),
+            grading_template_id: 42,
+        }
+        attrs['history'] = { push: jest.fn() }
+        await ux.initialize(attrs)
+        ux.onComplete()
+        expect(ux.history.push).toHaveBeenCalledWith('/course/42/t/month/2021-06-12')
+    });
+
+    it('sends the user to the assignment\'s default dueAt month w/o tasking_plans', async () => {
+        const ux = new AssignmentUX()
+        attrs['course']['id'] = 42
+        attrs['plan'] = {
+            tasking_plans: [],
+            ensureLoaded: jest.fn(),
+            grading_template_id: 42,
+        }
         attrs['due_at'] = '2021-06-12'
         attrs['history'] = { push: jest.fn() }
         await ux.initialize(attrs)
