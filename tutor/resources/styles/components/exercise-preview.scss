@@ -153,10 +153,6 @@
   }
 }
 
-.openstax-exercise-preview {
-  @include book-content-interactives();
-}
-
 .is-college {
   // LO tags are hidden for college courses.
   .openstax-exercise-preview {
