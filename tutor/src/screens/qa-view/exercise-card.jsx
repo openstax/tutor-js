@@ -52,7 +52,7 @@ export default class ExerciseCard extends React.Component {
                 <a
                     target="_blank"
                     className="edit-link"
-                    href={exercise.url.replace(/@\d+/, '@draft')}
+                    href={exercise.url.replace('/exercises/', '/exercise/')}
                 >
           edit
                 </a>
