@@ -180,7 +180,8 @@ const ExtendModal = observer(({ ux, form: { isValid, values } }) => {
                             disabledDate={ux.course.isInvalidAssignmentDate}
                             timezone={ux.course.timezone}
                             validate={(d) => { // eslint-disable-line consistent-return
-                                if (!d) { return 'must be valid date' }
+                                d = new Time(d)
+                                if (!d.isValid) { return 'must be valid date' }
                                 if (d.isBefore(Time.now)) return 'Due date cannot be set in the past';
                                 if (d.isAfter(values.extension_close_date)) return 'Due date cannot be after Close date';
                             }}
@@ -199,8 +200,8 @@ const ExtendModal = observer(({ ux, form: { isValid, values } }) => {
                     <LegendBar>
                         <EIcon />
                         <ExtensionText>
-              Students who’ve been granted an extension are denoted with a green circle with E.
-              Hover over the icon to see the new due date for that student.
+                            Students who’ve been granted an extension are denoted with a green circle with E.
+                            Hover over the icon to see the new due date for that student.
                         </ExtensionText>
                     </LegendBar>
                 </Modal.Body>
