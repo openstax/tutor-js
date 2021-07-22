@@ -27,7 +27,7 @@ const StudentWrapper = styled.div`
     margin-top: -1px;
   }
   width: 100%;
-  margin: 10px 25px 9px 0;
+  margin: 16px 25px 16px 0;
   display: flex;
   align-items: center;
 
@@ -43,24 +43,34 @@ const StudentWrapper = styled.div`
 
   label {
     max-width: 160px;
-    overflow: hidden;
+    overflow: clip;
     text-overflow: ellipsis;
     white-space: nowrap;
+    margin-bottom: 0;
   }
 `;
 
 const DateTimes = styled.div`
   display: flex;
+  align-items: flex-start;
   > * { flex: 1; }
+  .date-time-input {
+    flex-wrap: wrap;
+  }
   .date-time-input + .date-time-input {
     margin-left: 1rem;
   }
   .date-time-input {
     display: flex;
     align-items: center;
+
     label {
       margin-right: 24px;
       margin-bottom: 0;
+    }
+
+    > div + div {
+      margin-left: 0
     }
   }
 `;
@@ -69,11 +79,6 @@ const StudentsList = styled.div`
   margin: 10px 0 36px;
   display: flex;
   flex-wrap: wrap;
-
-  label {
-    margin-left: 17px;
-    margin-bottom: 0;
-  }
 `;
 
 const LegendBar = styled.div`
@@ -138,11 +143,6 @@ const StyledModal = styled(Modal)`
 
 const SelectAll = styled.div`
   ${props => props.hide && 'visibility: hidden;'}
-
-  label {
-    margin-left: 17px;
-    margin-bottom: 0;
-  }
 `;
 
 const ExtendModal = observer(({ ux, form: { isValid, values } }) => {
@@ -154,7 +154,7 @@ const ExtendModal = observer(({ ux, form: { isValid, values } }) => {
         >
             <Form>
                 <Modal.Header closeButton={true}>
-          Grant extension for {ux.selectedPeriod.name}
+                    Grant extension for {ux.selectedPeriod.name}
                 </Modal.Header>
                 <Modal.Body>
                     <Toolbar>

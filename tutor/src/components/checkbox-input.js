@@ -6,6 +6,7 @@ import { Icon } from 'shared';
 
 const StyledWrapper = styled.span`
   position: relative;
+  line-height: 1;
 `;
 
 const StyledCheckboxInput = styled.input.attrs( () => ({
