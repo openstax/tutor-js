@@ -178,9 +178,6 @@ class GradingTemplates extends Map<ID, GradingTemplate> {
     async fetch() {
         const templates = await this.api.request<{ items: GradingTemplateData[] }>(urlFor('fetchGradingTemplates', { courseId: this.course.id }))
         this.onLoaded(templates.items)
-        // this.onRemoved()
-
-        // return { courseId: this.course.id };
     }
 
     @action onLoaded(templates: GradingTemplateData[] ) {
