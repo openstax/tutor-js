@@ -159,6 +159,16 @@ $openstax-books: (
     control    : $tutor-neutral-lightest,
   ),
   intro_sociology: (
+    primary    : $openstax-book-black,
+    secondary  : $openstax-book-yellow,
+    text       : $openstax-book-text-on-dark-labels,
+    tertiary   : $tutor-tertiary,  // dark blue
+    quaternary : $tutor-quaternary,
+    highlight  : $tutor-highlight,
+    accent     : lighten($tutor-primary, 5%),
+    control    : $openstax-book-black,
+  ),
+  intro_sociology_3e: (
     primary    : $openstax-book-white,
     secondary  : #21306B,
     text       : $openstax-book-text-on-dark-labels,
@@ -237,6 +247,7 @@ $openstax-books: (
 // books that we have thumbnails for.  Some appearance codes share thumbnails
 $openstax-book-thumbnails: (
   intro_sociology : 'sociology-book-thumbnail.svg',
+  intro_sociology_3e: 'sociology-3e-book-thumbnail.svg',
   hs_physics      : 'hs_physics-book-thumbnail.png',
   ap_physics      : 'ap_physics-book-thumbnail.svg',
   physics         : 'college_physics-book-thumbnail.svg',
