@@ -1,4 +1,4 @@
-import { React, PropTypes, styled, observer, css, Box } from 'vendor';
+import { React, PropTypes, styled, observer, css } from 'vendor';
 import { StickyTable, Row } from 'react-sticky-table';
 import { OverlayTrigger, Popover } from 'react-bootstrap';
 import { isUndefined } from 'lodash';
@@ -22,6 +22,7 @@ import {
     SplitCell, ColumnFooter, Total,
     LateWork, ControlsWrapper, ControlGroup,
     OrderIcon, NameWrapper,
+    TableBottom, Entry, Term, Definition, Definitions,
 } from './table-elements';
 
 // https://projects.invisionapp.com/d/main#/console/18937568/401942280/preview
@@ -349,32 +350,28 @@ const ReadingScores = observer(({ ux }) => {
                     <Cell borderTop />
                 </Row>
             </ReadingStickyTable>
-            <Legend>
-                <Box>
-                    <Box direction="column">
-                        <Box margin="bottom">
-                            <span className="incomplete-questions legend-box"></span>
-                            <span>All or some questions not attempted</span>
-                        </Box>
-                        <Box>
-                            <span className="needs-attention legend-box"></span>
-                            <span>Score less than 50% of total available points</span>
-                        </Box>
-                    </Box>
-                    <Box direction="column">
-                        <Box margin="bottom" className="extension-legend">
-                            <ExtIcon /><span>Extension granted</span>
-                        </Box>
-                        <Box>
-                            <DroppedIcon color="blue" /> Dropped question
-                        </Box>
-                    </Box>
-                </Box>
-                <Box margin={{ vertical: 'large' }}>
-                    The late penalty is applied only to the points earned after the due date. {' '}
-                    <a href="https://openstax.org/blog/new-openstax-tutor-scoring-feature" target="_blank">Learn more</a>
-                </Box>
-            </Legend>
+
+            <TableBottom>
+                <Definitions>
+                    <Entry wide={true}>
+                        <Term variant="unattempted" aria-label="Unattempted" />
+                        <Definition>All or some questions not attempted</Definition>
+                    </Entry>
+                    <Entry>
+                        <Term variant="icon" aria-label="Extension"><EIcon /></Term>
+                        <Definition>Extension granted</Definition>
+                    </Entry>
+                    <Entry wide={true}>
+                        <Term variant="trouble" aria-label="Unattempted" />
+                        <Definition>Score less than 50% of total available points</Definition>
+                    </Entry>
+                    <Entry>
+                        <Term variant="icon" aria-label="Dropped"><DroppedIcon color="blue" /></Term>
+                        <Definition>Dropped question</Definition>
+                    </Entry>
+                </Definitions>
+                The late penalty is applied only to the points earned after the due date.&nbsp;<a href="https://openstax.org/blog/new-openstax-tutor-scoring-feature" target="_blank">Learn more</a>
+            </TableBottom>
         </>
     );
 });
