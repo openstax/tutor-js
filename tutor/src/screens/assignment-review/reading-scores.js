@@ -41,9 +41,6 @@ const CellContents = styled(BasicCellContents)`
   }
 `;
 
-const ExtIcon = styled(EIcon)`
-`;
-
 const ColumnHeading = styled(BasicColumnHeading)`
   border-top-color: ${props => props.variant === 'q' ? colors.templates.reading.border : colors.neutral.std};
   background: ${props => props.variant === 'q' ? colors.templates.reading.background : colors.neutral.lighter};
@@ -332,7 +329,7 @@ const ReadingScores = observer(({ ux }) => {
                         <Definition>Extension granted</Definition>
                     </Entry>
                     <Entry wide={true}>
-                        <Term variant="trouble" aria-label="Unattempted" />
+                        <Term variant="trouble" aria-label="Less than 50%" />
                         <Definition>Score less than 50% of total available points</Definition>
                     </Entry>
                     <Entry>
