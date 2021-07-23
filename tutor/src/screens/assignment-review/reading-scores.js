@@ -71,39 +71,9 @@ const StyledTotal = styled(Total)`
   `}
 `;
 
-const Legend = styled.div`
-  > div {
-    display: flex;
-
-    & div {
-      margin-right: 9px;
-    }
-
-    & span {
-      font-size: 1.2rem;
-      color: ${colors.neutral.thin};
-    }
-
-    & a {
-      text-decoration: underline;
-    }
-  }
-
-
-  .legend-box {
-    width: 12px;
-    padding: 8px 15px;
-    display: inline-block;
-    margin-right: 8px;
-    &.incomplete-questions {
-      border: 1px solid ${colors.neutral.std};
-      background-color: ${colors.neutral.pale};
-    }
-
-    &.needs-attention {
-      border: 1px solid ${colors.danger};
-      background-color: ${colors.states.trouble};
-    }
+const StyledTableBottom = styled(TableBottom)`
+  a {
+    text-decoration: underline;
   }
 `;
 
@@ -351,7 +321,7 @@ const ReadingScores = observer(({ ux }) => {
                 </Row>
             </ReadingStickyTable>
 
-            <TableBottom>
+            <StyledTableBottom>
                 <Definitions>
                     <Entry wide={true}>
                         <Term variant="unattempted" aria-label="Unattempted" />
@@ -371,7 +341,7 @@ const ReadingScores = observer(({ ux }) => {
                     </Entry>
                 </Definitions>
                 The late penalty is applied only to the points earned after the due date.&nbsp;<a href="https://openstax.org/blog/new-openstax-tutor-scoring-feature" target="_blank">Learn more</a>
-            </TableBottom>
+            </StyledTableBottom>
         </>
     );
 });
