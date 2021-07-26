@@ -1,6 +1,5 @@
 #!/bin/bash
-
-
+OPTS=${1:-"--all"}
 NPM=$(npm bin)
 
 NOTIFY=8002
@@ -21,7 +20,7 @@ echo Waiting for server to become available on $URL
 $NPM/wait-on $URL
 echo Server is now available
 
-yarn run tutor:test:e2e --all
+yarn run tutor:test:e2e $OPTS
 
 TEST_STATUS=$?
 
