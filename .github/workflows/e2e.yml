@@ -27,5 +27,5 @@ jobs:
         uses: actions/upload-artifact@v2
         if: failure()
         with:
-          name: failure-screenshots
+          name: test-results
           path: screenshots/tutor

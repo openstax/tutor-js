@@ -21,7 +21,6 @@ test.describe('without any students', () => {
 
         await page.click('#actions-menu')
         await page.click('[data-item=courseSettings]')
-        await page.pause()
 
         await page.click('testId=course-details-tab')
         await expect(page).toHaveSelector('.course-detail-settings-form')
