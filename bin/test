@@ -1,12 +1,45 @@
 #!/bin/bash
 
-set -e
+# set -e
 
 bin/checkinputs "$@"
 
 DIR=$(dirname "$0")
+WATCH='f'
+OTHER_ARGS=()
 
-export OX_PROJECT=$1
+for arg in "$@"
+do
+    case $arg in
+        --debug)
+        export PWDEBUG=console
+        shift
+        ;;
+        tutor|shared|exercises)
+        export OX_PROJECT=$arg
+        shift
+        ;;
+        --watch)
+        WATCH='t'
+        shift
+        ;;
+        e2e)
+        shift
+        ;;
+        *)
+        OTHER_ARGS+=("$1")
+        shift # Remove generic argument from processing
+        ;;
+    esac
+done
+
 echo Test: $OX_PROJECT
 
-$DIR/test-unit $OX_PROJECT ${@:2}
+if [[ "$OX_PROJECT" = "" ]]; then
+    $(npm bin)/playwright test --config configs/playwright.config.ts "$OTHER_ARGS"
+    if [[ "$WATCH" = "t" ]]; then
+        $(npm bin)/chokidar ./tutor/specs/e2e/*.ts -d 1500 -c '$(npm bin)/playwright test --config configs/playwright.config.ts {path}'
+    fi
+else
+    $DIR/test-unit $OX_PROJECT $OTHER_ARGS
+fi

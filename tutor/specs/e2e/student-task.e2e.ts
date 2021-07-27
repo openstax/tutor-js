@@ -1,74 +1,113 @@
 import faker from 'faker'
-import { visitPage, Mocker, setTimeouts, selectAnswer } from './helpers'
 
-xdescribe('Student Tasks', () => {
+import {
+    visitPage, expect, test, setDateTimeRelative,
+    selectCalendarSidebarOption, selectExeciseCard,
+    withUser,
+} from './test'
 
-    Mocker.mock({
-        page,
-        options: { is_teacher: false },
-        routes: {},
-    })
-    beforeEach(async () => {
-        await setTimeouts()
-    });
+const COURSE_ID = 2
 
-    const longFreeResponseAnswer = faker.lorem.words(510);
+let assignmentName = ''
 
-    it('advances after answering a free-response only question', async () => {
-        await visitPage(page, '/course/1/task/3') // task id 3 is a hardcoded WRM task
-        await page.click('.icon-instructions')
-        await expect(page).toHaveSelector('testEl=homework-instructions')
-        await page.click('testEl=value-prop-continue-btn')
-        await expect(page).toHaveSelector('testEl=student-free-response')
-        await page.type('testEl=free-response-box', 'this is a answer answering and fully explaining my reasoning for the question')
-        await page.click('testEl=submit-answer-btn')
-        expect(await page.evaluate(() => document.location.pathname)).toContain('/course/1/task/3/step')
-        
-    })
+withUser('reviewstudent2')
 
-    it('can change and re-submit answers to questions', async () => {
-        await visitPage(page, '/course/1/task/2')
-        await page.click('.sticky-table [data-step-index="4"]')
-        const stepUrl = await page.evaluate(() => document.location.pathname)
-        await selectAnswer(page, 'b', 'why do i need to fill this out?')
-        // go back and resubmit
-        await visitPage(page, stepUrl)
-        await expect(page).toHaveSelector('css=.answer-checked >> testEl=answer-choice-b')
-        await page.click('testEl=answer-choice-c')
-        await expect(page).toHaveSelector('css=.answer-checked >> testEl=answer-choice-c')
-        await page.click('testEl=submit-answer-btn')
-        await page.click('testEl=continue-btn')
-    })
-  
-    it('should show late clock icon and the late points info, if task step is late', async () => {
-        await visitPage(page, '/course/1/task/4')
-        await expect(page).toHaveSelector('testEl=late-icon')
-        await page.hover(':nth-match(.isLateCell, 1)')
-        await expect(page).toHaveSelector('testEl=late-info-points-table')
-    })
+test.beforeAll(async ({ browser }) => {
 
-    it('should show word limit error message and disable submit button if response is over 500 words', async () => {
-        await visitPage(page, '/course/1/task/3') // task id 3 is a hardcoded WRM task
-        await expect(page).toHaveSelector('testEl=student-free-response')
-        await page.type('testEl=free-response-box', longFreeResponseAnswer, { timeout: 30000 })
-        await expect(page).toHaveSelector('.word-limit-error-info')
-        expect(
-            //@ts-ignore
-            await page.isDisabled('testEl=submit-answer-btn')
-        ).toBeTruthy()
-    })
+    const context = await browser.newContext({ storageState: 'temp/teacher02-state.json' })
+    const page = await context.newPage()
 
-    it('should be able to save question to my practice', async () => {
-        await visitPage(page, '/course/1/task/2') 
-        await page.click('.sticky-table [data-step-index="3"]')
-        // start fresh - deleting the practice questions from course
-        await page.evaluate(() => {
-            window._MODELS.courses.get(1).practiceQuestions.clear()
-        })
+    await visitPage(page, `/course/${COURSE_ID}`)
 
-        await page.type('css=.exercise-step >> testEl=free-response-box', 'why do i need to fill this out?')
-        await page.click('testEl=submit-answer-btn')
-        await expect(page).toHaveSelector('testEl=save-practice-button')
-        await expect(page).toHaveText('testEl=save-practice-button', 'Save to practice')
-    })
+    await selectCalendarSidebarOption(page, 'Grading Templates')
+    await page.waitForSelector('testId=grading-template-card')
+
+    const hasFeedbackTmpl = await page.$('testId=grading-template-card >> text=NoFeedback')
+    if (!hasFeedbackTmpl) {
+        await page.click('text="Add new template"')
+        await page.click('.modal-content >> text="Homework"')
+        await page.fill('.modal-content >>#template_name', 'NoFeedback')
+        await page.click('.modal-content >> text="After the due date"', { force: true })
+        await page.click('.modal-content >> .btn-primary')
+    }
+
+    await visitPage(page, `/course/${COURSE_ID}`)
+
+    await selectCalendarSidebarOption(page, 'Add homework')
+
+    assignmentName  = faker.commerce.productName()
+    await page.fill('testId=edit-assignment-name', assignmentName)
+    setDateTimeRelative(page, 'input[name="tasking_plans[0].opens_at"]', { day: -2 })
+
+    await page.click('testId=grading-templates')
+    await page.click('.dropdown-menu >> text=NoFeedback')
+
+    await page.click('text="Save & Continue"')
+
+    await page.click('text="Newtons First Law of Motion: Inertia"')
+    await page.click('text="Save & Continue"')
+
+    await selectExeciseCard(page, '2084')
+    await selectExeciseCard(page, '2092')
+    await selectExeciseCard(page, '2076')
+
+    await page.click('text="Save & Continue"')
+    await page.click('text="Publish"')
+
+    await page.waitForSelector(`tourRegion=teacher-calendar >> css=.is-published.is-open >> text="${assignmentName}"`)
+
+    await page.close()
+    await context.close()
+})
+
+test.beforeEach(async ({ page }) => {
+    await visitPage(page, `/course/${COURSE_ID}`)
+    await page.click(`text="${assignmentName}"`)
+});
+
+test('advances after answering a free-response only question', async ({ page }) => {
+
+    await page.click('[data-step-index="2"]')
+    await page.fill('testId=free-response-box', '')
+    const submitBtn = await page.$('testId=submit-answer-btn')
+    await submitBtn!.waitForElementState('disabled')
+    await page.type('testId=free-response-box', 'this is a answer answering and fully explaining my reasoning for the question')
+    await submitBtn!.waitForElementState('enabled')
+})
+
+test('can change and re-submit answers to questions', async ({ page }) => {
+    await page.click('testId=value-prop-continue-btn')
+    const stepUrl = await page.evaluate(() => document.location.pathname)
+    await page.click('testId=answer-choice-a')
+    await page.click('testId=submit-answer-btn')
+
+    await visitPage(page, stepUrl)
+
+    await expect(page).toHaveSelector('css=.answer-checked >> testId=answer-choice-a')
+    await page.click('testId=answer-choice-b')
+    await page.click('testId=submit-answer-btn')
+
+    await visitPage(page, stepUrl)
+    await expect(page).toHaveSelector('css=.answer-checked >> testId=answer-choice-b')
+})
+
+test('should show word limit error message and disable submit button if response is over 500 words', async ({ page }) => {
+    await page.click(`text="${assignmentName}"`)
+    await page.click('[data-step-index="3"]')
+
+    await page.fill('testId=free-response-box', faker.lorem.words(510), { timeout: 30000 })
+    await expect(page).toHaveSelector('text="Maximum 500 words"')
+    expect(
+        //@ts-ignore
+        await page.isDisabled('testId=submit-answer-btn')
+    ).toBeTruthy()
+})
+
+test('should be able to save question to my practice', async ({ page }) => {
+    await page.click('.sticky-table [data-step-index="1"]')
+    const saveBtn = await page.waitForSelector('testId=save-practice-button')
+    const wasSaved = (await saveBtn!.textContent())?.match(/Remove/)
+    await saveBtn.click()
+    await saveBtn.waitForElementState('enabled')
+    expect(await saveBtn.textContent()).toMatch(wasSaved ? 'Save to practice' : 'Remove from practice')
 })

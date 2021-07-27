@@ -1,29 +1,30 @@
-import { visitPage, setTimeouts, withScreenSize, loginAs } from './helpers'
+import { visitPage, test, expect, withUser, disableTours, screenSizes } from './test'
 
-xdescribe('Student Dashboard', () => {
-    beforeEach(async () => {
-        await loginAs('reviewstudent1')
+test.describe('Student Dashboard', () => {
+    test.skip()
 
-        await setTimeouts()
-        await visitPage(page, '/course/2')
-        await page.evaluate(() => {
-            window._MODELS.feature_flags.set('tours', false);
-        })
+    withUser('reviewstudent1')
+
+    test.beforeEach(async ({ page }) => {
+        await visitPage(page, '/course/1')
+        disableTours(page)
     })
 
-    it('switches tabs', async () => {
-        await page.click('testEl=all-past-work-tab')
-    });
+    test('switches tabs', async ({ page }) => {
+        await page.click('testId=all-past-work-tab')
+    })
 
-    withScreenSize('loads assignment', async (screen) => {
-        await page.click('testEl=all-past-work-tab')
-        if(screen === 'mobile') {
-            await page.click(':nth-match(.task.homework a, 1)')
+    test('loads assignment', async ({ page }) => {
+        for await (const screen of screenSizes(page)) {
+            await page.click('testId=all-past-work-tab')
+            if(screen === 'mobile') {
+                await page.click(':nth-match(.task.homework a, 1)')
+            }
+            else {
+                await page.click(':nth-match(.task.homework, 1)')
+            }
+            await expect(page).toHaveSelector('testId=student-task')
         }
-        else {
-            await page.click(':nth-match(.task.homework, 1)')
-        }
-        await expect(page).toHaveSelector('testEl=student-task')
     })
 
 })

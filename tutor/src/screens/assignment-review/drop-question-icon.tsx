@@ -7,6 +7,7 @@ const DropQuestionIcon:React.FC<{ ux: UX, info: any }> = ({ ux, info }) => {
     return (
         <Icon
             type="minus-circle"
+            data-test-id="drop-question"
             data-tour-anchor-id="drop-question-new"
             tooltip="Drop question"
             color={Theme.colors.neutral.gray}

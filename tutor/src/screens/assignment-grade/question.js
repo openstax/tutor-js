@@ -89,6 +89,7 @@ const ExpandGraded = observer(({ ux }) => {
     return (
         <ExpandGradedWrapper>
             <Button
+                data-test-id="expand-graded"
                 onClick={() => ux.expandGradedAnswers = !ux.expandGradedAnswers}
                 variant="link"
             >

@@ -1,30 +1,23 @@
-import { visitPage, Mocker, setTimeouts } from './helpers'
+import { visitPage, test, expect } from './test'
 
-xdescribe('Browse the book', () => {
+test.describe('Browse the book', () => {
 
-    beforeEach(async () => {
-        await setTimeouts()
-    })
+    test.skip()
 
-    Mocker.mock({
-        page,
-        routes: {},
-    })
-
-    it('loads the book screen', async () => {
+    test('loads the book screen', async ({ page }) => {
         await visitPage(page, '/book/1')
-        await expect(page).toHaveSelector('testEl=reference-book')
-        await page.click('testEl=my-highlights-btn')
-        await expect(page).toHaveSelector('testEl=highlights-notes-modal')
+        await expect(page).toHaveSelector('testId=reference-book')
+        await page.click('testId=my-highlights-btn')
+        await expect(page).toHaveSelector('testId=highlights-notes-modal')
     })
 
-    it('can use arrows to move forward or backward', async () => {
+    test('can use arrows to move forward or backward', async ({ page }) => {
         await visitPage(page, '/book/1')
-        await page.waitForSelector('testEl=book-title')
+        await page.waitForSelector('testId=book-title')
         const currentTitle = await page.$eval('[data-test-id="book-title"]' , ex => ex.dataset.title) as string
-        await page.click('testEl=go-forward')
-        await expect(page).not.toHaveText('testEl=book-title', currentTitle)
-        await page.click('testEl=go-backward')
-        await expect(page).toHaveText('testEl=book-title', currentTitle)
+        await page.click('testId=go-forward')
+        await expect(page).not.toHaveText('testId=book-title', currentTitle)
+        await page.click('testId=go-backward')
+        await expect(page).toHaveText('testId=book-title', currentTitle)
     })
 })

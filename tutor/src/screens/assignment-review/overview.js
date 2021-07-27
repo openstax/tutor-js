@@ -411,6 +411,7 @@ const GradingBlock = observer(({ ux }) => {
     return (
         <Toolbar>
             <GradeButton
+                data-test-id="grade-answers-btn"
                 to="gradeAssignment"
                 className="btn btn-primary btn-new-flag btn-standard"
                 displayingFlag={ux.gradeableQuestionCount > 0}

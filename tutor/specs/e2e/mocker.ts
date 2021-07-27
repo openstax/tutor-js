@@ -1,11 +1,11 @@
-
+import { Page, Route, Request  } from '@playwright/test'
+import test from '@playwright/test'
 import Factory from 'object-factory-bot'
-import { Page, Route, Request } from 'playwright-core'
 import { pathToRegexp, regexpToFunction, Key } from 'path-to-regexp'
 import qs from 'qs'
 import { defaults, isFunction, clone } from 'lodash'
 import '../factories/bootstrap'
-import { Course } from '../../src/models'
+import type { CourseData } from '../../src/models/types'
 
 export interface JSON {
     readonly [text: string]: JSON | JSON[] | string | number | boolean
@@ -49,7 +49,6 @@ const USER_URL = '/api/user'
 type ID = string | number
 
 interface MockArgs {
-    page: Page
     routes: Routes
     data?: MockData
     options?: MockOptions
@@ -73,7 +72,6 @@ const setupDefaultRoutes = (routes: Routes, options: MockOptions) => {
 class Mock {
     routes: Routes
     mockData: MockData
-    page: Page
     options: MockOptions
     handlers: InstalledHandler[] = []
     activity: MockedActivity = {}
@@ -81,8 +79,8 @@ class Mock {
 
     data: any
 
-    constructor({ page, routes, data, options }: MockArgs) {
-        this.page = page
+    constructor({ routes, data, options }: MockArgs) {
+
         this.routes = clone(routes)
         this.mockData = clone(data || {})
         this.options = clone(options || {})
@@ -115,8 +113,8 @@ class Mock {
         return bs
     }
 
-    course(id: ID): Course {
-        return this.bootstrapData.courses.find((c: Course) => c.id == id)
+    course(id: ID): CourseData {
+        return this.bootstrapData.courses.find((c: CourseData) => c.id == id)
     }
 }
 
@@ -140,17 +138,18 @@ export const Mocker = {
     mock(args: MockArgs) {
         const mock = new MockWrapper(args)
 
-        beforeEach(async () => {
-            await this.start(mock.current)
+        test.beforeEach(async ({ page }) => {
+            await this.start(page, mock.current)
         })
-        afterEach(async () => {
-            await this.stop(mock.current)
+        test.afterEach(async ({ page }) => {
+
+            await this.stop(page, mock.current)
             mock.reset()
         })
         return mock
     },
 
-    async start(mock: Mock) {
+    async start(page: Page, mock: Mock) {
 
         const routes = Object.entries(mock.routes).map(([routePath, handler]) => {
 
@@ -188,16 +187,16 @@ export const Mocker = {
                 }
             }
             mock.handlers.push([urlMatcher, urlHandler])
-            return mock.page.route(urlMatcher, urlHandler)
+            return page.route(urlMatcher, urlHandler)
         })
-        mock.page.on('requestfinished', this.onRequestFinish)
+        page.on('requestfinished', this.onRequestFinish)
         await Promise.all(routes)
     },
 
-    async stop(mock: Mock) {
-        mock.page.off('requestfinished', this.onRequestFinish)
+    async stop(page: Page, mock: Mock) {
+        page.off('requestfinished', this.onRequestFinish)
         await Promise.all(
-            mock.handlers.map(([url, handler]) => mock.page.unroute(url, handler))
+            mock.handlers.map(([url, handler]) => page.unroute(url, handler))
         )
         mock.handlers = []
     },
