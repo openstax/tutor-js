@@ -3,7 +3,6 @@ import { visitPage, withUser, expect, test } from './test'
 withUser('teacher01')
 
 test.beforeEach(async ({ page }) => {
-    await page.pause()
     await visitPage(page, '/course/1/roster')
 })
 
