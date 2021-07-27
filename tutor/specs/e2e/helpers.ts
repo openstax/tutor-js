@@ -1,23 +1,30 @@
-import { Page } from 'playwright-core'
+import { Page } from '@playwright/test'
 import Factory from 'object-factory-bot'
-import { forEach } from 'lodash'
 import * as cp from 'child_process'
 import * as faker from 'faker';
-
-export { faker }
-
+import 'expect-playwright'
 import '../factories/definitions'
+export * from '@playwright/test'
+import { DateTime, DurationInput } from 'luxon'
+export { faker, Factory }
+
+
+//import '../factories/definitions'
 export * from './mocker'
 
-export const SCREENS = {
-    mobile: [375,667], // iphone
-    tablet: [768,1024], // ipad
-    desktop: [1280, 1024], // pretty much anything is larger than this
+const serverPort = process.env.SERVER_PORT || 3001
+const TC = {
+    URL: `http://localhost:${serverPort}`,
 }
 
+type TestConfig = typeof TC
+export type { TestConfig }
+
+
 export const visitPage = async (page: Page, path: string) => {
-    const url = `${testConfig.URL}${path}`
-    return await page.goto(url)
+    const url = `${TC.URL}${path}`
+    await page.goto(url)
+    await disableTours(page)
 }
 
 export const execRailsCmd = async (irb: string) => {
@@ -31,7 +38,6 @@ export const execRailsCmd = async (irb: string) => {
             result(stdout)
         })
     })
-
 }
 
 interface AccountOptions {
@@ -71,12 +77,45 @@ school_location:'domestic_school'].id`
     return userId
 }
 
-export const disableTours = async (page: Page = (global as any).page) => {
+export const setDateTimeRelative = async (page: Page, selector: string, diff: DurationInput) => {
+    const dte = DateTime.now().plus(diff).toFormat('LLL d | hh:mm a');
+    // triple click selects everything
+    await page.click(selector, { clickCount: 3 });
+    await page.keyboard.press('Backspace')
+    await page.type(selector, dte);
+    await page.click('.oxdt-footer >> text=Ok');
+}
+
+export const selectExeciseCard = async (page: Page, exId: string) => {
+    await page.waitForSelector('[data-exercise-id]')
+    await page.hover(`[data-exercise-id^="${exId}"]`)
+    await page.click(`[data-exercise-id^="${exId}"] >> .action.include`)
+}
+
+export const openCalendarSideBar = async (page: Page) => {
+    await page.waitForSelector('.add-assignment-sidebar')
+    if (!(await page.$('.add-assignment-sidebar.is-open'))) {
+        await page.click('text="Add Assignment"')
+        await page.waitForSelector('.add-assignment-sidebar.is-open')
+    }
+}
+
+export const selectCalendarSidebarOption = async (page: Page, option: string) => {
+    openCalendarSideBar(page)
+    await page.click(`.add-assignment-sidebar >> text="${option}"`)
+}
+
+export const disableTours = async (page: Page) => {
     await page.evaluate(() => {
-        const editing = window._MODELS.user.terms.get('exercise_editing')
+        const editing = (window as any)._MODELS.user.terms.get('exercise_editing')
         if (editing) { editing.is_signed = true }
-        window._MODELS.feature_flags.set('tours', false)
+        (window as any)._MODELS.feature_flags.set('tours', false)
     })
+}
+
+export const getCourseIdFromURL = async (page: Page) => {
+    const url = await page.evaluate(() => document.location.pathname) as string
+    return url.match(/course\/(\d+)/)?.[1]
 }
 
 export const loaderNotVisible = async (page: Page = (global as any).page) => {
@@ -95,46 +134,28 @@ export const loginAs = async (userName: string, page: Page = (global as any).pag
         await userMenu.click({ force: true })
         await page.click('.logout [type=submit]', { force: true })
     }
-    await page.goto(`${testConfig.URL}/accounts/dev/accounts`)
+    await page.goto(`${TC.URL}/accounts/dev/accounts`)
     await page.click(`text="${userName}"`)
-}
-
-export const setTimeouts = async () => {
-    // a bit smaller than are set in jest config
-    const TIMEOUT = testConfig.DEBUG ? 600 : 15
-
-    context.setDefaultTimeout(TIMEOUT * 1000)
-}
-
-// (screen: string) is getting complained that it is not not-used, but it is a type definiton
-// eslint-disable-next-line no-unused-vars
-export const withScreenSize = (testName: string, test: (screen: string) =>Promise<void>) => {
-    forEach(SCREENS, (dimensions, screen) => {
-        const [width, height] = dimensions
-
-        it(`${testName}. Width: ${width} | Height: ${height}`, async () => {
-            await page.setViewportSize({ width, height })
-            await test(screen)
-        })
-    })
+    await page.waitForSelector('.tutor-root')
+    await disableTours(page)
 }
 
 export const selectAnswer = async (page: Page, choice : string, freeResponse: string) => {
-    await page.waitForSelector('css=.exercise-step >> testEl=free-response-box', { timeout: 2000 })
+    await page.waitForSelector('css=.exercise-step >> testId=free-response-box', { timeout: 2000 })
         .then(async () => {
-            await page.type('css=.exercise-step >> testEl=free-response-box', freeResponse)
-            await page.click('testEl=submit-answer-btn')
+            await page.type('css=.exercise-step >> testId=free-response-box', freeResponse)
+            await page.click('testId=submit-answer-btn')
         })
         // free response is submitted
         .catch(() => {})
 
-    await page.waitForSelector(`css=.answer-checked >> testEl=answer-choice-${choice}`, { timeout: 2000 })
+    await page.waitForSelector(`css=.answer-checked >> testId=answer-choice-${choice}`, { timeout: 2000 })
         .then(async () => {
-            await page.click(`css=.answer-checked >> testEl=answer-choice-${choice}`)
+            await page.click(`css=.answer-checked >> testId=answer-choice-${choice}`)
         })
         .catch(async () => {
-            await page.click(`testEl=answer-choice-${choice}`)
-            await page.click('testEl=submit-answer-btn')
+            await page.click(`testId=answer-choice-${choice}`)
+            await page.click('testId=submit-answer-btn')
         })
 }
 
@@ -142,6 +163,3 @@ export const deleteText = async (page: Page, elementSelector: string) => {
     await page.click(elementSelector, { clickCount: 3 })
     page.keyboard.press('Backspace')
 }
-
-
-export { Factory }

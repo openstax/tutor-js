@@ -1,17 +1,17 @@
-import './research_survey';
-import './teacher-task-plan';
-import './student-tasks';
-import './course';
-import './book';
-import './task-plan-stats';
-import './ecosystem';
-import './exercise';
-import './scores';
-import './task-scores';
-import './offering';
-import './stats';
-import './course-roster';
-import './note';
-import './grading-template';
-import './bootstrap';
-import './course-dashboard';
+require('./research_survey')
+require('./teacher-task-plan')
+require('./student-tasks')
+require('./course')
+require('./book')
+require('./task-plan-stats')
+require('./ecosystem')
+require('./exercise')
+require('./scores')
+require('./task-scores')
+require('./offering')
+require('./stats')
+require('./course-roster')
+require('./note')
+require('./grading-template')
+require('./bootstrap')
+require('./course-dashboard')

@@ -1,10 +1,11 @@
-import { visitPage, setTimeouts, loginAs, disableTours } from './helpers'
+import { test, visitPage, expect, withUser, disableTours } from './test'
 
-describe('Soc3e Announcement and Launch', () => {
+test.describe('Soc3e Announcement and Launch', () => {
 
-    beforeEach(async () => {
-        await setTimeouts()
-        await loginAs('reviewteacher')
+    withUser('teacher01')
+
+    test.beforeEach(async ({ page }) => {
+
         await visitPage(page, '/course/1')
         await page.waitForSelector('css=.course-page')
         await disableTours(page)
@@ -19,20 +20,21 @@ describe('Soc3e Announcement and Launch', () => {
         })
     })
 
-    it('displays an overlay on a Sociology 2e offering and dashboard when 3e is available', async () => {
+    test('displays an overlay on a Sociology 2e offering and dashboard when 3e is available', async ({ page }) => {
+>>>>>>> b2c2cfe19... switch tests to playwright test runner
         await page.evaluate(() => {
             const offering = window._MODELS.offerings.get(2)
             offering.os_book_id = offering.SOC3E_BOOK_ID
             offering.is_available = true
         })
-        await expect(page).toHaveSelector('testEl=sociology-3e-overlay')
-        await page.click('testEl=soc3e-close-overlay')
-        await expect(page).not.toHaveSelector('testEl=sociology-3e-overlay', { timeout: 10 })
+        await expect(page).toHaveSelector('testId=sociology-3e-overlay')
+        await page.click('testId=soc3e-close-overlay')
+        await expect(page).not.toHaveSelector('testId=sociology-3e-overlay', { timeout: 10 })
         await page.evaluate(() => {
             const date = new Date()
             date.setDate(date.getDate() - 120)
             window._MODELS.settings.set('soc3eOverlayViewedAt', date)
         })
-        await expect(page).toHaveSelector('testEl=sociology-3e-overlay')
+        await expect(page).toHaveSelector('testId=sociology-3e-overlay')
     })
 })
