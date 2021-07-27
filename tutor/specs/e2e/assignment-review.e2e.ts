@@ -94,16 +94,28 @@ test.describe('Assignment Review', () => {
         await expect(page).toHaveSelector('testId=submission-overview-tab')
         await expect(page).toHaveSelector('testId=assignment-scores-tab')
 
-        // TODO add these types
         // External
-        // await visitPage(page, `/course/${COURSE_ID}/assignment/review/4`)
-        // await expect(page).not.toHaveSelector('testId=submission-overview-tab', { timeout: 100 })
-        // await expect(page).toHaveSelector('testId=assignment-scores-tab')
+        let assignmentName = faker.hacker.phrase()
+        await visitPage(page, `/course/${COURSE_ID}/assignment/edit/external/new`)
+        await page.fill('testId=edit-assignment-name', assignmentName)
+        await page.fill('testId=edit-external-url', faker.internet.url())
+        await page.click('text="Publish"')
+        await page.waitForSelector(`tourRegion=teacher-calendar >> css=.is-published >> text="${assignmentName}"`)
+        await page.click(`text="${assignmentName}"`)
+        await page.click('text="View assignment"')
+        await expect(page).not.toHaveSelector('testId=submission-overview-tab', { timeout: 100 })
+        await expect(page).toHaveSelector('testId=assignment-scores-tab')
 
-        // // Event
-        // await visitPage(page, '/course/1/assignment/review/5')
-        // await expect(page).not.toHaveSelector('testId=submission-overview-tab', { timeout: 100 })
-        // await expect(page).not.toHaveSelector('testId=assignment-scores-tab', { timeout: 100 })
+        // Event
+        assignmentName = faker.hacker.phrase()
+        await visitPage(page, `/course/${COURSE_ID}/assignment/edit/event/new`)
+        await page.fill('testId=edit-assignment-name', assignmentName)
+        await page.click('text="Publish"')
+        await page.waitForSelector(`tourRegion=teacher-calendar >> css=.is-published >> text="${assignmentName}"`)
+        await page.click(`text="${assignmentName}"`)
+        await page.click('text="View assignment"')
+        await expect(page).not.toHaveSelector('testId=submission-overview-tab', { timeout: 100 })
+        await expect(page).not.toHaveSelector('testId=assignment-scores-tab')
     });
 
     test('cannot deselect sections', async ({ page }) => {

@@ -75,7 +75,7 @@ const EditModal = observer(({ ux }) => {
 });
 
 const TemplateField = observer(({ ux }) => {
-    const dropdownItems = 
+    const dropdownItems =
     <>
         {
             ux.gradingTemplates.map(t =>
@@ -122,6 +122,7 @@ const ExternalUrlField = observer(({ ux }) => {
     const input = (
         <StyledTextInput
             name="settings.external_url"
+            data-test-id="edit-external-url"
             validate={isValidUrl}
             disabled={!ux.canEditSettings}
         />
