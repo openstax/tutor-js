@@ -6,8 +6,6 @@ const GRADABLE=3
 
 test.describe('Assignment Review', () => {
 
-    test.skip()
-
     withUser('teacher01')
 
     test('loads and views feedback', async ({ page }) => {
@@ -59,7 +57,7 @@ test.describe('Assignment Review', () => {
         await page.click('text="Save & Continue"')
         await page.click('text="Publish"')
 
-        await page.waitForSelector(`tourRegion=teacher-calendar >> css=.is-published.is-open >>     text="${assignmentName}"`)
+        await page.waitForSelector(`tourRegion=teacher-calendar >> css=.is-published >> text="${assignmentName}"`)
 
         await page.click(`text="${assignmentName}"`)
         await page.click('text="View assignment"')
