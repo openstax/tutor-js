@@ -239,6 +239,7 @@ const GradingStudent = observer(({ response, ux, index }) => {
                     {ux.isLastStudent && !ux.isResponseGraded(response) &&
           <SaveButton
               variant="plain"
+              data-test-id="save-grade-btn"
               className={cn('btn btn-standard', { 'btn-primary': ux.isLastQuestion })}
               disabled={!isNumber(points) || points > response.availablePoints || response.grader_points === points}
               onClick={() => ux.saveScore({
