@@ -17,12 +17,8 @@ test.describe('Preview Courses', () => {
         await page.click('testId=preview-panel-create-course')
         await expect(page).toHaveSelector('testId=new-course-wizard')
         await expect(page).toHaveSelector('.select-dates')
-    })
 
-    test('hides preview panel if the offering is not available for course creation', async ({ page }) => {
-        await findOrCreateTeacherAccount({ page, userName: 'previewteacher' })
-        await page.waitForSelector('.tutor-navbar')
-
+        // hides preview panel if the offering is not available for course creation
         await visitPage(page, '/courses')
         await page.click('testId=preview-course-card')
         await page.evaluate(() => {
