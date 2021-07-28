@@ -25,6 +25,8 @@ yarn run tutor:test:e2e --reporter=list
 
 TEST_STATUS=$?
 
+echo Test run exited with $TEST_STATUS
+
 kill $PID
 
 exit $TEST_STATUS
