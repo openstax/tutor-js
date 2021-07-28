@@ -1,4 +1,4 @@
-import { visitPage, test, expect, findOrCreateTeacherAccount } from './test'
+import { visitPage, test, expect, findOrCreateTeacherAccount, loginAs } from './test'
 
 
 test.describe('Preview Courses', () => {
@@ -17,7 +17,6 @@ test.describe('Preview Courses', () => {
         await page.click('testId=preview-panel-create-course')
         await expect(page).toHaveSelector('testId=new-course-wizard')
         await expect(page).toHaveSelector('.select-dates')
-
     })
 
     test('hides preview panel if the offering is not available for course creation', async ({ page }) => {
@@ -33,7 +32,7 @@ test.describe('Preview Courses', () => {
     })
 
     test('hides preview panel for real courses and the associated preview course', async ({ page }) => {
-        await findOrCreateTeacherAccount({ page, userName: 'teacher01' })
+        await loginAs('teacher01', page)
 
         await visitPage(page, '/courses')
         await page.click('testId=course-card-1')
