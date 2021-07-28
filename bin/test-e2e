@@ -21,7 +21,7 @@ echo Waiting for server to become available on $URL
 $NPM/wait-on $URL
 echo Server is now available
 
-yarn run tutor:test:e2e
+yarn run tutor:test:e2e --reporter=list
 
 TEST_STATUS=$?
 
