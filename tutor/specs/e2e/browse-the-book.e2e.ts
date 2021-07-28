@@ -1,8 +1,8 @@
-import { visitPage, test, expect } from './test'
+import { visitPage, test, expect, withUser } from './test'
 
 test.describe('Browse the book', () => {
 
-    test.skip()
+    withUser('teacher01')
 
     test('loads the book screen', async ({ page }) => {
         await visitPage(page, '/book/1')
