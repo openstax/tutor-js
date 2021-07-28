@@ -24,6 +24,7 @@ export type { TestConfig }
 export const visitPage = async (page: Page, path: string) => {
     const url = `${TC.URL}${path}`
     await page.goto(url)
+    await page.waitForLoadState('networkidle')
     await disableTours(page)
 }
 
@@ -107,9 +108,9 @@ export const selectCalendarSidebarOption = async (page: Page, option: string) =>
 
 export const disableTours = async (page: Page) => {
     await page.evaluate(() => {
-        const editing = (window as any)._MODELS.user.terms.get('exercise_editing')
+        const editing = (window as any)._MODELS?.user.terms.get('exercise_editing')
         if (editing) { editing.is_signed = true }
-        (window as any)._MODELS.feature_flags.set('tours', false)
+        (window as any)._MODELS?.feature_flags.set('tours', false)
     })
 }
 
