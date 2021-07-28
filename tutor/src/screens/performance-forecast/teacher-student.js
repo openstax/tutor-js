@@ -32,9 +32,10 @@ class Display extends React.Component {
         const { course } = this.props;
         course.performance.studentRoleId = roleId
         this.setState({ roleId });
-        return this.props.history.push(
+        this.props.history.push(
             Router.makePathname('viewPerformanceGuide', { courseId: course.id, roleId })
         );
+        course.performance.fetch()
     }
 
     renderHeading() {
