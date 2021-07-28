@@ -1,4 +1,4 @@
-import { React, PropTypes, withRouter, observer } from 'vendor';
+import { React, PropTypes, withRouter, action, observer, modelize } from 'vendor';
 import { Dropdown, Container } from 'react-bootstrap';
 import Router from '../../helpers/router';
 import { sortBy } from 'lodash';
@@ -21,13 +21,14 @@ class Display extends React.Component {
     constructor(props) {
         super(props)
         this.state = { ...props.match.params }
+        modelize(this)
     }
 
     componentDidMount() {
         this.props.course.roster.ensureLoaded();
     }
 
-    onSelectStudent(roleId) {
+    @action.bound onSelectStudent(roleId) {
         const { course } = this.props;
         course.performance.studentRoleId = roleId
         this.setState({ roleId });
