@@ -25,6 +25,6 @@ yarn run tutor:test:e2e --reporter=list
 
 TEST_STATUS=$?
 
-pkill -P $PID
+kill $PID
 
 exit $TEST_STATUS
