@@ -31,13 +31,13 @@ export default class GradeBookUX {
     @observable searchingMatcher = null;
 
     get displayScoresAsPoints() { return UiSettings.get('gb.sap') || false }
-    set displayScoresAsPoints(value) { return UiSettings.set('gb.sap', value) }
+    set displayScoresAsPoints(value) { UiSettings.set('gb.sap', value) }
 
     get arrangeColumnsByType() { return UiSettings.get('gp.cbt') || false }
-    set arrangeColumnsByType(value) { return UiSettings.set('gp.cbt', value) }
+    set arrangeColumnsByType(value) { UiSettings.set('gp.cbt', value) }
 
     get showDroppedStudents() { return UiSettings.get('gp.sds') || false }
-    set showDroppedStudents(value) { return UiSettings.set('gp.sds', value) }
+    set showDroppedStudents(value) { UiSettings.set('gp.sds', value) }
 
     constructor(props) {
         modelize(this);
