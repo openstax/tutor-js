@@ -134,7 +134,7 @@ export default class Settings extends React.Component {
                     target={this.target.current}
                     placement="bottom"
                     show={this.showPopoverSettings}
-                    onHide={() => this.showPopoverSettings = false}>
+                    onHide={action(() => this.showPopoverSettings = false)}>
                     <Popover className="scores-popover" >
                         <Toggles>
                             {map(controls, (title, property) => <SettingsCheckbox key={property} ux={ux} property={property} title={title} />)}

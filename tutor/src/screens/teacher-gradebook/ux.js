@@ -30,9 +30,14 @@ export default class GradeBookUX {
 
     @observable searchingMatcher = null;
 
-    @UiSettings.decorate('gb.sap') displayScoresAsPoints = false;
-    @UiSettings.decorate('gp.cbt') arrangeColumnsByType = false;
-    @UiSettings.decorate('gp.sds') showDroppedStudents = false;
+    get displayScoresAsPoints() { return UiSettings.get('gb.sap') || false }
+    set displayScoresAsPoints(value) { UiSettings.set('gb.sap', value) }
+
+    get arrangeColumnsByType() { return UiSettings.get('gp.cbt') || false }
+    set arrangeColumnsByType(value) { UiSettings.set('gp.cbt', value) }
+
+    get showDroppedStudents() { return UiSettings.get('gp.sds') || false }
+    set showDroppedStudents(value) { UiSettings.set('gp.sds', value) }
 
     constructor(props) {
         modelize(this);
