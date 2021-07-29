@@ -12,7 +12,6 @@ import NotificationHelpers from '../../helpers/notifications';
 import TeacherBecomesStudent from '../../components/buttons/teacher-become-student';
 import Dashboard from './dashboard';
 import CourseCalendarHeader from './header';
-import Sociology3eBanner from './sociology-3e-banner';
 import Sociology3eOverlay from '../my-courses/dashboard/sociology-3e-overlay';
 
 import './styles.scss';
@@ -88,7 +87,7 @@ class TeacherDashboardWrapper extends React.Component {
         if (course.currentRole.isTeacherStudent && course.roles.teacher) {
             course.current_role_id = null;
         }
-      
+
         course.referenceBook.ensureLoaded();
     }
 
@@ -120,7 +119,6 @@ class TeacherDashboardWrapper extends React.Component {
 
         return (
             <>
-                <Sociology3eBanner course={course} />
                 <CoursePage
                     className="list-task-plans"
                     title={(
