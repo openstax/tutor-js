@@ -21,6 +21,8 @@ jobs:
         run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
       - name: Run Tutor server process
         uses: ./tutor-server/
+      - name: Install chromium-with-symbols
+        run: yarn playwright install chromium-with-symbols
       - name: Run tests
         run: yarn run ci e2e
       - name: Save screenshots of failures

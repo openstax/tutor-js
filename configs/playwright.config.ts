@@ -12,6 +12,7 @@ const config: PlaywrightTestConfig = {
     use: {
         screenshot: 'only-on-failure',
         trace: 'retain-on-failure',
+        channel: 'chromium-with-symbols',
     },
 }
 
