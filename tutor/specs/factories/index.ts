@@ -4,7 +4,7 @@ import { hydrateModel } from 'shared/model'
 import '../../../shared/specs/factories';
 import faker from 'faker';
 import {
-    CoursesMap, Course, Exercise, ReferenceBook, TaskPlanStats, Note, TeacherTaskPlan,
+    CoursesMap, Course, CoursePeriod, Exercise, ReferenceBook, TaskPlanStats, Note, TeacherTaskPlan,
     ReferenceBookNode,
     OfferingsMap, Offering,
     EcosystemsMap,
@@ -53,6 +53,7 @@ const Factories = {
     book: factoryFactory('Book', ReferenceBook),
     page: factoryFactory('Page', ReferenceBookNode),
     course: factoryFactory('Course', Course),
+    period: factoryFactory('Period', CoursePeriod),
     offering: factoryFactory('Offering', Offering),
     ecosystem: factoryFactory('Ecosystem', Ecosystem),
     taskPlanStats: factoryFactory('TaskPlanStats', TaskPlanStats),
