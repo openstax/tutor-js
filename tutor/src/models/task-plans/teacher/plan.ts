@@ -2,7 +2,7 @@ import {
     BaseModel, field, action, computed, observable, model, lazyGetter,
     array, modelize, NEW_ID, ID, override, hydrateInstance, hydrateModel,
 } from 'shared/model';
-import { createAtom, IAtom, toJS } from 'mobx'
+import { createAtom, IAtom, runInAction, toJS } from 'mobx'
 import Time, { Interval, findEarliest, findLatest } from 'shared/model/time';
 import {
     first, last, map, flatMap, find, get, pick, extend, every, isEmpty,
@@ -466,11 +466,12 @@ export class TeacherTaskPlan extends BaseModel {
     async grantExtensions(extensions: TaskPlanExtensionData[]) {
         //if new extensions dates are selected for a student who has already an extension, this will update the student previous extended dates
         const grantedExtensions = unionBy(extensions, this.extensions, 'role_id');
-        const updatedExtensions = this.api.request<TaskPlanExtensionData[]>(
+        const updatedTaskPlan = await this.api.request<TeacherTaskPlanData>(
             urlFor('grantTaskExtensions', { taskPlanId: this.id }),
             { data: { extensions: grantedExtensions } },
         )
-        return updatedExtensions
+        runInAction(() => this.update(updatedTaskPlan))
+        return updatedTaskPlan.extensions
     }
 
 
