@@ -254,8 +254,14 @@ export default class AssignmentUX {
     }
 
     @action.bound onComplete() {
-        const month = this.dueAt || this.plan.tasking_plans[0]?.dueAt?.asISODateString;
-        this.history.push(`/course/${this.course.id}/t/month/${month}`);
+        let returnDate;
+        if (this.plan.tasking_plans.length > 0) {
+            returnDate = this.plan.tasking_plans[0].dueAt?.asISODateString;
+        }
+        else {
+            returnDate = this.dueAt;
+        }
+        this.history.push(`/course/${this.course.id}/t/month/${returnDate}`);
     }
 
     @action.bound onCancel() {
