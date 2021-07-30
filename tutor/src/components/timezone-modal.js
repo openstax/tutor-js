@@ -187,11 +187,10 @@ export default class TimezoneModal extends React.Component {
                 className="settings-edit-course-modal">
                 <Modal.Header closeButton={true}>
                     <Modal.Title>
-            Change Course Timezone
+                      Change Course Timezone
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body className={classnames({ 'is-invalid-form': this.invalid })}>
-
                     <SetTimezoneField
                         name="course-timezone"
                         defaultValue={this.props.course.timezone}
@@ -204,14 +203,14 @@ export default class TimezoneModal extends React.Component {
                         onClick={this.close}
                         variant="outline-secondary"
                     >
-            Cancel
+                      Cancel
                     </Button>
                     <Button
                         variant="primary"
                         onClick={this.showConfirm}
                         disabled={this.invalid}
                     >
-            Save
+                      Save
                     </Button>
                 </Modal.Footer>
             </Modal>
@@ -226,13 +225,13 @@ export default class TimezoneModal extends React.Component {
             >
                 <Modal.Header closeButton={true}>
                     <Modal.Title>
-            Warning
+                      Warning
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <StyledText>
-            Your assignment open/due/close times will change.
-            This will also affect the times displayed to students and late work.
+                      Your assignment open/due/close times will change.
+                      This will also affect the times displayed to students and late work.
                     </StyledText>
                 </Modal.Body>
                 <Modal.Footer>
@@ -240,7 +239,7 @@ export default class TimezoneModal extends React.Component {
                         onClick={this.close}
                         variant="outline-secondary"
                     >
-            Cancel
+                      Cancel
                     </Button>
                     <StyledAsyncButton
                         onClick={this.performUpdate}
@@ -248,7 +247,7 @@ export default class TimezoneModal extends React.Component {
                         waitingText="Saving..."
                         disabled={this.invalid}
                     >
-            Change Course Timezone
+                      Change Course Timezone
                     </StyledAsyncButton>
                 </Modal.Footer>
             </Modal>

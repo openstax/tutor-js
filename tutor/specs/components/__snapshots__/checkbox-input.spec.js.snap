@@ -10,6 +10,7 @@ exports[`CheckboxInput matches snapshot 1`] = `
 
 .c0 {
   position: relative;
+  line-height: 1;
 }
 
 .c1 {

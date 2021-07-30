@@ -17,12 +17,16 @@ const checkboxes = css`
   span label {
     font-weight: normal;
     font-size: 1.6rem;
+    button {
+      vertical-align: baseline;
+      padding: 0;
+      line-height: 1;
+    }
   }
   span:first-child {
     margin-bottom: 1rem;
   }
   svg {
-    top: 2px !important;
     &[data-icon="check-square"] {
       color: ${colors.neutral.std};
     }

@@ -1,7 +1,7 @@
 import { BaseModel, field, action, observable, computed, NEW_ID, getParentOf, ID, modelize, hydrateInstance } from 'shared/model';
 import type { GradingTemplate, Course, CoursePeriod, TeacherTaskPlan } from '../../../models'
 import { currentToasts } from '../../../models'
-import { pick, get, extend, find } from 'lodash';
+import { pick, get, extend, find, omit } from 'lodash';
 import moment from 'moment';
 import Time from 'shared/model/time';
 import urlFor from '../../../api'
@@ -10,7 +10,7 @@ export class TaskingPlan extends BaseModel {
 
     static hydrate(attrs: any) {
         const tasking = new TaskingPlan()
-        hydrateInstance(tasking, attrs)
+        hydrateInstance(tasking, omit(attrs, 'dueAt'))
         tasking.originalDueAt = tasking.due_at;
         return tasking
     }
