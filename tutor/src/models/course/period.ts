@@ -70,7 +70,8 @@ export class CoursePeriod extends BaseModel {
         )
         runInAction(() => {
             this.update(periodData)
-            this.course.periods.push(this);
+
+            if (isNew) this.course.periods.push(this)
         })
     }
 
