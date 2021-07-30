@@ -7,7 +7,7 @@ import { useAvailableOfferings } from '../../helpers/hooks'
 import { currentUser, Offering, CourseInformation, SubjectOrder, CourseCreate } from '../../models'
 import { colors, navbars, breakpoint } from '../../theme'
 import { Button } from 'react-bootstrap'
-import { groupBy, sortBy, map, extend } from 'lodash'
+import { groupBy, sortBy, map, extend, omitBy } from 'lodash'
 import Router from '../../helpers/router'
 import AsyncButton from 'shared/components/buttons/async-button'
 import TutorLink from '../../components/link'
@@ -542,7 +542,7 @@ const SubjectSelect: React.FC<SubjectSelectProps> = ({
                                 <SuggestButton
                                     type="submit"
                                     variant="primary"
-                                    onClick={(e:React.MouseEvent<HTMLElement>) => onSubmitSuggestion(e)}
+                                    onClick={(e: React.MouseEvent<HTMLElement>) => onSubmitSuggestion(e)}
                                     hidden={!showSuggestSubmitButton}
                                     disabled={suggestedSubject.length === 0}
                                     isWaiting={submittingSuggestion}
@@ -559,7 +559,7 @@ const SubjectSelect: React.FC<SubjectSelectProps> = ({
                     </form>
                 </Content>
             </Wrapper>
-            <Footer selectedSubject={selectedSubject} setActiveScreen={setActiveScreen}  />
+            <Footer selectedSubject={selectedSubject} setActiveScreen={setActiveScreen} />
         </StyledPage>
     )
 }
@@ -743,8 +743,9 @@ const NewTeacher: React.FC<NewUserProps> = ({ history, windowImpl = window }) =>
         [queriedScreen],
     )
 
+    const filteredOfferings = omitBy(useAvailableOfferings(), 'isSociology2e')
     const offerings = groupBy(
-        sortBy(useAvailableOfferings(), o => [SubjectOrder.indexOf(o.subject), o.title]),
+        sortBy(filteredOfferings, o => [SubjectOrder.indexOf(o.subject), o.title]),
         'subject'
     )
     const options = {
