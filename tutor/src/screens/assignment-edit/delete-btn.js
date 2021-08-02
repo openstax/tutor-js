@@ -28,11 +28,16 @@ const DeleteModal = observer(({ isVisible, show, onClose, isBusy, onDelete }) =>
                 <p>You can’t undo this action.</p>
             </Modal.Body>
             <Modal.Footer>
-                <Button className="delete" variant="danger" onClick={onDelete}>
-          Delete
+                <Button
+                    className="delete"
+                    variant="danger"
+                    onClick={onDelete}
+                    data-test-id="confirm-delete-assignment"
+                >
+                    Delete
                 </Button>
                 <Button variant="default" disabled={isBusy} onClick={onClose}>
-          Cancel
+                    Cancel
                 </Button>
             </Modal.Footer>
         </Modal>
@@ -82,6 +87,7 @@ export default class DeleteButton extends React.Component {
                     onClick={this.open}
                     variant="plain"
                     className="control delete-assignment"
+                    data-test-id="delete-assignment"
                 >
                     <Icon type="trash" />Delete
                 </Button>
