@@ -1,8 +1,6 @@
 import { visitPage, test, expect, withUser, disableTours, screenSizes } from './test'
 
 test.describe('Student Dashboard', () => {
-    test.skip()
-
     withUser('reviewstudent1')
 
     test.beforeEach(async ({ page }) => {
@@ -16,6 +14,7 @@ test.describe('Student Dashboard', () => {
 
     test('loads assignment', async ({ page }) => {
         for await (const screen of screenSizes(page)) {
+            await visitPage(page, '/course/1')
             await page.click('testId=all-past-work-tab')
             if(screen === 'mobile') {
                 await page.click(':nth-match(.task.homework a, 1)')

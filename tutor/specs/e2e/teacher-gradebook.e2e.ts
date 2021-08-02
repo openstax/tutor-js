@@ -3,8 +3,6 @@ import { visitPage, test, expect, withUser, deleteText } from './test'
 
 test.describe('Teacher Gradebook', () => {
 
-    test.skip()
-
     withUser('teacher01')
 
     test.beforeEach(async ({ page }) => {
