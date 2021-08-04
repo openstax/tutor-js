@@ -24,11 +24,14 @@ const isAnswerCorrect = function(answer, correctAnswerId) {
     if (answer.correctness != null) { isCorrect = (answer.correctness === '1.0'); }
 
     return (
-
-        isCorrect
-
+       isCorrect
     );
 };
+
+const isAnswerIncorrect = function(answer, incorrectAnswerId) {
+    // Allow multiple attempts to show incorrectness without the correct_answer_id
+    return answer.id === incorrectAnswerId;
+}
 
 const isAnswerChecked = (answer, chosenAnswer) => Boolean((chosenAnswer || []).find( a => a == answer.id));
 
@@ -128,16 +131,21 @@ class Answer extends React.Component {
 
     render() {
         let feedback, onChange, radioBox, selectedCount, correctIncorrectIcon;
-        let { answer, iter, qid, type, correctAnswerId, answered_count, hasCorrectAnswer, chosenAnswer, disabled } = this.props;
+        let {
+            answer, iter, qid, type, correctAnswerId, incorrectAnswerId,
+            answered_count, hasCorrectAnswer, chosenAnswer, disabled
+        } = this.props;
         if (qid == null) { qid = `auto-${idCounter++}`; }
 
         const isChecked = isAnswerChecked(answer, chosenAnswer);
         const isCorrect = isAnswerCorrect(answer, correctAnswerId);
+        const isIncorrect = isAnswerIncorrect(answer, incorrectAnswerId);
 
         const classes = cn('answers-answer', {
             'disabled': disabled,
             'answer-checked': isChecked,
             'answer-correct': isCorrect && type !== 'student-mpp',
+            'answer-incorrect': answer.id === incorrectAnswerId,
         });
 
         if (!hasCorrectAnswer
@@ -230,7 +238,7 @@ class Answer extends React.Component {
                                 onClick={onChange}
                                 aria-label={ariaLabel}
                                 className="answer-letter"
-                                disabled={disabled}
+                                disabled={disabled || isIncorrect}
                                 data-test-id={`answer-choice-${ALPHABET[iter]}`}
                             >
                                 {ALPHABET[iter]}

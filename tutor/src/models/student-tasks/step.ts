@@ -116,6 +116,9 @@ export class StudentTaskStep extends BaseModel {
 
     @observable multiPartGroup?: StudentTaskStepGroup
 
+    @observable attempts = 0;
+    @observable incorrectAnswerId = NEW_ID;
+
     constructor() {
         super()
         modelize(this)
@@ -220,6 +223,23 @@ export class StudentTaskStep extends BaseModel {
         return Boolean(
             this.isExercise && this.can_be_updated
         );
+    }
+
+    @computed get canAttempt() {
+        if (this.isWrittenResponseExercise) { return true; }
+        return this.attemptsLeft > 0;
+    }
+
+    @computed get attemptsGiven() {
+        return Math.max(this.content.questions[0].answers.length - 2, 1);
+    }
+
+    @computed get attemptsLeft() {
+        return Math.max(this.attemptsGiven - this.attempts, 0);
+    }
+
+    @action recordAttempt() {
+        this.attempts += 1;
     }
 
     @computed get needsFetched() {

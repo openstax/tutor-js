@@ -209,7 +209,10 @@ const FieldsetRow = observer(({ legend, legendHint, hint, children, ...fieldsetP
 
 FieldsetRow.propTypes = {
     legend: PropTypes.string.isRequired,
-    legendHint: PropTypes.string,
+    legendHint: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.object,
+    ]),
 };
 
 @observer
@@ -337,7 +340,7 @@ class TemplateForm extends React.Component {
                     <div>
                         <Setting>
                             <RadioInput
-                                name="allow_multiple_auto_graded_attempts"
+                                name="allow_auto_graded_multiple_attempts"
                                 label="Yes"
                                 value={true}
                                 defaultChecked={template.allow_auto_graded_multiple_attempts == true}
@@ -345,7 +348,7 @@ class TemplateForm extends React.Component {
                         </Setting>
                         <Setting>
                             <RadioInput
-                                name="allow_multiple_auto_graded_attempts"
+                                name="allow_auto_graded_multiple_attempts"
                                 label="No"
                                 value={false}
                                 defaultChecked={template.allow_auto_graded_multiple_attempts == false}

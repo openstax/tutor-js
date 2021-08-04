@@ -51,6 +51,13 @@ export default class TaskUX {
         );
     }
 
+    @computed get hasMultipleAttempts() {
+        return Boolean(
+            this.task.allow_auto_graded_multiple_attempts &&
+                this.task.isHomework
+        );
+    }
+
     @lazyGetter get scroller() { return new ScrollTo({ windowImpl: this.window }) }
     @lazyGetter get pageContentUX() { return new PageContentUX({ main: this }) }
 
@@ -149,9 +156,25 @@ export default class TaskUX {
     }
 
     @action async onAnswerSave(step, answer) {
+        window.step = step;
         step.answer_id = answer.id;
-        step.is_completed = true;
+        step.answers
+        step.is_completed = true; // TODO: This might need to be unset and be determined by the backend?
         await step.save();
+
+        // TODO: Temp, needs to instead check for backend not including correct_answer_id in response, or
+        // something that indicates that it was not the right answer, and another attempt is available
+        if (step.canAttempt && step.answer_id != step.correct_answer_id) {
+            runInAction(() => {
+                step.is_completed = false;
+                step.can_be_updated = true;
+                step.correct_answer_id = 0;
+                step.incorrectAnswerId = step.answer_id;
+                step.answer_id = null;
+                step.recordAttempt();
+            });
+            return false;
+        }
 
         if (step.multiPartGroup && step.is_feedback_available && this.currentStepIndex > this.indexOfStep(step)) {
             // fixes the scroll position in case loading the feedback pushes the steps around
@@ -294,7 +317,7 @@ export default class TaskUX {
         const hasMoreSteps = this.currentStepIndex < this.steps.length - 1;
         // users can go forward if assignment is closed.
         if(hasMoreSteps && this._task.isAssignmentClosed) return true;
-    
+
         if (!this.currentStep || this.isApiPending || this.isLocked) { return false; }
 
         if (hasMoreSteps) {

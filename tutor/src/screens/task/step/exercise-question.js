@@ -12,12 +12,15 @@ import QuestionModel from 'shared/model/exercise/question';
 import { FreeResponseInput, FreeResponseReview } from './exercise-free-response';
 import SavePracticeButton from '../../../components/buttons/save-practice';
 import { breakpoint } from 'theme';
+import ScoresHelper from '../../../helpers/scores';
 
-const Controls = styled.div`
+const Footer = styled.div`
   margin: 2.5rem 0;
   display: flex;
-  justify-content: flex-end;
-  flex-flow: column wrap-reverse;
+  justify-content: space-between;
+  font-size: 1.4rem;
+  line-height: 2rem;
+
   ${breakpoint.mobile`
     button {
       width: 50%;
@@ -26,6 +29,16 @@ const Controls = styled.div`
 
   > * {
     width: 25%;
+  }
+
+  .points .attempts-left {
+    color: #F36B32;
+  }
+
+  .controls {
+    display: flex;
+    justify-content: flex-end;
+    flex-flow: column wrap-reverse;
   }
 
   .save-practice-button {
@@ -65,13 +78,14 @@ export default class ExerciseQuestion extends React.Component {
     constructor(props) {
         super(props);
         modelize(this);
+        window.eq = this;
     }
 
     @computed get needsSaved() {
         const { step } = this.props;
         return (
             !step.is_completed || step.api.isPending ||
-      (this.answerId != step.answer_id)
+                (this.answerId != step.answer_id)
         );
 
     }
@@ -142,7 +156,7 @@ export default class ExerciseQuestion extends React.Component {
                 isWaiting={step.api.isPending}
                 data-test-id="submit-answer-btn"
             >
-        Submit
+                Submit
             </AsyncButton>
         );
     }
@@ -153,6 +167,15 @@ export default class ExerciseQuestion extends React.Component {
             <Button size="lg" onClick={this.onNextStep} data-test-id="continue-btn">
                 {canUpdateCurrentStep ? 'Continue' : 'Next'}
             </Button>
+        );
+    }
+
+    renderMultipleAttempts(step) {
+        const word = 'attempt';
+        const count = step.attemptsLeft;
+
+        return (
+            <div>{count} {word}{count === 1 ? '' : 's'} left</div>
         );
     }
 
@@ -183,18 +206,25 @@ export default class ExerciseQuestion extends React.Component {
                     feedback_html={step.feedback_html}
                     hasCorrectAnswer={step.hasCorrectAnswer}
                     correct_answer_id={step.is_completed ? step.correct_answer_id : null}
+                    incorrectAnswerId={step.incorrectAnswerId}
                 >
                     <FreeResponseReview course={course} step={step} />
                 </Question>
-                <Controls>
-                    {step.canAnswer && this.needsSaved ?
-                        this.renderSaveButton() : this.renderNextButton()}
-                    {ux.canSaveToPractice && (
-                        <SavePracticeButton
-                            practiceQuestions={ux.course.practiceQuestions}
-                            taskStep={step}
-                        />)}
-                </Controls>
+                <Footer>
+                    <div className="points">
+                        <strong>Points: {ScoresHelper.formatPoints(step.available_points)}</strong>
+                        <span className="attempts-left">{ux.hasMultipleAttempts && this.renderMultipleAttempts(step)}</span>
+                    </div>
+                    <div className="controls">
+                        {step.canAnswer && this.needsSaved ?
+                         this.renderSaveButton() : this.renderNextButton()}
+                        {ux.canSaveToPractice && (
+                            <SavePracticeButton
+                                practiceQuestions={ux.course.practiceQuestions}
+                                taskStep={step}
+                            />)}
+                    </div>
+                </Footer>
                 <StepFooter course={course} step={step} />
             </StyledExerciseQuestion>
         );

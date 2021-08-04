@@ -67,7 +67,7 @@ class Answer extends React.Component {
                     value={answer.content_html}
                 />
                 <label>
-          Choice-Level Feedback
+                    Choice-Level Feedback
                 </label>
                 <textarea
                     onChange={this.updateFeedback}

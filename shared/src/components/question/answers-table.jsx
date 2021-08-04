@@ -127,7 +127,10 @@ class AnswersTable extends React.Component {
     };
 
     hasIncorrectAnswer = () => {
-        const { answer_id, correct_answer_id, choicesEnabled } = this.props;
+        const { answer_id, correct_answer_id, incorrectAnswerId, choicesEnabled } = this.props;
+        if (answer_id === incorrectAnswerId) {
+            return true;
+        }
         return (
             !!(answer_id && !choicesEnabled && (answer_id !== correct_answer_id))
         );
@@ -137,18 +140,21 @@ class AnswersTable extends React.Component {
         let feedback, instructions;
         const {
             question, hideAnswers, type, answered_count, choicesEnabled, correct_answer_id,
-            answer_id, feedback_html, show_all_feedback, keySet, project, hasCorrectAnswer, focus,
+            incorrectAnswerId, answer_id, feedback_html, show_all_feedback, keySet, project,
+            hasCorrectAnswer, focus
         } = this.props;
         if (hideAnswers) { return null; }
 
         const { answers, id } = question;
 
         const chosenAnswer = [answer_id, this.state.answer_id];
-        let checkedAnswerIndex = null;
+        const hasIncorrectAnswer = !!incorrectAnswerId
+        let feedbackPlacementIndex = null;
 
         const questionAnswerProps = {
             qid: id || `auto-${idCounter++}`,
             correctAnswerId: correct_answer_id,
+            incorrectAnswerId,
             hasCorrectAnswer,
             chosenAnswer,
             onChangeAnswer: this.onChangeAnswer,
@@ -162,7 +168,10 @@ class AnswersTable extends React.Component {
             const additionalProps = { answer, iter: i, key: `${questionAnswerProps.qid}-option-${i}` };
             if (focus) { additionalProps.keyControl = KEYS[keySet] != null ? KEYS[keySet][i] : undefined; }
             const answerProps = extend({}, additionalProps, questionAnswerProps);
-            if (isAnswerChecked(answer, chosenAnswer)) { checkedAnswerIndex = i; }
+
+            if (answer.id === incorrectAnswerId || !hasIncorrectAnswer && isAnswerChecked(answer, chosenAnswer)) {
+                feedbackPlacementIndex = i;
+            }
 
             return (
                 <Answer {...answerProps} />
@@ -176,7 +185,7 @@ class AnswersTable extends React.Component {
                 </Feedback>
             );
         }
-        if ((feedback != null) && (checkedAnswerIndex != null)) { answersHtml.splice(checkedAnswerIndex + 1, 0, feedback); }
+        if ((feedback != null) && (feedbackPlacementIndex != null)) { answersHtml.splice(feedbackPlacementIndex + 1, 0, feedback); }
 
         if (this.shouldInstructionsShow()) {
             instructions = (

@@ -152,6 +152,14 @@
       }
     }
 
+    &.has-incorrect-answer {
+        .answer-incorrect, .answer-checked.answer-incorrect {
+            .answer-label {
+                @include answer-wrong();
+            }
+        }
+    }
+
     .question-feedback {
       $arrow-width: 20px;
       $arrow-height: 15px;

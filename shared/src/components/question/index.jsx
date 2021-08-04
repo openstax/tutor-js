@@ -112,13 +112,15 @@ class Question extends React.Component {
     render() {
         let exerciseUid, solution;
         const {
-            question, correct_answer_id, exercise_uid, className, questionNumber, context, task, hidePreambles,
+            question, correct_answer_id, incorrectAnswerId, exercise_uid, className, questionNumber, context, task, hidePreambles,
         } = this.props;
         const { stem_html, collaborator_solutions, formats, stimulus_html } = question;
 
         const hasCorrectAnswer = !!correct_answer_id;
+        const hasIncorrectAnswer = !!incorrectAnswerId;
         const classes = classnames('openstax-question', className, {
             'has-correct-answer': hasCorrectAnswer && !((task != null ? task.is_deleted : undefined) && ((task != null ? task.type : undefined) === 'homework')),
+            'has-incorrect-answer': hasIncorrectAnswer,
         });
 
         const htmlAndMathProps = pick(this.context, 'processHtmlAndMath');
