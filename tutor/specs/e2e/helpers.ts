@@ -20,11 +20,10 @@ const TC = {
 type TestConfig = typeof TC
 export type { TestConfig }
 
-
 export const visitPage = async (page: Page, path: string) => {
     const url = `${TC.URL}${path}`
     await page.goto(url)
-    await page.waitForLoadState('networkidle')
+    await page.waitForLoadState()
     await disableTours(page)
 }
 
