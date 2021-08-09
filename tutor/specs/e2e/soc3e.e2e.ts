@@ -21,7 +21,6 @@ test.describe('Soc3e Announcement and Launch', () => {
     })
 
     test('displays an overlay on a Sociology 2e offering and dashboard when 3e is available', async ({ page }) => {
->>>>>>> b2c2cfe19... switch tests to playwright test runner
         await page.evaluate(() => {
             const offering = window._MODELS.offerings.get(2)
             offering.os_book_id = offering.SOC3E_BOOK_ID
