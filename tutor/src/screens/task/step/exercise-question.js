@@ -172,7 +172,7 @@ export default class ExerciseQuestion extends React.Component {
 
     renderMultipleAttempts(step) {
         const word = 'attempt';
-        const count = step.attemptsLeft;
+        const count = step.attempts_remaining;
 
         return (
             <div>{count} {word}{count === 1 ? '' : 's'} left</div>

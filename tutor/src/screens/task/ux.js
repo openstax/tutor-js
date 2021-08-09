@@ -159,11 +159,9 @@ export default class TaskUX {
         window.step = step;
         step.answer_id = answer.id;
         step.answers
-        step.is_completed = true; // TODO: This might need to be unset and be determined by the backend?
+        step.is_completed = true;
         await step.save();
 
-        // TODO: Temp, needs to instead check for backend not including correct_answer_id in response, or
-        // something that indicates that it was not the right answer, and another attempt is available
         if (step.canAttempt && step.answer_id != step.correct_answer_id) {
             runInAction(() => {
                 step.is_completed = false;
@@ -171,7 +169,6 @@ export default class TaskUX {
                 step.correct_answer_id = 0;
                 step.incorrectAnswerId = step.answer_id;
                 step.answer_id = null;
-                step.recordAttempt();
             });
             return false;
         }

@@ -110,13 +110,14 @@ export class StudentTaskStep extends BaseModel {
     @field published_late_work_point_penalty?: number
     @field tasked_id:ID = NEW_ID
     @field exercise_id:ID = NEW_ID
+    @field attempts_remaining = 0;
+    @field attempt_number = 0;
 
     @observable content?: any
     @observable isFetched = false
 
     @observable multiPartGroup?: StudentTaskStepGroup
 
-    @observable attempts = 0;
     @observable incorrectAnswerId = NEW_ID;
 
     constructor() {
@@ -227,19 +228,7 @@ export class StudentTaskStep extends BaseModel {
 
     @computed get canAttempt() {
         if (this.isWrittenResponseExercise) { return true; }
-        return this.attemptsLeft > 0;
-    }
-
-    @computed get attemptsGiven() {
-        return Math.max(this.content.questions[0].answers.length - 2, 1);
-    }
-
-    @computed get attemptsLeft() {
-        return Math.max(this.attemptsGiven - this.attempts, 0);
-    }
-
-    @action recordAttempt() {
-        this.attempts += 1;
+        return this.attempts_remaining > 0;
     }
 
     @computed get needsFetched() {
