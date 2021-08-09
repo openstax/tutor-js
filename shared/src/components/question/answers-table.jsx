@@ -44,6 +44,7 @@ class AnswersTable extends React.Component {
         type: PropTypes.string.isRequired,
         answer_id: idType,
         correct_answer_id: idType,
+        incorrectAnswerId: idType,
         feedback_html: PropTypes.string,
         answered_count: PropTypes.number,
         show_all_feedback: PropTypes.bool,
@@ -141,7 +142,7 @@ class AnswersTable extends React.Component {
         const {
             question, hideAnswers, type, answered_count, choicesEnabled, correct_answer_id,
             incorrectAnswerId, answer_id, feedback_html, show_all_feedback, keySet, project,
-            hasCorrectAnswer, focus
+            hasCorrectAnswer, focus,
         } = this.props;
         if (hideAnswers) { return null; }
 

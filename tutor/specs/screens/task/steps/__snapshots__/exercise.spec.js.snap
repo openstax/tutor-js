@@ -6,6 +6,8 @@ exports[`Exercise Tasks Screen matches snapshot 1`] = `
     step={
       Object {
         "answer_id": undefined,
+        "attempt_number": 0,
+        "attempts_remaining": 0,
         "available_points": 1,
         "can_be_updated": true,
         "correct_answer_id": 0,
@@ -147,6 +149,8 @@ exports[`Exercise Tasks Screen matches snapshot 1`] = `
         },
         "currentStep": Object {
           "answer_id": undefined,
+          "attempt_number": 0,
+          "attempts_remaining": 0,
           "available_points": 1,
           "can_be_updated": true,
           "correct_answer_id": 0,

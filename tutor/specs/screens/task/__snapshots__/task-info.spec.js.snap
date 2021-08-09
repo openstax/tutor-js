@@ -4,6 +4,7 @@ exports[`Tasks Info matches snapshot 1`] = `
 <TaskInfo
   task={
     Object {
+      "allow_auto_graded_multiple_attempts": false,
       "closes_at": "2017-10-21T12:00:00.000Z",
       "completion_weight": 0,
       "correctness_weight": 1,
@@ -20,6 +21,8 @@ exports[`Tasks Info matches snapshot 1`] = `
       "steps": Array [
         Object {
           "answer_id": undefined,
+          "attempt_number": 0,
+          "attempts_remaining": 0,
           "available_points": 1,
           "can_be_updated": true,
           "correct_answer_id": 0,

@@ -60,6 +60,7 @@ class Question extends React.Component {
         children: PropTypes.node,
         task: PropTypes.object,
         correct_answer_id: idType,
+        incorrectAnswerId: idType,
         hideAnswers: PropTypes.bool,
         hidePreambles: PropTypes.bool,
         exercise_uid: PropTypes.string,

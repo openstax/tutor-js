@@ -218,7 +218,7 @@ export default class ExerciseQuestion extends React.Component {
                     </div>
                     <div className="controls">
                         {step.canAnswer && this.needsSaved ?
-                         this.renderSaveButton() : this.renderNextButton()}
+                            this.renderSaveButton() : this.renderNextButton()}
                         {ux.canSaveToPractice && (
                             <SavePracticeButton
                                 practiceQuestions={ux.course.practiceQuestions}

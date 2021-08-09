@@ -23,9 +23,7 @@ const isAnswerCorrect = function(answer, correctAnswerId) {
     let isCorrect = answer.id === correctAnswerId;
     if (answer.correctness != null) { isCorrect = (answer.correctness === '1.0'); }
 
-    return (
-       isCorrect
-    );
+    return isCorrect;
 };
 
 const isAnswerIncorrect = function(answer, incorrectAnswerId) {
@@ -52,6 +50,7 @@ class Answer extends React.Component {
         disabled: PropTypes.bool,
         chosenAnswer: PropTypes.array,
         correctAnswerId: idType,
+        incorrectAnswerId: idType,
         answered_count: PropTypes.number,
         show_all_feedback: PropTypes.bool,
         keyControl: PropTypes.oneOfType([
@@ -133,7 +132,7 @@ class Answer extends React.Component {
         let feedback, onChange, radioBox, selectedCount, correctIncorrectIcon;
         let {
             answer, iter, qid, type, correctAnswerId, incorrectAnswerId,
-            answered_count, hasCorrectAnswer, chosenAnswer, disabled
+            answered_count, hasCorrectAnswer, chosenAnswer, disabled,
         } = this.props;
         if (qid == null) { qid = `auto-${idCounter++}`; }
 
@@ -145,7 +144,7 @@ class Answer extends React.Component {
             'disabled': disabled,
             'answer-checked': isChecked,
             'answer-correct': isCorrect && type !== 'student-mpp',
-            'answer-incorrect': answer.id === incorrectAnswerId,
+            'answer-incorrect': isAnswerIncorrect(answer, incorrectAnswerId),
         });
 
         if (!hasCorrectAnswer
