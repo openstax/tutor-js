@@ -239,7 +239,7 @@ const ERROR_HANDLERS = {
     invalid_attempt_number() {
         return {
             className: 'error',
-            title: 'Response cannot be saved',
+            title: 'Submission error',
             body: (
                 <div data-test-id="invalid-attempt-number-message">
                     <p className="lead">

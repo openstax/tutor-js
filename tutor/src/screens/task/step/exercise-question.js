@@ -21,9 +21,13 @@ const Footer = styled.div`
   font-size: 1.4rem;
   line-height: 2rem;
 
+  button {
+    width: 160px;
+  }
+
   ${breakpoint.mobile`
-    button {
-      width: 50%;
+    .controls {
+      flex-grow: 1;
     }
   `}
 
