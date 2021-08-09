@@ -108,6 +108,7 @@ export default class ExerciseQuestion extends React.Component {
 
         ux.setCurrentMultiPartStep(step);
         this.selectedAnswer = answer;
+        step.clearIncorrectFeedback();
     }
 
     @action.bound async onAnswerSave() {

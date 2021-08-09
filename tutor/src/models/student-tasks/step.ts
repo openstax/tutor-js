@@ -302,4 +302,18 @@ export class StudentTaskStep extends BaseModel {
         this.isFetched = true;
     }
 
+    @action markIncorrectAttempt() {
+        // Set state to allow the choices to be reselectable, but track
+        // which choice was incorrect so it can be reflected in the UI
+        this.is_completed = false;
+        this.correct_answer_id = NEW_ID;
+        this.incorrectAnswerId = this.answer_id;
+        this.answer_id = null;
+    }
+
+    @action clearIncorrectFeedback() {
+        this.incorrectAnswerId = null;
+        this.feedback_html = null;
+    }
+
 }

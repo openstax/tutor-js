@@ -40,6 +40,13 @@ export default class TaskUX {
         if (!this.course.currentRole.isTeacher) {
             this.course.practiceQuestions.fetch();
         }
+
+        const step = this.currentStep;
+        if (step.canAttempt && step.answer_id && step.answer_id != step.correct_answer_id) {
+            // If the page was reloaded or step changed after an incorrect attempt, but
+            // there are attempts remaining, match the state as if it wasn't reloaded
+            step.markIncorrectAttempt();
+        }
     }
 
     @computed get canSaveToPractice() {
@@ -156,20 +163,14 @@ export default class TaskUX {
     }
 
     @action async onAnswerSave(step, answer) {
-        window.step = step;
         step.answer_id = answer.id;
-        step.answers
         step.is_completed = true;
         await step.save();
 
         if (step.canAttempt && step.answer_id != step.correct_answer_id) {
-            runInAction(() => {
-                step.is_completed = false;
-                step.can_be_updated = true;
-                step.correct_answer_id = 0;
-                step.incorrectAnswerId = step.answer_id;
-                step.answer_id = null;
-            });
+            // If there are attempts left and the answer is wrong,
+            // show it and soft reset state to allow reselecting
+            step.markIncorrectAttempt();
             return false;
         }
 
