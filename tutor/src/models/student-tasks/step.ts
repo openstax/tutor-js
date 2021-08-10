@@ -270,14 +270,9 @@ export class StudentTaskStep extends BaseModel {
     async save(): Promise<void> {
         if (UNSAVEABLE_TYPES.includes(this.type)) { return; }
 
-        const requestData = pick(this, 'is_completed', 'answer_id', 'free_response', 'response_validation');
-        // Bypass issue with Rails _changed? comparing the real DB "NULL" value rather than the expected default "0" DB value
-        // @ts-ignore eslint-disable-next-line
-        requestData['attempt_number'] = this.attempt_number ? this.attempt_number : null;
-
         const data = await this.api.request(
             urlFor('saveStudentTaskStep', { stepId: this.id }),
-            { data: requestData }
+            { data: pick(this, 'is_completed', 'answer_id', 'free_response', 'response_validation', 'attempt_number' }
         )
         this.onLoaded(data)
     }
