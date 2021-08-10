@@ -226,11 +226,6 @@ export class StudentTaskStep extends BaseModel {
         );
     }
 
-    @computed get canAttempt() {
-        if (this.isWrittenResponseExercise) { return true; }
-        return this.attempts_remaining > 0;
-    }
-
     @computed get needsFetched() {
         return Boolean(
             !NO_ADDITIONAL_CONTENT.includes(this.type) && !this.api.hasBeenFetched
@@ -273,14 +268,14 @@ export class StudentTaskStep extends BaseModel {
 
     async save(): Promise<void> {
         if (UNSAVEABLE_TYPES.includes(this.type)) { return; }
-        if (this.attempt_number == 0) {
-            // Bypass issue with Rails _changed? comparing real DB values rather than the expected default DB value
-            // @ts-ignore eslint-disable-next-line
-            this.attempt_number = null;
-        }
+
+        const requestData = pick(this, 'is_completed', 'answer_id', 'free_response', 'response_validation', 'attempt_number');
+        // Bypass issue with Rails _changed? comparing the real DB "NULL" value rather than the expected default "0" DB value
+        requestData['attempt_number'] = this.attempt_number ? this.attempt_number : null;
+
         const data = await this.api.request(
             urlFor('saveStudentTaskStep', { stepId: this.id }),
-            { data: pick(this, 'is_completed', 'answer_id', 'free_response', 'response_validation', 'attempt_number') }
+            { data: requestData }
         )
         this.onLoaded(data)
     }

@@ -63,8 +63,10 @@ describe('Task UX Model', () => {
         expect(s.multiPartGroup).toBe(group);
         s.save = jest.fn().mockResolvedValue({});
         s.is_feedback_available = true
+        s.can_be_updated = false;
         ux.moveToStep(nextS);
         await ux.onAnswerSave(s, { id: 1 });
+
         expect(s.save).toHaveBeenCalled();
         expect(ux.scroller.scrollToSelector).toHaveBeenCalledWith(
             `[data-task-step-id="${nextS.id}"]`, { immediate: true, deferred: false }
