@@ -4,7 +4,7 @@ expect.extend(matchers)
 
 const config: PlaywrightTestConfig = {
     testDir: '../tutor/specs/e2e',
-    testMatch: '*.e2e.ts',
+    testMatch: 'course-roster.e2e.ts',
     workers: 1,
     timeout: 60000,
     forbidOnly: !!process.env.CI,
