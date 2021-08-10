@@ -25,7 +25,7 @@ exports[`Reading Tasks Screen After close date matches snapshot 1`] = `
             Object {
               "answer_id": undefined,
               "attempt_number": 0,
-              "attempts_remaining": 0,
+              "attempts_remaining": 2,
               "available_points": 1,
               "can_be_updated": true,
               "correct_answer_id": 0,
@@ -58,7 +58,7 @@ exports[`Reading Tasks Screen After close date matches snapshot 1`] = `
             Object {
               "answer_id": undefined,
               "attempt_number": 0,
-              "attempts_remaining": 0,
+              "attempts_remaining": 2,
               "available_points": 1,
               "can_be_updated": true,
               "correct_answer_id": 0,
@@ -91,7 +91,7 @@ exports[`Reading Tasks Screen After close date matches snapshot 1`] = `
             Object {
               "answer_id": undefined,
               "attempt_number": 0,
-              "attempts_remaining": 0,
+              "attempts_remaining": 2,
               "available_points": 1,
               "can_be_updated": true,
               "correct_answer_id": 0,
@@ -124,7 +124,7 @@ exports[`Reading Tasks Screen After close date matches snapshot 1`] = `
             Object {
               "answer_id": undefined,
               "attempt_number": 0,
-              "attempts_remaining": 0,
+              "attempts_remaining": 2,
               "available_points": 1,
               "can_be_updated": true,
               "correct_answer_id": 0,
@@ -157,7 +157,7 @@ exports[`Reading Tasks Screen After close date matches snapshot 1`] = `
             Object {
               "answer_id": undefined,
               "attempt_number": 0,
-              "attempts_remaining": 0,
+              "attempts_remaining": 2,
               "available_points": 1,
               "can_be_updated": true,
               "correct_answer_id": 0,
@@ -379,7 +379,7 @@ exports[`Reading Tasks Screen Before close date matches snapshot 1`] = `
             Object {
               "answer_id": undefined,
               "attempt_number": 0,
-              "attempts_remaining": 0,
+              "attempts_remaining": 2,
               "available_points": 1,
               "can_be_updated": true,
               "correct_answer_id": 0,
@@ -412,7 +412,7 @@ exports[`Reading Tasks Screen Before close date matches snapshot 1`] = `
             Object {
               "answer_id": undefined,
               "attempt_number": 0,
-              "attempts_remaining": 0,
+              "attempts_remaining": 2,
               "available_points": 1,
               "can_be_updated": true,
               "correct_answer_id": 0,
@@ -445,7 +445,7 @@ exports[`Reading Tasks Screen Before close date matches snapshot 1`] = `
             Object {
               "answer_id": undefined,
               "attempt_number": 0,
-              "attempts_remaining": 0,
+              "attempts_remaining": 2,
               "available_points": 1,
               "can_be_updated": true,
               "correct_answer_id": 0,
@@ -478,7 +478,7 @@ exports[`Reading Tasks Screen Before close date matches snapshot 1`] = `
             Object {
               "answer_id": undefined,
               "attempt_number": 0,
-              "attempts_remaining": 0,
+              "attempts_remaining": 2,
               "available_points": 1,
               "can_be_updated": true,
               "correct_answer_id": 0,
@@ -511,7 +511,7 @@ exports[`Reading Tasks Screen Before close date matches snapshot 1`] = `
             Object {
               "answer_id": undefined,
               "attempt_number": 0,
-              "attempts_remaining": 0,
+              "attempts_remaining": 2,
               "available_points": 1,
               "can_be_updated": true,
               "correct_answer_id": 0,

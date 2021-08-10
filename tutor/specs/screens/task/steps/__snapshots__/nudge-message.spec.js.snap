@@ -113,7 +113,7 @@ exports[`Free Response Nudge Messages matches snapshot 1`] = `
     Object {
       "answer_id": undefined,
       "attempt_number": 0,
-      "attempts_remaining": 0,
+      "attempts_remaining": 2,
       "available_points": 1,
       "can_be_updated": true,
       "correct_answer_id": 0,
@@ -273,7 +273,7 @@ exports[`Free Response Nudge Messages matches snapshot 2`] = `
     Object {
       "answer_id": undefined,
       "attempt_number": 0,
-      "attempts_remaining": 0,
+      "attempts_remaining": 2,
       "available_points": 1,
       "can_be_updated": true,
       "correct_answer_id": 0,
@@ -437,7 +437,7 @@ exports[`Free Response Nudge Messages matches snapshot 3`] = `
     Object {
       "answer_id": undefined,
       "attempt_number": 0,
-      "attempts_remaining": 0,
+      "attempts_remaining": 2,
       "available_points": 1,
       "can_be_updated": true,
       "correct_answer_id": 0,
@@ -601,7 +601,7 @@ exports[`Free Response Nudge Messages matches snapshot 4`] = `
     Object {
       "answer_id": undefined,
       "attempt_number": 0,
-      "attempts_remaining": 0,
+      "attempts_remaining": 2,
       "available_points": 1,
       "can_be_updated": true,
       "correct_answer_id": 0,
@@ -765,7 +765,7 @@ exports[`Free Response Nudge Messages matches snapshot 5`] = `
     Object {
       "answer_id": undefined,
       "attempt_number": 0,
-      "attempts_remaining": 0,
+      "attempts_remaining": 2,
       "available_points": 1,
       "can_be_updated": true,
       "correct_answer_id": 0,
