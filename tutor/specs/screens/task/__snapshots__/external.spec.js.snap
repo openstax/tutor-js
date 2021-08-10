@@ -28,6 +28,7 @@ exports[`Tasks External URL Screen matches snapshot 1`] = `
               "attempts_remaining": 0,
               "available_points": 1,
               "can_be_updated": true,
+              "correct_answer_feedback_html": "",
               "correct_answer_id": 0,
               "dropped_method": "",
               "exercise_id": 1,
