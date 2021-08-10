@@ -118,7 +118,7 @@ export class StudentTaskStep extends BaseModel {
 
     @observable multiPartGroup?: StudentTaskStepGroup
 
-    @observable incorrectAnswerId = NEW_ID;
+    @observable incorrectAnswerId = '';
 
     constructor() {
         super()
