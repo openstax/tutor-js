@@ -42,6 +42,7 @@ class AnswersTable extends React.Component {
         correct_answer_id: idType,
         incorrectAnswerId: idType,
         feedback_html: PropTypes.string,
+        correct_answer_feedback_html: PropTypes.string,
         answered_count: PropTypes.number,
         show_all_feedback: PropTypes.bool,
         onChange: PropTypes.func,
