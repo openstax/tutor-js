@@ -118,7 +118,7 @@ export class StudentTaskStep extends BaseModel {
 
     @observable multiPartGroup?: StudentTaskStepGroup
 
-    @observable incorrectAnswerId = '';
+    @observable incorrectAnswerId:ID = NEW_ID;
 
     constructor() {
         super()
@@ -275,6 +275,7 @@ export class StudentTaskStep extends BaseModel {
         if (UNSAVEABLE_TYPES.includes(this.type)) { return; }
         if (this.attempt_number == 0) {
             // Bypass issue with Rails _changed? comparing real DB values rather than the expected default DB value
+            // @ts-ignore eslint-disable-next-line
             this.attempt_number = null;
         }
         const data = await this.api.request(
@@ -311,13 +312,15 @@ export class StudentTaskStep extends BaseModel {
         // which choice was incorrect so it can be reflected in the UI
         this.is_completed = false;
         this.correct_answer_id = NEW_ID;
-        this.incorrectAnswerId = this.answer_id;
-        this.answer_id = null;
+        if (this.answer_id) {
+            this.incorrectAnswerId = this.answer_id;
+        }
+        this.answer_id = '';
     }
 
     @action clearIncorrectFeedback() {
-        this.incorrectAnswerId = null;
-        this.feedback_html = null;
+        this.incorrectAnswerId = NEW_ID;
+        this.feedback_html = '';
     }
 
 }
