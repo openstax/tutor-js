@@ -107,10 +107,15 @@ export const selectCalendarSidebarOption = async (page: Page, option: string) =>
     await page.click(`.add-assignment-sidebar >> text="${option}"`)
 }
 
+export const signTerm = async (page: Page, termId: string) => {
+    await page.evaluate(() => {
+        const term = (window as any)._MODELS?.user.terms.get(termId)
+        if (term) { term.is_signed = true }
+    })
+}
+
 export const disableTours = async (page: Page) => {
     await page.evaluate(() => {
-        const editing = (window as any)._MODELS?.user.terms.get('exercise_editing')
-        if (editing) { editing.is_signed = true }
         (window as any)._MODELS?.feature_flags.set('tours', false)
     })
 }

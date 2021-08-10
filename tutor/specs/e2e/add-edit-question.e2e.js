@@ -1,4 +1,4 @@
-import { visitPage, setTimeouts, loginAs, disableTours } from './helpers'
+import { visitPage, setTimeouts, loginAs, disableTours, signTerm } from './helpers'
 
 describe('Add/Edit Questions', () => {
 
@@ -16,9 +16,8 @@ describe('Add/Edit Questions', () => {
     });
 
     it('shows terms before editing exercise', async () => {
-        await page.evaluate(() => {
-            window._MODELS.user.terms.get('exercise_editing').is_signed = false
-        })
+        await signTerm(page, 'exercise_editing')
+
         await page.route(/terms/, route => route.fulfill({
             status: 200,
             headers: { 'access-control-allow-origin': '*' },
