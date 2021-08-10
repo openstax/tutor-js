@@ -209,6 +209,7 @@ export default class ExerciseQuestion extends React.Component {
                     questionNumber={questionNumber}
                     onChange={this.onAnswerChange}
                     feedback_html={step.feedback_html}
+                    correct_answer_feedback_html={step.correct_answer_feedback_html}
                     hasCorrectAnswer={step.hasCorrectAnswer}
                     correct_answer_id={step.is_completed ? step.correct_answer_id : null}
                     incorrectAnswerId={step.incorrectAnswerId}

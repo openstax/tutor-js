@@ -41,12 +41,8 @@ export default class TaskUX {
             this.course.practiceQuestions.fetch();
         }
 
-        const step = this.currentStep;
-        if (step.canAnswer && step.answer_id && step.answer_id != step.correct_answer_id) {
-            // If the page was reloaded or step changed after an incorrect attempt, but
-            // there are attempts remaining, match the state as if it wasn't reloaded
-            step.markIncorrectAttempt();
-        }
+
+        this.markIncorrectAttempt();
     }
 
     @computed get canSaveToPractice() {
@@ -299,6 +295,7 @@ export default class TaskUX {
                 );
             }
         }
+        this.markIncorrectAttempt();
     }
 
     async scrollToCurrentStep(immediate) {
@@ -404,6 +401,15 @@ export default class TaskUX {
 
     @action.bound toggleTaskProgressTable() {
         this.hideTaskProgressTable = !this.hideTaskProgressTable;
+    }
+
+    @action.bound markIncorrectAttempt() {
+        const step = this.currentStep;
+        if (step.canAnswer && step.answer_id && step.answer_id != step.correct_answer_id) {
+            // If the page was reloaded or step changed after an incorrect attempt, but
+            // there are attempts remaining, match the state as if it wasn't reloaded
+            step.markIncorrectAttempt();
+        }
     }
 
 }

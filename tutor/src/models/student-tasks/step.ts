@@ -94,6 +94,7 @@ export class StudentTaskStep extends BaseModel {
     @field free_response = '';
     @field feedback_html = '';
     @field correct_answer_id = NEW_ID;
+    @field correct_answer_feedback_html = '';
     @model(Time) last_completed_at = Time.unknown
     @field response_validation?: any = {}
     @field spy?: any = {}
@@ -269,8 +270,9 @@ export class StudentTaskStep extends BaseModel {
     async save(): Promise<void> {
         if (UNSAVEABLE_TYPES.includes(this.type)) { return; }
 
-        const requestData = pick(this, 'is_completed', 'answer_id', 'free_response', 'response_validation', 'attempt_number');
+        const requestData = pick(this, 'is_completed', 'answer_id', 'free_response', 'response_validation');
         // Bypass issue with Rails _changed? comparing the real DB "NULL" value rather than the expected default "0" DB value
+        // @ts-ignore eslint-disable-next-line
         requestData['attempt_number'] = this.attempt_number ? this.attempt_number : null;
 
         const data = await this.api.request(

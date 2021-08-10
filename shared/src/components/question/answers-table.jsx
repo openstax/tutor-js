@@ -138,11 +138,13 @@ class AnswersTable extends React.Component {
     };
 
     render() {
-        let feedback, instructions;
+        let instructions;
+        const feedback = [];
+
         const {
             question, hideAnswers, type, answered_count, choicesEnabled, correct_answer_id,
-            incorrectAnswerId, answer_id, feedback_html, show_all_feedback, keySet, project,
-            hasCorrectAnswer, focus,
+            incorrectAnswerId, answer_id, feedback_html, correct_answer_feedback_html,
+            show_all_feedback, keySet, project, hasCorrectAnswer, focus,
         } = this.props;
         if (hideAnswers) { return null; }
 
@@ -150,7 +152,6 @@ class AnswersTable extends React.Component {
 
         const chosenAnswer = [answer_id, this.state.answer_id];
         const hasIncorrectAnswer = !!incorrectAnswerId
-        let feedbackPlacementIndex = null;
 
         const questionAnswerProps = {
             qid: id || `auto-${idCounter++}`,
@@ -170,8 +171,11 @@ class AnswersTable extends React.Component {
             if (focus) { additionalProps.keyControl = KEYS[keySet] != null ? KEYS[keySet][i] : undefined; }
             const answerProps = extend({}, additionalProps, questionAnswerProps);
 
-            if (answer.id === incorrectAnswerId || !hasIncorrectAnswer && isAnswerChecked(answer, chosenAnswer)) {
-                feedbackPlacementIndex = i;
+
+            if (answer.id === answer_id && feedback_html) {
+                feedback.push({ index: i, html: feedback_html })
+            } else if (answer.id === correct_answer_id && correct_answer_feedback_html) {
+                feedback.push({ index: i, html: correct_answer_feedback_html })
             }
 
             return (
@@ -179,14 +183,14 @@ class AnswersTable extends React.Component {
             );
         });
 
-        if (feedback_html) {
-            feedback = (
-                <Feedback key="question-mc-feedback">
-                    {feedback_html}
+        feedback.forEach((item, i) => {
+            const spliceIndex = item.index + i + 1;
+            answersHtml.splice(spliceIndex, 0, (
+                <Feedback key="question-mc-feedback" key={spliceIndex}>
+                    {item.html}
                 </Feedback>
-            );
-        }
-        if ((feedback != null) && (feedbackPlacementIndex != null)) { answersHtml.splice(feedbackPlacementIndex + 1, 0, feedback); }
+            ));
+        });
 
         if (this.shouldInstructionsShow()) {
             instructions = (
