@@ -272,7 +272,7 @@ export class StudentTaskStep extends BaseModel {
 
         const data = await this.api.request(
             urlFor('saveStudentTaskStep', { stepId: this.id }),
-            { data: pick(this, 'is_completed', 'answer_id', 'free_response', 'response_validation', 'attempt_number' }
+            { data: pick(this, 'is_completed', 'answer_id', 'free_response', 'response_validation', 'attempt_number') }
         )
         this.onLoaded(data)
     }
@@ -307,7 +307,6 @@ export class StudentTaskStep extends BaseModel {
         if (this.answer_id) {
             this.incorrectAnswerId = this.answer_id;
         }
-        this.answer_id = '';
     }
 
     @action clearIncorrectFeedback() {

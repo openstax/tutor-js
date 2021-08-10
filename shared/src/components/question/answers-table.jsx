@@ -28,10 +28,6 @@ KEYSETS_PROPS.push(null); // keySet could be null for disabling keyControling
 
 let idCounter = 0;
 
-const isAnswerChecked = function(answer, chosenAnswer) {
-    return chosenAnswer.includes(answer.id);
-};
-
 @observer
 export default
 class AnswersTable extends React.Component {
@@ -151,7 +147,6 @@ class AnswersTable extends React.Component {
         const { answers, id } = question;
 
         const chosenAnswer = [answer_id, this.state.answer_id];
-        const hasIncorrectAnswer = !!incorrectAnswerId
 
         const questionAnswerProps = {
             qid: id || `auto-${idCounter++}`,
