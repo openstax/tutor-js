@@ -22,7 +22,14 @@ const StyledTooltip = styled(Tooltip)`
   }
 `;
 
-const LockIcon = ({ className, wasGraded, isClosed, inline = false }) => {
+const LockIcon = ({ className }) => (
+    <Icon className={cn('lock-icon', className)} type="lock" />
+);
+LockIcon.propTypes = {
+    className: PropTypes.string,
+};
+
+const StepLockIcon = ({ className, wasGraded, isClosed, inline = false }) => {
     let msg;
     if (isClosed) {
         msg = 'This assignment is closed. You can no longer add or edit a response.';
@@ -37,7 +44,7 @@ const LockIcon = ({ className, wasGraded, isClosed, inline = false }) => {
     return (
         <OverlayTrigger
             placement="auto"
-            overlay={<StyledTooltip id="lock-icon">{msg}</StyledTooltip>}
+            overlay={<StyledTooltip id="step-lock-icon">{msg}</StyledTooltip>}
             popperConfig={{
                 modifiers: {
                     preventOverflow: { enabled: false },
@@ -45,17 +52,16 @@ const LockIcon = ({ className, wasGraded, isClosed, inline = false }) => {
             }}
         >
             <LockIconWrapper inline={inline}>
-                <Icon className={cn('lock-icon', className)} type="lock" />
+                <LockIcon className={className} />
             </LockIconWrapper>
         </OverlayTrigger>
     );
 };
-
-LockIcon.propTypes = {
+StepLockIcon.propTypes = {
     className: PropTypes.string,
     wasGraded: PropTypes.bool,
     isClosed: PropTypes.bool,
     inline: PropTypes.bool,
 };
 
-export default LockIcon;
+export { LockIcon, StepLockIcon };
