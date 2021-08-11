@@ -2,6 +2,7 @@ import { React, PropTypes, cn, observer, styled } from 'vendor';
 import { colors, breakpoint } from 'theme';
 import { SpyInfo } from './spy-info';
 import { Icon } from 'shared';
+import LockIcon from '../../../components/icons/lock'
 import { StudentTaskStep } from '../../../models';
 import ScoresHelper from '../../../helpers/scores';
 
@@ -64,7 +65,7 @@ const StepCardHeader = styled.div`
     }
   }
 
-  svg {
+  button {
     margin-top: 3px;
     color: ${colors.neutral.gray};
     display: none;
@@ -78,7 +79,7 @@ const StepCardHeader = styled.div`
   ${({ theme }) => theme.breakpoint.tablet`
   font-size: 1.6rem;
     padding: 14px 26px 14px 8px;
-    svg {
+    button {
       display: inherit;
     }
     div:first-child {
@@ -142,6 +143,8 @@ const StepCard = ({
     numberOfQuestions,
     stepType,
     isHomework,
+    wasGraded,
+    isClosed,
     availablePoints,
     unpadded,
     className,
@@ -165,6 +168,7 @@ const StepCard = ({
                   onClick={goBackward}
               />
                 }
+                <LockIcon wasGraded={wasGraded} isClosed={isClosed}/>
                 <div>Question {questionNumber} <span>&nbsp;/ {numberOfQuestions}</span></div>
             </div>
             <div>
@@ -198,6 +202,8 @@ StepCard.propTypes = {
     canGoForward: PropTypes.bool,
     stepType: PropTypes.string,
     isHomework: PropTypes.string,
+    wasGraded: PropTypes.bool,
+    isClosed: PropTypes.bool,
     availablePoints: PropTypes.number,
 };
 
@@ -224,6 +230,8 @@ const TaskStepCard = observer(({
             canGoForward={canGoForward}
             stepType={step.type}
             isHomework={step.task.type}
+            wasGraded={step.was_manually_graded}
+            isClosed={step.task.isAssignmentClosed}
             data-task-step-id={step.id}
             availablePoints={step.available_points}
             className={cn(`${step.type}-step`, className)}
