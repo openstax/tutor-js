@@ -16,7 +16,7 @@ test.describe('Onboarding', () => {
         await expect(page).toHaveSelector('testId=new-teacher-screen')
         await page.type('testId=input-suggested-subject', 'test')
         await page.click('testId=submit-suggested-subject')
-        await page.waitForNavigation()
+
         await page.waitForSelector('testId=new-teacher-screen')
         expect(
             await page.evaluate(() => document.location.search)

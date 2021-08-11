@@ -28,7 +28,7 @@ test.describe('Soc3e Announcement and Launch', () => {
         })
         await expect(page).toHaveSelector('testId=sociology-3e-overlay')
         await page.click('testId=soc3e-close-overlay')
-        await expect(page).not.toHaveSelector('testId=sociology-3e-overlay', { timeout: 10 })
+        await expect(page).not.toHaveSelector('testId=sociology-3e-overlay', { timeout: 100 })
         await page.evaluate(() => {
             const date = new Date()
             date.setDate(date.getDate() - 120)
