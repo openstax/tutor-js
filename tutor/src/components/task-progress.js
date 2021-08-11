@@ -159,7 +159,7 @@ const pointsScoredStatus = (step) => {
     return PointsScoredStatus.PARTIAL;
 };
 
-export const renderInfoPopover = (step) => {
+const renderInfoPopover = (step) => {
     if(isNil(step.pointsScored)) {
         return (
             <StyledPopover><p><strong>Not yet graded</strong></p></StyledPopover>
@@ -173,7 +173,7 @@ export const renderInfoPopover = (step) => {
     );
 };
 
-const renderPointsScoredCell = (step) => {
+export const renderPointsScoredCell = (step) => {
     // OverlayTrigger errors when given a null "overlay" attribute
     // Different if branches handle overlay vs no overlay
     if((step.is_completed && isNil(step.pointsScored)) || step.isLate) {

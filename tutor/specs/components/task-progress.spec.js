@@ -1,27 +1,29 @@
-import { renderLateInfoPopover } from '../../src/components/task-progress';
+import { renderPointsScoredCell } from '../../src/components/task-progress';
 
 describe('Task Progress', () => {
-    describe('renderLateInfoPopover', () => {
-        describe('incomplete task step', () => {
-            const step = {
-                is_completed: false,
-                published_points: null,
-            }
+    describe('renderPointsScoredCell', () => {
+        it('renders ungraded icon and popover if the step is completed and points are null', () => {
+            const step = { is_completed: true, pointsScored: null, isLate: false, }
 
-            it('does not render anything', () => {
-                expect(renderLateInfoPopover(step)).toBeNull();
-            });
+            expect(renderPointsScoredCell(step)).toMatchSnapshot();
         });
 
-        describe('completed but ungraded task step', () => {
-            const step = {
-                is_completed: true,
-                published_points: null,
-            }
+        it('renders late icon and score popover if the step is late', () => {
+            const step = { is_completed: true, pointsScored: 0.0, isLate: true, }
 
-            it('renders the "Not yet graded" popup', () => {
-                expect(renderLateInfoPopover(step)).toMatchSnapshot();
-            });
+            expect(renderPointsScoredCell(step)).toMatchSnapshot();
+        });
+
+        it('does not render a popover for incomplete steps', () => {
+            const step = { is_completed: false, pointsScored: null, isLate: false, }
+
+            expect(renderPointsScoredCell(step)).toMatchSnapshot();
+        });
+
+        it('does not render a popover for graded steps completed on time', () => {
+            const step = { is_completed: true, pointsScored: 0.0, isLate: false, }
+
+            expect(renderPointsScoredCell(step)).toMatchSnapshot();
         });
     });
 });
