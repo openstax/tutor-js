@@ -34,9 +34,6 @@ class CourseRoster extends React.Component {
 
 
     @computed get course() {
-        console.log('route course', this.props.params.courseId)
-        currentCourses.array.forEach(c => console.log('in course', c.id) )
-
         return currentCourses.get(this.props.params.courseId);
     }
 
