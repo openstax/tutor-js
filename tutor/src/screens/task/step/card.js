@@ -2,7 +2,7 @@ import { React, PropTypes, cn, observer, styled } from 'vendor';
 import { colors, breakpoint } from 'theme';
 import { SpyInfo } from './spy-info';
 import { Icon } from 'shared';
-import LockIcon from '../../../components/icons/lock'
+import { StepLockIcon } from '../../../components/icons/lock'
 import { StudentTaskStep } from '../../../models';
 import ScoresHelper from '../../../helpers/scores';
 
@@ -183,7 +183,7 @@ const StepCard = ({
                                     onClick={goBackward}
                                 />
                         }
-                        <LockIcon wasGraded={wasGraded} isClosed={isClosed}/>
+                        <StepLockIcon wasGraded={wasGraded} isClosed={isClosed}/>
                         <div>Question {questionNumber} <span>&nbsp;/ {numberOfQuestions}</span></div>
                     </div>
                     <div>
