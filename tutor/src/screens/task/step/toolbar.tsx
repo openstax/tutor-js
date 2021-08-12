@@ -116,6 +116,9 @@ const Toolbar = styled.div<StyledProps>`
                 border-right: 1px solid ${Theme.colors.neutral.bright};
                 right: 0;
             }
+            &:not([data-active=true].save-practice-button) span {
+                color: ${Theme.colors.neutral.std};
+            }
             span {
                 display: block;
                 margin-top: 2px;
