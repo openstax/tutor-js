@@ -200,9 +200,6 @@ class FreeResponseInput extends React.Component {
                     </ControlButtons>
                 </ControlsRow>
                 <WRQStatus step={step} />
-                <StepToolbar
-                    hideContentLink={ux.isDisplayingNudge}
-                    course={course} step={step} />
             </StyledFreeResponse>
         );
     }

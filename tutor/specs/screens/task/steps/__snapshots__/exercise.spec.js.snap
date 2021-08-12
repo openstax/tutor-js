@@ -201,6 +201,7 @@ exports[`Exercise Tasks Screen matches snapshot 1`] = `
         "scrollToCurrentStep": [MockFunction],
         "setCurrentMultiPartStep": [MockFunction],
         "toggleTaskProgressTable": [MockFunction],
+        "toggleTaskToolbar": [MockFunction],
         "unLock": [MockFunction],
       }
     }

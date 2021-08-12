@@ -63,12 +63,12 @@ const Toolbar = styled.div<StyledProps>`
 
     ${({ theme }) => theme.breakpoint.desktop`
         position: absolute;
-        top: 56px;
+        top: 57px;
         left: -80px;
         width: 45px;
 
-        @media (max-width: 1200px) {left: calc(-5vw + 9px); }
-        @media (max-width: 1088px) {left: 0; }
+        @media (max-width: 1200px) { left: calc(-5vw + 9px); }
+        @media (max-width: 1088px) { left: -1px; }
 
         button, a {
             width: 43px;

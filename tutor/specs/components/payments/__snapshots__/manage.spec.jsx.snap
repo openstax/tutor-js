@@ -190,7 +190,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
 
 @media (max-width:600px) {
   .c0 {
-    padding: 32px 8px;
+    padding: 16px 8px;
   }
 }
 
@@ -557,7 +557,7 @@ exports[`Student Payments Management renders empty when no payments 1`] = `
 
 @media (max-width:600px) {
   .c0 {
-    padding: 32px 8px;
+    padding: 16px 8px;
   }
 }
 
