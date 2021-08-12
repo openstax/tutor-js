@@ -166,41 +166,39 @@ const StepCard = ({
     goForward,
     canGoForward,
     ...otherProps }) =>
-      (
-          <OuterStepCard {...otherProps}>
-              <InnerStepCard className={className}>
-                  {questionNumber && isHomework && stepType === 'exercise' &&
-                   <StepCardHeader>
-                       <div>
-                           {
-                               canGoBackward && goBackward &&
-                                   <Icon
-                                       size="lg"
-                                       type="angle-left"
-                                       onClick={goBackward}
-                                   />
-                           }
-                           <div>Question {questionNumber} <span>&nbsp;/ {numberOfQuestions}</span></div>
-                       </div>
-                       <div>
-                           <div>{ScoresHelper.formatPoints(availablePoints)} Points</div>
-                           {
-                               canGoForward && goForward &&
-                                   <Icon
-                                       size="lg"
-                                       type="angle-right"
-                                       onClick={goForward}
-                                   />
-                           }
-                       </div>
-
-
-                   </StepCardHeader>
-                  }
-                  <StepCardQuestion unpadded={unpadded}>{children}</StepCardQuestion>
-              </InnerStepCard>
+    (
+        <OuterStepCard {...otherProps}>
+            <InnerStepCard className={className}>
+                {questionNumber && isHomework && stepType === 'exercise' &&
+                <StepCardHeader>
+                    <div>
+                        {
+                            canGoBackward && goBackward &&
+                                <Icon
+                                    size="lg"
+                                    type="angle-left"
+                                    onClick={goBackward}
+                                />
+                        }
+                        <div>Question {questionNumber} <span>&nbsp;/ {numberOfQuestions}</span></div>
+                    </div>
+                    <div>
+                        <div>{ScoresHelper.formatPoints(availablePoints)} Points</div>
+                        {
+                            canGoForward && goForward &&
+                                 <Icon
+                                     size="lg"
+                                     type="angle-right"
+                                     onClick={goForward}
+                                 />
+                        }
+                    </div>
+                </StepCardHeader>
+                }
+                <StepCardQuestion unpadded={unpadded}>{children}</StepCardQuestion>
+            </InnerStepCard>
         </OuterStepCard>
-      );
+    );
 StepCard.propTypes = {
     unpadded: PropTypes.bool,
     className: PropTypes.string,

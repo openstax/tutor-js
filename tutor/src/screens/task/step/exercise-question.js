@@ -196,7 +196,7 @@ export default class ExerciseQuestion extends React.Component {
         }
 
         return (
-              <StyledExerciseQuestion data-test-id="student-exercise-question">
+            <StyledExerciseQuestion data-test-id="student-exercise-question">
                 <Question
                     task={ux.task}
                     question={question}

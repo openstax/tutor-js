@@ -19,20 +19,20 @@ describe('Task Step Toolbar', () => {
     });
 
     it('hides the toolbar', () => {
-      const bar = mount(<C><StepToolbar hideToolbar={true} {...props} /></C>);
-      expect(bar).toEqual({});
-      bar.unmount();
+        const bar = mount(<C><StepToolbar hideToolbar={true} {...props} /></C>);
+        expect(bar).toEqual({});
+        bar.unmount();
     });
 
     it('hides save to practice button', () => {
-      const bar = mount(<C><StepToolbar showSaveToPractice={false} {...props} /></C>);
-      expect(bar).not.toHaveRendered('SavePracticeButton');
-      bar.unmount();
+        const bar = mount(<C><StepToolbar showSaveToPractice={false} {...props} /></C>);
+        expect(bar).not.toHaveRendered('SavePracticeButton');
+        bar.unmount();
     });
 
     it('hides content link', () => {
-      const bar = mount(<C><StepToolbar hideContentLink={true} {...props} /></C>);
-      expect(bar).not.toHaveRendered('BrowseTheBook');
-      bar.unmount();
+        const bar = mount(<C><StepToolbar hideContentLink={true} {...props} /></C>);
+        expect(bar).not.toHaveRendered('BrowseTheBook');
+        bar.unmount();
     });
 });

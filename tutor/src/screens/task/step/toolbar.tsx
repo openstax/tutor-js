@@ -156,8 +156,8 @@ interface StepToolbarProps {
 }
 
 const StepToolbar: React.FC<StepToolbarProps> = observer(({
-        hideToolbar, course, step, hideContentLink, practiceQuestions, showSaveToPractice
-    }) => {
+    hideToolbar, course, step, hideContentLink, practiceQuestions, showSaveToPractice,
+}) => {
     if (hideToolbar) {
         return null;
     }

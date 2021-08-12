@@ -9,10 +9,8 @@ import TaskUX from '../ux';
 import { WRQStatus, PointsAndFeedback } from './wrq-status';
 import QuestionStem from './question-stem';
 import { colors, breakpoint } from '../../../theme';
-import { StepToolbar } from './toolbar';
 import { ResponseValidationUX } from '../response-validation-ux';
 import { NudgeMessages, NudgeMessage } from './nudge-message';
-import ScoresHelper from '../../../helpers/scores';
 
 const StyledFreeResponse = styled.div`
   display: flex;

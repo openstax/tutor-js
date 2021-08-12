@@ -16,6 +16,7 @@ class ExerciseSuggestCorrectionLink extends React.Component {
         })),
         chapter_section: PropTypes.object,
         title: PropTypes.string,
+        children: PropTypes.node,
     }
 
     static contextTypes = {
