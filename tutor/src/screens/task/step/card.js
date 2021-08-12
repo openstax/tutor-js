@@ -170,30 +170,30 @@ const StepCard = ({
         <OuterStepCard {...otherProps}>
             <InnerStepCard className={className}>
                 {questionNumber && isHomework && stepType === 'exercise' &&
-                <StepCardHeader>
-                    <div>
-                        {
-                            canGoBackward && goBackward &&
-                                <Icon
-                                    size="lg"
-                                    type="angle-left"
-                                    onClick={goBackward}
-                                />
-                        }
-                        <div>Question {questionNumber} <span>&nbsp;/ {numberOfQuestions}</span></div>
-                    </div>
-                    <div>
-                        <div>{ScoresHelper.formatPoints(availablePoints)} Points</div>
-                        {
-                            canGoForward && goForward &&
+                 <StepCardHeader>
+                     <div>
+                         {
+                             canGoBackward && goBackward &&
+                                 <Icon
+                                     size="lg"
+                                     type="angle-left"
+                                     onClick={goBackward}
+                                 />
+                         }
+                         <div>Question {questionNumber} <span>&nbsp;/ {numberOfQuestions}</span></div>
+                     </div>
+                     <div>
+                         <div>{ScoresHelper.formatPoints(availablePoints)} Points</div>
+                         {
+                             canGoForward && goForward &&
                                  <Icon
                                      size="lg"
                                      type="angle-right"
                                      onClick={goForward}
                                  />
-                        }
-                    </div>
-                </StepCardHeader>
+                         }
+                     </div>
+                 </StepCardHeader>
                 }
                 <StepCardQuestion unpadded={unpadded}>{children}</StepCardQuestion>
             </InnerStepCard>
