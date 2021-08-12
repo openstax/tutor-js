@@ -1,11 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import cn from 'classnames';
 import { first, pick, extend } from 'lodash';
 import Exercise from '../helpers/exercise';
 
 export default
-class ExerciseIdentifierLink extends React.Component {
+class ExerciseSuggestCorrectionLink extends React.Component {
 
     static propTypes = {
         bookUUID: PropTypes.string,
@@ -15,7 +14,6 @@ class ExerciseIdentifierLink extends React.Component {
             chapter_section: PropTypes.object,
             title: PropTypes.string,
         })),
-        className: PropTypes.string,
         chapter_section: PropTypes.object,
         title: PropTypes.string,
     }
@@ -48,11 +46,9 @@ class ExerciseIdentifierLink extends React.Component {
         ));
 
         return (
-            <div className={cn('exercise-identifier-link', this.props.className)}>
-        ID# {this.props.exerciseId} | <a target="_blank" tabIndex={-1} href={url}>
-          Suggest a correction
-                </a>
-            </div>
+            <a target="_blank" tabIndex={-1} href={url}>
+                {this.props.children || 'Suggest a correction'}
+            </a>
         );
     }
 

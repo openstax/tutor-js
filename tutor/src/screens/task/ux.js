@@ -18,6 +18,7 @@ export default class TaskUX {
     @observable viewedInfoSteps = [];
     @observable isLocked = false;
     @observable hideTaskProgressTable = true;
+    @observable hideToolbar = false;
 
     constructor({ task, stepId, history, windowImpl, course }) {
         modelize(this);
@@ -401,6 +402,10 @@ export default class TaskUX {
 
     @action.bound toggleTaskProgressTable() {
         this.hideTaskProgressTable = !this.hideTaskProgressTable;
+    }
+
+    @action.bound toggleTaskToolbar() {
+        this.hideToolbar = !this.hideToolbar;
     }
 
     @action.bound markIncorrectAttempt() {
