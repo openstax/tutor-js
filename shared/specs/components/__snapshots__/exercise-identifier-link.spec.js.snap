@@ -1,18 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Exercise Identifier Link matches snapshot 1`] = `
-<div
-  className="exercise-identifier-link"
+exports[`Exercise Suggest Correction Link matches snapshot 1`] = `
+<a
+  href="https://openstax.org/errata/form?source=tutor&location=123442%201.2%20Introduction%20to%20Apples&book=College%20Physics"
+  tabIndex={-1}
+  target="_blank"
 >
-  ID# 
-  123442
-   | 
-  <a
-    href="https://openstax.org/errata/form?source=tutor&location=123442%201.2%20Introduction%20to%20Apples&book=College%20Physics"
-    tabIndex={-1}
-    target="_blank"
-  >
-    Suggest a correction
-  </a>
-</div>
+  Suggest a correction
+</a>
 `;
