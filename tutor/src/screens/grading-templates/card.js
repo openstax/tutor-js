@@ -182,12 +182,10 @@ const HomeworkCard = ({ template, ...cardProps }) => {
             <SectionTitle>SHOW SCORES & FEEDBACK TO STUDENTS</SectionTitle>
 
             <SettingName>For auto-graded questions:</SettingName>
-            <SettingValue>{gradedExplanation(template.
-                auto_grading_feedback_on)}</SettingValue>
+            <SettingValue>{gradedExplanation(template.auto_grading_feedback_on)}</SettingValue>
 
             <SettingName>For manually-graded questions:</SettingName>
-            <SettingValue>{gradedExplanation(template.
-                manual_grading_feedback_on)}</SettingValue>
+            <SettingValue>{gradedExplanation(template.manual_grading_feedback_on)}</SettingValue>
         </CardInfo>
     );
 };
