@@ -31,6 +31,18 @@ const StyledTemplateModal = styled(TemplateModal)`
       }
     }
   }
+
+  strong {
+      font-weight: bold;
+  }
+
+  .warning {
+      border: 1px solid ${colors.soft_red};
+      background: ${colors.gray_red};
+      color: ${colors.strong_red};
+      padding: 8px;
+      margin: -18px 0 16px;
+  }
 `;
 
 // Inheriting the modal-dialog max-width
@@ -300,6 +312,79 @@ class TemplateForm extends React.Component {
         );
     }
 
+    renderMultipleAttemptsFields(form, template) {
+        const header = (
+            <>
+                <Line />
+                <Row>
+                    Allow multiple-attempts
+                    <HintText>
+                        To enable, feedback must be set to <i>‘immediately after student answers’</i>.
+                    </HintText>
+                </Row>
+            </>
+        );
+
+        const iconText = (
+            <>
+                <strong>Example:</strong>
+                <div>MCQ with 4 choices, students get 2 (4-2) attempts.</div>
+                <div>MCQ with 3 choices, students get 1 (3-2) attempt.</div>
+                <div>MCQ with 2 choices, students get 1 attempt only.</div>
+            </>
+        );
+
+        const body = (
+            <>
+                <FieldsetRow
+                    legend="For auto-graded questions"
+                    legendHint={
+                        <>
+                            Attempts allowed is equal to no. of choices ‘minus’ 2
+                            <InfoIcon tooltip={iconText} />
+                        </>
+                    }
+                >
+                    <div>
+                        <Setting>
+                            <RadioInput
+                                name="allow_auto_graded_multiple_attempts"
+                                label="Yes"
+                                value={true}
+                                defaultChecked={template.allow_auto_graded_multiple_attempts == true}
+                            />
+                        </Setting>
+                        <Setting>
+                            <RadioInput
+                                name="allow_auto_graded_multiple_attempts"
+                                label="No"
+                                value={false}
+                                defaultChecked={template.allow_auto_graded_multiple_attempts == false}
+                            />
+                        </Setting>
+                    </div>
+                </FieldsetRow>
+                <Row>
+                    {form.values.allow_auto_graded_multiple_attempts == 'true' &&
+                    <div className="warning">
+                        <strong>Note:</strong> The correct solution may sometimes be included in the choice-level feedback. You can review and edit choice-level feedback for questions in the Question Library.
+                    </div>
+                    }
+                    <HintText>
+                        Students can make <strong>unlimited attempts on a written-response question</strong> until that question is graded by the teacher or the assignment close date passes. <strong>No penalty</strong> on multiple attempts.
+                    </HintText>
+                </Row>
+            </>
+        );
+
+        return (
+            <>
+                {header}
+                {form.values.isFeedbackImmediate && body}
+            </>
+        );
+    }
+
     renderForm = (form) => {
         const { body, template } = this.props;
         const namePlaceholder = template.task_plan_type == 'reading' ?
@@ -333,6 +418,9 @@ class TemplateForm extends React.Component {
 
                 {map(form.errors.common, (value, key) =>
                     <Error key={key}>{value}</Error>)}
+
+                {template.task_plan_type == 'homework' && this.renderMultipleAttemptsFields(form, template)}
+
                 <Line />
                 <Row>Set the late work policy</Row>
                 <FieldsetRow legend="Accept late work?">
