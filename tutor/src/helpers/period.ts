@@ -1,5 +1,4 @@
 import type { CoursePeriod } from '../models'
-import { sortBy } from 'lodash';
 import S from './string';
 
 
@@ -9,21 +8,11 @@ const PeriodHelper = {
     },
 
     sort(periods: CoursePeriod[]) {
-        // sort first by non number values, then by numbers
-        periods = sortBy(periods, (period) => { // eslint-disable-line consistent-return
-            const name = period.name.match(/[^0-9]+/ig);
-            if (name) {
-                return name;
-            }
-            return undefined
-        });
-        return sortBy(periods, (period ) => { // eslint-disable-line consistent-return
-            const number = period.name.match(/[0-9.-]+/g);
-            if (number) {
-                return parseFloat(number[0]);
-            }
-            return undefined
-        });
+        return periods.slice(0).sort(
+            (firstPeriod, secondPeriod) => firstPeriod.name.toLowerCase().localeCompare(
+                secondPeriod.name.toLowerCase(), 'en', { numeric: true }
+            )
+        )
     },
 
 };

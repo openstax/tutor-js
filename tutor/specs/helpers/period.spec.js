@@ -5,10 +5,13 @@ import PeriodHelper from '../../src/helpers/period';
 const sortPeriods = [
     [
         {
+            name: '0',
+        },
+        {
             name: '0th',
         },
         {
-            name: '0',
+            name: '1',
         },
         {
             name: '1st',
@@ -17,31 +20,22 @@ const sortPeriods = [
             name: '1th',
         },
         {
-            name: '1',
-        },
-        {
-            name: 'Period 2',
-        },
-        {
             name: '2',
         },
         {
             name: '9th',
         },
         {
-            name: 'Period 10',
-        },
-        {
-            name: '10th',
-        },
-        {
-            name: '10th',
+            name: '10.5th',
         },
         {
             name: '10.25',
         },
         {
-            name: '10.5th',
+            name: '10th',
+        },
+        {
+            name: '10th',
         },
         {
             name: '12.245th',
@@ -52,7 +46,6 @@ const sortPeriods = [
         {
             name: '90',
         },
-
         {
             name: 'Block B',
         },
@@ -64,6 +57,18 @@ const sortPeriods = [
         },
         {
             name: 'monkeys',
+        },
+        {
+            name: 'Period 2',
+        },
+        {
+            name: 'Period 2-1',
+        },
+        {
+            name: 'Period 2-2',
+        },
+        {
+            name: 'Period 10',
         },
         {
             name: 'th',
@@ -79,8 +84,9 @@ describe('Period helpers', () => {
             const randoedPeriods = shuffle(periods);
             const sortedByFunction = PeriodHelper.sort(randoedPeriods);
 
-            expect(map(sortedByFunction, 'name').join())
-                .toEqual(map(periods, 'name').join());
+            expect(map(map(sortedByFunction, 'name'), 'toLowerCase').join()).toEqual(
+                map(map(periods, 'name'), 'toLowerCase').join()
+            );
         });
     });
 
