@@ -9,6 +9,7 @@ import RadioInput from '../../components/radio-input';
 import TimeInput from '../../components/time-input';
 import Select from '../../components/select';
 import TemplateModal from '../../components/course-modal';
+import InfoIcon from '../../components/icons/info';
 
 const propTypes = {
     template: PropTypes.instanceOf(GradingTemplate).isRequired,
@@ -350,7 +351,7 @@ class TemplateForm extends React.Component {
                             <RadioInput
                                 name="allow_auto_graded_multiple_attempts"
                                 label="Yes"
-                                value={true}
+                                onChange={() => form.setFieldValue('allow_auto_graded_multiple_attempts', true)}
                                 defaultChecked={template.allow_auto_graded_multiple_attempts == true}
                             />
                         </Setting>
@@ -358,14 +359,14 @@ class TemplateForm extends React.Component {
                             <RadioInput
                                 name="allow_auto_graded_multiple_attempts"
                                 label="No"
-                                value={false}
+                                onChange={() => form.setFieldValue('allow_auto_graded_multiple_attempts', false)}
                                 defaultChecked={template.allow_auto_graded_multiple_attempts == false}
                             />
                         </Setting>
                     </div>
                 </FieldsetRow>
                 <Row>
-                    {form.values.allow_auto_graded_multiple_attempts == 'true' &&
+                    {form.values.allow_auto_graded_multiple_attempts &&
                     <div className="warning">
                         <strong>Note:</strong> The correct solution may sometimes be included in the choice-level feedback. You can review and edit choice-level feedback for questions in the Question Library.
                     </div>
