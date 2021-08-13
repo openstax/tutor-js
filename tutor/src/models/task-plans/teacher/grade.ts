@@ -14,6 +14,7 @@ export class TeacherTaskStepGrade extends BaseModel {
     @field grader_comments: string;
     @field response: any
 
+    @field attempt_number = 0;
     @field answer_id?: any;
     @field free_response?: any;
     @field response_validation?: any;
@@ -30,7 +31,7 @@ export class TeacherTaskStepGrade extends BaseModel {
 
     async save() {
         const data = await this.api.request( urlFor('gradeTaskStep', { taskStepId: this.response.task_step_id }), {
-            data: pick(this, 'grader_points', 'grader_comments'),
+            data: pick(this, 'attempt_number', 'grader_points', 'grader_comments'),
         })
         this.onGraded(data)
     }
