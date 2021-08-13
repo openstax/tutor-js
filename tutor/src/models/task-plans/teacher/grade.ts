@@ -24,6 +24,7 @@ export class TeacherTaskStepGrade extends BaseModel {
         super();
         modelize(this)
         this.response = response;
+        this.attempt_number = response.attempt_number;
         this.grader_points = points;
         this.grader_comments = comment;
     }
