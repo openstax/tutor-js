@@ -1,4 +1,4 @@
-import { React, styled, PropTypes, css, observer } from 'vendor';
+import { React, styled, PropTypes, css, observer, cn } from 'vendor';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { colors } from 'theme';
 import { Icon } from 'shared';
@@ -111,7 +111,8 @@ const SavePracticeButton = observer(({
             <StyledSavePracticeButton
                 onClick={saveOrRemovePracticeQuestion}
                 isSaved={isSaved()}
-                className="save-practice-button"
+                disabled={practiceQuestions.isAnyPending}
+                className={cn('save-practice-button', { 'is-saving': practiceQuestions.isAnyPending })}
                 data-test-id="save-practice-button"> 
                 {getIconAndLabel(isSaved(), practiceQuestions.isAnyPending)}
             </StyledSavePracticeButton>

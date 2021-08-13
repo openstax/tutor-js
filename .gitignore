@@ -1,4 +1,6 @@
 *.env
+test-results
+temp
 yarn-error.log
 node_modules
 bower_components

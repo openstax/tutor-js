@@ -19,12 +19,14 @@ echo started server with PID=$PID
 
 echo Waiting for server to become available on $URL
 $NPM/wait-on $URL
-echo Server is now available
+echo FE webpack dev server is now available
 
-yarn run tutor:test:e2e --all
+yarn run tutor:test:e2e --reporter=list
 
 TEST_STATUS=$?
 
-pkill -P $PID
+echo Test run exited with $TEST_STATUS
+
+kill $PID
 
 exit $TEST_STATUS
