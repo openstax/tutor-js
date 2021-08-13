@@ -109,7 +109,7 @@ const StepCardHeader = styled.div`
 `;
 
 const StepCardQuestion = styled.div`
-  ${props => !props.unpadded && 'padding: 36px 140px;'}
+  ${props => !props.unpadded && 'padding: 50px 140px;'}
 
   ${({ theme }) => theme.breakpoint.only.tablet`
     padding: 25px 30px 140px;

@@ -94,7 +94,7 @@ const Toolbar = styled.div<StyledProps>`
 
     ${({ theme }) => theme.breakpoint.tablet`
         position: relative;
-        margin: -25px -30px 20px;
+        margin: -25px -30px 50px;
         width: auto;
         border-width: 1px 0;
         display: flex;
