@@ -12,7 +12,6 @@ import QuestionModel from 'shared/model/exercise/question';
 import { FreeResponseInput, FreeResponseReview } from './exercise-free-response';
 import SavePracticeButton from '../../../components/buttons/save-practice';
 import { breakpoint } from 'theme';
-import ScoresHelper from '../../../helpers/scores';
 
 const Footer = styled.div`
   margin: 2.5rem 0;
@@ -218,7 +217,6 @@ export default class ExerciseQuestion extends React.Component {
                 </Question>
                 <Footer>
                     <div className="points">
-                        <strong>Points: {ScoresHelper.formatPoints(step.available_points)}</strong>
                         <span className="attempts-left">{ux.hasMultipleAttempts && this.renderMultipleAttempts(step)}</span>
                     </div>
                     <div className="controls">
