@@ -236,6 +236,29 @@ const ERROR_HANDLERS = {
         return null;
     },
 
+    invalid_attempt_number() {
+        return {
+            className: 'error',
+            title: 'Submission error',
+            body: (
+                <div data-test-id="invalid-attempt-number-message">
+                    <p className="lead">
+                        This question is already in progress in another tab or window; reload this page to continue.
+                    </p>
+                </div>
+            ),
+            buttons: [
+                <Button
+                    key="ok"
+                    onClick={reloadOnce}
+                    variant="primary"
+                >
+                    OK
+                </Button>,
+            ],
+        };
+    },
+
     // The default error dialog that's displayed when we have no idea what's going on
     default(error, message, context) {
         if (context == null) { context = {}; }

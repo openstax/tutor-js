@@ -6,8 +6,11 @@ exports[`Exercise Tasks Screen matches snapshot 1`] = `
     step={
       Object {
         "answer_id": undefined,
+        "attempt_number": 0,
+        "attempts_remaining": 2,
         "available_points": 1,
         "can_be_updated": true,
+        "correct_answer_feedback_html": "",
         "correct_answer_id": 0,
         "dropped_method": "",
         "exercise_id": 1,
@@ -147,8 +150,11 @@ exports[`Exercise Tasks Screen matches snapshot 1`] = `
         },
         "currentStep": Object {
           "answer_id": undefined,
+          "attempt_number": 0,
+          "attempts_remaining": 2,
           "available_points": 1,
           "can_be_updated": true,
+          "correct_answer_feedback_html": "",
           "correct_answer_id": 0,
           "dropped_method": "",
           "exercise_id": 1,
@@ -184,6 +190,7 @@ exports[`Exercise Tasks Screen matches snapshot 1`] = `
         "goToStepIndex": [MockFunction],
         "indexOfStep": [MockFunction],
         "isUnmounting": [MockFunction],
+        "markIncorrectAttempt": [MockFunction],
         "moveToStep": [MockFunction],
         "onAnswerContinue": [MockFunction],
         "onAnswerSave": [MockFunction],

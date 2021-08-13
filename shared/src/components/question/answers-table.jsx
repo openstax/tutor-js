@@ -28,10 +28,6 @@ KEYSETS_PROPS.push(null); // keySet could be null for disabling keyControling
 
 let idCounter = 0;
 
-const isAnswerChecked = function(answer, chosenAnswer) {
-    return chosenAnswer.includes(answer.id);
-};
-
 @observer
 export default
 class AnswersTable extends React.Component {
@@ -44,7 +40,9 @@ class AnswersTable extends React.Component {
         type: PropTypes.string.isRequired,
         answer_id: idType,
         correct_answer_id: idType,
+        incorrectAnswerId: idType,
         feedback_html: PropTypes.string,
+        correct_answer_feedback_html: PropTypes.string,
         answered_count: PropTypes.number,
         show_all_feedback: PropTypes.bool,
         onChange: PropTypes.func,
@@ -127,28 +125,34 @@ class AnswersTable extends React.Component {
     };
 
     hasIncorrectAnswer = () => {
-        const { answer_id, correct_answer_id, choicesEnabled } = this.props;
+        const { answer_id, correct_answer_id, incorrectAnswerId, choicesEnabled } = this.props;
+        if (answer_id === incorrectAnswerId) {
+            return true;
+        }
         return (
             !!(answer_id && !choicesEnabled && (answer_id !== correct_answer_id))
         );
     };
 
     render() {
-        let feedback, instructions;
+        let instructions;
+        const feedback = [];
+
         const {
             question, hideAnswers, type, answered_count, choicesEnabled, correct_answer_id,
-            answer_id, feedback_html, show_all_feedback, keySet, project, hasCorrectAnswer, focus,
+            incorrectAnswerId, answer_id, feedback_html, correct_answer_feedback_html,
+            show_all_feedback, keySet, project, hasCorrectAnswer, focus,
         } = this.props;
         if (hideAnswers) { return null; }
 
         const { answers, id } = question;
 
         const chosenAnswer = [answer_id, this.state.answer_id];
-        let checkedAnswerIndex = null;
 
         const questionAnswerProps = {
             qid: id || `auto-${idCounter++}`,
             correctAnswerId: correct_answer_id,
+            incorrectAnswerId,
             hasCorrectAnswer,
             chosenAnswer,
             onChangeAnswer: this.onChangeAnswer,
@@ -162,21 +166,27 @@ class AnswersTable extends React.Component {
             const additionalProps = { answer, iter: i, key: `${questionAnswerProps.qid}-option-${i}` };
             if (focus) { additionalProps.keyControl = KEYS[keySet] != null ? KEYS[keySet][i] : undefined; }
             const answerProps = extend({}, additionalProps, questionAnswerProps);
-            if (isAnswerChecked(answer, chosenAnswer)) { checkedAnswerIndex = i; }
+
+
+            if (answer.id === answer_id && feedback_html) {
+                feedback.push({ index: i, html: feedback_html })
+            } else if (answer.id === correct_answer_id && correct_answer_feedback_html) {
+                feedback.push({ index: i, html: correct_answer_feedback_html })
+            }
 
             return (
                 <Answer {...answerProps} />
             );
         });
 
-        if (feedback_html) {
-            feedback = (
-                <Feedback key="question-mc-feedback">
-                    {feedback_html}
+        feedback.forEach((item, i) => {
+            const spliceIndex = item.index + i + 1;
+            answersHtml.splice(spliceIndex, 0, (
+                <Feedback key="question-mc-feedback" key={spliceIndex}>
+                    {item.html}
                 </Feedback>
-            );
-        }
-        if ((feedback != null) && (checkedAnswerIndex != null)) { answersHtml.splice(checkedAnswerIndex + 1, 0, feedback); }
+            ));
+        });
 
         if (this.shouldInstructionsShow()) {
             instructions = (

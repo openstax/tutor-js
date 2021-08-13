@@ -81,6 +81,8 @@ Factory.define('StudentTaskStep')
     .published_points_without_lateness(({ isLateNotAccepted }) => isLateNotAccepted ? 1 : null)
     .published_late_work_point_penalty(({ isLateNotAccepted }) => isLateNotAccepted ? 1 : null)
     .exercise_id(sequence)
+    .attempts_remaining(({ object: { type } }) => 'exercise' == type ? 2 : 0)
+    .attempt_number(0)
 
 Factory.define('StudentTask')
     .id(sequence)

@@ -38,4 +38,12 @@ describe('Answer Component', function() {
         expect(Snapshot.create(<Answer {...props} />).toJSON()).toMatchSnapshot();
     });
 
+    it('marks an answer as incorrect', () => {
+        props.incorrectAnswerId = answer.id;
+        props.hasCorrectAnswer = true;
+        const a = mount(<Answer {...props} />);
+        expect(a).toHaveRendered('.answer-incorrect');
+        expect(Snapshot.create(<Answer {...props} />).toJSON()).toMatchSnapshot();
+    });
+
 });

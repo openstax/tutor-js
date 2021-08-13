@@ -40,6 +40,9 @@ export default class TaskUX {
         if (!this.course.currentRole.isTeacher) {
             this.course.practiceQuestions.fetch();
         }
+
+
+        this.markIncorrectAttempt();
     }
 
     @computed get canSaveToPractice() {
@@ -48,6 +51,13 @@ export default class TaskUX {
         !this.course.currentRole.isTeacher && // a teacher can review students work
         !this.task.isPractice &&
         !this.currentStep.isWrittenResponseExercise
+        );
+    }
+
+    @computed get hasMultipleAttempts() {
+        return Boolean(
+            this.task.allow_auto_graded_multiple_attempts &&
+                this.task.isHomework
         );
     }
 
@@ -152,6 +162,13 @@ export default class TaskUX {
         step.answer_id = answer.id;
         step.is_completed = true;
         await step.save();
+
+        if (step.canAnswer && step.answer_id != step.correct_answer_id) {
+            // If there are attempts left and the answer is wrong,
+            // show it and soft reset state to allow reselecting
+            step.markIncorrectAttempt();
+            return false;
+        }
 
         if (step.multiPartGroup && step.is_feedback_available && this.currentStepIndex > this.indexOfStep(step)) {
             // fixes the scroll position in case loading the feedback pushes the steps around
@@ -278,6 +295,7 @@ export default class TaskUX {
                 );
             }
         }
+        this.markIncorrectAttempt();
     }
 
     async scrollToCurrentStep(immediate) {
@@ -294,7 +312,7 @@ export default class TaskUX {
         const hasMoreSteps = this.currentStepIndex < this.steps.length - 1;
         // users can go forward if assignment is closed.
         if(hasMoreSteps && this._task.isAssignmentClosed) return true;
-    
+
         if (!this.currentStep || this.isApiPending || this.isLocked) { return false; }
 
         if (hasMoreSteps) {
@@ -383,6 +401,15 @@ export default class TaskUX {
 
     @action.bound toggleTaskProgressTable() {
         this.hideTaskProgressTable = !this.hideTaskProgressTable;
+    }
+
+    @action.bound markIncorrectAttempt() {
+        const step = this.currentStep;
+        if (step.canAnswer && step.answer_id && step.answer_id != step.correct_answer_id) {
+            // If the page was reloaded or step changed after an incorrect attempt, but
+            // there are attempts remaining, match the state as if it wasn't reloaded
+            step.markIncorrectAttempt();
+        }
     }
 
 }

@@ -32,6 +32,7 @@ class GradingTemplate extends BaseModel {
     @field default_due_date_offset_days = 7;
     @field default_close_date_offset_days = 7;
     @field has_open_task_plans = false;
+    @field allow_auto_graded_multiple_attempts = false;
 
     get map() { return getParentOf<GradingTemplates>(this) }
 
@@ -75,6 +76,10 @@ class GradingTemplate extends BaseModel {
 
     @computed get isLateWorkAccepted() {
         return this.late_work_penalty_applied !== 'not_accepted';
+    }
+
+    @computed get isFeedbackImmediate() {
+        return this.auto_grading_feedback_on === 'answer';
     }
 
     @computed get humanLateWorkPenaltyApplied() {

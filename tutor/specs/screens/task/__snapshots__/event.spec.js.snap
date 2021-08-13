@@ -7,6 +7,7 @@ exports[`Tasks External URL Screen matches snapshot 1`] = `
       TaskUX {
         "_stepId": "instructions",
         "_task": Object {
+          "allow_auto_graded_multiple_attempts": false,
           "closes_at": "2017-10-21T12:00:00.000Z",
           "completion_weight": 1,
           "correctness_weight": 0,

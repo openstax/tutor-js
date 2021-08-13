@@ -36,4 +36,12 @@ describe('Student Task Step', () => {
         expect(step.canEditFreeResponse).toBe(false);
     });
 
+    it('allows multiple attempts', () => {
+        const step = Factory.studentTask({ type: 'homework', stepCount: 1 }).steps[0];
+        expect(step.canAnswer).toBe(true);
+        step.attempts_remaining = 0;
+        step.can_be_updated = false;
+        expect(step.canAnswer).toBe(false);
+    });
+
 });

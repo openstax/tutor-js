@@ -2,6 +2,7 @@
 
 exports[`Grading Templates creates a store with models 1`] = `
 Object {
+  "allow_auto_graded_multiple_attempts": false,
   "auto_grading_feedback_on": false,
   "completion_weight": 0.05,
   "correctness_weight": 0.34,

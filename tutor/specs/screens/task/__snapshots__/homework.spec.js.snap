@@ -7,6 +7,7 @@ exports[`Reading Tasks Screen After close date matches snapshot 1`] = `
       TaskUX {
         "_stepId": "instructions",
         "_task": Object {
+          "allow_auto_graded_multiple_attempts": false,
           "closes_at": "2017-10-11T12:00:00.000Z",
           "completion_weight": 0,
           "correctness_weight": 1,
@@ -23,8 +24,11 @@ exports[`Reading Tasks Screen After close date matches snapshot 1`] = `
           "steps": Array [
             Object {
               "answer_id": undefined,
+              "attempt_number": 0,
+              "attempts_remaining": 2,
               "available_points": 1,
               "can_be_updated": true,
+              "correct_answer_feedback_html": "",
               "correct_answer_id": 0,
               "dropped_method": "",
               "exercise_id": 22,
@@ -54,8 +58,11 @@ exports[`Reading Tasks Screen After close date matches snapshot 1`] = `
             },
             Object {
               "answer_id": undefined,
+              "attempt_number": 0,
+              "attempts_remaining": 2,
               "available_points": 1,
               "can_be_updated": true,
+              "correct_answer_feedback_html": "",
               "correct_answer_id": 0,
               "dropped_method": "",
               "exercise_id": 23,
@@ -85,8 +92,11 @@ exports[`Reading Tasks Screen After close date matches snapshot 1`] = `
             },
             Object {
               "answer_id": undefined,
+              "attempt_number": 0,
+              "attempts_remaining": 2,
               "available_points": 1,
               "can_be_updated": true,
+              "correct_answer_feedback_html": "",
               "correct_answer_id": 0,
               "dropped_method": "",
               "exercise_id": 24,
@@ -116,8 +126,11 @@ exports[`Reading Tasks Screen After close date matches snapshot 1`] = `
             },
             Object {
               "answer_id": undefined,
+              "attempt_number": 0,
+              "attempts_remaining": 2,
               "available_points": 1,
               "can_be_updated": true,
+              "correct_answer_feedback_html": "",
               "correct_answer_id": 0,
               "dropped_method": "",
               "exercise_id": 25,
@@ -147,8 +160,11 @@ exports[`Reading Tasks Screen After close date matches snapshot 1`] = `
             },
             Object {
               "answer_id": undefined,
+              "attempt_number": 0,
+              "attempts_remaining": 2,
               "available_points": 1,
               "can_be_updated": true,
+              "correct_answer_feedback_html": "",
               "correct_answer_id": 0,
               "dropped_method": "",
               "exercise_id": 26,
@@ -350,6 +366,7 @@ exports[`Reading Tasks Screen Before close date matches snapshot 1`] = `
       TaskUX {
         "_stepId": "instructions",
         "_task": Object {
+          "allow_auto_graded_multiple_attempts": false,
           "closes_at": "2017-10-21T12:00:00.000Z",
           "completion_weight": 0,
           "correctness_weight": 1,
@@ -366,8 +383,11 @@ exports[`Reading Tasks Screen Before close date matches snapshot 1`] = `
           "steps": Array [
             Object {
               "answer_id": undefined,
+              "attempt_number": 0,
+              "attempts_remaining": 2,
               "available_points": 1,
               "can_be_updated": true,
+              "correct_answer_feedback_html": "",
               "correct_answer_id": 0,
               "dropped_method": "",
               "exercise_id": 7,
@@ -397,8 +417,11 @@ exports[`Reading Tasks Screen Before close date matches snapshot 1`] = `
             },
             Object {
               "answer_id": undefined,
+              "attempt_number": 0,
+              "attempts_remaining": 2,
               "available_points": 1,
               "can_be_updated": true,
+              "correct_answer_feedback_html": "",
               "correct_answer_id": 0,
               "dropped_method": "",
               "exercise_id": 8,
@@ -428,8 +451,11 @@ exports[`Reading Tasks Screen Before close date matches snapshot 1`] = `
             },
             Object {
               "answer_id": undefined,
+              "attempt_number": 0,
+              "attempts_remaining": 2,
               "available_points": 1,
               "can_be_updated": true,
+              "correct_answer_feedback_html": "",
               "correct_answer_id": 0,
               "dropped_method": "",
               "exercise_id": 9,
@@ -459,8 +485,11 @@ exports[`Reading Tasks Screen Before close date matches snapshot 1`] = `
             },
             Object {
               "answer_id": undefined,
+              "attempt_number": 0,
+              "attempts_remaining": 2,
               "available_points": 1,
               "can_be_updated": true,
+              "correct_answer_feedback_html": "",
               "correct_answer_id": 0,
               "dropped_method": "",
               "exercise_id": 10,
@@ -490,8 +519,11 @@ exports[`Reading Tasks Screen Before close date matches snapshot 1`] = `
             },
             Object {
               "answer_id": undefined,
+              "attempt_number": 0,
+              "attempts_remaining": 2,
               "available_points": 1,
               "can_be_updated": true,
+              "correct_answer_feedback_html": "",
               "correct_answer_id": 0,
               "dropped_method": "",
               "exercise_id": 11,

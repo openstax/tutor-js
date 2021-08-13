@@ -94,6 +94,7 @@ export class StudentTaskStep extends BaseModel {
     @field free_response = '';
     @field feedback_html = '';
     @field correct_answer_id = NEW_ID;
+    @field correct_answer_feedback_html = '';
     @model(Time) last_completed_at = Time.unknown
     @field response_validation?: any = {}
     @field spy?: any = {}
@@ -110,11 +111,15 @@ export class StudentTaskStep extends BaseModel {
     @field published_late_work_point_penalty?: number
     @field tasked_id:ID = NEW_ID
     @field exercise_id:ID = NEW_ID
+    @field attempts_remaining = 0;
+    @field attempt_number = 0;
 
     @observable content?: any
     @observable isFetched = false
 
     @observable multiPartGroup?: StudentTaskStepGroup
+
+    @observable incorrectAnswerId:ID = NEW_ID;
 
     constructor() {
         super()
@@ -264,9 +269,10 @@ export class StudentTaskStep extends BaseModel {
 
     async save(): Promise<void> {
         if (UNSAVEABLE_TYPES.includes(this.type)) { return; }
+
         const data = await this.api.request(
             urlFor('saveStudentTaskStep', { stepId: this.id }),
-            { data: pick(this, 'is_completed', 'answer_id', 'free_response', 'response_validation') }
+            { data: pick(this, 'is_completed', 'answer_id', 'free_response', 'response_validation', 'attempt_number') }
         )
         this.onLoaded(data)
     }
@@ -291,6 +297,21 @@ export class StudentTaskStep extends BaseModel {
             currentMedia.parse(this.content.html);
         }
         this.isFetched = true;
+    }
+
+    @action markIncorrectAttempt() {
+        // Set state to allow the choices to be reselectable, but track
+        // which choice was incorrect so it can be reflected in the UI
+        this.is_completed = false;
+        this.correct_answer_id = NEW_ID;
+        if (this.answer_id) {
+            this.incorrectAnswerId = this.answer_id;
+        }
+    }
+
+    @action clearIncorrectFeedback() {
+        this.incorrectAnswerId = NEW_ID;
+        this.feedback_html = '';
     }
 
 }

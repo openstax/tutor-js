@@ -1,5 +1,47 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Answer Component marks an answer as incorrect 1`] = `
+<div
+  className="openstax-answer"
+>
+  <section
+    className="answers-answer answer-incorrect"
+    role="region"
+  >
+    <label
+      className="answer-label"
+      htmlFor="6-option-1"
+      onKeyPress={[Function]}
+    >
+      <span
+        className="answer-letter-wrapper"
+      >
+        <button
+          aria-label="Choice b(Incorrect Answer):"
+          className="answer-letter"
+          data-test-id="answer-choice-b"
+          disabled={true}
+        >
+          b
+        </button>
+      </span>
+      <div
+        className="answer-answer"
+      >
+        <div
+          className="answer-content"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "It describes how different parts of the universe are far apart and do not affect each other",
+            }
+          }
+        />
+      </div>
+    </label>
+  </section>
+</div>
+`;
+
 exports[`Answer Component renders answer 1`] = `
 <div
   className="openstax-answer"
