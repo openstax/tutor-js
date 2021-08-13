@@ -3,7 +3,7 @@ import {
 } from 'vendor';
 import UX from '../ux';
 import { ArbitraryHtmlAndMath as H } from 'shared';
-import { fonts } from 'theme';
+import { fonts, colors, breakpoint } from 'theme';
 import { TaskStepCard } from './card';
 import ExerciseQuestion from './exercise-question';
 import { Raven, StudentTaskStep } from '../../../models';
@@ -18,6 +18,30 @@ const StyledTaskStepCard = styled(TaskStepCard)`
     /* add Lato font */
     ${fonts.sans('2rem')};
   }
+`;
+
+const StyledMultipartBadge = styled(Badges)`
+    margin: 0 auto 18px;
+    min-width: 960px;
+    font-weight: bold;
+
+    &.openstax-exercise-badges {
+        color: ${colors.neutral.grayblue};
+    }
+
+    ${breakpoint.desktop`
+        max-width: 1000px;
+        min-width: 750px;
+    `}
+    ${breakpoint.large`
+        min-width: 1000px;
+    `}
+    ${breakpoint.tablet`
+        display: none;
+    `}
+`;
+
+const StyledTypeBadge = styled(Badges)`
 `;
 
 const Preamble = ({ isHidden, content }) => {
@@ -94,6 +118,17 @@ export default class ExerciseTaskStep extends React.Component {
                     canGoBackward={Boolean(ux.previousStep)}
                     goForward={() => ux.goToStep(ux.nextStep)}
                     canGoForward={Boolean(ux.nextStep)}
+                    isMultipart={isMultiPart}
+                    isFollowupMPQ={isFollowupMPQ}
+                    multipartBadge={<StyledMultipartBadge multiPart={isMultiPart && !isFollowupMPQ} />}
+                    typeBadge={
+                        <StyledTypeBadge
+                            spacedPractice={step.isSpacedPractice}
+                            personalized={!isFollowupMPQ && step.isPersonalized}
+                            writtenResponse={step.isWrittenResponseExercise}
+                            multipleChoice={!step.isPersonalized && step.isMultipleChoiceExercise}
+                        />
+                    }
                 >
                     <StepToolbar
                         course={ux.course}
@@ -102,13 +137,6 @@ export default class ExerciseTaskStep extends React.Component {
                         showSaveToPractice={ux.canSaveToPractice}
                         hideContentLink={ux.isDisplayingNudge}
                         hideToolbar={ux.hideToolbar}
-                    />
-
-                    <Badges
-                        spacedPractice={step.isSpacedPractice}
-                        personalized={!isFollowupMPQ && step.isPersonalized}
-                        multiPart={isMultiPart && !isFollowupMPQ}
-                        writtenResponse={step.isWrittenResponseExercise}
                     />
 
                     <Preamble

@@ -14,7 +14,7 @@ const BADGES = {
             <span key="mpq" className="mpq">
                 <MultiPart />
                 <span>
-          Multi-part question
+                    Multi-part question
                 </span>
             </span>
         ),
@@ -24,7 +24,7 @@ const BADGES = {
             <span key="interactive" className="interactive">
                 <Interactive />
                 <span>
-          Interactive
+                    Interactive
                 </span>
             </span>
         ),
@@ -34,7 +34,7 @@ const BADGES = {
             <span key="video" className="video">
                 <Interactive />
                 <span>
-          Video
+                    Video
                 </span>
             </span>
         ),
@@ -44,7 +44,7 @@ const BADGES = {
             <span key="personalized" className="personalized">
                 <i className="icon icon-sm icon-personalized" />
                 <span>
-          Personalized
+                    Personalized
                 </span>
                 <Icon type="info-circle" />
             </span>
@@ -56,7 +56,7 @@ const BADGES = {
             <span key="spacedPractice" className="spaced-practice">
                 <i className="icon icon-sm icon-spaced-practice" />
                 <span>
-          Spaced Practice
+                    Spaced Practice
                 </span>
                 <Icon type="info-circle" />
             </span>
@@ -65,14 +65,14 @@ const BADGES = {
             <div>
                 <h6>What is spaced practice?</h6>
                 <p>
-          Did you know?  Research shows you can strengthen your
-          memory—<b>and spend less time studying</b>—if
-          you revisit material over multiple study sessions.
+                    Did you know?  Research shows you can strengthen your
+                    memory—<b>and spend less time studying</b>—if
+                    you revisit material over multiple study sessions.
                 </p>
                 <p>
-          Tutor will include <b>spaced practice</b> questions from prior
-          assignments to give your learning a boost. You may occasionally
-          see questions you’ve seen before.
+                    Tutor will include <b>spaced practice</b> questions from prior
+                    assignments to give your learning a boost. You may occasionally
+                    see questions you’ve seen before.
                 </p>
             </div>
         ),
@@ -82,7 +82,7 @@ const BADGES = {
             <span key="wrm" className="wrm">
                 <i className="icon icon-md icon-wrm" />
                 <span>
-          Written-response
+                    Written-response
                 </span>
                 {!isTeacher && <Icon type="info-circle" /> }
             </span>
@@ -90,10 +90,22 @@ const BADGES = {
         tooltip: (
             <div>
                 <p>
-          This is an open-ended question. Feedback will be available once the response is graded.
+                    This is an open-ended question. Feedback will be available once the response is graded.
                 </p>
             </div>
         ),
+    },
+    multipleChoice: {
+        el: (isTeacher) => (
+            <span key="multiple-choice" className="multiple-choice">
+                <i className="icon icon-sm icon-multiple-choice" />
+                <span>
+                    Multiple-choice
+                </span>
+                {!isTeacher && <Icon type="info-circle" /> }
+            </span>
+        ),
+        tooltip: 'TODO',
     },
 };
 
