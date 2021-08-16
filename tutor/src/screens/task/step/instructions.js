@@ -133,6 +133,41 @@ const ReadingWeights = observer(({ task }) => {
     );
 });
 
+const FeedbackTime = observer(({ task }) => {
+    if (!task.isHomework) { return null; }
+
+    let mcqMessage;
+    switch (task.auto_grading_feedback_on) {
+        case 'answer':
+            mcqMessage = 'Immediately after answer is submitted';
+            break;
+        case 'due':
+            mcqMessage = 'After the due date';
+            break;
+        default: // 'publish'
+            mcqMessage = 'After scores are published';
+    }
+
+    let wrqMessage;
+    switch (task.manual_grading_feedback_on) {
+        case 'grade':
+            wrqMessage = 'Immediately after instructor grades';
+            break;
+        default: // 'publish'
+            wrqMessage = 'After scores are published';
+    }
+
+    return (
+        <>
+            <Heading>Feedback time</Heading>
+            <ul>
+                <li>MCQs: {mcqMessage}</li>
+                <li>WRQs: {wrqMessage}</li>
+            </ul>
+        </>
+    );
+});
+
 const format = (date) => <Time date={date} format="concise" />;
 
 const LateWorkPolicy = observer(({ task }) => {
@@ -290,6 +325,7 @@ const Instructions = observer((props) => {
                     <Dates ux={ux} task={task} />
                     <PracticeInstructions task={task} />
                     <LateWorkPolicy task={task} />
+                    <FeedbackTime task={task} />
                     <ReadingWeights task={task} />
                     <ExternalTaskInfo task={task} />
                 </Body>
