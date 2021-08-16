@@ -9,8 +9,8 @@ describe('Instructions', () => {
         task = Factory.studentTask({
             type: 'homework',
             stepCount: 1,
-            due_at: '20210816T200000Z',
-            closes_at: '20210823T200000Z',
+            due_at: '20210816T150000',
+            closes_at: '20210823T150000',
         });
         const ux = { canGoForward: true, goForward: jest.fn(), goToStepId: jest.fn(), task: task };
         props = { ux };
