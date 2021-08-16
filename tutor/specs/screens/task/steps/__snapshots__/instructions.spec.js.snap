@@ -266,31 +266,27 @@ exports[`Instructions renders the assignment instructions for feedback when due 
             >
               Late work policy
             </div>
-            <ul>
-              <li>
-                After the due date, the late work policy will be in effect.
-              </li>
-              <li>
-                0%
-                 of point value earned after the due date will be deducted for each late 
-                day
-              </li>
-            </ul>
+            <p>
+              0%
+               of points earned after the due date will be deducted for each late 
+              day
+              .
+            </p>
             <div
               className="c6"
             >
               Feedback time
             </div>
-            <ul>
-              <li>
+            <p>
+              <div>
                 MCQs: 
                 After the due date
-              </li>
-              <li>
+              </div>
+              <div>
                 WRQs: 
                 Immediately after instructor grades
-              </li>
-            </ul>
+              </div>
+            </p>
           </div>
           <div
             className="c7"
@@ -596,31 +592,27 @@ exports[`Instructions renders the assignment instructions for feedback when publ
             >
               Late work policy
             </div>
-            <ul>
-              <li>
-                After the due date, the late work policy will be in effect.
-              </li>
-              <li>
-                100%
-                 of point value earned after the due date will be deducted for each late 
-                assignment
-              </li>
-            </ul>
+            <p>
+              100%
+               of points earned after the due date will be deducted for each late 
+              assignment
+              .
+            </p>
             <div
               className="c6"
             >
               Feedback time
             </div>
-            <ul>
-              <li>
+            <p>
+              <div>
                 MCQs: 
                 After scores are published
-              </li>
-              <li>
+              </div>
+              <div>
                 WRQs: 
                 After scores are published
-              </li>
-            </ul>
+              </div>
+            </p>
           </div>
           <div
             className="c7"
@@ -926,31 +918,27 @@ exports[`Instructions renders the assignment instructions for immediate feedback
             >
               Late work policy
             </div>
-            <ul>
-              <li>
-                After the due date, the late work policy will be in effect.
-              </li>
-              <li>
-                100%
-                 of point value earned after the due date will be deducted for each late 
-                assignment
-              </li>
-            </ul>
+            <p>
+              100%
+               of points earned after the due date will be deducted for each late 
+              assignment
+              .
+            </p>
             <div
               className="c6"
             >
               Feedback time
             </div>
-            <ul>
-              <li>
+            <p>
+              <div>
                 MCQs: 
                 Immediately after answer is submitted
-              </li>
-              <li>
+              </div>
+              <div>
                 WRQs: 
                 Immediately after instructor grades
-              </li>
-            </ul>
+              </div>
+            </p>
           </div>
           <div
             className="c7"

@@ -10,7 +10,7 @@ describe('Instructions', () => {
             type: 'homework',
             stepCount: 1,
             due_at: '20210816T200000Z',
-            closes_at: '20210823T200000Z'
+            closes_at: '20210823T200000Z',
         });
         const ux = { canGoForward: true, goForward: jest.fn(), goToStepId: jest.fn(), task: task };
         props = { ux };

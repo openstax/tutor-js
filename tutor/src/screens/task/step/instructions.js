@@ -125,10 +125,10 @@ const ReadingWeights = observer(({ task }) => {
     return (
         <>
             <Heading>Score for reading questions</Heading>
-            <ul>
-                <li>Weight for correctness: {S.asPercent(task.correctness_weight)}% of the question's point value</li>
-                <li>Weight for completion: {S.asPercent(task.completion_weight)}% of the question's point value</li>
-            </ul>
+            <p>
+                <div>Weight for correctness: {S.asPercent(task.correctness_weight)}% of the question's point value</div>
+                <div>Weight for completion: {S.asPercent(task.completion_weight)}% of the question's point value</div>
+            </p>
         </>
     );
 });
@@ -160,10 +160,10 @@ const FeedbackTime = observer(({ task }) => {
     return (
         <>
             <Heading>Feedback time</Heading>
-            <ul>
-                <li>MCQs: {mcqMessage}</li>
-                <li>WRQs: {wrqMessage}</li>
-            </ul>
+            <p>
+                <div>MCQs: {mcqMessage}</div>
+                <div>WRQs: {wrqMessage}</div>
+            </p>
         </>
     );
 });
@@ -176,13 +176,8 @@ const LateWorkPolicy = observer(({ task }) => {
     return (
         <>
             <Heading>Late work policy</Heading>
-            <ul>
-                <li>After the due date, the late work policy will be in effect.</li>
-                <li>
-                    {task.humanLateWorkPenalty} of point value earned after the due date will be deducted
-          for each late {task.late_work_penalty_applied == 'daily' ? 'day' : 'assignment'}
-                </li>
-            </ul>
+            <p>{task.humanLateWorkPenalty} of points earned after the due date will be deducted
+          for each late {task.late_work_penalty_applied == 'daily' ? 'day' : 'assignment'}.</p>
         </>
     );
 });
