@@ -193,35 +193,35 @@ const StepCard = ({
             {multipartBadge}
             <InnerStepCard className={className}>
                 {questionNumber && isHomework && stepType === 'exercise' &&
-                 <StepCardHeader>
-                     <div>
-                         {
-                             canGoBackward && goBackward &&
-                                 <Icon
-                                     size="lg"
-                                     type="angle-left"
-                                     onClick={goBackward}
-                                 />
-                         }
-                         <div className="question-info">
-                             Question {questionNumber}
-                             <span className="num-questions">&nbsp;/ {numberOfQuestions}</span>
-                             <span className="exercise-id">&nbsp;| ID: {exerciseId}</span>
-                         </div>
-                     </div>
-                     <div>
-                         <div className="points">{ScoresHelper.formatPoints(availablePoints)} Points</div>
-                         {typeBadge}
-                         {
-                             canGoForward && goForward &&
-                                 <Icon
-                                     size="lg"
-                                     type="angle-right"
-                                     onClick={goForward}
-                                 />
-                         }
-                     </div>
-                 </StepCardHeader>
+                <StepCardHeader>
+                    <div>
+                        {
+                            canGoBackward && goBackward &&
+                                <Icon
+                                    size="lg"
+                                    type="angle-left"
+                                    onClick={goBackward}
+                                />
+                        }
+                        <div className="question-info">
+                            Question {questionNumber}
+                            <span className="num-questions">&nbsp;/ {numberOfQuestions}</span>
+                            <span className="exercise-id">&nbsp;| ID: {exerciseId}</span>
+                        </div>
+                    </div>
+                    <div>
+                        <div className="points">{ScoresHelper.formatPoints(availablePoints)} Points</div>
+                        {typeBadge}
+                        {
+                            canGoForward && goForward &&
+                                <Icon
+                                    size="lg"
+                                    type="angle-right"
+                                    onClick={goForward}
+                                />
+                        }
+                    </div>
+                </StepCardHeader>
                 }
                 <StepCardQuestion unpadded={unpadded}>{children}</StepCardQuestion>
             </InnerStepCard>
