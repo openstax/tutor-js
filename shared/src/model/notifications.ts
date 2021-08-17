@@ -1,5 +1,4 @@
 import EventEmitter2 from 'eventemitter2';
-import moment from 'moment';
 import remove from 'lodash/remove';
 import cloneDeep from 'lodash/cloneDeep';
 import reject from 'lodash/reject';
@@ -12,6 +11,7 @@ import isEmpty from 'lodash/isEmpty';
 import isMatch from 'lodash/isMatch';
 import { observable } from 'mobx';
 import Poller from './notifications/pollers';
+import Time from "./time";
 
 import URLs from './urls';
 const EVENT_BUS = new (EventEmitter2 as any)();
@@ -114,7 +114,7 @@ const Notifications = {
     setCourseRole(course: any, role: any) {
         let id;
         if (isEmpty(role) || (role.type === 'teacher')) { return; }
-        if (moment(course.ends_at).isBefore(moment(), 'day')) {
+        if (new Time(course.ends_at).isBefore(Time.now, 'day')) {
             id = this.POLLING_TYPES.COURSE_HAS_ENDED;
             this.display({ id, type: id, course, role });
         } else {

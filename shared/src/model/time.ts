@@ -1,5 +1,5 @@
 import {
-    DateTime as LDT, DurationUnit, Interval as LDTInterval, DateObjectUnits, DurationObject, Zone, Settings, DurationObjectUnits,
+    DateTime as LDT, Duration as LDuration, DurationUnit, Interval as LDTInterval, DateObjectUnits, DurationObject, Zone, Settings, DurationObjectUnits,
 } from 'luxon'
 import { map, compact, flatten, max, min, isString, isNumber, isDate } from 'lodash';
 import { readonly } from 'core-decorators'
@@ -116,8 +116,14 @@ export default class Time {
     inZone(zone: Zone|string) { return new Time(this._value.setZone(zone)) }
     get zoneName() { return this._value.zoneName }
 
-    minus(duration: DurationObject) { return new Time(this._value.minus(duration)) }
-    plus(duration: DurationObject) { return new Time(this._value.plus(duration)) }
+    minus(toSub: DurationObject) {
+      const duration = new Duration(toSub).asConfig();
+      return new Time(this._value.minus(duration))
+    }
+    plus(toAdd: Duration | DurationObject) {
+      const duration = new Duration(toAdd).asConfig();
+      return new Time(this._value.plus(duration))
+    }
 
     isBefore(compareTo: ComparableValue, unit: DurationUnit = 'millisecond') {
         return this.fractionalDiff(compareTo, unit) < -1.0
@@ -143,6 +149,9 @@ export default class Time {
     get isValid() { return Boolean(!this.isUnknown && this._value.isValid) }
 
     toLocaleString(fmt: LocaleFormat) { return this._value.toLocaleString(LDT[fmt]) }
+
+    static fromUnix(seconds: number) { return new Time(LDT.fromSeconds(seconds)) }
+    toUnix() { this._value.toSeconds() }
 
     toFormat(fmt: string) { return this._value.toFormat(fmt) }
     // left for comatibility with momentjs, do not use for new code
@@ -173,6 +182,22 @@ export function findEarliest(dateThing: TimeInputs, ...dateThings: TimeInputs[])
 
 export function findLatest(dateThing: TimeInputs, ...dateThings: TimeInputs[]): Time {
     return new Time(max(compact(map(flatten([dateThing, ...dateThings]), toLDT))) as LDT)
+}
+
+export class Duration {
+    private _value: LDuration;
+
+    constructor(config: Duration | DurationObject) {
+
+        this._value = config instanceof Duration
+            ? LDuration.fromObject(config.asConfig())
+            : LDuration.fromObject(config)
+        ;
+    }
+
+    asConfig() { return this._value.toObject() }
+
+    asMilliseconds() { return this._value.as('milliseconds') }
 }
 
 export class Interval {

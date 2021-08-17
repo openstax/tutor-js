@@ -1,10 +1,10 @@
 import {
     extend, bindAll, difference, without, keys, isEmpty, values,
 } from 'lodash';
-import moment, { Duration } from 'moment';
 import axios from 'axios';
 import User from '../user';
 import UiSettings from '../ui-settings';
+import Time, { Duration } from "../time";
 
 const STORAGE_KEY = 'ox-notifications';
 
@@ -17,8 +17,8 @@ class Poller {
     type: string
     url = ''
     notices: any
-    interval: any
-    lastPoll: any
+    interval: Duration
+    lastPoll: Time
     prefsStorageKey: string
     polling: any
     _activeNotices: any
@@ -26,8 +26,8 @@ class Poller {
     constructor(type:string, notices: any, interval: Duration) {
         this.type = type;
         this.notices = notices;
-        this.interval = interval;
-        this.lastPoll = moment.unix(0);
+        this.interval = new Duration(interval);
+        this.lastPoll = Time.fromUnix(0);
         this.prefsStorageKey = `${STORAGE_KEY}-${this.type}`;
         bindAll(this, 'poll', 'onReply', 'onError');
         document.addEventListener('visibilitychange', this.onVisiblityChange);
@@ -60,12 +60,12 @@ class Poller {
     get shouldPoll() {
         // we poll if the document is visible and a poll is due
         return this.notices.windowImpl.document.hidden !== true &&
-      moment().isSameOrAfter(this.lastPoll.clone().add(this.interval));
+        Time.now.isSameOrAfter(this.lastPoll.plus(this.interval));
     }
 
     poll() {
         if (this.shouldPoll) {
-            this.lastPoll = moment();
+            this.lastPoll = Time.now;
             return axios.get(this.url, { withCredentials: true }).then(this.onReply).catch(this.onError);
         }
         return Promise.resolve();
@@ -118,7 +118,7 @@ class Poller {
 class TutorUpdates extends Poller {
     active: any
     constructor(type: string, notices: any) {
-        super(type, notices, moment.duration(5, 'minutes'));
+        super(type, notices, new Duration({minutes: 5}));
         this.active = {};
     }
 
@@ -141,7 +141,7 @@ class TutorUpdates extends Poller {
 
 class AccountsNagger extends Poller {
     constructor(type: string, notices: any) {
-        super(type, notices, moment.duration(1, 'day'));
+        super(type, notices, new Duration({days: 1}));
     // uncomment FOR DEBUGGING to get notification bar to show up
     // this.onReply({ data: { contact_infos: [ { id: -1, is_verified: false } ] } });
     }
