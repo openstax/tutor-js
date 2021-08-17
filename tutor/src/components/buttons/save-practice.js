@@ -32,18 +32,20 @@ const getIconAndLabel = (isSaved, isSavingOrRemoving) => {
                 <Icon
                     type='spinner'
                     spin
-                    className="save-practice-icon" />
+                    className="save-practice-icon"
+                />
                 <span>{isSaved ? 'Removing...' : 'Saving...'}</span>
             </>
         );
-    } 
-    if(isSaved) {
+    }
+    if (isSaved) {
         return (
             <>
                 <Icon
-                    type="minus"
+                    type="star"
                     color="white"
-                    className="save-practice-icon"/>
+                    className="save-practice-icon"
+                />
                 <span>Remove from practice</span>
             </>
         );
@@ -52,7 +54,7 @@ const getIconAndLabel = (isSaved, isSavingOrRemoving) => {
     return (
         <>
             <Icon
-                type="plus"
+                type="star"
                 color={colors.cerulan}
                 className="save-practice-icon"/>
             <span>Save to practice</span>
@@ -75,7 +77,7 @@ const SavePracticeButton = observer(({
 
     const saveOrRemovePracticeQuestion = () => {
         const practiceQuestion = getPracticeQuestion();
-        if(practiceQuestion) {
+        if (practiceQuestion) {
             practiceQuestion.destroy();
         }
         else {
@@ -96,12 +98,13 @@ const SavePracticeButton = observer(({
     };
 
     const savePracticeButton = () => {
-        if(disabled) {
+        if (disabled) {
             return (
                 <StyledSavePracticeButton
                     disabled={disabled}
                     className="save-practice-button"
-                    data-test-id="save-practice-button"> 
+                    data-test-id="save-practice-button"
+                >
                     {getIconAndLabel()}
                 </StyledSavePracticeButton>
             );
@@ -112,17 +115,17 @@ const SavePracticeButton = observer(({
                 onClick={saveOrRemovePracticeQuestion}
                 isSaved={isSaved()}
                 disabled={practiceQuestions.isAnyPending}
-                className={cn('save-practice-button', { 'is-saving': practiceQuestions.isAnyPending })}
+                className={cn('save-practice-button', { 'is-saving': practiceQuestions.isAnyPending, 'is-saved': isSaved() })}
                 data-test-id="save-practice-button"> 
                 {getIconAndLabel(isSaved(), practiceQuestions.isAnyPending)}
             </StyledSavePracticeButton>
         );
     };
-    
+
 
     // return button with mpq tooltip info
     // only after the question was saved
-    if(isMpq() && isSaved()) {
+    if (isMpq() && isSaved()) {
         return(
             <OverlayTrigger
                 placement="bottom"

@@ -7,6 +7,7 @@ import ScoresHelper from '../../../helpers/scores';
 
 export
 const InnerStepCard = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   flex: 1 1 auto;
@@ -50,6 +51,7 @@ const StepCardHeader = styled.div`
   div {
     display: flex;
     align-items: center;
+
     svg:last-child, div:last-child {
       margin-left: 15px;
     }
@@ -76,7 +78,7 @@ const StepCardHeader = styled.div`
   3. Override box-shadow of icons when turned into a button.
   */
   ${({ theme }) => theme.breakpoint.tablet`
-  font-size: 1.6rem;
+    font-size: 1.6rem;
     padding: 14px 26px 14px 8px;
     svg {
       display: inherit;
@@ -90,6 +92,19 @@ const StepCardHeader = styled.div`
       box-shadow: none;
     }
   }
+  `}
+
+  ${({ theme }) => theme.breakpoint.mobile`
+      padding: 10px 8px;
+
+      svg:last-child, div:last-child {
+        margin: 0;
+        margin-left: 9px;
+
+        &.ox-icon-angle-left {
+            margin-left: 0;
+        }
+      }
   `}
 `;
 
@@ -155,32 +170,30 @@ const StepCard = ({
         <OuterStepCard {...otherProps}>
             <InnerStepCard className={className}>
                 {questionNumber && isHomework && stepType === 'exercise' &&
-        <StepCardHeader>
-            <div>
-                {
-                    canGoBackward && goBackward &&
-              <Icon
-                  size="lg"
-                  type="angle-left"
-                  onClick={goBackward}
-              />
-                }
-                <div>Question {questionNumber} <span>&nbsp;/ {numberOfQuestions}</span></div>
-            </div>
-            <div>
-                <div>{ScoresHelper.formatPoints(availablePoints)} Points</div>
-                {
-                    canGoForward && goForward &&
-              <Icon
-                  size="lg"
-                  type="angle-right"
-                  onClick={goForward}
-              />
-                }
-            </div>
-
-
-        </StepCardHeader>
+                <StepCardHeader>
+                    <div>
+                        {
+                            canGoBackward && goBackward &&
+                                <Icon
+                                    size="lg"
+                                    type="angle-left"
+                                    onClick={goBackward}
+                                />
+                        }
+                        <div>Question {questionNumber} <span>&nbsp;/ {numberOfQuestions}</span></div>
+                    </div>
+                    <div>
+                        <div>{ScoresHelper.formatPoints(availablePoints)} Points</div>
+                        {
+                            canGoForward && goForward &&
+                                 <Icon
+                                     size="lg"
+                                     type="angle-right"
+                                     onClick={goForward}
+                                 />
+                        }
+                    </div>
+                </StepCardHeader>
                 }
                 <StepCardQuestion unpadded={unpadded}>{children}</StepCardQuestion>
             </InnerStepCard>

@@ -63,7 +63,7 @@ Array [
 
 @media (max-width:600px) {
   .c0 {
-    padding: 32px 8px;
+    padding: 16px 8px;
   }
 }
 

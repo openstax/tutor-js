@@ -2,6 +2,7 @@
 
 exports[`Reading Tasks Screen matches snapshot 1`] = `
 .c1 {
+  position: relative;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;

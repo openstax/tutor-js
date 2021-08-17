@@ -9,7 +9,6 @@ import TaskUX from '../ux';
 import { WRQStatus, PointsAndFeedback } from './wrq-status';
 import QuestionStem from './question-stem';
 import { colors, breakpoint } from '../../../theme';
-import { StepFooter } from './footer';
 import { ResponseValidationUX } from '../response-validation-ux';
 import { NudgeMessages, NudgeMessage } from './nudge-message';
 
@@ -79,7 +78,7 @@ const AnswerButton = styled(Button)`
   min-width: 12rem;
   height: 5rem;
 
-  
+
 `;
 AnswerButton.displayName = 'AnswerButton';
 
@@ -199,9 +198,6 @@ class FreeResponseInput extends React.Component {
                     </ControlButtons>
                 </ControlsRow>
                 <WRQStatus step={step} />
-                <StepFooter
-                    hideContentLink={ux.isDisplayingNudge}
-                    course={course} step={step} />
             </StyledFreeResponse>
         );
     }

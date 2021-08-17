@@ -94,7 +94,6 @@ describe('Exercise Free Response', () => {
         });
         expect(props.step.free_response).toEqual(value);
         expect(props.step.canEditFreeResponse).toBe(false);
-        expect(fr).toHaveRendered('StepFooter RelatedContentLink');
         expect(fr).not.toHaveRendered('TextArea[isErrored=true]');
         fr.unmount();
     });
@@ -112,7 +111,6 @@ describe('Exercise Free Response', () => {
         const fr = mount(<C><FreeResponseInput {...props} /></C>);
 
         const value = 'test test test';
-        expect(fr).toHaveRendered('StepFooter RelatedContentLink');
 
         await setFreeResponse(fr, { value });
 
@@ -127,7 +125,6 @@ describe('Exercise Free Response', () => {
         });
 
         expect(fr).toHaveRendered('TextArea[isErrored=true]');
-        expect(fr).not.toHaveRendered('StepFooter RelatedContentLink');
 
         expect(fr).toHaveRendered('NudgeMessage');
         expect(fr.find('NudgeMessage').text()).toContain('Not sure? Here’s a hint');

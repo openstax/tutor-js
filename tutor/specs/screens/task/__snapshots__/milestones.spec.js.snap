@@ -459,6 +459,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
         "year": 2017,
       },
       "hideTaskProgressTable": true,
+      "hideToolbar": false,
       "history": undefined,
       "isLocked": false,
       "viewedInfoSteps": Array [],

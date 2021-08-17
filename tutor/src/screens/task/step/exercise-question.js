@@ -4,13 +4,11 @@ import {
 } from 'vendor';
 import UX from '../ux';
 import keymaster from 'keymaster';
-import { StepFooter } from './footer';
 import { Button } from 'react-bootstrap';
 import { Question, AsyncButton } from 'shared';
 import { StudentTaskStep } from '../../../models';
 import QuestionModel from 'shared/model/exercise/question';
 import { FreeResponseInput, FreeResponseReview } from './exercise-free-response';
-import SavePracticeButton from '../../../components/buttons/save-practice';
 import { breakpoint } from 'theme';
 
 const Footer = styled.div`
@@ -222,14 +220,8 @@ export default class ExerciseQuestion extends React.Component {
                     <div className="controls">
                         {step.canAnswer && this.needsSaved ?
                             this.renderSaveButton() : this.renderNextButton()}
-                        {ux.canSaveToPractice && (
-                            <SavePracticeButton
-                                practiceQuestions={ux.course.practiceQuestions}
-                                taskStep={step}
-                            />)}
                     </div>
                 </Footer>
-                <StepFooter course={course} step={step} />
             </StyledExerciseQuestion>
         );
     }

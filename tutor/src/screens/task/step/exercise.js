@@ -8,12 +8,16 @@ import { TaskStepCard } from './card';
 import ExerciseQuestion from './exercise-question';
 import { Raven, StudentTaskStep } from '../../../models';
 import Badges from 'shared/components/exercise-badges';
+import { StepToolbar } from './toolbar';
 
-const StyledExercise = styled(TaskStepCard)`
+const StyledTaskStepCard = styled(TaskStepCard)`
   font-size: 1.8rem;
   line-height: 3rem;
-  /* add Lato font */
-  ${fonts.sans('2rem')};
+
+  .openstax-question {
+    /* add Lato font */
+    ${fonts.sans('2rem')};
+  }
 `;
 
 const Preamble = ({ isHidden, content }) => {
@@ -82,7 +86,7 @@ export default class ExerciseTaskStep extends React.Component {
 
         return (
             <>
-                <StyledExercise
+                <StyledTaskStepCard
                     step={step}
                     questionNumber={ux.questionNumberForStep(step)}
                     numberOfQuestions={ux.exerciseSteps ? ux.exerciseSteps.length : 0}
@@ -90,8 +94,16 @@ export default class ExerciseTaskStep extends React.Component {
                     canGoBackward={Boolean(ux.previousStep)}
                     goForward={() => ux.goToStep(ux.nextStep)}
                     canGoForward={Boolean(ux.nextStep)}
-
                 >
+                    <StepToolbar
+                        course={ux.course}
+                        step={step}
+                        practiceQuestions={ux.course.practiceQuestions}
+                        showSaveToPractice={ux.canSaveToPractice}
+                        hideContentLink={ux.isDisplayingNudge}
+                        hideToolbar={ux.hideToolbar}
+                    />
+
                     <Badges
                         spacedPractice={step.isSpacedPractice}
                         personalized={!isFollowupMPQ && step.isPersonalized}
@@ -111,7 +123,7 @@ export default class ExerciseTaskStep extends React.Component {
                             step={step}
                             question={q}
                         />)}
-                </StyledExercise>
+                </StyledTaskStepCard>
             </>
         );
     }
