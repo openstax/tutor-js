@@ -102,7 +102,7 @@ const SavePracticeButton = observer(({
             return (
                 <StyledSavePracticeButton
                     disabled={disabled}
-                    className="save-practice-button"
+                    className={cn('save-practice-button', { 'is-saved': isSaved() })}
                     data-test-id="save-practice-button"
                 >
                     {getIconAndLabel()}
