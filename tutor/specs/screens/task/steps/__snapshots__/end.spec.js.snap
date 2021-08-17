@@ -33,7 +33,7 @@ exports[`Tasks Ending Screen completed state 1`] = `
 }
 
 .c3 {
-  padding: 36px 140px;
+  padding: 50px 140px;
 }
 
 .reading-step .c2 {
@@ -190,7 +190,7 @@ exports[`Tasks Ending Screen completed state 2`] = `
 }
 
 .c3 {
-  padding: 36px 140px;
+  padding: 50px 140px;
 }
 
 .reading-step .c2 {
@@ -347,7 +347,7 @@ exports[`Tasks Ending Screen not started state 1`] = `
 }
 
 .c3 {
-  padding: 36px 140px;
+  padding: 50px 140px;
 }
 
 .reading-step .c2 {
@@ -507,7 +507,7 @@ exports[`Tasks Ending Screen partial state 1`] = `
 }
 
 .c3 {
-  padding: 36px 140px;
+  padding: 50px 140px;
 }
 
 .reading-step .c2 {

@@ -31,8 +31,8 @@ const Toolbar = styled.div<StyledProps>`
             position: absolute;
         }
 
-        &:not(.is-saving.save-practice-button) svg.ox-icon,
-        &:not(.is-saving.save-practice-button) span {
+        &:not(.is-saved.save-practice-button) svg.ox-icon,
+        &:not(.is-saved.save-practice-button) span {
             color: ${Theme.colors.neutral.std};
         }
 
@@ -44,7 +44,7 @@ const Toolbar = styled.div<StyledProps>`
                 background: inherit;
             }
 
-            &:not(.is-saving).save-practice-button {
+            &:not(.is-saved).save-practice-button {
                 & svg, & span { color: ${Theme.colors.cerulan}; }
             }
             span {
