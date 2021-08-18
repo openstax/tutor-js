@@ -113,7 +113,7 @@ const BADGES = {
         ),
         tooltip: 'In a two-step question, OpenStax Tutor asks for your own answer first, then gives multiple-choice options to help you assess your learnings. \
         Recalling the answer to a question from memory helps you to retain things longer. Later, you and your instructor can review your work together.',
-    }
+    },
 };
 
 

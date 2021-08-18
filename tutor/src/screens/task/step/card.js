@@ -168,10 +168,8 @@ const StepCardQuestion = styled.div`
     .openstax-has-html .splash .frame-wrapper { margin-top: 0; }
   }
 `;
-
-
-
 LoadingCard.displayName = 'LoadingCard';
+
 
 const StepCard = ({
     questionNumber,
@@ -242,6 +240,9 @@ StepCard.propTypes = {
     stepType: PropTypes.string,
     isHomework: PropTypes.string,
     availablePoints: PropTypes.number,
+    exerciseId: PropTypes.string,
+    multipartBadge: PropTypes.node,
+    typeBadge: PropTypes.node,
 };
 
 
