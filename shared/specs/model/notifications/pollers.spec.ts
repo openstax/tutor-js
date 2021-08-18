@@ -3,7 +3,7 @@ import FakeWindow from '../../helpers/fake-window';
 import Notifications from '../../../src/model/notifications';
 import UiSettings from '../../../src/model/ui-settings';
 import Poller from '../../../src/model/notifications/pollers';
-import Time from "../../../src/model/time";
+import Time from '../../../src/model/time';
 
 const TEST_NOTICES = {
     notifications:  [

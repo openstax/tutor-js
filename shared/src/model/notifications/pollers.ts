@@ -4,7 +4,7 @@ import {
 import axios from 'axios';
 import User from '../user';
 import UiSettings from '../ui-settings';
-import Time, { Duration } from "../time";
+import Time, { Duration } from '../time';
 
 const STORAGE_KEY = 'ox-notifications';
 
@@ -118,7 +118,7 @@ class Poller {
 class TutorUpdates extends Poller {
     active: any
     constructor(type: string, notices: any) {
-        super(type, notices, new Duration({minutes: 5}));
+        super(type, notices, new Duration({ minutes: 5 }));
         this.active = {};
     }
 
@@ -141,7 +141,7 @@ class TutorUpdates extends Poller {
 
 class AccountsNagger extends Poller {
     constructor(type: string, notices: any) {
-        super(type, notices, new Duration({days: 1}));
+        super(type, notices, new Duration({ days: 1 }));
     // uncomment FOR DEBUGGING to get notification bar to show up
     // this.onReply({ data: { contact_infos: [ { id: -1, is_verified: false } ] } });
     }

@@ -11,7 +11,7 @@ import isEmpty from 'lodash/isEmpty';
 import isMatch from 'lodash/isMatch';
 import { observable } from 'mobx';
 import Poller from './notifications/pollers';
-import Time from "./time";
+import Time from './time';
 
 import URLs from './urls';
 const EVENT_BUS = new (EventEmitter2 as any)();

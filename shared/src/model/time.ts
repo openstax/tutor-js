@@ -117,12 +117,12 @@ export default class Time {
     get zoneName() { return this._value.zoneName }
 
     minus(toSub: DurationObject) {
-      const duration = new Duration(toSub).asConfig();
-      return new Time(this._value.minus(duration))
+        const duration = new Duration(toSub).asConfig();
+        return new Time(this._value.minus(duration))
     }
     plus(toAdd: Duration | DurationObject) {
-      const duration = new Duration(toAdd).asConfig();
-      return new Time(this._value.plus(duration))
+        const duration = new Duration(toAdd).asConfig();
+        return new Time(this._value.plus(duration))
     }
 
     isBefore(compareTo: ComparableValue, unit: DurationUnit = 'millisecond') {
