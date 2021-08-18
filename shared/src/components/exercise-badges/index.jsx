@@ -49,7 +49,7 @@ const BADGES = {
                 <Icon type="info-circle" />
             </span>
         ),
-        tooltip: 'Personalized questions are choosen specifically for you by Tutor based on your learning history',
+        tooltip: 'Personalized questions are choosen specifically for you by Tutor based on your learning history.',
     },
     spacedPractice: {
         el: () => (
@@ -63,28 +63,22 @@ const BADGES = {
         ),
         tooltip: (
             <div>
-                <h6>What is spaced practice?</h6>
                 <p>
-                    Did you know?  Research shows you can strengthen your
-                    memory—<b>and spend less time studying</b>—if
-                    you revisit material over multiple study sessions.
-                </p>
-                <p>
-                    Tutor will include <b>spaced practice</b> questions from prior
-                    assignments to give your learning a boost. You may occasionally
-                    see questions you’ve seen before.
+                    OpenStax Tutor includes <b>spaced practice</b> questions from prior assignments to give your learning a boost.
+                    Research shows you can strengthen your memory—<b>and spend less time studying</b>—if you revisit material over
+                    multiple study sessions. You may occasionally see questions you’ve seen before.
                 </p>
             </div>
         ),
     },
     writtenResponse: {
-        el: (isTeacher) => (
+        el: () => (
             <span key="wrm" className="wrm">
                 <i className="icon icon-md icon-wrm" />
                 <span>
                     Written-response
                 </span>
-                {!isTeacher && <Icon type="info-circle" /> }
+                <Icon type="info-circle" />
             </span>
         ),
         tooltip: (
@@ -96,17 +90,30 @@ const BADGES = {
         ),
     },
     multipleChoice: {
-        el: (isTeacher) => (
+        el: () => (
             <span key="multiple-choice" className="multiple-choice">
                 <i className="icon icon-sm icon-multiple-choice" />
                 <span>
                     Multiple-choice
                 </span>
-                {!isTeacher && <Icon type="info-circle" /> }
+                <Icon type="info-circle" />
             </span>
         ),
-        tooltip: 'TODO',
+        tooltip: 'Select the best answer from the given list of distractors. Your instructor may or may not allow multiple attempts.',
     },
+    twoStep: {
+        el: () => (
+            <span key="two-step" className="two-step">
+                <i className="icon icon-sm icon-two-step-intro" />
+                <span>
+                    Two-step
+                </span>
+                <Icon type="info-circle" />
+            </span>
+        ),
+        tooltip: 'In a two-step question, OpenStax Tutor asks for your own answer first, then gives multiple-choice options to help you assess your learnings. \
+        Recalling the answer to a question from memory helps you to retain things longer. Later, you and your instructor can review your work together.',
+    }
 };
 
 

@@ -41,9 +41,6 @@ const StyledMultipartBadge = styled(Badges)`
     `}
 `;
 
-const StyledTypeBadge = styled(Badges)`
-`;
-
 const Preamble = ({ isHidden, content }) => {
     if (isHidden) { return null; }
 
@@ -122,11 +119,13 @@ export default class ExerciseTaskStep extends React.Component {
                     isFollowupMPQ={isFollowupMPQ}
                     multipartBadge={<StyledMultipartBadge multiPart={isMultiPart && !isFollowupMPQ} />}
                     typeBadge={
-                        <StyledTypeBadge
+                        <Badges
                             spacedPractice={step.isSpacedPractice}
                             personalized={!isFollowupMPQ && step.isPersonalized}
                             writtenResponse={step.isWrittenResponseExercise}
-                            multipleChoice={!step.isPersonalized && step.isMultipleChoiceExercise}
+                            multipleChoice={!step.isTwoStep && !step.isPersonalized && !step.isSpacedPractice && step.isMultipleChoiceExercise}
+                            twoStep={!step.isPersonalized && !step.isSpacedPractice && step.isTwoStep}
+                            interactive={step.isInteractive}
                         />
                     }
                 >

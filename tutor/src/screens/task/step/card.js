@@ -79,7 +79,9 @@ const StepCardHeader = styled.div`
       margin: 0;
       svg {
           display: block;
-          margin: 0 0 0 6px !important;
+          &:not(.interactive) {
+              margin: 0 0 0 6px !important;
+          }
       }
   }
 
