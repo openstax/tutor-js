@@ -2,8 +2,8 @@ import { ld } from '../../helpers';
 import FakeWindow from '../../helpers/fake-window';
 import Notifications from '../../../src/model/notifications';
 import UiSettings from '../../../src/model/ui-settings';
-import moment from 'moment';
 import Poller from '../../../src/model/notifications/pollers';
+import Time from '../../../src/model/time';
 
 const TEST_NOTICES = {
     notifications:  [
@@ -103,7 +103,7 @@ describe('Notification Pollers', function() {
         expect(tutor.shouldPoll).toBe(false);
         notices.windowImpl.document.hidden = false;
         expect(tutor.shouldPoll).toBe(true);
-        tutor.lastPoll = moment();
+        tutor.lastPoll = Time.now;
         expect(tutor.shouldPoll).toBe(false);
     });
 });

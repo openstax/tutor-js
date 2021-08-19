@@ -13,6 +13,13 @@ jobs:
         project: ['lint', 'tutor', 'shared', 'exercises', 'typecheck']
     steps:
       - uses: actions/checkout@v2
+      - name: Read .nvmrc
+        run: echo ::set-output name=NVMRC::$(cat .nvmrc)
+        id: nvm
+      - name: Setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '${{ steps.nvm.outputs.NVMRC }}'
       - uses: bahmutov/npm-install@v1
         env:
             PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
