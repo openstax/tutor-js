@@ -58,19 +58,32 @@ const StepCardHeader = styled.div`
     }
   }
 
-  div:first-child {
-    div {
-      font-weight: bold;
-      span {
-        display: none;
-      }
-    }
+  div.question-info {
+    font-weight: bold;
+  }
+
+  .num-questions, .points {
+      display: none;
+  }
+
+  .exercise-id {
+      font-weight: normal;
   }
 
   button {
     margin-top: 3px;
     color: ${colors.neutral.gray};
     display: none;
+  }
+
+  .openstax-exercise-badges {
+      margin: 0;
+      svg {
+          display: block;
+          &:not(.interactive) {
+              margin: 0 0 0 6px !important;
+          }
+      }
   }
 
   /*
@@ -81,14 +94,21 @@ const StepCardHeader = styled.div`
   ${({ theme }) => theme.breakpoint.tablet`
     font-size: 1.6rem;
     padding: 14px 26px 14px 8px;
-    button {
+
+    svg {
       display: inherit;
     }
-    div:first-child {
-    > div span {
-        display: inherit;
-      }
+    .openstax-exercise-badges svg {
+        display: none;
     }
+    .num-questions, points {
+        display: inherit;
+    }
+
+    .exercise-id {
+        display: none;
+    }
+
     button[class^='ox-icon-angle']:hover {
       box-shadow: none;
     }
@@ -149,9 +169,8 @@ const StepCardQuestion = styled.div`
     .openstax-has-html .splash .frame-wrapper { margin-top: 0; }
   }
 `;
-
-
 LoadingCard.displayName = 'LoadingCard';
+
 
 const StepCard = ({
     questionNumber,
@@ -168,9 +187,13 @@ const StepCard = ({
     canGoBackward,
     goForward,
     canGoForward,
+    exerciseId,
+    multipartBadge,
+    typeBadge,
     ...otherProps }) =>
     (
         <OuterStepCard {...otherProps}>
+            {multipartBadge}
             <InnerStepCard className={className}>
                 {questionNumber && isHomework && stepType === 'exercise' &&
                 <StepCardHeader>
@@ -183,18 +206,23 @@ const StepCard = ({
                                     onClick={goBackward}
                                 />
                         }
-                        <StepLockIcon wasGraded={wasGraded} isClosed={isClosed}/>
-                        <div>Question {questionNumber} <span>&nbsp;/ {numberOfQuestions}</span></div>
+                        <div className="question-info">
+                            <StepLockIcon wasGraded={wasGraded} isClosed={isClosed}/>
+                            Question {questionNumber}
+                            <span className="num-questions">&nbsp;/ {numberOfQuestions}</span>
+                            <span className="exercise-id">&nbsp;| ID: {exerciseId}</span>
+                        </div>
                     </div>
                     <div>
-                        <div>{ScoresHelper.formatPoints(availablePoints)} Points</div>
+                        <div className="points">{ScoresHelper.formatPoints(availablePoints)} Points</div>
+                        {typeBadge}
                         {
                             canGoForward && goForward &&
-                                 <Icon
-                                     size="lg"
-                                     type="angle-right"
-                                     onClick={goForward}
-                                 />
+                                <Icon
+                                    size="lg"
+                                    type="angle-right"
+                                    onClick={goForward}
+                                />
                         }
                     </div>
                 </StepCardHeader>
@@ -218,6 +246,9 @@ StepCard.propTypes = {
     wasGraded: PropTypes.bool,
     isClosed: PropTypes.bool,
     availablePoints: PropTypes.number,
+    exerciseId: PropTypes.string,
+    multipartBadge: PropTypes.node,
+    typeBadge: PropTypes.node,
 };
 
 
@@ -248,6 +279,7 @@ const TaskStepCard = observer(({
             data-task-step-id={step.id}
             availablePoints={step.available_points}
             className={cn(`${step.type}-step`, className)}
+            exerciseId={step.uid}
         >
             {children}
             <SpyInfo model={step} />

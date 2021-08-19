@@ -116,7 +116,8 @@ const SavePracticeButton = observer(({
                 isSaved={isSaved()}
                 disabled={practiceQuestions.isAnyPending}
                 className={cn('save-practice-button', { 'is-saving': practiceQuestions.isAnyPending, 'is-saved': isSaved() })}
-                data-test-id="save-practice-button"> 
+                data-test-id="save-practice-button"
+            >
                 {getIconAndLabel(isSaved(), practiceQuestions.isAnyPending)}
             </StyledSavePracticeButton>
         );

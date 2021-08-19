@@ -175,6 +175,10 @@ export class StudentTaskStep extends BaseModel {
         return Boolean(this.isExercise && this.readContentProperty('isWrittenResponse'));
     }
 
+    @computed get isMultipleChoiceExercise() {
+        return Boolean(this.isExercise && this.readContentProperty('isMultiChoice'));
+    }
+
     @computed get isCorrect() {
         return Boolean(
             this.correct_answer_id && this.answer_id == this.correct_answer_id
