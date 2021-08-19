@@ -195,9 +195,9 @@ export class Duration {
         ;
     }
 
-    static months(months: number) { return new Duration({months}) }
-    static days(days: number) { return new Duration({days}) }
-    static minutes(minutes: number) { return new Duration({minutes}) }
+    static months(months: number) { return new Duration({ months }) }
+    static days(days: number) { return new Duration({ days }) }
+    static minutes(minutes: number) { return new Duration({ minutes }) }
 
     asConfig() { return this._value.toObject() }
 

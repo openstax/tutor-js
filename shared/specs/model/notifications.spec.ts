@@ -2,7 +2,7 @@ import URLs from 'shared/model/urls';
 import Notifications from 'shared/model/notifications';
 import Poller from 'shared/model/notifications/pollers';
 import FakeWindow from '../helpers/fake-window';
-import Time, {Duration} from '../../src/model/time';
+import Time, { Duration } from '../../src/model/time';
 
 describe('Notifications', function() {
     let poll:any
