@@ -125,10 +125,45 @@ const ReadingWeights = observer(({ task }) => {
     return (
         <>
             <Heading>Score for reading questions</Heading>
-            <ul>
-                <li>Weight for correctness: {S.asPercent(task.correctness_weight)}% of the question's point value</li>
-                <li>Weight for completion: {S.asPercent(task.completion_weight)}% of the question's point value</li>
-            </ul>
+            <p>
+                <div>Weight for correctness: {S.asPercent(task.correctness_weight)}% of the question's point value</div>
+                <div>Weight for completion: {S.asPercent(task.completion_weight)}% of the question's point value</div>
+            </p>
+        </>
+    );
+});
+
+const FeedbackTime = observer(({ task }) => {
+    if (!task.isHomework) { return null; }
+
+    let mcqMessage;
+    switch (task.auto_grading_feedback_on) {
+        case 'answer':
+            mcqMessage = 'Immediately after answer is submitted';
+            break;
+        case 'due':
+            mcqMessage = 'After the due date';
+            break;
+        default: // 'publish'
+            mcqMessage = 'After scores are published';
+    }
+
+    let wrqMessage;
+    switch (task.manual_grading_feedback_on) {
+        case 'grade':
+            wrqMessage = 'Immediately after instructor grades';
+            break;
+        default: // 'publish'
+            wrqMessage = 'After scores are published';
+    }
+
+    return (
+        <>
+            <Heading>Feedback time</Heading>
+            <p>
+                <div>MCQs: {mcqMessage}</div>
+                <div>WRQs: {wrqMessage}</div>
+            </p>
         </>
     );
 });
@@ -141,13 +176,8 @@ const LateWorkPolicy = observer(({ task }) => {
     return (
         <>
             <Heading>Late work policy</Heading>
-            <ul>
-                <li>After the due date, the late work policy will be in effect.</li>
-                <li>
-                    {task.humanLateWorkPenalty} of point value earned after the due date will be deducted
-          for each late {task.late_work_penalty_applied == 'daily' ? 'day' : 'assignment'}
-                </li>
-            </ul>
+            <p>{task.humanLateWorkPenalty} of points earned after the due date will be deducted
+          for each late {task.late_work_penalty_applied == 'daily' ? 'day' : 'assignment'}.</p>
         </>
     );
 });
@@ -290,6 +320,7 @@ const Instructions = observer((props) => {
                     <Dates ux={ux} task={task} />
                     <PracticeInstructions task={task} />
                     <LateWorkPolicy task={task} />
+                    <FeedbackTime task={task} />
                     <ReadingWeights task={task} />
                     <ExternalTaskInfo task={task} />
                 </Body>

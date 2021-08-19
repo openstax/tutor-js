@@ -1,0 +1,982 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Instructions renders the assignment instructions for feedback when due 1`] = `
+.c1 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  min-height: 400px;
+  border-radius: 0.25rem;
+  margin: 0 auto 5rem auto;
+  border: 1px solid #e4e4e4;
+  border-radius: 0.25rem;
+  background-color: white;
+}
+
+.c0 {
+  padding: 2rem;
+}
+
+.c8 {
+  -webkit-align-self: flex-end;
+  -ms-flex-item-align: end;
+  align-self: flex-end;
+  margin: 4rem;
+  float: right;
+}
+
+.c2 {
+  padding-bottom: 5rem;
+}
+
+.c3 {
+  border-left: 8px solid #34bdd7;
+  background-color: #daf3f8;
+  font-size: 1.8rem;
+  font-weight: bold;
+  padding: 1.5rem 3.2rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  line-height: inherit;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c4 {
+  font-size: 1.6rem;
+  font-weight: normal;
+}
+
+.c5 {
+  padding: 4rem 16rem;
+}
+
+.c5 p {
+  margin: 0.5rem 0 3.2rem 0;
+  line-height: 2rem;
+}
+
+.c5 ul {
+  margin-bottom: 3.2rem;
+  padding-left: 15px;
+}
+
+.c5 li {
+  margin: 0.5rem 0;
+}
+
+.c7 {
+  border-top: 1px solid #6f6f6f;
+  margin: 0 16rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}
+
+.c7 .btn {
+  margin: 2rem 0;
+  padding: 1rem;
+}
+
+.c6 {
+  font-weight: bold;
+}
+
+@media (min-width:1000px) {
+  .c1 {
+    max-width: 1000px;
+    min-width: 750px;
+  }
+}
+
+@media (min-width:1600px) {
+  .c1 {
+    min-width: 1000px;
+  }
+}
+
+@media (max-width:999px) {
+  .c0 {
+    padding: 0;
+  }
+}
+
+@media (max-width:600px) {
+  .c2 {
+    height: calc(100vh - 60px - 50px);
+    margin: 0;
+  }
+}
+
+@media (max-width:999px) {
+  .c3 .instructions-text {
+    display: none;
+  }
+}
+
+@media (max-width:600px) {
+  .c3 {
+    padding: 1.5rem 1rem;
+  }
+}
+
+@media (max-width:600px) {
+  .c5 {
+    padding: 2rem 1.5rem 1rem;
+  }
+}
+
+@media (min-width:601px) and (max-width:999px) {
+  .c5 {
+    padding: 2rem 3rem 10rem;
+  }
+}
+
+@media (max-width:600px) {
+  .c7 {
+    position: absolute;
+    bottom: 0;
+  }
+}
+
+@media (max-width:600px) {
+  .c7 {
+    margin: 0;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .c7 .btn {
+    padding: 2rem 6rem;
+  }
+}
+
+@media (min-width:601px) and (max-width:999px) {
+  .c7 {
+    margin: 0 3rem;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+  }
+
+  .c7 .btn {
+    padding: 1rem 6rem;
+  }
+}
+
+<div
+  className="openstax-debug-content"
+>
+  <div
+    data-purpose="tour-conductor-wrapper"
+  >
+    <div>
+      <div
+        className="c0"
+      >
+        <div
+          className="c1 c2"
+          data-test-id="homework-instructions"
+        >
+          <h2
+            className="c3 heading"
+          >
+            <span>
+              Assignment details 
+              <span
+                className="instructions-text"
+              >
+                and instructions
+              </span>
+            </span>
+            <span
+              className="c4"
+            >
+              1.0
+               points
+            </span>
+          </h2>
+          <div
+            className="c5"
+          >
+            <div
+              className="c6"
+            >
+              Instructor notes
+            </div>
+            <p>
+              uniform
+            </p>
+            <div
+              className="c6"
+            >
+              Due date
+            </div>
+            <p>
+              <time
+                onBlur={[Function]}
+                onFocus={[Function]}
+                onMouseOut={[Function]}
+                onMouseOver={[Function]}
+              >
+                Mon, Aug 16, 3:00pm
+              </time>
+            </p>
+            <div
+              className="c6"
+            >
+              Close date
+            </div>
+            <p>
+              <time
+                onBlur={[Function]}
+                onFocus={[Function]}
+                onMouseOut={[Function]}
+                onMouseOver={[Function]}
+              >
+                Mon, Aug 23, 3:00pm
+              </time>
+            </p>
+            <div
+              className="c6"
+            >
+              Late work policy
+            </div>
+            <p>
+              0%
+               of points earned after the due date will be deducted for each late 
+              day
+              .
+            </p>
+            <div
+              className="c6"
+            >
+              Feedback time
+            </div>
+            <p>
+              <div>
+                MCQs: 
+                After the due date
+              </div>
+              <div>
+                WRQs: 
+                Immediately after instructor grades
+              </div>
+            </p>
+          </div>
+          <div
+            className="c7"
+          >
+            <button
+              className="c8 continue btn btn-primary btn-lg"
+              data-test-id="value-prop-continue-btn"
+              disabled={false}
+              onClick={[MockFunction]}
+              type="button"
+            >
+              Review
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="visible-when-debugging"
+    >
+      <div
+        className="tour-spy-info"
+      >
+        available regions: []; region tour ids: []; audience tags: []; tour tags: []; eligible tours: []; TOUR RIDE: &lt;none&gt;
+      </div>
+    </div>
+  </div>
+  <a
+    aria-hidden="true"
+    className="debug-toggle-link"
+    href="#spy"
+    onClick={[Function]}
+    tabIndex={-1}
+  >
+    π
+  </a>
+</div>
+`;
+
+exports[`Instructions renders the assignment instructions for feedback when published 1`] = `
+.c1 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  min-height: 400px;
+  border-radius: 0.25rem;
+  margin: 0 auto 5rem auto;
+  border: 1px solid #e4e4e4;
+  border-radius: 0.25rem;
+  background-color: white;
+}
+
+.c0 {
+  padding: 2rem;
+}
+
+.c8 {
+  -webkit-align-self: flex-end;
+  -ms-flex-item-align: end;
+  align-self: flex-end;
+  margin: 4rem;
+  float: right;
+}
+
+.c2 {
+  padding-bottom: 5rem;
+}
+
+.c3 {
+  border-left: 8px solid #34bdd7;
+  background-color: #daf3f8;
+  font-size: 1.8rem;
+  font-weight: bold;
+  padding: 1.5rem 3.2rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  line-height: inherit;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c4 {
+  font-size: 1.6rem;
+  font-weight: normal;
+}
+
+.c5 {
+  padding: 4rem 16rem;
+}
+
+.c5 p {
+  margin: 0.5rem 0 3.2rem 0;
+  line-height: 2rem;
+}
+
+.c5 ul {
+  margin-bottom: 3.2rem;
+  padding-left: 15px;
+}
+
+.c5 li {
+  margin: 0.5rem 0;
+}
+
+.c7 {
+  border-top: 1px solid #6f6f6f;
+  margin: 0 16rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}
+
+.c7 .btn {
+  margin: 2rem 0;
+  padding: 1rem;
+}
+
+.c6 {
+  font-weight: bold;
+}
+
+@media (min-width:1000px) {
+  .c1 {
+    max-width: 1000px;
+    min-width: 750px;
+  }
+}
+
+@media (min-width:1600px) {
+  .c1 {
+    min-width: 1000px;
+  }
+}
+
+@media (max-width:999px) {
+  .c0 {
+    padding: 0;
+  }
+}
+
+@media (max-width:600px) {
+  .c2 {
+    height: calc(100vh - 60px - 50px);
+    margin: 0;
+  }
+}
+
+@media (max-width:999px) {
+  .c3 .instructions-text {
+    display: none;
+  }
+}
+
+@media (max-width:600px) {
+  .c3 {
+    padding: 1.5rem 1rem;
+  }
+}
+
+@media (max-width:600px) {
+  .c5 {
+    padding: 2rem 1.5rem 1rem;
+  }
+}
+
+@media (min-width:601px) and (max-width:999px) {
+  .c5 {
+    padding: 2rem 3rem 10rem;
+  }
+}
+
+@media (max-width:600px) {
+  .c7 {
+    position: absolute;
+    bottom: 0;
+  }
+}
+
+@media (max-width:600px) {
+  .c7 {
+    margin: 0;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .c7 .btn {
+    padding: 2rem 6rem;
+  }
+}
+
+@media (min-width:601px) and (max-width:999px) {
+  .c7 {
+    margin: 0 3rem;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+  }
+
+  .c7 .btn {
+    padding: 1rem 6rem;
+  }
+}
+
+<div
+  className="openstax-debug-content"
+>
+  <div
+    data-purpose="tour-conductor-wrapper"
+  >
+    <div>
+      <div
+        className="c0"
+      >
+        <div
+          className="c1 c2"
+          data-test-id="homework-instructions"
+        >
+          <h2
+            className="c3 heading"
+          >
+            <span>
+              Assignment details 
+              <span
+                className="instructions-text"
+              >
+                and instructions
+              </span>
+            </span>
+            <span
+              className="c4"
+            >
+              1.0
+               points
+            </span>
+          </h2>
+          <div
+            className="c5"
+          >
+            <div
+              className="c6"
+            >
+              Instructor notes
+            </div>
+            <p>
+              tangible
+            </p>
+            <div
+              className="c6"
+            >
+              Due date
+            </div>
+            <p>
+              <time
+                onBlur={[Function]}
+                onFocus={[Function]}
+                onMouseOut={[Function]}
+                onMouseOver={[Function]}
+              >
+                Mon, Aug 16, 3:00pm
+              </time>
+            </p>
+            <div
+              className="c6"
+            >
+              Close date
+            </div>
+            <p>
+              <time
+                onBlur={[Function]}
+                onFocus={[Function]}
+                onMouseOut={[Function]}
+                onMouseOver={[Function]}
+              >
+                Mon, Aug 23, 3:00pm
+              </time>
+            </p>
+            <div
+              className="c6"
+            >
+              Late work policy
+            </div>
+            <p>
+              100%
+               of points earned after the due date will be deducted for each late 
+              assignment
+              .
+            </p>
+            <div
+              className="c6"
+            >
+              Feedback time
+            </div>
+            <p>
+              <div>
+                MCQs: 
+                After scores are published
+              </div>
+              <div>
+                WRQs: 
+                After scores are published
+              </div>
+            </p>
+          </div>
+          <div
+            className="c7"
+          >
+            <button
+              className="c8 continue btn btn-primary btn-lg"
+              data-test-id="value-prop-continue-btn"
+              disabled={false}
+              onClick={[MockFunction]}
+              type="button"
+            >
+              Start
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="visible-when-debugging"
+    >
+      <div
+        className="tour-spy-info"
+      >
+        available regions: []; region tour ids: []; audience tags: []; tour tags: []; eligible tours: []; TOUR RIDE: &lt;none&gt;
+      </div>
+    </div>
+  </div>
+  <a
+    aria-hidden="true"
+    className="debug-toggle-link"
+    href="#spy"
+    onClick={[Function]}
+    tabIndex={-1}
+  >
+    π
+  </a>
+</div>
+`;
+
+exports[`Instructions renders the assignment instructions for immediate feedback 1`] = `
+.c1 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  min-height: 400px;
+  border-radius: 0.25rem;
+  margin: 0 auto 5rem auto;
+  border: 1px solid #e4e4e4;
+  border-radius: 0.25rem;
+  background-color: white;
+}
+
+.c0 {
+  padding: 2rem;
+}
+
+.c8 {
+  -webkit-align-self: flex-end;
+  -ms-flex-item-align: end;
+  align-self: flex-end;
+  margin: 4rem;
+  float: right;
+}
+
+.c2 {
+  padding-bottom: 5rem;
+}
+
+.c3 {
+  border-left: 8px solid #34bdd7;
+  background-color: #daf3f8;
+  font-size: 1.8rem;
+  font-weight: bold;
+  padding: 1.5rem 3.2rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  line-height: inherit;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c4 {
+  font-size: 1.6rem;
+  font-weight: normal;
+}
+
+.c5 {
+  padding: 4rem 16rem;
+}
+
+.c5 p {
+  margin: 0.5rem 0 3.2rem 0;
+  line-height: 2rem;
+}
+
+.c5 ul {
+  margin-bottom: 3.2rem;
+  padding-left: 15px;
+}
+
+.c5 li {
+  margin: 0.5rem 0;
+}
+
+.c7 {
+  border-top: 1px solid #6f6f6f;
+  margin: 0 16rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}
+
+.c7 .btn {
+  margin: 2rem 0;
+  padding: 1rem;
+}
+
+.c6 {
+  font-weight: bold;
+}
+
+@media (min-width:1000px) {
+  .c1 {
+    max-width: 1000px;
+    min-width: 750px;
+  }
+}
+
+@media (min-width:1600px) {
+  .c1 {
+    min-width: 1000px;
+  }
+}
+
+@media (max-width:999px) {
+  .c0 {
+    padding: 0;
+  }
+}
+
+@media (max-width:600px) {
+  .c2 {
+    height: calc(100vh - 60px - 50px);
+    margin: 0;
+  }
+}
+
+@media (max-width:999px) {
+  .c3 .instructions-text {
+    display: none;
+  }
+}
+
+@media (max-width:600px) {
+  .c3 {
+    padding: 1.5rem 1rem;
+  }
+}
+
+@media (max-width:600px) {
+  .c5 {
+    padding: 2rem 1.5rem 1rem;
+  }
+}
+
+@media (min-width:601px) and (max-width:999px) {
+  .c5 {
+    padding: 2rem 3rem 10rem;
+  }
+}
+
+@media (max-width:600px) {
+  .c7 {
+    position: absolute;
+    bottom: 0;
+  }
+}
+
+@media (max-width:600px) {
+  .c7 {
+    margin: 0;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .c7 .btn {
+    padding: 2rem 6rem;
+  }
+}
+
+@media (min-width:601px) and (max-width:999px) {
+  .c7 {
+    margin: 0 3rem;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+  }
+
+  .c7 .btn {
+    padding: 1rem 6rem;
+  }
+}
+
+<div
+  className="openstax-debug-content"
+>
+  <div
+    data-purpose="tour-conductor-wrapper"
+  >
+    <div>
+      <div
+        className="c0"
+      >
+        <div
+          className="c1 c2"
+          data-test-id="homework-instructions"
+        >
+          <h2
+            className="c3 heading"
+          >
+            <span>
+              Assignment details 
+              <span
+                className="instructions-text"
+              >
+                and instructions
+              </span>
+            </span>
+            <span
+              className="c4"
+            >
+              1.0
+               points
+            </span>
+          </h2>
+          <div
+            className="c5"
+          >
+            <div
+              className="c6"
+            >
+              Instructor notes
+            </div>
+            <p>
+              6th generation
+            </p>
+            <div
+              className="c6"
+            >
+              Due date
+            </div>
+            <p>
+              <time
+                onBlur={[Function]}
+                onFocus={[Function]}
+                onMouseOut={[Function]}
+                onMouseOver={[Function]}
+              >
+                Mon, Aug 16, 3:00pm
+              </time>
+            </p>
+            <div
+              className="c6"
+            >
+              Close date
+            </div>
+            <p>
+              <time
+                onBlur={[Function]}
+                onFocus={[Function]}
+                onMouseOut={[Function]}
+                onMouseOver={[Function]}
+              >
+                Mon, Aug 23, 3:00pm
+              </time>
+            </p>
+            <div
+              className="c6"
+            >
+              Late work policy
+            </div>
+            <p>
+              100%
+               of points earned after the due date will be deducted for each late 
+              assignment
+              .
+            </p>
+            <div
+              className="c6"
+            >
+              Feedback time
+            </div>
+            <p>
+              <div>
+                MCQs: 
+                Immediately after answer is submitted
+              </div>
+              <div>
+                WRQs: 
+                Immediately after instructor grades
+              </div>
+            </p>
+          </div>
+          <div
+            className="c7"
+          >
+            <button
+              className="c8 continue btn btn-primary btn-lg"
+              data-test-id="value-prop-continue-btn"
+              disabled={false}
+              onClick={[MockFunction]}
+              type="button"
+            >
+              Start
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="visible-when-debugging"
+    >
+      <div
+        className="tour-spy-info"
+      >
+        available regions: []; region tour ids: []; audience tags: []; tour tags: []; eligible tours: []; TOUR RIDE: &lt;none&gt;
+      </div>
+    </div>
+  </div>
+  <a
+    aria-hidden="true"
+    className="debug-toggle-link"
+    href="#spy"
+    onClick={[Function]}
+    tabIndex={-1}
+  >
+    π
+  </a>
+</div>
+`;
