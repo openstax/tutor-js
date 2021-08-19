@@ -2,6 +2,7 @@
 
 exports[`Instructions renders the assignment instructions for feedback when due 1`] = `
 .c1 {
+  position: relative;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -328,6 +329,7 @@ exports[`Instructions renders the assignment instructions for feedback when due 
 
 exports[`Instructions renders the assignment instructions for feedback when published 1`] = `
 .c1 {
+  position: relative;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -654,6 +656,7 @@ exports[`Instructions renders the assignment instructions for feedback when publ
 
 exports[`Instructions renders the assignment instructions for immediate feedback 1`] = `
 .c1 {
+  position: relative;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
