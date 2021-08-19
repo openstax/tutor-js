@@ -2,18 +2,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import moment from 'moment-timezone';
-import { isEmpty, isEqual, map, omit, extend, defer, clone, pick, keys } from 'lodash';
+import { isEmpty, isEqual, map, omit, extend, defer, pick } from 'lodash';
 import classnames from 'classnames';
-import MaskedInput from 'react-maskedinput';
-import DatePicker from 'react-datepicker';
-import supportsTime from 'time-input-polyfill/supportsTime';
-import TimePolyfill from 'time-input-polyfill';
 import * as TutorErrors from './tutor-errors';
 import { Time } from '../models';
-import TimeHelper from '../helpers/time';
-import { Icon } from 'shared';
-import S from '../helpers/string';
 const TutorDateFormat = Time.DATE_FORMAT;
 
 class TutorInput extends React.Component {
@@ -143,211 +135,6 @@ class TutorInput extends React.Component {
   }
 }
 
-class TutorDateInput extends React.Component {
-  static defaultProps = function() {
-    const currentLocale = TimeHelper.getCurrentLocales();
-    return { currentLocale };
-  }();
-
-  static propTypes = {
-    currentLocale: PropTypes.shape({
-      abbr: PropTypes.string,
-      week: PropTypes.object,
-      weekdaysMin: PropTypes.array,
-    }),
-  };
-
-  state = { expandCalendar: false };
-
-  constructor(props) {
-    super(props);
-    this.tzOffset = new Date().getTimezoneOffset();
-  }
-
-  onBlur = () => {
-    if (this.props.onBlur) { this.props.onBlur(); }
-    return this.setState({ hasFocus: false });
-  };
-
-  getValue = () => {
-    return this.props.value || this.state.value;
-  };
-
-  dateSelected = (value) => {
-    let errors;
-    const valid = this.isValid(value);
-
-    if (!valid) {
-      value = TimeHelper.getMomentPreserveDate(this.props.min) || null;
-      errors = ['Invalid date'];
-    }
-
-    value = moment(value).utcOffset(this.tzOffset * -1).startOf('date');
-
-    this.props.onChange(value);
-    return this.setState({ expandCalendar: false, valid, value, errors });
-  };
-
-  expandCalendar = () => {
-    return this.setState({ expandCalendar: true, hasFocus: true });
-  };
-
-  isValid = (value) => {
-    if (!moment.isMoment(value)) { value = moment(value); }
-    let valid = true;
-    if (this.props.min && value.isBefore(this.props.min, 'day')) { valid = false; }
-    if (this.props.max && value.isAfter(this.props.max, 'day')) { valid = false; }
-    return valid;
-  };
-
-  render() {
-    let dateElem, displayValue;
-    const classes = classnames('form-control',
-      { empty: !(this.props.value || this.props.default || this.state.hasFocus) });
-
-    const wrapperClasses = classnames(
-      'form-control-wrapper',
-      'tutor-input',
-      '-tutor-date-input',
-      this.props.className,
-      {
-        'is-required': this.props.required,
-        'has-error': (this.state.errors != null ? this.state.errors.length : undefined),
-        'disabled-datepicker':  isDatePickerDisabled,
-        'is-disabled': this.props.disabled,
-      },
-    );
-
-    const now = Time.now;
-    let { value } = this.props;
-
-    value = value ?
-      TimeHelper.getMomentPreserveDate(value).toDate() : null;
-
-    var isDatePickerDisabled = this.props.disabled && value;
-    const min = this.props.min ? moment(this.props.min) : moment(now).subtract(10, 'years');
-    const max = this.props.max ? moment(this.props.max) : moment(now).add(10, 'years');
-
-    if (!this.props.disabled) {
-      dateElem = (
-        <DatePicker
-          autoComplete="off"
-          id={this.props.id}
-          utcOffset={this.tzOffset}
-          minDate={min.toDate()}
-          maxDate={max.toDate()}
-          onFocus={this.expandCalendar}
-          onBlur={this.onBlur}
-          key={this.props.id}
-          ref="picker"
-          className={classes}
-          onChange={this.dateSelected}
-          disabled={this.props.disabled}
-          selected={value}
-          weekStart={`${this.props.currentLocale.week.dow}`} />
-      );
-    } else if (isDatePickerDisabled) {
-      displayValue = value ? moment(value).format(TutorDateFormat) : '';
-    }
-
-    const displayOnlyProps = {
-      type: 'text',
-      disabled: true,
-      readOnly: true,
-      className: classes,
-      value: displayValue || '',
-    };
-
-    return (
-      <div className={wrapperClasses}>
-        <input {...displayOnlyProps} />
-        <div className="floating-label">
-          {this.props.label}
-        </div>
-        <div className="hint required-hint">
-          Required field
-        </div>
-        <div className="date-wrapper">
-          {dateElem}
-          {!this.props.disabled && <Icon type="calendar" />}
-        </div>
-      </div>
-    );
-  }
-}
-
-class TutorTimeInput extends React.Component {
-
-  input = React.createRef();
-
-  shouldComponentUpdate(nextProps) {
-    if (supportsTime) { return true; }
-    return nextProps.value != this.props.value &&
-      this.editedValue != nextProps.value;
-  }
-
-  get inputEl() {
-    return this.input.current.refs.input;
-  }
-
-  onPolyfillChange = ({ target: { value } }) => {
-    this.onChange(
-      moment(value, 'hh:mm A').format('HH:mm')
-    );
-  }
-
-  updatePolyfillValue() {
-    this.inputEl.polyfill.update();
-  }
-
-  componentDidMount() {
-    if (!supportsTime) {
-      new TimePolyfill(this.inputEl);
-      this.inputEl.addEventListener('change', this.onPolyfillChange);
-    }
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (!supportsTime && prevProps.value != this.props.value) {
-        this.updatePolyfillValue();
-    }
-  }
-
-  componentWillUnmount() {
-    if (!supportsTime) {
-      this.inputEl.removeEventListener('change', this.onPolyfillChange);
-    }
-  }
-
-  onChange = (value) => {
-    const time = moment(value, 'HH:mm');
-    if (time.isValid()) {
-      this.editedValue = time.format('HH:mm');
-      this.props.onChange(this.editedValue);
-    }
-  };
-
-  render() {
-    const inputProps = omit(this.props, 'default', 'onChange', 'formatCharacters', 'value');
-
-    let { value } = this.props;
-    if (!supportsTime) {
-      value = moment(value, 'HH:mm').format('hh:mm A');
-    }
-
-    return (
-      <TutorInput
-        autoComplete="off"
-        {...inputProps}
-        value={value}
-        ref={this.input}
-        onChange={this.onChange}
-        type="time"
-      />
-    );
-  }
-}
-
 class TutorTextArea extends React.Component {
   static propTypes = {
     label: PropTypes.string.isRequired,
@@ -453,7 +240,7 @@ class TutorRadio extends React.Component {
   }
 }
 
-export { TutorInput, TutorDateInput, TutorDateFormat, TutorTimeInput, TutorTextArea, TutorRadio };
+export { TutorInput, TutorDateFormat, TutorTextArea, TutorRadio };
 
 function __guard__(value, transform) {
   return (typeof value !== 'undefined' && value !== null) ? transform(value) : undefined;

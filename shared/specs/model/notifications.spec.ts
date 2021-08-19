@@ -1,8 +1,8 @@
-import moment from 'moment';
 import URLs from 'shared/model/urls';
 import Notifications from 'shared/model/notifications';
 import Poller from 'shared/model/notifications/pollers';
 import FakeWindow from '../helpers/fake-window';
+import Time, { Duration } from '../../src/model/time';
 
 describe('Notifications', function() {
     let poll:any
@@ -59,7 +59,7 @@ describe('Notifications', function() {
         expect(Notifications.getActive()).toHaveLength(1);
         expect(Notifications.getActive()[0].type).toEqual('course_has_ended');
         Notifications.setCourseRole(
-            { id: '1', students: [{ role_id: '111' }], ends_at: moment().add('1 month').toISOString() },
+            { id: '1', students: [{ role_id: '111' }], ends_at: Time.now.plus(Duration.months(1)).toISOString() },
             { id: '111' }
         );
         expect(Notifications.getActive()).toHaveLength(0);
