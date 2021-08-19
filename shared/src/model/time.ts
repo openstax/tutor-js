@@ -116,7 +116,7 @@ export default class Time {
     inZone(zone: Zone|string) { return new Time(this._value.setZone(zone)) }
     get zoneName() { return this._value.zoneName }
 
-    minus(toSub: DurationObject) {
+    minus(toSub: Duration | DurationObject) {
         const duration = new Duration(toSub).asConfig();
         return new Time(this._value.minus(duration))
     }
@@ -194,6 +194,10 @@ export class Duration {
             : LDuration.fromObject(config)
         ;
     }
+
+    static months(months: number) { return new Duration({months}) }
+    static days(days: number) { return new Duration({days}) }
+    static minutes(minutes: number) { return new Duration({minutes}) }
 
     asConfig() { return this._value.toObject() }
 

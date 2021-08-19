@@ -26,7 +26,7 @@ class Poller {
     constructor(type:string, notices: any, interval: Duration) {
         this.type = type;
         this.notices = notices;
-        this.interval = new Duration(interval);
+        this.interval = interval;
         this.lastPoll = Time.fromUnix(0);
         this.prefsStorageKey = `${STORAGE_KEY}-${this.type}`;
         bindAll(this, 'poll', 'onReply', 'onError');
@@ -118,7 +118,7 @@ class Poller {
 class TutorUpdates extends Poller {
     active: any
     constructor(type: string, notices: any) {
-        super(type, notices, new Duration({ minutes: 5 }));
+        super(type, notices, Duration.minutes(5));
         this.active = {};
     }
 
@@ -141,9 +141,9 @@ class TutorUpdates extends Poller {
 
 class AccountsNagger extends Poller {
     constructor(type: string, notices: any) {
-        super(type, notices, new Duration({ days: 1 }));
-    // uncomment FOR DEBUGGING to get notification bar to show up
-    // this.onReply({ data: { contact_infos: [ { id: -1, is_verified: false } ] } });
+        super(type, notices, Duration.days(1));
+        // uncomment FOR DEBUGGING to get notification bar to show up
+        // this.onReply({ data: { contact_infos: [ { id: -1, is_verified: false } ] } });
     }
 
     onReply({ data }: any) {
