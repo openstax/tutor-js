@@ -20,12 +20,19 @@ The Front-end code for Openstax Tutor related projects
 
 ## Development
 
-- `yarn run serve <project>` starts up a local development webserver which rebuilds files when changed
+- `yarn run serve <project>` starts up a local development webserver which rebuilds files when changed.
 - `yarn test <project>` runs unit tests for all projects
 - `yarn run coverage` generates a code coverage report
 - `yarn run build <project> archive` builds minified files for production
+- `yarn run test e2e` run the integration tests using playwright test runner.
 
-Use `PORT=8000 yarn start` to change the default webserver port.
+#### e2e test failures 
+
+To debug e2e failures, you can run in debug mode by adding the `--debug` flag.  For instance to debug a failure with the course roster spec, you could run: `yarn run test e2e --debug roster`.  `--debug` disables timeouts and is useful in conjuction with adding strategic `page.pause()` calls in the spec.  The brower will then open and pause at that step, allowing you to open the browser console and inspect it's state.
+
+On Github actions you can download the "test-result" artifacts.  Each test failure will generate a screenshot and a trace file.  The trace file can be viewed by: `yarn run playwright show-trace <path to trace file>` The viewer allows you to view the browser screen and dev console for each test step.
+
+There is also a [retries configration](https://playwright.dev/docs/test-retries) that can be adjusted if some specs are inherently flaky. 
 
 After local updates are made:
 
