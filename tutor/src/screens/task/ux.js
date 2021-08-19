@@ -266,14 +266,19 @@ export default class TaskUX {
     }
 
     @action.bound goToStep(step, recordInHistory = true) {
-        if (isString(step)) {// old api, it's really a stepIndex
+        // backwards compatibility when step is actually a string containing an step id
+        if (isString(step)) {
             step = this.steps.find(s => s.id == step.id);
         }
+
+        // do nothing if no step was given
         if (!step) { return; }
+
         // do nothing if the stepIndex hasn't changed
         if (this.currentStep && this.currentStep.id == step.id) { return; }
 
-        if (this.currentStep) {
+        // mark the current step as viewed before moving on, but only if the user is allowed to
+        if (this.currentStep && this.canUpdateCurrentStep) {
             this.currentStep.markViewed();
         }
 
@@ -309,19 +314,21 @@ export default class TaskUX {
     }
 
     @computed get canGoForward() {
-        const hasMoreSteps = this.currentStepIndex < this.steps.length - 1;
-        // users can go forward if assignment is closed.
-        if(hasMoreSteps && this._task.isAssignmentClosed) return true;
+        // last step of the assignment
+        if (this.currentStepIndex >= this.steps.length - 1) return false;
 
-        if (!this.currentStep || this.isApiPending || this.isLocked) { return false; }
+        // something is currently loading, so wait for it to resolve before continuing
+        if (!this.currentStep || this.isApiPending || this.isLocked) return false;
 
-        if (hasMoreSteps) {
-            if (this.currentStep.isExercise) {
-                return this.currentStep.is_completed;
-            }
-            return true;
-        }
-        return false;
+        // users can always go forward if they cannot update the current step
+        // this covers closed assignments and teachers reviewing student work
+        if (!this.canUpdateCurrentStep) return true;
+
+        // students need to complete each exercise before they proceed
+        if (this.currentStep.isExercise) return this.currentStep.is_completed;
+
+        // other step types also need to be completed but they are auto-completed when continuing
+        return true;
     }
 
     @computed get canGoBackward() {
@@ -405,7 +412,12 @@ export default class TaskUX {
 
     @action.bound markIncorrectAttempt() {
         const step = this.currentStep;
-        if (step.canAnswer && step.answer_id && step.answer_id != step.correct_answer_id) {
+        if (
+            !this.isTeacher && // Teachers reviewing assignments don't get the UI to re-answer
+            step.canAnswer &&
+            step.answer_id &&
+            step.answer_id != step.correct_answer_id
+        ) {
             // If the page was reloaded or step changed after an incorrect attempt, but
             // there are attempts remaining, match the state as if it wasn't reloaded
             step.markIncorrectAttempt();
