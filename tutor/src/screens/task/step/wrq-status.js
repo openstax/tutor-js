@@ -10,44 +10,21 @@ import { StudentTaskStep } from '../../../models';
 const StyledMessage = styled.div`
   color: ${colors.neutral.thin};
   font-size: 1.4rem;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
 `;
 
-const Message = ({ text, tooltip }) => {
-    return (
-        <StyledMessage>
-            <span>{text}</span>
-            <Icon variant="infoCircle" tooltip={tooltip} />
-        </StyledMessage>
-    );
-};
-
-Message.propTypes = {
-    text: PropTypes.string.isRequired,
-    tooltip: PropTypes.node,
-};
-
 const WRQStatus = observer(({ step }) => {
-
     if ((!step.isOpenEndedExercise) || step.task.course?.currentRole.isTeacher) {
         return null;
     }
 
     if (step.can_be_updated) {
         return (
-            <Message
-                text="You can submit this answer multiple times"
-                tooltip={(
-                    <ul className="m-4">
-                        <li>Only the last answer will be graded</li>
-                        <li><b>After due date,</b> late work policy will be in effect</li>
-                    </ul>
-                )}
-            />
+            <StyledMessage>
+                Multiple attempts allowed. Only the last submitted answer will be graded.
+            </StyledMessage>
         );
     }
+
     return null;
 });
 WRQStatus.propTypes = {
@@ -67,7 +44,7 @@ const Label = styled.span`
 const Value=styled.span`
   font-weight: bold;
 `;
-const PointsAndFeedback = observer(({ step }) => {
+const PointsAndFeedback = observer(({ step }) => { // TODO: Move this into exercise-question
     if (!step.isOpenEndedExercise || isNil(step.published_points_without_lateness)) {
         return null;
     }

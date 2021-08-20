@@ -113,6 +113,7 @@ export class StudentTaskStep extends BaseModel {
     @field exercise_id:ID = NEW_ID
     @field attempts_remaining = 0;
     @field attempt_number = 0;
+    @field solution: any = {};
 
     @observable content?: any
     @observable isFetched = false
@@ -127,6 +128,10 @@ export class StudentTaskStep extends BaseModel {
     }
 
     get task() { return getParentOf<StudentTask>(this) }
+
+    @computed get detailedSolution() {
+        return this.solution.content_html;
+    }
 
     @computed get canAnnotate() {
         return this.isReading;

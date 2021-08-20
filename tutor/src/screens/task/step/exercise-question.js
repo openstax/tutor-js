@@ -9,62 +9,26 @@ import { Question, AsyncButton } from 'shared';
 import { StudentTaskStep } from '../../../models';
 import QuestionModel from 'shared/model/exercise/question';
 import { FreeResponseInput, FreeResponseReview } from './exercise-free-response';
-import { breakpoint } from 'theme';
-
-const Footer = styled.div`
-  margin: 2.5rem 0;
-  display: flex;
-  justify-content: space-between;
-  font-size: 1.4rem;
-  line-height: 2rem;
-
-  button {
-    width: 160px;
-  }
-
-  ${breakpoint.mobile`
-    .controls {
-      flex-grow: 1;
-    }
-  `}
-
-  > * {
-    width: 25%;
-  }
-
-  .points .attempts-left {
-    color: #F36B32;
-  }
-
-  .controls {
-    display: flex;
-    justify-content: flex-end;
-    flex-flow: column wrap-reverse;
-  }
-
-  .save-practice-button {
-    margin-top: 2rem;
-  }
-`;
+import { breakpoint, colors } from 'theme';
+import ScoresHelper from '../../../helpers/scores';
+import { StepCardFooter } from './card';
+import { PointsAndFeedback } from './wrq-status';
+import { isNil } from 'lodash';
 
 const StyledExerciseQuestion = styled.div`
   font-size: 2rem;
   line-height: 3.5rem;
-  margin-left: 2rem;
 
-  ${breakpoint.tablet`
-    margin: ${breakpoint.margins.tablet};
-  `}
-  ${breakpoint.mobile`
-    margin: ${breakpoint.margins.mobile};
-  `}
+  .question-body {
+      margin-left: 2rem; // TODO: Still needed? Something for iframes?
+  }
+
   .openstax-answer {
     border-top: 1px solid #d5d5d5;
     margin: 10px 0;
     padding: 10px 0;
   }
 `;
-
 
 @observer
 export default class ExerciseQuestion extends React.Component {
@@ -181,6 +145,26 @@ export default class ExerciseQuestion extends React.Component {
         );
     }
 
+    renderPoints(step) {
+        const points = [step.available_points];
+
+        if (!isNil(step.published_points_without_lateness)) {
+            points.unshift(step.published_points);
+        }
+        console.log(points)
+        return points.map((p) => ScoresHelper.formatPoints(p)).join(' / ');
+    }
+
+    renderFeedback(step) {
+        if (!step.published_comments) { return null; }
+
+        return (
+            <div>
+                <strong>Feedback:</strong> {step.published_comments}
+            </div>
+        );
+    }
+
     render() {
         const { ux, question, step, ux: { course } } = this.props;
         const questionNumber = ux.questionNumberForStep(step);
@@ -210,18 +194,22 @@ export default class ExerciseQuestion extends React.Component {
                     hasCorrectAnswer={step.hasCorrectAnswer}
                     correct_answer_id={step.is_completed ? step.correct_answer_id : null}
                     incorrectAnswerId={step.incorrectAnswerId}
+                    className="step-card-body"
                 >
                     <FreeResponseReview course={course} step={step} />
                 </Question>
-                <Footer>
+                <StepCardFooter>
                     <div className="points">
+                        <strong>Points: {this.renderPoints(step)}</strong>
                         <span className="attempts-left">{ux.hasMultipleAttempts && this.renderMultipleAttempts(step)}</span>
+                        {this.renderFeedback(step)}
+                        {step.isOpenEndedExercise && step.detailedSolution && (<div><strong>Detailed solution:</strong> {step.detailedSolution}</div>)}
                     </div>
                     <div className="controls">
                         {step.canAnswer && this.needsSaved ?
                             this.renderSaveButton() : this.renderNextButton()}
                     </div>
-                </Footer>
+                </StepCardFooter>
             </StyledExerciseQuestion>
         );
     }

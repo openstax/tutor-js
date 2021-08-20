@@ -40,7 +40,9 @@ const Toolbar = styled.div<StyledProps>`
             box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.2);
 
             &:not(.save-practice-button) {
-                &, & svg { color: ${Theme.colors.neutral.darker}; }
+                & span, & svg.ox-icon {
+                    color: ${Theme.colors.neutral.darker};
+                }
                 background: inherit;
             }
 
@@ -63,7 +65,7 @@ const Toolbar = styled.div<StyledProps>`
 
     ${({ theme }) => theme.breakpoint.desktop`
         position: absolute;
-        top: 57px;
+        top: 61px;
         left: -80px;
         width: 45px;
 
@@ -94,7 +96,6 @@ const Toolbar = styled.div<StyledProps>`
 
     ${({ theme }) => theme.breakpoint.tablet`
         position: relative;
-        margin: -25px -30px 50px;
         width: auto;
         border-width: 1px 0;
         display: flex;
@@ -116,7 +117,7 @@ const Toolbar = styled.div<StyledProps>`
                 border-right: 1px solid ${Theme.colors.neutral.bright};
                 right: 0;
             }
-            &:not([data-active=true].save-practice-button) span {
+            &:not(.save-practice-button.is-saved) span {
                 color: ${Theme.colors.neutral.std};
             }
             span {
@@ -131,8 +132,6 @@ const Toolbar = styled.div<StyledProps>`
     `}
 
     ${({ theme }) => theme.breakpoint.mobile`
-        margin: -8px -8px 20px;
-
         button, a {
             span {
                 min-width: initial;

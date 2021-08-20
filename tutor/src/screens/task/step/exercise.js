@@ -48,15 +48,15 @@ const Preamble = ({ isHidden, content }) => {
         <React.Fragment>
 
             {content.context &&
-        <H className="exercise-context"
+        <H className="step-card-body exercise-context"
             block html={content.context} />}
 
             {content.stimulus_html &&
-        <H className="exercise-stimulus"
+        <H className="step-card-body exercise-stimulus"
             block html={content.stimulus_html} />}
 
             {content.stem_html &&
-        <H className="exercise-stem"
+        <H className="step-card-body exercise-stem"
             block html={content.stem_html} />}
 
         </React.Fragment>
@@ -128,6 +128,7 @@ export default class ExerciseTaskStep extends React.Component {
                             interactive={step.isInteractive}
                         />
                     }
+                    unpadded
                 >
                     <StepToolbar
                         course={ux.course}
