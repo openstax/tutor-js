@@ -134,7 +134,7 @@ export class StudentTaskStep extends BaseModel {
     get task() { return getParentOf<StudentTask>(this) }
 
     @computed get detailedSolution() {
-        return this.solution.content_html;
+        return this.solution?.content_html;
     }
 
     @computed get canAnnotate() {
@@ -319,6 +319,7 @@ export class StudentTaskStep extends BaseModel {
         this.correct_answer_id = NEW_ID;
         if (this.answer_id) {
             this.incorrectAnswerId = this.answer_id;
+            this.answer_id = '';
         }
     }
 

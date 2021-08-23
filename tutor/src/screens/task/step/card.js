@@ -72,8 +72,12 @@ const StepCardHeader = styled.div`
       font-weight: normal;
   }
 
+  .separator {
+      margin: 0 1rem;
+  }
+
   .exercise-id {
-      height: 28px;
+      height: 28px; // Fix baseline issue
   }
 
   button {
@@ -295,8 +299,8 @@ const StepCard = ({
                             <StepLockIcon wasGraded={wasGraded} isClosed={isClosed}/>
                             <span>Question {questionNumber}</span>
                             <span className="num-questions">&nbsp;/ {numberOfQuestions}</span>
-                            <span className="separator">&nbsp;| </span>
-                            <span className="exercise-id">&nbsp;ID: {exerciseId}</span>
+                            <span className="separator">|</span>
+                            <span className="exercise-id">ID: {exerciseId}</span>
                         </div>
                     </div>
                     <div>

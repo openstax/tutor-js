@@ -167,8 +167,7 @@ class AnswersTable extends React.Component {
             if (focus) { additionalProps.keyControl = KEYS[keySet] != null ? KEYS[keySet][i] : undefined; }
             const answerProps = extend({}, additionalProps, questionAnswerProps);
 
-
-            if (answer.id === answer_id && feedback_html) {
+            if (answer.id === incorrectAnswerId && feedback_html) {
                 feedback.push({ index: i, html: feedback_html })
             } else if (answer.id === correct_answer_id && correct_answer_feedback_html) {
                 feedback.push({ index: i, html: correct_answer_feedback_html })
