@@ -13,6 +13,7 @@ import {
 
 interface Solution {
     content_html: String,
+    solution_type: String,
 }
 
 class TaskStepContent extends BaseModel {
