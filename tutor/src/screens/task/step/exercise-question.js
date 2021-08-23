@@ -151,7 +151,6 @@ export default class ExerciseQuestion extends React.Component {
         if (!isNil(step.published_points_without_lateness)) {
             points.unshift(step.published_points);
         }
-        console.log(points)
         return points.map((p) => ScoresHelper.formatPoints(p)).join(' / ');
     }
 

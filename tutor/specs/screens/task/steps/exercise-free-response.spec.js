@@ -128,8 +128,6 @@ describe('Exercise Free Response', () => {
 
         expect(fr).toHaveRendered('NudgeMessage');
         expect(fr.find('NudgeMessage').text()).toContain('Not sure? Here’s a hint');
-        expect(fr).toHaveRendered('AnswerButton[disabled=true]');
-        expect(fr.find('AnswerButton').text()).toEqual('Submit');
         expect(props.step.free_response).toEqual('')
 
         const updatedValue = 'a new value';

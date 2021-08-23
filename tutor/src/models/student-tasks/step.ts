@@ -11,6 +11,10 @@ import {
     ReferenceBookNode, RelatedContent, ChapterSection, Exercise, StudentTask, StudentTaskStepGroup, currentMedia,
 } from '../../models';
 
+interface Solution {
+    content_html: String,
+}
+
 class TaskStepContent extends BaseModel {
     update(data: any) {
         Object.assign(this, data);
@@ -113,7 +117,7 @@ export class StudentTaskStep extends BaseModel {
     @field exercise_id:ID = NEW_ID
     @field attempts_remaining = 0;
     @field attempt_number = 0;
-    @field solution: any = {};
+    @field solution?: Solution;
 
     @observable content?: any
     @observable isFetched = false

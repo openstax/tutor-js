@@ -54,10 +54,6 @@ const StepCardHeader = styled.div`
   div {
     display: flex;
     align-items: center;
-
-    // svg:last-child, div:last-child {
-    //   margin-left: 15px;
-    // }
   }
 
   div.question-info {
@@ -72,12 +68,15 @@ const StepCardHeader = styled.div`
       display: none;
   }
 
-  .exercise-id {
+  .exercise-id, .separator {
       font-weight: normal;
   }
 
+  .exercise-id {
+      height: 28px;
+  }
+
   button {
-    // margin-top: 3px;
     color: ${colors.neutral.gray};
   }
 
@@ -106,7 +105,6 @@ const StepCardHeader = styled.div`
     ${({ theme }) => theme.breakpoint.tablet`
         font-size: 1.6rem;
         line-height: 2.5rem;
-        // padding: 14px 26px 14px 8px;
 
         svg.ox-icon {
             display: inherit;
@@ -145,15 +143,6 @@ const StepCardHeader = styled.div`
       button.ox-icon-angle-left {
           margin-right: ${breakpoint.margins.mobile};
       }
-
-      // svg:last-child, div:last-child {
-      //   margin: 0;
-      //   margin-left: 9px;
-
-      //   &.ox-icon-angle-left {
-      //       margin-left: 0;
-      //   }
-      // }
   `}
 `;
 
@@ -206,9 +195,6 @@ export const StepCardFooter = styled.div`
                 margin: 0 0 0 0.8rem;
             }
         }
-    `}
-
-    ${breakpoint.tablet`
     `}
 `;
 
@@ -307,9 +293,10 @@ const StepCard = ({
                         }
                         <div className="question-info">
                             <StepLockIcon wasGraded={wasGraded} isClosed={isClosed}/>
-                            Question {questionNumber}
+                            <span>Question {questionNumber}</span>
                             <span className="num-questions">&nbsp;/ {numberOfQuestions}</span>
-                            <span className="exercise-id">&nbsp;| ID: {exerciseId}</span>
+                            <span className="separator">&nbsp;| </span>
+                            <span className="exercise-id">&nbsp;ID: {exerciseId}</span>
                         </div>
                     </div>
                     <div>

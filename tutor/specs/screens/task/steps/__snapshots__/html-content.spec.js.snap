@@ -25,6 +25,25 @@ exports[`Html Content Tasks Screen matches snapshot 1`] = `
   padding: 2rem;
 }
 
+.c4 {
+  --step-card-padding-top: 48px;
+  --step-card-padding-side: 140px;
+}
+
+.c4 .step-card-body {
+  padding: var(--step-card-padding-top) var(--step-card-padding-side);
+}
+
+.c4 + div .step-card-body {
+  padding-top: 0;
+}
+
+.c4.exercise-context,
+.c4.exercise-stimulus,
+.c4.exercise-stem {
+  padding-bottom: 0;
+}
+
 .reading-step .c3 {
   padding: 0;
 }
@@ -66,19 +85,19 @@ exports[`Html Content Tasks Screen matches snapshot 1`] = `
 
 @media (min-width:601px) and (max-width:999px) {
   .c4 {
-    padding: 25px 30px 140px;
+    --step-card-padding-top: 24px;
+    --step-card-padding-side: 24px;
   }
 }
 
 @media (max-width:600px) {
   .c4 {
-    padding: 10px 25px 20px;
+    --step-card-padding-top: calc(8px * 2);
+    --step-card-padding-side: 8px;
   }
+}
 
-  .exercise-step .c3 {
-    padding: 8px;
-  }
-
+@media (max-width:600px) {
   .c4.c4 .question-feedback {
     margin-left: 0;
   }
