@@ -11,6 +11,11 @@ import {
     ReferenceBookNode, RelatedContent, ChapterSection, Exercise, StudentTask, StudentTaskStepGroup, currentMedia,
 } from '../../models';
 
+interface Solution {
+    content_html: String,
+    solution_type: String,
+}
+
 class TaskStepContent extends BaseModel {
     update(data: any) {
         Object.assign(this, data);
@@ -113,6 +118,7 @@ export class StudentTaskStep extends BaseModel {
     @field exercise_id:ID = NEW_ID
     @field attempts_remaining = 0;
     @field attempt_number = 0;
+    @field solution?: Solution;
 
     @observable content?: any
     @observable isFetched = false
@@ -127,6 +133,10 @@ export class StudentTaskStep extends BaseModel {
     }
 
     get task() { return getParentOf<StudentTask>(this) }
+
+    @computed get detailedSolution() {
+        return this.solution?.content_html;
+    }
 
     @computed get canAnnotate() {
         return this.isReading;
@@ -310,6 +320,7 @@ export class StudentTaskStep extends BaseModel {
         this.correct_answer_id = NEW_ID;
         if (this.answer_id) {
             this.incorrectAnswerId = this.answer_id;
+            this.answer_id = '';
         }
     }
 

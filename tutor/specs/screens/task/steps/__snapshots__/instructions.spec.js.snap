@@ -626,7 +626,7 @@ exports[`Instructions renders the assignment instructions for feedback when publ
               onClick={[MockFunction]}
               type="button"
             >
-              Start
+              Review
             </button>
           </div>
         </div>
@@ -953,7 +953,7 @@ exports[`Instructions renders the assignment instructions for immediate feedback
               onClick={[MockFunction]}
               type="button"
             >
-              Start
+              Review
             </button>
           </div>
         </div>

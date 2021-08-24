@@ -6,11 +6,13 @@ import { Button } from 'react-bootstrap';
 import { Course, StudentTaskStep, ResponseValidation } from '../../../models';
 import Question from 'shared/model/exercise/question';
 import TaskUX from '../ux';
-import { WRQStatus, PointsAndFeedback } from './wrq-status';
+import { WRQStatus } from './wrq-status';
 import QuestionStem from './question-stem';
-import { colors, breakpoint } from '../../../theme';
+import { colors } from '../../../theme';
 import { ResponseValidationUX } from '../response-validation-ux';
 import { NudgeMessages, NudgeMessage } from './nudge-message';
+import { StepCardFooter } from './card';
+import ScoresHelper from '../../../helpers/scores';
 
 const StyledFreeResponse = styled.div`
   display: flex;
@@ -38,17 +40,6 @@ const InfoRow = styled.div`
   color: ${colors.neutral.thin};
 `;
 
-const ControlsRow = styled.div`
-  margin: 24px 0;
-  display: flex;
-  justify-content: ${props => props.isDisplayingNudge ? 'space-between' : 'flex-end'};
-  align-items: center;
-
-  ${props => props.isDisplayingNudge && breakpoint.only.mobile`
-    display: block;
-  `}
-`;
-
 const TextArea = styled.textarea`
   width: 100%;
   min-height: 10.5em;
@@ -65,41 +56,19 @@ const TextArea = styled.textarea`
 `;
 TextArea.displayName = 'TextArea';
 
-const ControlButtons = styled.div`
-${breakpoint.only.mobile`
-    float: right;
-    margin-top: 20px;
-  `}
-`;
-ControlButtons.displayName = 'ControlButtons';
-
-const AnswerButton = styled(Button)`
-  margin: 0;
-  min-width: 12rem;
-  height: 5rem;
-
-
-`;
-AnswerButton.displayName = 'AnswerButton';
-
-const StyledRevertButton = styled(Button)`
-  min-width: 10rem;
-  margin-right: 2rem;
-  height: 5rem;
-`;
 const RevertButton = observer(({ ux }) => {
     if (!ux.textHasChanged || !ux.canRevert) {
         return null;
     }
 
     return (
-        <StyledRevertButton
+        <Button
             variant="secondary"
             disabled={!ux.textHasChanged}
             onClick={ux.cancelWRQResubmit}
         >
             Cancel
-        </StyledRevertButton>
+        </Button>
     );
 
 });
@@ -116,7 +85,6 @@ class FreeResponseReview extends React.Component {
         return (
             <>
                 <div className="free-response">{step.free_response}</div>
-                <PointsAndFeedback step={step} />
             </>
         );
     }
@@ -159,45 +127,50 @@ class FreeResponseInput extends React.Component {
             <StyledFreeResponse
                 data-test-id="student-free-response"
             >
-                <QuestionStem
-                    questionNumber={questionNumber}
-                    question={question}
-                />
-                <TextArea
-                    value={ux.response}
-                    onChange={ux.setResponse}
-                    data-test-id="free-response-box"
-                    placeholder="Enter your response..."
-                    isErrored={ux.displayNudgeError}
-                    showWarning={ux.isOverWordLimit}
-                    aria-label="question response text box"
-                    readOnly={ux.taskUX.isReadOnly}
-                />
-                <InfoRow hasSubmitted={!!ux.lastSubmitted}>
-                    {ux.lastSubmitted && <span>Last submitted on {moment(ux.lastSubmitted).format('MMM DD [at] hh:mm A')}</span>}
+                <div className="step-card-body">
+                    <QuestionStem
+                        questionNumber={questionNumber}
+                        question={question}
+                    />
+                    <TextArea
+                        value={ux.response}
+                        onChange={ux.setResponse}
+                        data-test-id="free-response-box"
+                        placeholder="Enter your response..."
+                        isErrored={ux.displayNudgeError}
+                        showWarning={ux.isOverWordLimit}
+                        aria-label="question response text box"
+                        readOnly={ux.taskUX.isReadOnly}
+                    />
+                    <InfoRow hasSubmitted={!!ux.lastSubmitted}>
+                        <div>
+                            {ux.lastSubmitted && <span>Last submitted on {moment(ux.lastSubmitted).format('MMM DD [at] hh:mm A')}</span>}
+                            {ux.isDisplayingNudge && <NudgeMessage course={course} step={step} ux={ux} />}
+                        </div>
 
-                    <span>{ux.responseWords} words</span>
-                    {ux.isOverWordLimit && <span className="word-limit-error-info">Maximum {ux.wordLimit} words</span>}
-
-                </InfoRow>
-                <ControlsRow isDisplayingNudge={ux.isDisplayingNudge}>
-                    {ux.isDisplayingNudge && (
-                        <NudgeMessage course={course} step={step} ux={ux} />
-                    )}
-                    <PointsAndFeedback step={step} />
-                    <ControlButtons>
+                        <div>
+                            <span>{ux.responseWords} words</span>
+                            {ux.isOverWordLimit && <span className="word-limit-error-info">Maximum {ux.wordLimit} words</span>}
+                        </div>
+                    </InfoRow>
+                </div>
+                <StepCardFooter isDisplayingNudge={ux.isDisplayingNudge}>
+                    <div className="points">
+                        <strong>Points: {ScoresHelper.formatPoints(step.available_points)}</strong>
+                        <WRQStatus step={step} />
+                    </div>
+                    <div className="controls">
                         <RevertButton size="lg" ux={ux} />
-                        <AnswerButton
+                        <Button
                             size="lg"
                             data-test-id="submit-answer-btn"
                             disabled={ux.isSubmitDisabled}
                             onClick={this.onSave}
                         >
                             {ux.submitBtnLabel}
-                        </AnswerButton>
-                    </ControlButtons>
-                </ControlsRow>
-                <WRQStatus step={step} />
+                        </Button>
+                    </div>
+                </StepCardFooter>
             </StyledFreeResponse>
         );
     }

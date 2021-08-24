@@ -19,8 +19,8 @@ export default class PlaceHolderTaskStep extends React.Component {
             <StepCard>
                 <h1>This step is unavailable</h1>
                 <h3>
-          Unlock this personalized question by
-          answering more problems for this assignment.
+                    Unlock this personalized question by
+                    answering more problems for this assignment.
                 </h3>
                 <ContinueBtn ux={ux} />
             </StepCard>

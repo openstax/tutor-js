@@ -62,4 +62,48 @@ describe('Exercise Free Response', () => {
         eq.unmount();
     });
 
+    it('renders possible points', async () => {
+        props.step.published_points_without_lateness = null;
+        props.step.available_points = 2.0
+
+        const eq = mount(<C><ExerciseQuestion {...props} /></C>);
+        expect(eq.text()).toMatch('Points: 2.0');
+        eq.unmount();
+    });
+
+    it('renders graded points', async () => {
+        const { step } = props;
+        step.can_be_updated = false;
+        step.published_points_without_lateness = 1.0;
+        step.published_points = 1.0;
+        step.available_points = 2.0;
+
+        const eq = mount(<C><ExerciseQuestion {...props} /></C>);
+        expect(eq.text()).toMatch('Points: 1.0 / 2.0');
+        eq.unmount();
+    });
+
+    it('renders detailed solution for free response', async () => {
+        const solutionText = 'Some detailed solution text';
+        const { step } = props;
+
+        step.can_be_updated = false;
+        step.content = { isOpenEnded: true };
+        step.solution = { content_html: solutionText };
+
+        const eq = mount(<C><ExerciseQuestion {...props} /></C>);
+        expect(eq.find('.points').text()).toMatch (`Detailed solution: ${solutionText}`);
+        eq.unmount();
+    });
+
+    it('renders grading feedback/comments', async () => {
+        const comments = 'Grading comments about the assignment.';
+        const { step } = props;
+        step.can_be_updated = false;
+        step.published_comments = comments;
+
+        const eq = mount(<C><ExerciseQuestion {...props} /></C>);
+        expect(eq.find('.points').text()).toMatch (`Feedback: ${comments}`);
+        eq.unmount();
+    });
 });

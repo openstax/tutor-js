@@ -48,6 +48,7 @@ exports[`Tasks External URL Screen matches snapshot 1`] = `
               "published_points": null,
               "published_points_without_lateness": null,
               "response_validation": Object {},
+              "solution": undefined,
               "spy": Object {},
               "tasked_id": 0,
               "type": "external_url",

@@ -2,6 +2,7 @@ import { React, styled, PropTypes, css, observer, cn } from 'vendor';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { colors } from 'theme';
 import { Icon } from 'shared';
+import { runInAction } from 'shared/model';
 
 const StyledSavePracticeButton = styled.button`
     border: 1px solid ${colors.cerulan};
@@ -81,7 +82,7 @@ const SavePracticeButton = observer(({
             practiceQuestion.destroy();
         }
         else {
-            practiceQuestions.create(taskStep.tasked_id);
+            runInAction(() => practiceQuestions.create(taskStep.tasked_id));
         }
     };
 
