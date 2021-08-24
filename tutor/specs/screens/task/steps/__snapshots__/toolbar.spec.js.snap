@@ -24,7 +24,7 @@ exports[`Task Step Toolbar matches snapshot 1`] = `
                                         <Navbar area=\\"header\\" context={{...}} isDocked={false} />
                                         <StepToolbar course={{...}} step={{...}}>
                                           <styled.div>
-                                            <div className=\\"sc-dkPtyc iRaeA-D\\">
+                                            <div className=\\"sc-dkPtyc gjgZbv\\">
                                               <BrowseTheBook unstyled={true} course={{...}} chapterSection={{...}} tag=\\"a\\" windowImpl={{...}}>
                                                 <a data-test-id=\\"browse-the-book-btn\\" aria-label=\\"Browse course reference book\\" onClick={[Function: onClick] { isMobxAction: true }} href=\\"/book/2/section/1.2\\" target=\\"_blank\\" className=\\"browse-the-book\\">
                                                   <Icon type=\\"book-open\\" buttonProps={{...}} tooltipProps={{...}}>
@@ -42,7 +42,7 @@ exports[`Task Step Toolbar matches snapshot 1`] = `
                                                 </a>
                                               </BrowseTheBook>
                                               <ExerciseSuggestCorrectionLink exerciseId=\\"1@1\\" bookUUID=\\"8d04a686-d5e8-4798-a27d-c608e4d0e187\\" related_content={{...}}>
-                                                <a target=\\"_blank\\" tabIndex={-1} href=\\"https://openstax.org/errata/form?source=tutor&location=1%401%201.2%20Newton%27s%20First%20Law%20of%20Motion%3A%20Inertia&book=The%20AP%20Physics%20Collection\\">
+                                                <a target=\\"_blank\\" href=\\"https://openstax.org/errata/form?source=tutor&location=1%401%201.2%20Newton%27s%20First%20Law%20of%20Motion%3A%20Inertia&book=The%20AP%20Physics%20Collection\\" tabindex=\\"0\\" aria-label=\\"Suggest a correction\\">
                                                   <Icon type=\\"exclamation-circle\\" buttonProps={{...}} tooltipProps={{...}}>
                                                     <IconWrapper data-variant={[undefined]} color={[undefined]} hoverColor={[undefined]} className=\\"ox-icon ox-icon-exclamation-circle\\" icon={{...}}>
                                                       <FontAwesomeIcon data-variant={[undefined]} color={[undefined]} className=\\"IconWrapper-ra27cp-0 dbDpez ox-icon ox-icon-exclamation-circle\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}} swapOpacity={false}>
