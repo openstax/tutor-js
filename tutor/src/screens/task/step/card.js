@@ -1,4 +1,4 @@
-import { React, PropTypes, cn, observer, styled, css } from 'vendor';
+import { React, PropTypes, cn, observer, styled } from 'vendor';
 import { colors, breakpoint } from 'theme';
 import { SpyInfo } from './spy-info';
 import { Icon } from 'shared';
@@ -169,7 +169,6 @@ export const StepCardFooter = styled.div`
     }
 
     .points {
-        max-width: 400px;
         margin-bottom: 1.6rem; // Replace with https://caniuse.com/?search=gap soon
 
         .attempts-left {
@@ -190,6 +189,10 @@ export const StepCardFooter = styled.div`
     ${breakpoint.desktop`
         padding: 32px var(--step-card-padding-side);
         flex-wrap: nowrap;
+
+        .points {
+            max-width: 400px;
+        }
 
         .controls {
             flex-flow: row;
@@ -368,7 +371,7 @@ const TaskStepCard = observer(({
             isClosed={step.task.isAssignmentClosed}
             data-task-step-id={step.id}
             availablePoints={step.available_points}
-            className={cn(`${step.type}-step`)}
+            className={cn(`${step.type}-step`, className)}
             exerciseId={step.uid}
         >
             {children}

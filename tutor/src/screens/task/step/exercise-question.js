@@ -9,19 +9,13 @@ import { Question, AsyncButton } from 'shared';
 import { StudentTaskStep } from '../../../models';
 import QuestionModel from 'shared/model/exercise/question';
 import { FreeResponseInput, FreeResponseReview } from './exercise-free-response';
-import { breakpoint, colors } from 'theme';
 import ScoresHelper from '../../../helpers/scores';
 import { StepCardFooter } from './card';
-import { PointsAndFeedback } from './wrq-status';
 import { isNil } from 'lodash';
 
 const StyledExerciseQuestion = styled.div`
   font-size: 2rem;
   line-height: 3.5rem;
-
-  .question-body {
-      margin-left: 2rem; // TODO: Still needed? Something for iframes?
-  }
 
   .openstax-answer {
     border-top: 1px solid #d5d5d5;

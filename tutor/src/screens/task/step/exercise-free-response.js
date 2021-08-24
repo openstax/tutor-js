@@ -8,7 +8,7 @@ import Question from 'shared/model/exercise/question';
 import TaskUX from '../ux';
 import { WRQStatus } from './wrq-status';
 import QuestionStem from './question-stem';
-import { colors, breakpoint } from '../../../theme';
+import { colors } from '../../../theme';
 import { ResponseValidationUX } from '../response-validation-ux';
 import { NudgeMessages, NudgeMessage } from './nudge-message';
 import { StepCardFooter } from './card';
@@ -38,17 +38,6 @@ const InfoRow = styled.div`
     }
   };
   color: ${colors.neutral.thin};
-`;
-
-const ControlsRow = styled.div`
-  margin: 24px 0;
-  display: flex;
-  justify-content: ${props => props.isDisplayingNudge ? 'space-between' : 'flex-end'};
-  align-items: center;
-
-  ${props => props.isDisplayingNudge && breakpoint.only.mobile`
-    display: block;
-  `}
 `;
 
 const TextArea = styled.textarea`
