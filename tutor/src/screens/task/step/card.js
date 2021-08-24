@@ -64,7 +64,7 @@ const StepCardHeader = styled.div`
     }
   }
 
-  .num-questions, .points {
+  .num-questions, .points, .separator {
       display: none;
   }
 
@@ -98,6 +98,9 @@ const StepCardHeader = styled.div`
   ${breakpoint.desktop`
       button.ox-icon-angle-left, button.ox-icon-angle-right {
           display: none;
+      }
+      .separator {
+          display: inherit;
       }
   `}
 

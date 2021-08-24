@@ -60,7 +60,6 @@ const StyledHeadingTitle = styled.div`
   */
   ${({ theme }) => theme.breakpoint.tablet`
     justify-content: space-between;
-    padding: 0 10px 0 0;
 
     .title-info {
       .title-divider, .title-due-date {

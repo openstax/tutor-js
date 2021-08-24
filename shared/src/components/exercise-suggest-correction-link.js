@@ -46,9 +46,11 @@ class ExerciseSuggestCorrectionLink extends React.Component {
             },
         ));
 
+        const label = 'Suggest a correction';
+
         return (
-            <a target="_blank" tabIndex={-1} href={url}>
-                {this.props.children || 'Suggest a correction'}
+            <a target="_blank" href={url} tabindex="0" aria-label={label}>
+                {this.props.children || label}
             </a>
         );
     }

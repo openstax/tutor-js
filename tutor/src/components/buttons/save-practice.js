@@ -26,7 +26,7 @@ const StyledSavePracticeButton = styled.button`
     }
 `;
 
-const getIconAndLabel = (isSaved, isSavingOrRemoving) => {
+const getIconAndLabel = (isSaved, isSavingOrRemoving, label) => {
     if (isSavingOrRemoving) {
         return (
             <>
@@ -39,26 +39,16 @@ const getIconAndLabel = (isSaved, isSavingOrRemoving) => {
             </>
         );
     }
-    if (isSaved) {
-        return (
-            <>
-                <Icon
-                    type="star"
-                    color="white"
-                    className="save-practice-icon"
-                />
-                <span>Remove from practice</span>
-            </>
-        );
-    }
 
     return (
         <>
             <Icon
                 type="star"
-                color={colors.cerulan}
-                className="save-practice-icon"/>
-            <span>Save to practice</span>
+                color={isSaved ? 'white' : colors.cerulan}
+                className="save-practice-icon"
+                aria-label={label}
+            />
+            <span>{label}</span>
         </>
     );
 };
@@ -99,6 +89,8 @@ const SavePracticeButton = observer(({
     };
 
     const savePracticeButton = () => {
+        const label = `${isSaved() ? 'Save to' : 'Remove from'} practice`;
+
         if (disabled) {
             return (
                 <StyledSavePracticeButton
@@ -118,8 +110,9 @@ const SavePracticeButton = observer(({
                 disabled={practiceQuestions.isAnyPending}
                 className={cn('save-practice-button', { 'is-saving': practiceQuestions.isAnyPending, 'is-saved': isSaved() })}
                 data-test-id="save-practice-button"
+                aria-label={label}
             >
-                {getIconAndLabel(isSaved(), practiceQuestions.isAnyPending)}
+                {getIconAndLabel(isSaved(), practiceQuestions.isAnyPending, label)}
             </StyledSavePracticeButton>
         );
     };

@@ -26,6 +26,10 @@ const Toolbar = styled.div<StyledProps>`
         border-radius: 0;
         position: relative;
 
+        &:focus {
+            outline: 2px solid ${Theme.colors.forms.borders.focus};
+        }
+
         &:nth-child(2):before, &:nth-child(2):after, &:nth-child(3):after {
             content: '';
             position: absolute;
