@@ -131,7 +131,7 @@ export default class ExerciseQuestion extends React.Component {
         );
     }
 
-    renderMultipleAttempts(step) {
+    renderAttemptsRemaining(step) {
         const word = 'attempt';
         const count = step.attempts_remaining;
 
@@ -196,7 +196,7 @@ export default class ExerciseQuestion extends React.Component {
                     <div className="points">
                         <strong>Points: {this.renderPoints(step)}</strong>
                         <span className="attempts-left">
-                            {ux.hasMultipleAttempts && ux.task.attempts_remaining > 0 && this.renderMultipleAttempts(step)}
+                            {ux.showAttemptsRemaining && this.renderAttemptsRemaining(step)}
                         </span>
                         {this.renderFeedback(step)}
                         {step.detailedSolution && (<div><strong>Detailed solution:</strong> <HTML html={step.detailedSolution} /></div>)}

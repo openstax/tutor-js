@@ -64,6 +64,10 @@ export default class TaskUX {
         );
     }
 
+    @computed get showAttemptsRemaining() {
+        return this.hasMultipleAttempts && this.currentStep.attempts_remaining > 0;
+    }
+
     @lazyGetter get scroller() { return new ScrollTo({ windowImpl: this.window }) }
     @lazyGetter get pageContentUX() { return new PageContentUX({ main: this }) }
 
