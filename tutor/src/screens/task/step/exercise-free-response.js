@@ -27,6 +27,7 @@ const InfoRow = styled.div`
   margin: 8px 0;
   display: flex;
   justify-content: ${props => props.hasSubmitted ? 'space-between' : 'flex-end'};
+  line-height: 1.6rem;
   .word-limit-error-info {
     color: ${colors.danger};
   }
@@ -41,6 +42,7 @@ const InfoRow = styled.div`
 `;
 
 const TextArea = styled.textarea`
+  display: block;
   width: 100%;
   min-height: 10.5em;
   line-height: 1.5em;
