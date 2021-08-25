@@ -194,7 +194,9 @@ export default class ExerciseQuestion extends React.Component {
                 <StepCardFooter>
                     <div className="points">
                         <strong>Points: {this.renderPoints(step)}</strong>
-                        <span className="attempts-left">{ux.hasMultipleAttempts && this.renderMultipleAttempts(step)}</span>
+                        <span className="attempts-left">
+                            {ux.hasMultipleAttempts && ux.task.attempts_remaining > 0 && this.renderMultipleAttempts(step)}
+                        </span>
                         {this.renderFeedback(step)}
                         {step.detailedSolution && (<div><strong>Detailed solution:</strong> {step.detailedSolution}</div>)}
                     </div>
