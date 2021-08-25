@@ -43,7 +43,9 @@ export default class TaskUX {
         }
 
 
-        this.markIncorrectAttempt();
+        if (this.hasMultipleAttempts) {
+            this.markIncorrectAttempt();
+        }
     }
 
     @computed get canSaveToPractice() {
@@ -296,7 +298,9 @@ export default class TaskUX {
                 );
             }
         }
-        this.markIncorrectAttempt();
+        if (this.hasMultipleAttempts) {
+            this.markIncorrectAttempt();
+        }
     }
 
     async scrollToCurrentStep(immediate) {

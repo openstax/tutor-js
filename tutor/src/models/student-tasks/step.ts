@@ -314,6 +314,7 @@ export class StudentTaskStep extends BaseModel {
     }
 
     @action markIncorrectAttempt() {
+        if (!this.task.allow_auto_graded_multiple_attempts) { return; }
         // Set state to allow the choices to be reselectable, but track
         // which choice was incorrect so it can be reflected in the UI
         this.is_completed = false;
