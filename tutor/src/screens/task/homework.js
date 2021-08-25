@@ -1,5 +1,5 @@
 import {
-    React, PropTypes, styled, observer,
+    React, PropTypes, observer,
 } from 'vendor';
 import UX from './ux';
 import ExerciseTaskHeader from './exercise-task-header';
