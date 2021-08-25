@@ -196,7 +196,7 @@ export default class ExerciseQuestion extends React.Component {
                         <strong>Points: {this.renderPoints(step)}</strong>
                         <span className="attempts-left">{ux.hasMultipleAttempts && this.renderMultipleAttempts(step)}</span>
                         {this.renderFeedback(step)}
-                        {step.isOpenEndedExercise && step.detailedSolution && (<div><strong>Detailed solution:</strong> {step.detailedSolution}</div>)}
+                        {step.detailedSolution && (<div><strong>Detailed solution:</strong> {step.detailedSolution}</div>)}
                     </div>
                     <div className="controls">
                         {step.canAnswer && this.needsSaved ?
