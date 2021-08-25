@@ -55,7 +55,7 @@ const getIconAndLabel = (isSaved, isSavingOrRemoving, label) => {
 
 const mpqTooltip = (
     <Tooltip id="mpq-practice-question-tooltip">
-      All parts get saved in a multi-part question.
+        All parts get saved in a multi-part question.
     </Tooltip>
 );
 
@@ -89,7 +89,7 @@ const SavePracticeButton = observer(({
     };
 
     const savePracticeButton = () => {
-        const label = `${isSaved() ? 'Save to' : 'Remove from'} practice`;
+        const label = `${isSaved() ? 'Remove from' : 'Save to'} practice`;
 
         if (disabled) {
             return (
