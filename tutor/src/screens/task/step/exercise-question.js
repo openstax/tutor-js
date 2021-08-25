@@ -12,6 +12,7 @@ import { FreeResponseInput, FreeResponseReview } from './exercise-free-response'
 import ScoresHelper from '../../../helpers/scores';
 import { StepCardFooter } from './card';
 import { isNil } from 'lodash';
+import { ArbitraryHtmlAndMath as HTML } from 'shared';
 
 const StyledExerciseQuestion = styled.div`
   font-size: 2rem;
@@ -198,7 +199,7 @@ export default class ExerciseQuestion extends React.Component {
                             {ux.hasMultipleAttempts && ux.task.attempts_remaining > 0 && this.renderMultipleAttempts(step)}
                         </span>
                         {this.renderFeedback(step)}
-                        {step.detailedSolution && (<div><strong>Detailed solution:</strong> {step.detailedSolution}</div>)}
+                        {step.detailedSolution && (<div><strong>Detailed solution:</strong> <HTML html={step.detailedSolution} /></div>)}
                     </div>
                     <div className="controls">
                         {step.canAnswer && this.needsSaved ?
