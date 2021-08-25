@@ -54,8 +54,8 @@ describe('Reading Tasks Screen', () => {
             })
             const h = mount(<C><Homework {...props} /></C>);
             expect(h).toHaveRendered('Instructions');
-            expect(h.find('AssignmentClosedBanner').isEmptyRender()).toBe(true);
             props.ux.goForward();
+            expect(h).not.toHaveRendered('StepLockIcon');
             expect(h).toHaveRendered('IndividualReview');
             runInAction(() => {
                 props.ux.isLocked = false;
@@ -78,12 +78,6 @@ describe('Reading Tasks Screen', () => {
   
         it('matches snapshot', () => {
             expect(<C><Homework {...props} /></C>).toMatchSnapshot();
-        });
-
-        it('renders assignment closed banner', () => {
-            const h = mount(<C><Homework {...props} /></C>);
-            expect(h.find('AssignmentClosedBanner').isEmptyRender()).toBe(false);
-            h.unmount();
         });
     })
 });

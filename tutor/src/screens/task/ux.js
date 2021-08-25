@@ -43,7 +43,9 @@ export default class TaskUX {
         }
 
 
-        this.markIncorrectAttempt();
+        if (this.hasMultipleAttempts) {
+            this.markIncorrectAttempt();
+        }
     }
 
     @computed get canSaveToPractice() {
@@ -60,6 +62,10 @@ export default class TaskUX {
             this.task.allow_auto_graded_multiple_attempts &&
                 this.task.isHomework
         );
+    }
+
+    @computed get showAttemptsRemaining() {
+        return this.hasMultipleAttempts && this.currentStep.attempts_remaining > 0;
     }
 
     @lazyGetter get scroller() { return new ScrollTo({ windowImpl: this.window }) }
@@ -296,7 +302,9 @@ export default class TaskUX {
                 );
             }
         }
-        this.markIncorrectAttempt();
+        if (this.hasMultipleAttempts) {
+            this.markIncorrectAttempt();
+        }
     }
 
     async scrollToCurrentStep(immediate) {

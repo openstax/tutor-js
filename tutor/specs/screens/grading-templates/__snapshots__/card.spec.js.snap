@@ -122,6 +122,24 @@ exports[`Grading Templates Card matches snapshot for homework 1`] = `
         <h4
           className="c2"
         >
+          ALLOW MULTIPLE-ATTEMPTS
+        </h4>
+        <div
+          className="c3"
+        >
+          For auto-graded questions
+        </div>
+        <div
+          className="c4"
+        >
+          No
+        </div>
+        <div
+          className="c5"
+        />
+        <h4
+          className="c2"
+        >
           LATE WORK POLICY
         </h4>
         <div
@@ -342,6 +360,24 @@ exports[`Grading Templates Card matches snapshot for reading 1`] = `
         >
           83%
            of question’s point value
+        </div>
+        <div
+          className="c6"
+        />
+        <h4
+          className="c3"
+        >
+          ALLOW MULTIPLE-ATTEMPTS
+        </h4>
+        <div
+          className="c4"
+        >
+          For auto-graded questions
+        </div>
+        <div
+          className="c5"
+        >
+          No
         </div>
         <div
           className="c6"

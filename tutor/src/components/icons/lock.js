@@ -51,7 +51,7 @@ const StepLockIcon = ({ className, wasGraded, isClosed, inline = false }) => {
                 },
             }}
         >
-            <LockIconWrapper inline={inline}>
+            <LockIconWrapper inline={inline} aria-label={msg}>
                 <LockIcon className={className} />
             </LockIconWrapper>
         </OverlayTrigger>

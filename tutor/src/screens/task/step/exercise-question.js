@@ -12,6 +12,7 @@ import { FreeResponseInput, FreeResponseReview } from './exercise-free-response'
 import ScoresHelper from '../../../helpers/scores';
 import { StepCardFooter } from './card';
 import { isNil } from 'lodash';
+import { ArbitraryHtmlAndMath as HTML } from 'shared';
 
 const StyledExerciseQuestion = styled.div`
   font-size: 2rem;
@@ -130,7 +131,7 @@ export default class ExerciseQuestion extends React.Component {
         );
     }
 
-    renderMultipleAttempts(step) {
+    renderAttemptsRemaining(step) {
         const word = 'attempt';
         const count = step.attempts_remaining;
 
@@ -194,9 +195,11 @@ export default class ExerciseQuestion extends React.Component {
                 <StepCardFooter>
                     <div className="points">
                         <strong>Points: {this.renderPoints(step)}</strong>
-                        <span className="attempts-left">{ux.hasMultipleAttempts && this.renderMultipleAttempts(step)}</span>
+                        <span className="attempts-left">
+                            {ux.showAttemptsRemaining && this.renderAttemptsRemaining(step)}
+                        </span>
                         {this.renderFeedback(step)}
-                        {step.isOpenEndedExercise && step.detailedSolution && (<div><strong>Detailed solution:</strong> {step.detailedSolution}</div>)}
+                        {step.detailedSolution && (<div><strong>Detailed solution:</strong> <HTML html={step.detailedSolution} /></div>)}
                     </div>
                     <div className="controls">
                         {step.canAnswer && this.needsSaved ?
