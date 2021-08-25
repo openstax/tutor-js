@@ -120,7 +120,9 @@ const BADGES = {
 const Badge = ({ el, tooltip, isTeacher }) => {
     if (!tooltip || isTeacher) { return el(isTeacher); }
     return (
-        <OverlayTrigger overlay={<Tooltip>{tooltip}</Tooltip>}>
+        <OverlayTrigger
+            placement="auto"
+            overlay={<Tooltip>{tooltip}</Tooltip>}>
             {el(isTeacher)}
         </OverlayTrigger>
     );
