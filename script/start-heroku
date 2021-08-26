@@ -3,8 +3,12 @@ set -e; if [ -n "$DEBUG" ]; then set -x; fi
 
 yarn serve tutor &
 
-tutor_server_dir=$(mktemp -t tutor-server.XXXXX)
-git clone git@github.com:openstax/tutor-server.git "$tutor_server_dir"
+tutor_server_dir="/var/tutor-server"
+
+if [ ! -d "$tutor_server_dir/.git" ]; then
+  rm -r "$tutor_server_dir"
+  git clone git@github.com:openstax/tutor-server.git "$tutor_server_dir"
+fi
 
 cd "$tutor_server_dir"
 
