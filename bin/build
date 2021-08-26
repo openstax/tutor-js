@@ -2,9 +2,11 @@
 
 set -e
 
-bin/checkinputs "$@"
+if [ -z "$OX_PROJECT" ]; then
+  bin/checkinputs "$@"
+fi
 
-export OX_PROJECT=$1
+export OX_PROJECT="${1:-$OX_PROJECT}"
 echo Building: $OX_PROJECT
 export NODE_ENV=production
 
