@@ -1,23 +1,26 @@
 #!/usr/bin/env bash
 set -e; if [ -n "$DEBUG" ]; then set -x; fi
 
+set -x
+
+PORT="${PORT:-80}"
 yarn global add serve
 serve -p "$PORT" tutor/dist/
 
-tutor_server_dir="/tmp/tutor-server"
+#tutor_server_dir="/tmp/tutor-server"
 
-if [ ! -d "$tutor_server_dir/.git" ]; then
-  rm -rf "$tutor_server_dir"
-  git clone https://github.com/openstax/tutor-server.git "$tutor_server_dir"
-fi
+#if [ ! -d "$tutor_server_dir/.git" ]; then
+#  rm -rf "$tutor_server_dir"
+#  git clone https://github.com/openstax/tutor-server.git "$tutor_server_dir"
+#fi
 
-cd "$tutor_server_dir"
+#cd "$tutor_server_dir"
 
-git checkout heroku-support
+#git checkout heroku-support
 
-cat
-bundle install
+#cat
+#bundle install
 
-bin/rake db:setup
-bin/rake db:demo
-bin/rails s -p 80
+#bin/rake db:setup
+#bin/rake db:demo
+#bin/rails s -p 80
