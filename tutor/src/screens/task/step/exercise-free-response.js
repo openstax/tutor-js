@@ -146,7 +146,7 @@ class FreeResponseInput extends React.Component {
                     />
                     <InfoRow hasSubmitted={!!ux.lastSubmitted}>
                         <div>
-                            {ux.lastSubmitted && <span>Last submitted on {moment(ux.lastSubmitted).format('MMM DD [at] hh:mm A')}</span>}
+                            {ux.lastSubmitted && <span>Last submitted on {ux.lastSubmitted.format('MMM DD [at] hh:mm A')}</span>}
                             {ux.isDisplayingNudge && <NudgeMessage course={course} step={step} ux={ux} />}
                         </div>
 
