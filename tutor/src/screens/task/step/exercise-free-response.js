@@ -1,5 +1,5 @@
 import {
-    React, PropTypes, observer, styled, action, css, moment,
+    React, PropTypes, observer, styled, action, css,
 } from 'vendor';
 import { modelize } from 'shared/model'
 import { Button } from 'react-bootstrap';
