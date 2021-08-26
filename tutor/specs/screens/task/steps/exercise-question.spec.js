@@ -72,9 +72,9 @@ describe('Exercise Free Response', () => {
         ux._stepId = step.id;
 
         const eq = mount(<C><ExerciseQuestion {...props} /></C>);
-        expect(eq.text()).toMatch(`1 attempt left`);
+        expect(eq.text()).toMatch('1 attempt left');
         runInAction(() => step.attempts_remaining = 0);
-        expect(eq.text()).not.toMatch(`0 attempts left`);
+        expect(eq.text()).not.toMatch('0 attempts left');
         eq.unmount();
     });
 
