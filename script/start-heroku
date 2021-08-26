@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -e; if [ -n "$DEBUG" ]; then set -x; fi
+
+yarn serve tutor &
+
+tutor_server_dir=$(mktemp -t tutor-server.XXXXX)
+git clone git@github.com:openstax/tutor-server.git "$tutor_server_dir"
+
+cd "$tutor_server_dir"
+
+git checkout heroku-support
+
+bundle install
+
+bin/rake db:setup
+bin/rake db:demo
+bin/rails s

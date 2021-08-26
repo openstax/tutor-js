@@ -1,0 +1,29 @@
+{
+  "name": "tutor",
+  "scripts": {
+  },
+  "env": {
+    "NODE_ENV": "development"
+  },
+  "formation": {
+    "tutor": {
+      "size": "hobby"
+    }
+  },
+  "addons": [
+    {
+      "plan": "heroku-postgresql"
+    },
+    {
+      "plan": "heroku-redis"
+    }
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    },
+    {
+      "url": "heroku/ruby"
+    }
+  ]
+}
