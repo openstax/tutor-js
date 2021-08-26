@@ -123,7 +123,7 @@ describe('Exercise Free Response', () => {
     });
 
     it('renders contextual submit button text', async () => {
-        const { step, ux } = props;
+        const { step } = props;
 
         step.free_response = 'test';
         step.answer_id = '1';
