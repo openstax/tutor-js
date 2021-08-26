@@ -39,8 +39,10 @@ const ConfirmTemplateModal = observer(({ onConfirm, onCancel }) => {
         Change grading template?
             </StyledHeader>
             <StyledBody>
-                <p>Changing the grading template applied to an assignment may
-        affect the existing grades and assignment dates for the class.</p>
+                <p>
+                    Changing the grading template applied to an assignment may affect the
+                    assignment dates, completion status, and existing grades for the class.
+                </p>
                 <p>Do you still wish to continue?</p>
                 <ControlsWrapper>
                     <Controls>
