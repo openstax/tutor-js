@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e; if [ -n "$DEBUG" ]; then set -x; fi
 
-yarn serve tutor &
+yarn serve tutor
 
 tutor_server_dir="/tmp/tutor-server"
 
