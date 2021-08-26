@@ -1,6 +1,6 @@
 const Factory = require('object-factory-bot');
-const moment = require('moment');
 const fake = require('faker');
+const TIme = require('../../../../shared/src/models/time')
 const { getCourse } = require('./bootstrap');
 const tasksPlansApi = require('./task-plans');
 require('../../../specs/factories/student-tasks');
@@ -45,7 +45,7 @@ module.exports = {
         const course = getCourse(req.query.course_id);
         return res.json(taskForId(req.params.id, {
             course,
-            now: moment().add(fake.random.number() + 10, 'days'),
+            now: Time.now.plus(Time.Duration.days(fake.random.number() + 10)),
         }));
     },
 

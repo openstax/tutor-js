@@ -46,8 +46,29 @@ export type TimeInputs = Time | Date | string | number | LDT
 
 export type DATE_TIME_FORMAT = keyof typeof LDT // DateTimeFormatOptions
 
+export class Duration {
+    private _value: LDuration;
+
+    constructor(config: Duration | DurationObject) {
+
+        this._value = config instanceof Duration
+            ? LDuration.fromObject(config.asConfig())
+            : LDuration.fromObject(config)
+        ;
+    }
+
+    static months(months: number) { return new Duration({ months }) }
+    static days(days: number) { return new Duration({ days }) }
+    static minutes(minutes: number) { return new Duration({ minutes }) }
+
+    asConfig() { return this._value.toObject() }
+
+    asMilliseconds() { return this._value.as('milliseconds') }
+}
 
 export default class Time {
+    static Duration = Duration;
+
     static get now() {
         return new Time(Store.now)
     }
@@ -182,26 +203,6 @@ export function findEarliest(dateThing: TimeInputs, ...dateThings: TimeInputs[])
 
 export function findLatest(dateThing: TimeInputs, ...dateThings: TimeInputs[]): Time {
     return new Time(max(compact(map(flatten([dateThing, ...dateThings]), toLDT))) as LDT)
-}
-
-export class Duration {
-    private _value: LDuration;
-
-    constructor(config: Duration | DurationObject) {
-
-        this._value = config instanceof Duration
-            ? LDuration.fromObject(config.asConfig())
-            : LDuration.fromObject(config)
-        ;
-    }
-
-    static months(months: number) { return new Duration({ months }) }
-    static days(days: number) { return new Duration({ days }) }
-    static minutes(minutes: number) { return new Duration({ minutes }) }
-
-    asConfig() { return this._value.toObject() }
-
-    asMilliseconds() { return this._value.as('milliseconds') }
 }
 
 export class Interval {
