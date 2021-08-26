@@ -3,6 +3,7 @@
   "scripts": {
   },
   "env": {
+    "OX_PROJECT": "tutor",
     "NODE_ENV": "development"
   },
   "formation": {
