@@ -5,6 +5,7 @@ set -x
 
 PORT="${PORT:-80}"
 yarn global add serve
+serve --help
 serve -p "$PORT" tutor/dist/
 
 #tutor_server_dir="/tmp/tutor-server"
