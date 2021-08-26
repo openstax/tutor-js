@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 set -e; if [ -n "$DEBUG" ]; then set -x; fi
 
-yarn serve tutor
+yarn global add serve
+serve -p "$PORT" tutor/dist/
 
 tutor_server_dir="/tmp/tutor-server"
 
