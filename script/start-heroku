@@ -14,7 +14,7 @@ cd "$tutor_server_dir"
 
 git checkout heroku-support
 
-cat /dev/stdin
+cat
 bundle install
 
 bin/rake db:setup
