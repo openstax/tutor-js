@@ -3,7 +3,7 @@ set -e; if [ -n "$DEBUG" ]; then set -x; fi
 
 yarn serve tutor &
 
-tutor_server_dir="/var/tutor-server"
+tutor_server_dir="/tmp/tutor-server"
 
 if [ ! -d "$tutor_server_dir/.git" ]; then
   rm -rf "$tutor_server_dir"
@@ -18,4 +18,4 @@ bundle install
 
 bin/rake db:setup
 bin/rake db:demo
-bin/rails s
+bin/rails s -p 80

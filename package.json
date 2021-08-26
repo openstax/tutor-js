@@ -34,7 +34,8 @@
     "lint": "./bin/lint",
     "start": "./bin/tdd",
     "generate-tutor-loading-screen": "./script/generate-tutor-boot-screen",
-    "cached-start": "CACHE=true ./bin/tdd"
+    "cached-start": "CACHE=true ./bin/tdd",
+    "heroku-postbuild": "echo Skip build on Heroku"
   },
   "repository": {
     "type": "git",
