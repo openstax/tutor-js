@@ -62,14 +62,14 @@ describe('Exercise Free Response', () => {
         eq.unmount();
     });
 
-    xit('renders attempts left', async () => {
+    it('renders attempts left', async () => {
         const { step, ux } = props;
 
-        ux.hasMultipleAttempts = true;
-        step.answer_id = 1;
+        step.free_response = 'test';
+        step.answer_id = '1';
         step.can_be_updated = true;
         step.attempts_remaining = 1;
-        ux._stepId = step.id;
+        ux.hasMultipleAttempts = true;
 
         const eq = mount(<C><ExerciseQuestion {...props} /></C>);
         expect(eq.text()).toMatch('1 attempt left');
@@ -122,17 +122,21 @@ describe('Exercise Free Response', () => {
         eq.unmount();
     });
 
-    xit('renders contextual submit button text', async () => {
-        const { step } = props;
+    it('renders contextual submit button text', async () => {
+        const { step, ux } = props;
+
+        step.free_response = 'test';
+        step.answer_id = '1';
+        step.is_completed = false;
+        step.can_be_updated = true;
+        step.attempts_remaining = 1;
+        step.attempt_number = 0;
+
         const eq = mount(<C><ExerciseQuestion {...props} /></C>);
-        props.ux.canUpdateCurrentStep = true
-        await setFreeResponse(eq, { value: 'this is real answer' });
-        return deferred(() => {
-            expect(eq.find('.btn[data-test-id="submit-answer-btn"]').text()).toMatch('Submit');
-            runInAction(() => step.attempt_number = 1);
-            expect(eq.find('.btn[data-test-id="submit-answer-btn"]').text()).toMatch('Re-submit');
-            eq.unmount();
-        });
+        expect(eq.find('.btn[data-test-id="submit-answer-btn"]').text()).toMatch('Submit');
+        runInAction(() => step.attempt_number = 1);
+        expect(eq.find('.btn[data-test-id="submit-answer-btn"]').text()).toMatch('Re-submit');
+        eq.unmount();
 
     });
 });
