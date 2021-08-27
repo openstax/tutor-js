@@ -11,6 +11,11 @@ import {
     ReferenceBookNode, RelatedContent, ChapterSection, Exercise, StudentTask, StudentTaskStepGroup, currentMedia,
 } from '../../models';
 
+interface Solution {
+    content_html: String,
+    solution_type: String,
+}
+
 class TaskStepContent extends BaseModel {
     update(data: any) {
         Object.assign(this, data);
@@ -113,6 +118,7 @@ export class StudentTaskStep extends BaseModel {
     @field exercise_id:ID = NEW_ID
     @field attempts_remaining = 0;
     @field attempt_number = 0;
+    @field solution?: Solution;
 
     @observable content?: any
     @observable isFetched = false
@@ -127,6 +133,10 @@ export class StudentTaskStep extends BaseModel {
     }
 
     get task() { return getParentOf<StudentTask>(this) }
+
+    @computed get detailedSolution() {
+        return this.solution?.content_html;
+    }
 
     @computed get canAnnotate() {
         return this.isReading;
@@ -173,6 +183,10 @@ export class StudentTaskStep extends BaseModel {
 
     @computed get isWrittenResponseExercise() {
         return Boolean(this.isExercise && this.readContentProperty('isWrittenResponse'));
+    }
+
+    @computed get isMultipleChoiceExercise() {
+        return Boolean(this.isExercise && this.readContentProperty('isMultiChoice'));
     }
 
     @computed get isCorrect() {
@@ -300,12 +314,14 @@ export class StudentTaskStep extends BaseModel {
     }
 
     @action markIncorrectAttempt() {
+        if (!this.task.allow_auto_graded_multiple_attempts) { return; }
         // Set state to allow the choices to be reselectable, but track
         // which choice was incorrect so it can be reflected in the UI
         this.is_completed = false;
         this.correct_answer_id = NEW_ID;
         if (this.answer_id) {
             this.incorrectAnswerId = this.answer_id;
+            this.answer_id = '';
         }
     }
 

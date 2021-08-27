@@ -1,14 +1,9 @@
 import {
-    React, PropTypes, styled, observer,
+    React, PropTypes, observer,
 } from 'vendor';
 import UX from './ux';
 import ExerciseTaskHeader from './exercise-task-header';
 import { TaskStep } from './step';
-import AssignmentClosedBanner from './assignment-closed-banner';
-
-const SyledHomework = styled.div`
-
-`;
 
 @observer
 class HomeworkTask extends React.Component {
@@ -22,15 +17,14 @@ class HomeworkTask extends React.Component {
         const { ux, windowImpl } = this.props;
 
         return (
-            <SyledHomework className="homework-task">
+            <div className="homework-task">
                 <ExerciseTaskHeader ux={ux} unDocked />
-                <AssignmentClosedBanner ux={ux} />
                 <TaskStep
                     ux={ux}
                     step={ux.currentGroupedStep}
                     windowImpl={windowImpl}
                 />
-            </SyledHomework>
+            </div>
         );
     }
 

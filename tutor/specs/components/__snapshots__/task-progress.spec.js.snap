@@ -1,11 +1,121 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Task Progress renderLateInfoPopover completed but ungraded task step renders the "Not yet graded" popup 1`] = `
-<Styled(Component)>
-  <p>
-    <strong>
-      Not yet graded
-    </strong>
-  </p>
-</Styled(Component)>
+exports[`Task Progress renderPointsScoredCell does not render a popover for graded steps completed on time 1`] = `
+<Cell
+  className="incorrect"
+>
+  <span>
+    0
+  </span>
+</Cell>
+`;
+
+exports[`Task Progress renderPointsScoredCell does not render a popover for incomplete steps 1`] = `
+<Cell
+  className="not-answered-not-graded"
+>
+  <span>
+    ---
+  </span>
+</Cell>
+`;
+
+exports[`Task Progress renderPointsScoredCell renders late icon and score popover if the step is late 1`] = `
+<OverlayTrigger
+  defaultOverlayShown={false}
+  overlay={
+    <Styled(Component)
+      graded={true}
+    >
+      <LatePointsInfo
+        step={
+          Object {
+            "isLate": true,
+            "is_completed": true,
+            "pointsScored": 0,
+          }
+        }
+      />
+    </Styled(Component)>
+  }
+  placement="bottom"
+  show={true}
+  trigger={
+    Array [
+      "hover",
+      "focus",
+    ]
+  }
+>
+  <Cell
+    className="incorrect isLateCell"
+  >
+    <div
+      className="icon"
+    >
+      <Icon
+        buttonProps={Object {}}
+        color="#c2002f"
+        data-test-id="late-icon"
+        tooltipProps={
+          Object {
+            "placement": "auto",
+            "trigger": Array [
+              "hover",
+              "focus",
+            ],
+          }
+        }
+        type="clock"
+      />
+    </div>
+    <span>
+      0
+    </span>
+  </Cell>
+</OverlayTrigger>
+`;
+
+exports[`Task Progress renderPointsScoredCell renders ungraded icon and popover if the step is completed and points are null 1`] = `
+<OverlayTrigger
+  defaultOverlayShown={false}
+  overlay={
+    <Styled(Component)>
+      <p>
+        <strong>
+          Not yet graded
+        </strong>
+      </p>
+    </Styled(Component)>
+  }
+  placement="bottom"
+  show={true}
+  trigger={
+    Array [
+      "hover",
+      "focus",
+    ]
+  }
+>
+  <Cell
+    className="not-answered-not-graded"
+  >
+    <span>
+      <Icon
+        buttonProps={Object {}}
+        color="#818181"
+        tooltipProps={
+          Object {
+            "placement": "auto",
+            "trigger": Array [
+              "hover",
+              "focus",
+            ],
+          }
+        }
+        type="info-circle"
+      />
+    </span>
+  </Cell>
+</OverlayTrigger>
 `;

@@ -9,6 +9,7 @@ exports[`Tasks Ending Screen completed state 1`] = `
 }
 
 .c1 {
+  position: relative;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -32,7 +33,22 @@ exports[`Tasks Ending Screen completed state 1`] = `
 }
 
 .c3 {
-  padding: 50px 140px;
+  --step-card-padding-top: 48px;
+  --step-card-padding-side: 140px;
+}
+
+.c3 {
+  padding: var(--step-card-padding-top) var(--step-card-padding-side);
+}
+
+.c3 + div .step-card-body {
+  padding-top: 0;
+}
+
+.c3.exercise-context,
+.c3.exercise-stimulus,
+.c3.exercise-stem {
+  padding-bottom: 0;
 }
 
 .reading-step .c2 {
@@ -64,19 +80,19 @@ exports[`Tasks Ending Screen completed state 1`] = `
 
 @media (min-width:601px) and (max-width:999px) {
   .c3 {
-    padding: 25px 30px 140px;
+    --step-card-padding-top: 24px;
+    --step-card-padding-side: 24px;
   }
 }
 
 @media (max-width:600px) {
   .c3 {
-    padding: 10px 25px 20px;
+    --step-card-padding-top: calc(8px * 2);
+    --step-card-padding-side: 8px;
   }
+}
 
-  .exercise-step .c2 {
-    padding: 8px;
-  }
-
+@media (max-width:600px) {
   .c3.c3 .question-feedback {
     margin-left: 0;
   }
@@ -165,6 +181,7 @@ exports[`Tasks Ending Screen completed state 2`] = `
 }
 
 .c1 {
+  position: relative;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -188,7 +205,22 @@ exports[`Tasks Ending Screen completed state 2`] = `
 }
 
 .c3 {
-  padding: 50px 140px;
+  --step-card-padding-top: 48px;
+  --step-card-padding-side: 140px;
+}
+
+.c3 {
+  padding: var(--step-card-padding-top) var(--step-card-padding-side);
+}
+
+.c3 + div .step-card-body {
+  padding-top: 0;
+}
+
+.c3.exercise-context,
+.c3.exercise-stimulus,
+.c3.exercise-stem {
+  padding-bottom: 0;
 }
 
 .reading-step .c2 {
@@ -220,19 +252,19 @@ exports[`Tasks Ending Screen completed state 2`] = `
 
 @media (min-width:601px) and (max-width:999px) {
   .c3 {
-    padding: 25px 30px 140px;
+    --step-card-padding-top: 24px;
+    --step-card-padding-side: 24px;
   }
 }
 
 @media (max-width:600px) {
   .c3 {
-    padding: 10px 25px 20px;
+    --step-card-padding-top: calc(8px * 2);
+    --step-card-padding-side: 8px;
   }
+}
 
-  .exercise-step .c2 {
-    padding: 8px;
-  }
-
+@media (max-width:600px) {
   .c3.c3 .question-feedback {
     margin-left: 0;
   }
@@ -321,6 +353,7 @@ exports[`Tasks Ending Screen not started state 1`] = `
 }
 
 .c1 {
+  position: relative;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -344,7 +377,22 @@ exports[`Tasks Ending Screen not started state 1`] = `
 }
 
 .c3 {
-  padding: 50px 140px;
+  --step-card-padding-top: 48px;
+  --step-card-padding-side: 140px;
+}
+
+.c3 {
+  padding: var(--step-card-padding-top) var(--step-card-padding-side);
+}
+
+.c3 + div .step-card-body {
+  padding-top: 0;
+}
+
+.c3.exercise-context,
+.c3.exercise-stimulus,
+.c3.exercise-stem {
+  padding-bottom: 0;
 }
 
 .reading-step .c2 {
@@ -376,19 +424,19 @@ exports[`Tasks Ending Screen not started state 1`] = `
 
 @media (min-width:601px) and (max-width:999px) {
   .c3 {
-    padding: 25px 30px 140px;
+    --step-card-padding-top: 24px;
+    --step-card-padding-side: 24px;
   }
 }
 
 @media (max-width:600px) {
   .c3 {
-    padding: 10px 25px 20px;
+    --step-card-padding-top: calc(8px * 2);
+    --step-card-padding-side: 8px;
   }
+}
 
-  .exercise-step .c2 {
-    padding: 8px;
-  }
-
+@media (max-width:600px) {
   .c3.c3 .question-feedback {
     margin-left: 0;
   }
@@ -480,6 +528,7 @@ exports[`Tasks Ending Screen partial state 1`] = `
 }
 
 .c1 {
+  position: relative;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -503,7 +552,22 @@ exports[`Tasks Ending Screen partial state 1`] = `
 }
 
 .c3 {
-  padding: 50px 140px;
+  --step-card-padding-top: 48px;
+  --step-card-padding-side: 140px;
+}
+
+.c3 {
+  padding: var(--step-card-padding-top) var(--step-card-padding-side);
+}
+
+.c3 + div .step-card-body {
+  padding-top: 0;
+}
+
+.c3.exercise-context,
+.c3.exercise-stimulus,
+.c3.exercise-stem {
+  padding-bottom: 0;
 }
 
 .reading-step .c2 {
@@ -535,19 +599,19 @@ exports[`Tasks Ending Screen partial state 1`] = `
 
 @media (min-width:601px) and (max-width:999px) {
   .c3 {
-    padding: 25px 30px 140px;
+    --step-card-padding-top: 24px;
+    --step-card-padding-side: 24px;
   }
 }
 
 @media (max-width:600px) {
   .c3 {
-    padding: 10px 25px 20px;
+    --step-card-padding-top: calc(8px * 2);
+    --step-card-padding-side: 8px;
   }
+}
 
-  .exercise-step .c2 {
-    padding: 8px;
-  }
-
+@media (max-width:600px) {
   .c3.c3 .question-feedback {
     margin-left: 0;
   }

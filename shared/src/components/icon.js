@@ -36,6 +36,7 @@ const Icons = {
     'ban':                  require('@fortawesome/free-solid-svg-icons/faBan'),
     'bars':                 require('@fortawesome/free-solid-svg-icons/faBars'),
     'bookmark':             require('@fortawesome/free-solid-svg-icons/faBookmark'),
+    'book-open':            require('@fortawesome/free-solid-svg-icons/faBookOpen'),
     'bullhorn':             require('@fortawesome/free-solid-svg-icons/faBullhorn'),
     'caret-up':             require('@fortawesome/free-solid-svg-icons/faCaretUp'),
     'caret-down':           require('@fortawesome/free-solid-svg-icons/faCaretDown'),
@@ -93,6 +94,7 @@ const Icons = {
     'trash':                require('@fortawesome/free-solid-svg-icons/faTrashAlt'),
     'user-plus':            require('@fortawesome/free-solid-svg-icons/faUserPlus'),
     'video':                require('@fortawesome/free-solid-svg-icons/faVideo'),
+    'wrench':               require('@fortawesome/free-solid-svg-icons/faWrench'),
 
     // custom definitions
     'glasses':              require('./icons/glasses'),

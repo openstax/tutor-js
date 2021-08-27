@@ -1,9 +1,9 @@
 import { React } from 'shared/specs/helpers';
 
-import ExerciseIdentifierLink from '../../src/components/exercise-identifier-link';
+import ExerciseSuggestCorrectionLink from '../../src/components/exercise-suggest-correction-link';
 import Exercise from '../../src/helpers/exercise';
 
-describe('Exercise Identifier Link', function() {
+describe('Exercise Suggest Correction Link', function() {
     let props = null;
 
     beforeEach(() =>
@@ -18,11 +18,11 @@ describe('Exercise Identifier Link', function() {
         });
 
     it('matches snapshot', () => {
-        expect.snapshot(<ExerciseIdentifierLink {...props} />).toMatchSnapshot();
+        expect.snapshot(<ExerciseSuggestCorrectionLink {...props} />).toMatchSnapshot();
     });
 
     it('reads the parts from props and sets the url', function() {
-        const link = shallow(<ExerciseIdentifierLink {...props} />);
+        const link = shallow(<ExerciseSuggestCorrectionLink {...props} />);
         expect(link).toHaveRendered(`a[href="${Exercise.ERRATA_FORM_URL}?source=tutor&location=123442%201.2%20Introduction%20to%20Apples&book=College%20Physics"]`);
     });
 
@@ -30,7 +30,7 @@ describe('Exercise Identifier Link', function() {
         delete props.bookUUID;
         delete props.project;
         const link = shallow(
-            <ExerciseIdentifierLink {...props} />,
+            <ExerciseSuggestCorrectionLink {...props} />,
             {
                 context: {
                     bookUUID: '08df2bee-3db4-4243-bd76-ee032da173e8',
@@ -44,13 +44,7 @@ describe('Exercise Identifier Link', function() {
     });
 
     it('opens in new tab', function() {
-        const link = shallow(<ExerciseIdentifierLink {...props} />);
+        const link = shallow(<ExerciseSuggestCorrectionLink {...props} />);
         expect(link).toHaveRendered('a[target="_blank"]');
     });
-
-    it('renders the the exercise id before the trouble link', function() {
-        const link = shallow(<ExerciseIdentifierLink {...props} />);
-        expect(link.text()).toMatch(`ID# ${props.exerciseId}`);
-    });
-
 });
