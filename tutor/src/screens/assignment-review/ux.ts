@@ -401,7 +401,7 @@ export default class AssignmentReviewUX {
         return this.areTaskingDatesSame ?
             [first(this.planScores.taskPlan.tasking_plans)] :
             sortBy(
-                filter(this.planScores.taskPlan.tasking_plans, tp => tp.period?.isActive),
+                this.planScores.taskPlan.tasking_plans.filter(tp => tp.period?.isActive),
                 tp => tp.period?.name
             );
     }

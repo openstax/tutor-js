@@ -1,13 +1,13 @@
 import { React, PropTypes, styled, observer, moment } from 'vendor';
 import { OverlayTrigger, Popover, Table } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
-import { isNil } from 'lodash';
 import { colors, breakpoint } from 'theme';
 import { Icon } from 'shared';
 import ScoresHelper, { UNWORKED } from '../../helpers/scores';
 import SortIcon from '../../components/icons/sort';
 import { EIcon } from '../../components/icons/extension';
 import Responsive from '../../components/responsive';
+import Bignum from 'shared/model/bignum';
 
 const TableWrapper = styled.div`
   background-color: white;
@@ -199,7 +199,8 @@ const StyledPopover = styled(Popover)`
   pointer-events: none;
 `;
 
-const percentOrDash = (score) => isNil(score) ? UNWORKED : `${ScoresHelper.asPercent(score)}%`;
+const percentOrDash = (score) => score === Bignum.unknown ?
+    UNWORKED : `${ScoresHelper.asPercent(score)}%`;
 const hasExtension = (studentTaskPlans, studentTaskPlanId) => {
     const studentTaskPlan = studentTaskPlans.array.find(s => parseInt(s.id, 10) === studentTaskPlanId);
     return studentTaskPlan ? studentTaskPlan.is_extended : false;
