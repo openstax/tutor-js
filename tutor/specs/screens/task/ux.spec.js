@@ -186,4 +186,75 @@ describe('Task UX Model', () => {
         expect(step.markViewed).toHaveBeenCalled();
     });
 
+    it('teacher does not mark steps as viewed (not allowed to update the step)', () => {
+        const step = ux.currentStep;
+        step.markViewed = jest.fn();
+        ux.course.currentRole.type = 'teacher';
+        ux.goToStepIndex(3);
+        expect(step.markViewed).not.toHaveBeenCalled();
+    });
+
+    describe('canGoForward', () => {
+        beforeEach(() => {
+            ux.currentStep.api.requestsInProgress.delete('fetchStudentTaskStep');
+        });
+
+        describe('when the current step is complete', () => {
+            beforeEach(() => {
+                ux.currentStep.is_completed = true;
+                expect(ux.canGoForward).toEqual(true);
+            });
+
+            it('returns false when at the last step of the assignment', () => {
+                ux.goToStepIndex(ux.steps.length - 1, false);
+                expect(ux.canGoForward).toEqual(false);
+            });
+
+            it('returns false before the current step is set', () => {
+                runInAction(() => { ux._stepId = null; })
+                expect(ux.canGoForward).toEqual(false);
+            });
+
+            it('returns false while an API request is pending', () => {
+                ux.task.api.requestsInProgress.set('test', 'https://example.com')
+                expect(ux.canGoForward).toEqual(false);
+                ux.task.api.requestsInProgress.delete('test')
+
+                expect(ux.canGoForward).toEqual(true);
+                ux.currentStep.api.requestsInProgress.set('test', 'https://example.com')
+                expect(ux.canGoForward).toEqual(false);
+                ux.currentStep.api.requestsInProgress.delete('test')
+            });
+        });
+
+        describe('when the current step is incomplete', () => {
+            beforeEach(() => {
+                ux.currentStep.is_completed = false;
+            });
+
+            it('returns true if the current step is not an exercise', () => {
+                runInAction(() => {
+                    ux.currentStep.type = 'reading';
+                });
+                expect(ux.canGoForward).toEqual(true);
+            });
+
+            describe('when the current step is an exercise', () => {
+                beforeEach(() => {
+                    runInAction(() => {
+                        ux.currentStep.type = 'exercise';
+                    });
+                });
+
+                it('returns false', () => {
+                    expect(ux.canGoForward).toEqual(false);
+                });
+
+                it('returns true if the user cannot update the current step', () => {
+                    ux.course.currentRole.type = 'teacher';
+                    expect(ux.canGoForward).toEqual(true);
+                });
+            });
+        });
+    });
 });
