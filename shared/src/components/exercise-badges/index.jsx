@@ -143,6 +143,7 @@ const ExerciseBadges = observer(({ className, ...badgeProps }) => {
         </div>
     );
 });
+ExerciseBadges.displayName = 'ExerciseBadges';
 
 export default ExerciseBadges;
 
