@@ -400,7 +400,10 @@ export default class AssignmentReviewUX {
     @computed get taskingPlanDetails() {
         return this.areTaskingDatesSame ?
             [first(this.planScores.taskPlan.tasking_plans)] :
-            sortBy(this.planScores.taskPlan.tasking_plans, tp => tp.period?.name);
+            sortBy(
+                filter(this.planScores.taskPlan.tasking_plans, tp => tp.period?.isActive),
+                tp => tp.period?.name
+            );
     }
 
     @computed get stats() {
