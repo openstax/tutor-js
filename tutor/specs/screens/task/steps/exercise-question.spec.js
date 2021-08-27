@@ -1,5 +1,5 @@
 import ExerciseQuestion from '../../../../src/screens/task/step/exercise-question';
-import { ApiMock, Factory, C, deferred } from '../../../helpers';
+import { ApiMock, Factory, C, deferred, runInAction } from '../../../helpers';
 import UX from '../../../../src/screens/task/ux';
 import { setFreeResponse } from '../helpers';
 
@@ -62,6 +62,22 @@ describe('Exercise Free Response', () => {
         eq.unmount();
     });
 
+    it('renders attempts left', async () => {
+        const { step, ux } = props;
+
+        step.free_response = 'test';
+        step.answer_id = '1';
+        step.can_be_updated = true;
+        step.attempts_remaining = 1;
+        ux.hasMultipleAttempts = true;
+
+        const eq = mount(<C><ExerciseQuestion {...props} /></C>);
+        expect(eq.text()).toMatch('1 attempt left');
+        runInAction(() => step.attempts_remaining = 0);
+        expect(eq.text()).not.toMatch('0 attempts left');
+        eq.unmount();
+    });
+
     it('renders possible points', async () => {
         props.step.published_points_without_lateness = null;
         props.step.available_points = 2.0
@@ -83,12 +99,11 @@ describe('Exercise Free Response', () => {
         eq.unmount();
     });
 
-    it('renders detailed solution for free response', async () => {
+    it('renders detailed solution', async () => {
         const solutionText = 'Some detailed solution text';
         const { step } = props;
 
         step.can_be_updated = false;
-        step.content = { isOpenEnded: true };
         step.solution = { content_html: solutionText };
 
         const eq = mount(<C><ExerciseQuestion {...props} /></C>);
@@ -105,5 +120,23 @@ describe('Exercise Free Response', () => {
         const eq = mount(<C><ExerciseQuestion {...props} /></C>);
         expect(eq.find('.points').text()).toMatch (`Feedback: ${comments}`);
         eq.unmount();
+    });
+
+    it('renders contextual submit button text', async () => {
+        const { step } = props;
+
+        step.free_response = 'test';
+        step.answer_id = '1';
+        step.is_completed = false;
+        step.can_be_updated = true;
+        step.attempts_remaining = 1;
+        step.attempt_number = 0;
+
+        const eq = mount(<C><ExerciseQuestion {...props} /></C>);
+        expect(eq.find('.btn[data-test-id="submit-answer-btn"]').text()).toMatch('Submit');
+        runInAction(() => step.attempt_number = 1);
+        expect(eq.find('.btn[data-test-id="submit-answer-btn"]').text()).toMatch('Re-submit');
+        eq.unmount();
+
     });
 });

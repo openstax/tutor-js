@@ -42,7 +42,7 @@ const BADGES = {
     personalized: {
         el: () => (
             <span key="personalized" className="personalized">
-                <i className="icon icon-sm icon-personalized" />
+                <i className="icon icon-md icon-personalized" />
                 <span>
                     Personalized
                 </span>
@@ -54,7 +54,7 @@ const BADGES = {
     spacedPractice: {
         el: () => (
             <span key="spacedPractice" className="spaced-practice">
-                <i className="icon icon-sm icon-spaced-practice" />
+                <i className="icon icon-md icon-spaced-practice" />
                 <span>
                     Spaced Practice
                 </span>
@@ -104,7 +104,7 @@ const BADGES = {
     twoStep: {
         el: () => (
             <span key="two-step" className="two-step">
-                <i className="icon icon-sm icon-two-step-intro" />
+                <i className="icon icon-md icon-two-step-intro" />
                 <span>
                     Two-step
                 </span>
@@ -120,7 +120,9 @@ const BADGES = {
 const Badge = ({ el, tooltip, isTeacher }) => {
     if (!tooltip || isTeacher) { return el(isTeacher); }
     return (
-        <OverlayTrigger overlay={<Tooltip>{tooltip}</Tooltip>}>
+        <OverlayTrigger
+            placement="auto"
+            overlay={<Tooltip>{tooltip}</Tooltip>}>
             {el(isTeacher)}
         </OverlayTrigger>
     );

@@ -38,7 +38,13 @@ export default class ExerciseQuestion extends React.Component {
     constructor(props) {
         super(props);
         modelize(this);
-        window.eq = this;
+
+        const { ux, step } = this.props;
+
+        // Make sure the submit button gets reset to a disabled "re-submit" state
+        if (ux.hasMultipleAttempts && step.attempts_remaining > 0) {
+            ux.markIncorrectAttempt();
+        }
     }
 
     @computed get needsSaved() {
@@ -112,12 +118,12 @@ export default class ExerciseQuestion extends React.Component {
             <AsyncButton
                 size="lg"
                 waitingText="Saving…"
-                disabled={!this.answerId}
+                disabled={step.api.isPending || !this.answerId}
                 onClick={this.onAnswerSave}
                 isWaiting={step.api.isPending}
                 data-test-id="submit-answer-btn"
             >
-                Submit
+                {step.attempt_number == 0 ? 'Submit' : 'Re-submit'}
             </AsyncButton>
         );
     }
@@ -196,7 +202,9 @@ export default class ExerciseQuestion extends React.Component {
                     <div className="points">
                         <strong>Points: {this.renderPoints(step)}</strong>
                         <span className="attempts-left">
-                            {ux.showAttemptsRemaining && this.renderAttemptsRemaining(step)}
+                            {ux.hasMultipleAttempts &&
+                             step.attempts_remaining > 0 &&
+                             this.renderAttemptsRemaining(step)}
                         </span>
                         {this.renderFeedback(step)}
                         {step.detailedSolution && (<div><strong>Detailed solution:</strong> <HTML html={step.detailedSolution} /></div>)}
