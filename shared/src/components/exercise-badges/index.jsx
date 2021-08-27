@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
-import { React, observer } from 'vendor';
+import React from 'react';
+import { observer } from 'mobx-react';
 import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 import Icon from '../icon';
 import { map, compact } from 'lodash';
