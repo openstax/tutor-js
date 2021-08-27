@@ -4,9 +4,8 @@ set -e; if [ -n "$DEBUG" ]; then set -x; fi
 set -x
 
 PORT="${PORT:-80}"
-yarn global add serve
-which serve
-"$(yarn global bin)/serve" -p "$PORT" tutor/dist/
+
+yarn tutor:test:server --fe "$PORT"
 
 #tutor_server_dir="/tmp/tutor-server"
 
