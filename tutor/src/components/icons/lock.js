@@ -16,10 +16,6 @@ const StyledTooltip = styled(Tooltip)`
   pointer-events: none;
   max-width: 214px;
   color: ${colors.neutral.thin};
-  // Fix absolute positioning confusing where to place tooltip
-  &.bs-tooltip-right {
-    margin-left: 2.5rem;
-  }
 `;
 
 const LockIcon = ({ className }) => (
