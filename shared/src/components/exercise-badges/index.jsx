@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
-import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 import React from 'react';
+import { observer } from 'mobx-react';
+import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 import Icon from '../icon';
 import { map, compact } from 'lodash';
 import Interactive from './interactive-icon';
 import MultiPart from './multipart-icon';
 import classnames from 'classnames';
-
 
 const BADGES = {
     multiPart: {
@@ -132,8 +132,8 @@ Badge.propTypes = {
     tooltip: PropTypes.node,
     isTeacher: PropTypes.bool,
 };
-export default
-function ExerciseBadges({ className, ...badgeProps }) {
+
+const ExerciseBadges = observer(({ className, ...badgeProps }) => {
     const badges = compact(map(badgeProps, (wants, type) => wants && BADGES[type]));
     if (!badges.length || badgeProps.questionType === 'student-mpp') { return null; }
 
@@ -142,8 +142,10 @@ function ExerciseBadges({ className, ...badgeProps }) {
             {badges.map((badge, index) => <Badge key={index} {...badge} isTeacher={badgeProps.questionType === 'teacher-preview'}/>)}
         </div>
     );
+});
+ExerciseBadges.displayName = 'ExerciseBadges';
 
-}
+export default ExerciseBadges;
 
 ExerciseBadges.propTypes = {
     className:      PropTypes.string,

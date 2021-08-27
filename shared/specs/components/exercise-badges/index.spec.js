@@ -8,7 +8,7 @@ describe('Exercise Preview Component', function() {
 
     it('doesnt render if no items were found', function() {
         const badges = mount(<Badges {...props} />);
-        expect(badges.html()).toBeNull();
+        expect(badges.html()).toBe('');
         badges.unmount();
     });
 
