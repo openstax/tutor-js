@@ -7,7 +7,7 @@ export const setFreeResponse = async (comp, { value }) => {
         ta.simulate('change', { target: { value: ta.instance().value } });
         await delay();
         comp.update()
-        comp.find('AnswerButton').simulate('click');
+        comp.find('Button[data-test-id="submit-answer-btn"]').simulate('click');
         await delay();
     }
 }

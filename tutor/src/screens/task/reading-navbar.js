@@ -7,7 +7,6 @@ import { Icon } from 'shared';
 import TutorLink from '../../components/link';
 import Time from '../../components/time';
 import { colors, breakpoint } from 'theme';
-import AssignmentClosedBanner from './assignment-closed-banner';
 
 const StyledNavbar = styled.div`
   ${breakpoint.only.mobile`
@@ -158,7 +157,6 @@ class ReadingNavbar extends React.Component {
                     </Right>
                 </Middle>
                 <StyledProgressBar now={ux.progressPercent} variant="success" />
-                <AssignmentClosedBanner ux={ux} />
             </StyledNavbar>
         );
     }

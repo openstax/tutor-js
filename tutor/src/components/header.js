@@ -15,7 +15,7 @@ const HeaderWrapper = styled.div`
     padding: 32px ${breakpoint.margins.tablet};
   `}
   ${breakpoint.mobile`
-    padding: 32px ${breakpoint.margins.mobile};
+    padding: 16px ${breakpoint.margins.mobile};
   `}
 
   > div {

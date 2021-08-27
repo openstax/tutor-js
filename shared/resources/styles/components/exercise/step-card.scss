@@ -25,13 +25,6 @@
 
 &-exercise-card, &-multipart-exercise-card {
   position: relative;
-  .exercise-identifier-link {
-    position: absolute;
-    right: 3rem;
-    bottom: 3rem;
-    color: $openstax-answer-label-color;
-    font-size: 1.2rem;
-  }
 
   &.deleted-reading,
   &.deleted-homework {
