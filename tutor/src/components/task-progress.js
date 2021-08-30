@@ -122,11 +122,13 @@ const StyledStickyTable = styled(StickyTable)`
   `};
 `;
 
-const StyledPopover = styled(Popover)`
+const StyledPopover = styled(Popover).withConfig({
+    shouldForwardProp: prop => prop !== 'graded',
+})`
   /** https://styled-components.com/docs/faqs#how-can-i-override-inline-styles */
   &[style] {
     border: 1px #d5d5d5 solid !important;
-    top: ${props => props.graded ? '62px' : '32px'} !important;
+    top: ${props => props.graded ? '72px' : '42px'} !important;
   }
 
   pointer-events: none;
@@ -157,10 +159,8 @@ const pointsScoredStatus = (step) => {
     return PointsScoredStatus.PARTIAL;
 };
 
-export const renderLateInfoPopover = (step) => {
+const renderInfoPopover = (step) => {
     if(isNil(step.pointsScored)) {
-        if (!step.is_completed) return null;
-
         return (
             <StyledPopover><p><strong>Not yet graded</strong></p></StyledPopover>
         );
@@ -173,14 +173,17 @@ export const renderLateInfoPopover = (step) => {
     );
 };
 
-const renderPointsScoredCell = (step) => {
-    if(step.isLate) {
+export const renderPointsScoredCell = (step) => {
+    // OverlayTrigger errors when given a null "overlay" attribute
+    // Different if branches handle overlay vs no overlay
+    if((step.is_completed && isNil(step.pointsScored)) || step.isLate) {
+        // All steps with an overlay popover are handled here
         return (
             <OverlayTrigger
                 key={step.id}
                 show={true}
                 placement="bottom"
-                overlay={renderLateInfoPopover(step)}>
+                overlay={renderInfoPopover(step)}>
                 <Cell className={cn(pointsScoredStatus(step), { 'isLateCell': step.isLate })}>
                     {
                         step.isLate &&
@@ -192,15 +195,23 @@ const renderPointsScoredCell = (step) => {
                 />
             </div>
                     }
-                    <span>{step.pointsScored !== null ? ScoresHelper.formatPoints(step.pointsScored) : UNWORKED }</span>
+                    <span>{
+                        // UNWORKED steps don't have a popover, so not handled in this branch
+                        isNil(step.pointsScored) ?
+                            <Icon type="info-circle" color="#818181" /> :
+                            ScoresHelper.formatPoints(step.pointsScored)
+                    }</span>
                 </Cell>
             </OverlayTrigger>
         );
     }
 
+    // All steps without an overlay popover are handled here
     return (
         <Cell key={step.id} className={pointsScoredStatus(step)}>
-            <span>{step.pointsScored !== null ? ScoresHelper.formatPoints(step.pointsScored) : UNWORKED }</span>
+            <span>{
+                isNil(step.pointsScored) ? UNWORKED : ScoresHelper.formatPoints(step.pointsScored)
+            }</span>
         </Cell>
     );
 };

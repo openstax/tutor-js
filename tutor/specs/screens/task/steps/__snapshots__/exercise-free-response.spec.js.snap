@@ -180,6 +180,7 @@ exports[`Exercise Free Response matches snapshot 1`] = `
         "published_points": null,
         "published_points_without_lateness": null,
         "response_validation": Object {},
+        "solution": undefined,
         "spy": Object {},
         "tasked_id": 0,
         "type": "exercise",
@@ -234,6 +235,7 @@ exports[`Exercise Free Response matches snapshot 1`] = `
               "published_points": null,
               "published_points_without_lateness": null,
               "response_validation": Object {},
+              "solution": undefined,
               "spy": Object {},
               "tasked_id": 0,
               "type": "exercise",
@@ -350,6 +352,7 @@ exports[`Exercise Free Response matches snapshot 1`] = `
           "year": 2017,
         },
         "hideTaskProgressTable": true,
+        "hideToolbar": false,
         "history": Object {
           "createHref": [MockFunction],
           "listen": [MockFunction],

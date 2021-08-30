@@ -22,6 +22,7 @@ export class TaskPlanScoreStudentQuestion extends BaseModel {
     @field comments = ''
     @field late_work_point_penalty?: number;
     @field selected_answer_id?: ID;
+    @field attempt_number?: number;
     @field is_correct = false;
     @field free_response = '';
     @field task_step_id: ID = NEW_ID;
