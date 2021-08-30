@@ -38,7 +38,7 @@ class CoursePeriodsNav extends React.Component {
     }
 
     @computed get sortedPeriods() {
-        return this.course.periods.sorted;
+        return this.course.periods.active;
     }
 
     @action.bound onTabSelection(tabIndex, ev) {

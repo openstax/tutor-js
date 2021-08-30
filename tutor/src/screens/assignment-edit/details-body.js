@@ -75,7 +75,7 @@ const EditModal = observer(({ ux }) => {
 });
 
 const TemplateField = observer(({ ux }) => {
-    const dropdownItems = 
+    const dropdownItems =
     <>
         {
             ux.gradingTemplates.map(t =>

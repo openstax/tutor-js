@@ -5,11 +5,12 @@ import WeightsUX from './weights-ux';
 import UiSettings from 'shared/model/ui-settings';
 import {
     find, pick, pickBy, mapValues,
-    groupBy, flow, map, partial, uniq, keys, isEmpty, isNil,
+    groupBy, flow, map, partial, uniq, keys, isEmpty,
     filter, sortBy, maxBy, minBy, orderBy, some,
 } from 'lodash';
 import S from '../../helpers/string';
 import ScoresHelper, { UNWORKED } from '../../helpers/scores';
+import Bignum  from 'shared/model/bignum';
 
 const scoreKeyToType = (key) => (key.match(/(course_average|homework|reading)/)[0]);
 
@@ -225,7 +226,7 @@ export default class GradeBookUX {
             const type = scoreKeyToType(key);
             let nullValue;
 
-            if (isNil(average)){
+            if (average === Bignum.unknown) {
                 if (type === 'course_average') {
                     nullValue = this.nullAverageForCourse;
                 } else {
@@ -250,13 +251,13 @@ export default class GradeBookUX {
 
     maxScore(type) {
         const score = maxBy(this.students, type);
-        if(!score) return UNWORKED;
+        if (!score || score[type] === Bignum.unknown) return UNWORKED;
         return `${ScoresHelper.asPercent(score[type])}%`;
     }
 
     minScore(type) {
         const score = minBy(this.students, type);
-        if(!score) return UNWORKED;
+        if (!score || score[type] === Bignum.unknown) return UNWORKED;
         return `${ScoresHelper.asPercent(score[type])}%`;
     }
 }

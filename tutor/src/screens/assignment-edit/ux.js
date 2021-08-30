@@ -213,7 +213,7 @@ export default class AssignmentUX {
     }
 
     @computed get periods() {
-        return filter(this.course.periods.sorted, 'isActive');
+        return this.course.periods.active;
     }
 
     @computed get isInitializing() {
