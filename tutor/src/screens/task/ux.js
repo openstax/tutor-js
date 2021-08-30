@@ -42,7 +42,9 @@ export default class TaskUX {
         }
 
 
-        this.markIncorrectAttempt();
+        if (this.hasMultipleAttempts) {
+            this.markIncorrectAttempt();
+        }
     }
 
     @computed get canSaveToPractice() {
@@ -163,7 +165,7 @@ export default class TaskUX {
         step.is_completed = true;
         await step.save();
 
-        if (step.canAnswer && step.answer_id != step.correct_answer_id) {
+        if (this.hasMultipleAttempts && step.canAnswer && step.answer_id != step.correct_answer_id) {
             // If there are attempts left and the answer is wrong,
             // show it and soft reset state to allow reselecting
             step.markIncorrectAttempt();
@@ -295,7 +297,9 @@ export default class TaskUX {
                 );
             }
         }
-        this.markIncorrectAttempt();
+        if (this.hasMultipleAttempts) {
+            this.markIncorrectAttempt();
+        }
     }
 
     async scrollToCurrentStep(immediate) {
