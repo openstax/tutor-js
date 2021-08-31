@@ -1,6 +1,7 @@
 const { bind } = require('lodash');
 const path = require('path');
 const fork = require('child_process').fork;
+const spawn = require('child_process').spawn;
 const chalk = require('chalk');
 const { fe_port, be_port } = require('./ports');
 const SERVERS = ['backend', 'frontend'];
@@ -27,10 +28,12 @@ class Server {
         return this._booting = Promise.all(SERVERS.map((server) =>
             new Promise((resolve, reject) => {
                 this.pending[server] = { resolve, reject };
-                this[server] = fork(
-                    path.join(__dirname, `./${server}.js`),
-                    ['--fe', this.ports.frontend, '--be', this.ports.backend], {},
+                this[server] = spawn(
+                  './node_modules/.bin/babel-node',
+                  ['-x', '.ts' , path.join(__dirname, `./${server}.js`), `--fe ${this.ports.frontend}`, `--be ${this.ports.backend}`]
                 );
+                this[server].stdout.pipe(process.stdout)
+                this[server].stderr.pipe(process.stderr)
                 this[server].on('message', bind(this._onMessage, this, server));
                 this[server].on('close', bind(this._onServerExit, this, server));
             })
@@ -79,7 +82,6 @@ class Server {
     }
 
 }
-
 
 if (require.main === module) {
     const argv = require('yargs').argv;
