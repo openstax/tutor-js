@@ -45,18 +45,18 @@ BOOTSTRAP_DATA.tutor_api_url = `http://localhost:${be_port}/api`;
 const student = clone(BOOTSTRAP_DATA);
 student.user = Factory.create('User', { profile_id: 1, is_teacher: false, available_terms: TERMS });
 student.courses = [];
-addCourses(student.courses, { is_teacher: false });
 student.offerings = [
     'biology', 'physics', 'sociology', 'apush',
 ].map((type) => Factory.create('Offering', { type }))
+addCourses(student.courses, { is_teacher: false, offerings: student.offerings });
 
 const teacher = clone(BOOTSTRAP_DATA);
 teacher.user = Factory.create('User', { profile_id: 1, is_teacher: true, available_terms: TERMS });
 teacher.courses = [];
-addCourses(teacher.courses, { is_teacher: true });
 teacher.offerings = [
     'biology', 'physics', 'sociology', 'apush',
 ].map((type) => Factory.create('Offering', { type }))
+addCourses(teacher.courses, { is_teacher: true, offerings: teacher.offerings });
 
 function getCourse(id, role = ROLE) {
     return find(PAYLOADS[role].courses, c => c.id == id);
