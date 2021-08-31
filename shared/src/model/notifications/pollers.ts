@@ -123,6 +123,9 @@ class TutorUpdates extends Poller {
     }
 
     onReply({ data }: any) {
+        if (!data || !data.notifications) {
+          return;
+        }
         const observedIds = this._getObservedNoticeIds();
         const notices = {};
         const currentIds = [];
