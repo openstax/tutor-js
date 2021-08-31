@@ -2,7 +2,6 @@ import {
     DateTime as LDT, Duration as LDuration, DurationUnit, Interval as LDTInterval, DateObjectUnits, DurationObject, Zone, Settings, DurationObjectUnits,
 } from 'luxon'
 import { map, compact, flatten, max, min, isString, isNumber, isDate } from 'lodash';
-import { readonly } from 'core-decorators'
 import { modelize } from 'modeled-mobx'
 import { observable } from 'mobx'
 import moment from 'moment';
@@ -73,7 +72,7 @@ export default class Time {
         return new Time(Store.now)
     }
 
-    @readonly static unknown = new Time(new Date(0))
+    static get unknown() { return new Time(new Date(0)) }
 
     static get defaultZoneName() { return Settings.defaultZoneName }
     static set defaultZoneName(zone: string) { Settings.defaultZoneName = zone }
