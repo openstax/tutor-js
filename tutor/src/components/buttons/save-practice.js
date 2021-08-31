@@ -2,6 +2,7 @@ import { React, styled, PropTypes, css, observer, cn } from 'vendor';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { colors } from 'theme';
 import { Icon } from 'shared';
+import { runInAction } from 'shared/model';
 
 const StyledSavePracticeButton = styled.button`
     border: 1px solid ${colors.cerulan};
@@ -25,26 +26,16 @@ const StyledSavePracticeButton = styled.button`
     }
 `;
 
-const getIconAndLabel = (isSaved, isSavingOrRemoving) => {
+const getIconAndLabel = (isSaved, isSavingOrRemoving, label) => {
     if (isSavingOrRemoving) {
         return (
             <>
                 <Icon
                     type='spinner'
                     spin
-                    className="save-practice-icon" />
+                    className="save-practice-icon"
+                />
                 <span>{isSaved ? 'Removing...' : 'Saving...'}</span>
-            </>
-        );
-    } 
-    if(isSaved) {
-        return (
-            <>
-                <Icon
-                    type="minus"
-                    color="white"
-                    className="save-practice-icon"/>
-                <span>Remove from practice</span>
             </>
         );
     }
@@ -52,17 +43,19 @@ const getIconAndLabel = (isSaved, isSavingOrRemoving) => {
     return (
         <>
             <Icon
-                type="plus"
-                color={colors.cerulan}
-                className="save-practice-icon"/>
-            <span>Save to practice</span>
+                type="star"
+                color={isSaved ? 'white' : colors.cerulan}
+                className="save-practice-icon"
+                aria-label={label}
+            />
+            <span>{label}</span>
         </>
     );
 };
 
 const mpqTooltip = (
     <Tooltip id="mpq-practice-question-tooltip">
-      All parts get saved in a multi-part question.
+        All parts get saved in a multi-part question.
     </Tooltip>
 );
 
@@ -75,11 +68,11 @@ const SavePracticeButton = observer(({
 
     const saveOrRemovePracticeQuestion = () => {
         const practiceQuestion = getPracticeQuestion();
-        if(practiceQuestion) {
+        if (practiceQuestion) {
             practiceQuestion.destroy();
         }
         else {
-            practiceQuestions.create(taskStep.tasked_id);
+            runInAction(() => practiceQuestions.create(taskStep.tasked_id));
         }
     };
 
@@ -96,12 +89,15 @@ const SavePracticeButton = observer(({
     };
 
     const savePracticeButton = () => {
-        if(disabled) {
+        const label = `${isSaved() ? 'Remove from' : 'Save to'} practice`;
+
+        if (disabled) {
             return (
                 <StyledSavePracticeButton
                     disabled={disabled}
-                    className="save-practice-button"
-                    data-test-id="save-practice-button"> 
+                    className={cn('save-practice-button', { 'is-saved': isSaved() })}
+                    data-test-id="save-practice-button"
+                >
                     {getIconAndLabel()}
                 </StyledSavePracticeButton>
             );
@@ -112,17 +108,19 @@ const SavePracticeButton = observer(({
                 onClick={saveOrRemovePracticeQuestion}
                 isSaved={isSaved()}
                 disabled={practiceQuestions.isAnyPending}
-                className={cn('save-practice-button', { 'is-saving': practiceQuestions.isAnyPending })}
-                data-test-id="save-practice-button"> 
-                {getIconAndLabel(isSaved(), practiceQuestions.isAnyPending)}
+                className={cn('save-practice-button', { 'is-saving': practiceQuestions.isAnyPending, 'is-saved': isSaved() })}
+                data-test-id="save-practice-button"
+                aria-label={label}
+            >
+                {getIconAndLabel(isSaved(), practiceQuestions.isAnyPending, label)}
             </StyledSavePracticeButton>
         );
     };
-    
+
 
     // return button with mpq tooltip info
     // only after the question was saved
-    if(isMpq() && isSaved()) {
+    if (isMpq() && isSaved()) {
         return(
             <OverlayTrigger
                 placement="bottom"

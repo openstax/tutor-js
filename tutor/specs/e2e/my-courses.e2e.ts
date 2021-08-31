@@ -18,10 +18,12 @@ test.describe('Onboarding', () => {
         await page.click('testId=submit-suggested-subject')
 
         await page.waitForSelector('testId=new-teacher-screen')
+        await page.waitForTimeout(100)
         expect(
             await page.evaluate(() => document.location.search)
         ).toContain('onboarding=2')
         await page.click('testId=back-to-select')
+        await page.waitForTimeout(100)
         expect(
             await page.evaluate(() => document.location.search)
         ).toContain('onboarding=0')

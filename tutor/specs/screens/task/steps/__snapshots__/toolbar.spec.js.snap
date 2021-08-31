@@ -1,0 +1,94 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Task Step Toolbar matches snapshot 1`] = `
+"<C>
+  <Component theme={{...}}>
+    <ForwardRef noRef={[undefined]} path=\\"/\\" withRef={false}>
+      <MemoryRouter initialIndex={0} initialEntries={{...}}>
+        <Router history={{...}}>
+          <TestContextWrapper>
+            <Memo() backend={[Function: createBackend]}>
+              <Component>
+                <SpyModeWrapper>
+                  <MobXProvider spyMode={{...}}>
+                    <div className=\\"openstax-debug-content\\">
+                      <ModalManager>
+                        <MobXProvider modalManager={{...}}>
+                          <inject-with-modalManager-spyMode(TourConductor) tourContext={[undefined]}>
+                            <TourConductor tourContext={[undefined]} modalManager={{...}} spyMode={{...}}>
+                              <MobXProvider tourContext={{...}}>
+                                <div data-purpose=\\"tour-conductor-wrapper\\">
+                                  <TutorSpecLayout>
+                                    <MobXProvider topNavbar={{...}} courseContext={{...}} bottomNavbar={{...}} setSecondaryTopControls={[Function: setSecondaryTopControls] { isMobxAction: true }}>
+                                      <div>
+                                        <Navbar area=\\"header\\" context={{...}} isDocked={false} />
+                                        <StepToolbar course={{...}} step={{...}}>
+                                          <styled.div>
+                                            <div className=\\"sc-dkPtyc gjgZbv\\">
+                                              <BrowseTheBook unstyled={true} course={{...}} chapterSection={{...}} tag=\\"a\\" windowImpl={{...}}>
+                                                <a data-test-id=\\"browse-the-book-btn\\" aria-label=\\"Browse course reference book\\" onClick={[Function: onClick] { isMobxAction: true }} href=\\"/book/2/section/1.2\\" target=\\"_blank\\" className=\\"browse-the-book\\">
+                                                  <Icon type=\\"book-open\\" buttonProps={{...}} tooltipProps={{...}}>
+                                                    <IconWrapper data-variant={[undefined]} color={[undefined]} hoverColor={[undefined]} className=\\"ox-icon ox-icon-book-open\\" icon={{...}}>
+                                                      <FontAwesomeIcon data-variant={[undefined]} color={[undefined]} className=\\"IconWrapper-ra27cp-0 dbDpez ox-icon ox-icon-book-open\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}} swapOpacity={false}>
+                                                        <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"book-open\\" className=\\"svg-inline--fa fa-book-open fa-w-18 IconWrapper-ra27cp-0 dbDpez ox-icon ox-icon-book-open\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 576 512\\" style={{...}} data-variant={[undefined]} color={[undefined]}>
+                                                          <path fill=\\"currentColor\\" d=\\"M542.22 32.05c-54.8 3.11-163.72 14.43-230.96 55.59-4.64 2.84-7.27 7.89-7.27 13.17v363.87c0 11.55 12.63 18.85 23.28 13.49 69.18-34.82 169.23-44.32 218.7-46.92 16.89-.89 30.02-14.43 30.02-30.66V62.75c.01-17.71-15.35-31.74-33.77-30.7zM264.73 87.64C197.5 46.48 88.58 35.17 33.78 32.05 15.36 31.01 0 45.04 0 62.75V400.6c0 16.24 13.13 29.78 30.02 30.66 49.49 2.6 149.59 12.11 218.77 46.95 10.62 5.35 23.21-1.94 23.21-13.46V100.63c0-5.29-2.62-10.14-7.27-12.99z\\" style={{...}} />
+                                                        </svg>
+                                                      </FontAwesomeIcon>
+                                                    </IconWrapper>
+                                                  </Icon>
+                                                  <span>
+                                                    View topic in textbook
+                                                  </span>
+                                                </a>
+                                              </BrowseTheBook>
+                                              <ExerciseSuggestCorrectionLink exerciseId=\\"1@1\\" bookUUID=\\"8d04a686-d5e8-4798-a27d-c608e4d0e187\\" related_content={{...}}>
+                                                <a target=\\"_blank\\" href=\\"https://openstax.org/errata/form?source=tutor&location=1%401%201.2%20Newton%27s%20First%20Law%20of%20Motion%3A%20Inertia&book=The%20AP%20Physics%20Collection\\" tabIndex=\\"0\\" aria-label=\\"Suggest a correction\\">
+                                                  <Icon type=\\"exclamation-circle\\" buttonProps={{...}} tooltipProps={{...}}>
+                                                    <IconWrapper data-variant={[undefined]} color={[undefined]} hoverColor={[undefined]} className=\\"ox-icon ox-icon-exclamation-circle\\" icon={{...}}>
+                                                      <FontAwesomeIcon data-variant={[undefined]} color={[undefined]} className=\\"IconWrapper-ra27cp-0 dbDpez ox-icon ox-icon-exclamation-circle\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}} swapOpacity={false}>
+                                                        <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"exclamation-circle\\" className=\\"svg-inline--fa fa-exclamation-circle fa-w-16 IconWrapper-ra27cp-0 dbDpez ox-icon ox-icon-exclamation-circle\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]} color={[undefined]}>
+                                                          <path fill=\\"currentColor\\" d=\\"M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zm-248 50c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z\\" style={{...}} />
+                                                        </svg>
+                                                      </FontAwesomeIcon>
+                                                    </IconWrapper>
+                                                  </Icon>
+                                                  <span>
+                                                    Suggest a correction
+                                                  </span>
+                                                </a>
+                                              </ExerciseSuggestCorrectionLink>
+                                            </div>
+                                          </styled.div>
+                                        </StepToolbar>
+                                        <Navbar area=\\"footer\\" context={{...}} />
+                                      </div>
+                                    </MobXProvider>
+                                  </TutorSpecLayout>
+                                  <SpyModeContent>
+                                    <div className=\\"visible-when-debugging\\">
+                                      <div className=\\"tour-spy-info\\">
+                                        available regions: []; region tour ids: []; audience tags: []; tour tags: []; eligible tours: []; TOUR RIDE: &lt;none&gt;
+                                      </div>
+                                    </div>
+                                  </SpyModeContent>
+                                </div>
+                              </MobXProvider>
+                            </TourConductor>
+                          </inject-with-modalManager-spyMode(TourConductor)>
+                        </MobXProvider>
+                      </ModalManager>
+                      <a href=\\"#spy\\" tabIndex={-1} onClick={[Function: toggleDebug] { isMobxAction: true }} className=\\"debug-toggle-link\\" aria-hidden=\\"true\\">
+                        π
+                      </a>
+                    </div>
+                  </MobXProvider>
+                </SpyModeWrapper>
+              </Component>
+            </Memo()>
+          </TestContextWrapper>
+        </Router>
+      </MemoryRouter>
+    </ForwardRef>
+  </Component>
+</C>"
+`;

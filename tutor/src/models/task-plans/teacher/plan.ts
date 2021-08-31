@@ -450,7 +450,7 @@ export class TeacherTaskPlan extends BaseModel {
     @computed get activeAssignedPeriods() {
         const ids = compact(this.tasking_plans.map(tp => tp.target_type == 'period' && tp.target_id));
         return filter(
-            this.course.periods.sorted, p => includes(ids, p.id)
+            this.course.periods.active, p => includes(ids, p.id)
         );
     }
 

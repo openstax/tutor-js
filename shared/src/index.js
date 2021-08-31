@@ -25,7 +25,7 @@ export { default as CloseButton } from './components/buttons/close-button';
 export { default as CcJoinConflict } from './components/enroll/cc-join-conflict';
 export { default as ConfirmJoinCourse } from './components/enroll/confirm-join-course';
 export { default as MessageList } from './components/enroll/message-list';
-export { default as ExerciseIdentifierLink } from './components/exercise-identifier-link';
+export { default as ExerciseSuggestCorrectionLink } from './components/exercise-suggest-correction-link';
 export { default as ExerciseHelpers } from './helpers/exercise';
 export { default as ExercisePreview } from './components/exercise-preview';
 export { default as propHelpers } from './helpers/props';

@@ -132,6 +132,7 @@ exports[`Tasks External URL Screen matches snapshot 1`] = `
           "year": 2017,
         },
         "hideTaskProgressTable": true,
+        "hideToolbar": false,
         "history": Object {
           "createHref": [MockFunction],
           "listen": [MockFunction],

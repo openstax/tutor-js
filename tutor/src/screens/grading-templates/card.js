@@ -113,6 +113,13 @@ const CardInfo = observer(({ template, header, children }) => {
 
                     <Line />
 
+                    <SectionTitle>ALLOW MULTIPLE-ATTEMPTS</SectionTitle>
+
+                    <SettingName>For auto-graded questions</SettingName>
+                    <SettingValue>{template.allow_auto_graded_multiple_attempts ? 'Yes' : 'No'}</SettingValue>
+
+                    <Line />
+
                     <SectionTitle>LATE WORK POLICY</SectionTitle>
 
                     <SettingName>Accept late work?</SettingName>
@@ -122,8 +129,8 @@ const CardInfo = observer(({ template, header, children }) => {
                         <>
                             <SettingName>Late work penalty:</SettingName>
                             <SettingValue>
-                Deduct {toPerc(template.late_work_penalty)} for
-                each {template.late_work_penalty_applied == 'daily' ? 'day' : 'assignment'}
+                                Deduct {toPerc(template.late_work_penalty)} for
+                                each {template.late_work_penalty_applied == 'daily' ? 'day' : 'assignment'}
                             </SettingValue>
                         </>)}
 
@@ -182,12 +189,10 @@ const HomeworkCard = ({ template, ...cardProps }) => {
             <SectionTitle>SHOW SCORES & FEEDBACK TO STUDENTS</SectionTitle>
 
             <SettingName>For auto-graded questions:</SettingName>
-            <SettingValue>{gradedExplanation(template.
-                auto_grading_feedback_on)}</SettingValue>
+            <SettingValue>{gradedExplanation(template.auto_grading_feedback_on)}</SettingValue>
 
             <SettingName>For manually-graded questions:</SettingName>
-            <SettingValue>{gradedExplanation(template.
-                manual_grading_feedback_on)}</SettingValue>
+            <SettingValue>{gradedExplanation(template.manual_grading_feedback_on)}</SettingValue>
         </CardInfo>
     );
 };

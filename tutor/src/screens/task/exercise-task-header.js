@@ -26,13 +26,16 @@ const StyledHeadingTitle = styled.div`
   font-size: 1.7rem;
   line-height: none;
   width: 100%;
+
   .title-info {
     padding: 6px;
     padding-left: 0;
     display: flex;
+
     div + div {
       margin-left: 10px;
     }
+
     div:first-child {
       font-weight: bold;
       letter-spacing: 0.05rem;
@@ -40,34 +43,60 @@ const StyledHeadingTitle = styled.div`
       white-space: nowrap;
       overflow: hidden;
     }
+
     .title-divider {
       padding: 0 0.8rem;
       color: ${colors.neutral.pale};
     }
   }
-  .overview-task-icon {
-      display: none;
-    }
+
+  .overview-task-icon, .toolbar-icon {
+    display: none;
+  }
+
   /*
     Hide the date when screen is tablet size or smaller.
     Show overview icon.
   */
   ${({ theme }) => theme.breakpoint.tablet`
     justify-content: space-between;
-    padding: 0 10px 0 0;
+
     .title-info {
       .title-divider, .title-due-date {
         display: none;
       }
     }
-    .overview-task-icon {
-      display: inherit;
-      margin-right: 5px;
-      .isShowingTable {
-        background-color: ${colors.neutral.lighter};
-        border-radius: 50%;
-      }
+
+    .controls {
+        display: flex;
+
+        .ox-icon {
+            margin: 0
+        }
     }
+
+    .overview-task-icon, .toolbar-icon {
+      display: inherit;
+      padding: 4px;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn + .btn {
+        margin-left: 20px;
+    }
+
+    button.isShowingTable, button.isShowingToolbar {
+      background-color: ${colors.neutral.lighter};
+      border-radius: 50%;
+    }
+  `};
+
+  ${({ theme }) => theme.breakpoint.mobile`
+      padding: 0;
   `};
 `;
 
@@ -98,11 +127,18 @@ const headerContent = (ux) => {
         <>
             <StyledHeadingTitle>
                 <TaskInfo task={ux.task} />
-                <div className="overview-task-icon">
+                <div className="controls">
+                    <Icon
+                        type="wrench"
+                        onClick={ux.toggleTaskToolbar}
+                        className={cn('toolbar-icon', { 'isShowingToolbar': !ux.hideToolbar })}
+                        buttonProps={{ 'aria-label': `${ux.hideToolbar ? 'Show' : 'Hide'} task toolbar` }}
+                    />
                     <Icon
                         type="th"
                         onClick={ux.toggleTaskProgressTable}
-                        className={cn({ 'isShowingTable': !ux.hideTaskProgressTable })}
+                        className={cn('overview-task-icon', { 'isShowingTable': !ux.hideTaskProgressTable })}
+                        buttonProps={{ 'aria-label': `${ux.hideTaskProgressTable ? 'Show' : 'Hide'} task progress` }}
                     />
                 </div>
                 <ExitPracticeButton task={ux.task} />

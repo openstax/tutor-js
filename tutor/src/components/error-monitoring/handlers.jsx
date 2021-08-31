@@ -236,6 +236,29 @@ const ERROR_HANDLERS = {
         return null;
     },
 
+    base_already_graded() {
+        return {
+            className: 'error',
+            title: 'Submission error',
+            body: (
+                <div data-test-id="base-already-graded-message">
+                    <p className="lead">
+                        The new response could not be submitted because the question has already been graded.
+                    </p>
+                </div>
+            ),
+            buttons: [
+                <Button
+                    key="ok"
+                    onClick={reloadOnce}
+                    variant="primary"
+                >
+                    OK
+                </Button>,
+            ],
+        };
+    },
+
     invalid_attempt_number() {
         return {
             className: 'error',
@@ -244,6 +267,29 @@ const ERROR_HANDLERS = {
                 <div data-test-id="invalid-attempt-number-message">
                     <p className="lead">
                         This question is already in progress in another tab or window; reload this page to continue.
+                    </p>
+                </div>
+            ),
+            buttons: [
+                <Button
+                    key="ok"
+                    onClick={reloadOnce}
+                    variant="primary"
+                >
+                    OK
+                </Button>,
+            ],
+        };
+    },
+
+    invalid_attempt_number_graded() {
+        return {
+            className: 'error',
+            title: 'Grading error',
+            body: (
+                <div data-test-id="invalid-attempt-number-graded-message">
+                    <p className="lead">
+                        A new response has been submitted, please reload your browser.
                     </p>
                 </div>
             ),

@@ -1,4 +1,4 @@
-import { BaseModel, ID, field, modelize, action, NEW_ID, getParentOf } from 'shared/model';
+import { BaseModel, ID, field, modelize, action, NEW_ID, getParentOf, runInAction } from 'shared/model';
 import urlFor from '../../api'
 import type { PracticeQuestionData, PracticeQuestions as Map } from '../../models'
 
@@ -55,7 +55,7 @@ export class PracticeQuestion extends BaseModel {
                 data: { tasked_exercise_id: this.tasked_exercise_id },
             }
         )
-        this.map.delete(this.id);
+        runInAction(() => this.map.delete(this.id));
     }
 
 }

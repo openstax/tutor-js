@@ -1,6 +1,5 @@
 import { React, PropTypes, styled, observer, css, useEffect, useState, useRef } from 'vendor';
 import { StickyTable, Row } from 'react-sticky-table';
-import { isNil } from 'lodash';
 import { OverlayTrigger, Popover } from 'react-bootstrap';
 import { Icon } from 'shared';
 import { colors } from 'theme';
@@ -13,6 +12,7 @@ import MinMaxResult, { TYPE as MinMaxType } from './min-max-result-cell';
 import { getCell } from './styles';
 import AverageInfoModal from './average-info-modal';
 import SetWeightsModal from './set-weights-modal';
+import Bignum from 'shared/model/bignum';
 
 const mainDivCSS = css`
     max-height: 60vh;
@@ -370,7 +370,8 @@ const AssignmentHeading = observer(({ ux, heading }) => {
     );
 });
 
-const percentOrDash = (score) => isNil(score) ? UNWORKED : ScoresHelper.asPercent(score) + '%';
+const percentOrDash = (score) => score === Bignum.unknown ?
+    UNWORKED : `${ScoresHelper.asPercent(score)}%`;
 
 const StudentCell = observer(({ ux, student, striped, isLast }) => {
     return (
