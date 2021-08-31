@@ -1,6 +1,6 @@
 const Factory = require('object-factory-bot');
 const fake = require('faker');
-const TIme = require('../../../../shared/src/models/time')
+const Time = require('../../../../shared/src/model/time')
 const { getCourse } = require('./bootstrap');
 const tasksPlansApi = require('./task-plans');
 require('../../../specs/factories/student-tasks');

@@ -4,7 +4,7 @@ const { now } = require('../time-now');
 const fake = require('faker');
 const { getExercise } = require('./exercises');
 const { getCourse } = require('./bootstrap');
-const TIme = require('../../../../shared/src/models/time')
+const Time = require('../../../../shared/src/model/time')
 require('../../../specs/factories/teacher-task-plan');
 require('../../../specs/factories/task-plan-stats');
 require('../../../specs/factories/task-scores');
