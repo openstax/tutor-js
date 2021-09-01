@@ -83,6 +83,11 @@ class CoursePlanDetails extends React.Component {
         modelize(this);
     }
 
+    async componentDidMount() {
+        const { plan } = this.props;
+        await plan.referenceBook.ensureLoaded();
+    }
+
     @action UNSAFE_componentWillMount() {
         this.props.tourContext.otherModal = this;
     }

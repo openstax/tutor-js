@@ -23,6 +23,7 @@ import {
     TaskPlanPublishJob as TaskPlanPublish,
     TaskingPlan, DroppedQuestion, TaskPlanScores,
     currentExercises, TaskPlanStats, Exercise, ExercisesMap,
+    ReferenceBook,
 } from '../../../models'
 
 
@@ -76,6 +77,7 @@ export class TeacherTaskPlan extends BaseModel {
     @field extensions: TaskPlanExtensionData[] = []
     @field settings: TeacherTaskPlanSettingsData = {};
 
+    @lazyGetter get referenceBook() { return hydrateModel(ReferenceBook, { id: this.ecosystem_id }, this) }
     @model(DroppedQuestion) dropped_questions: DroppedQuestion[] = [];
 
     @model(TaskingPlan) tasking_plans = array((plans: TaskingPlan[]) => ({
@@ -361,7 +363,7 @@ export class TeacherTaskPlan extends BaseModel {
     }
 
     @computed get assignedSections() {
-        return compact(this.pageIds.map(pgId => this.course.referenceBook.pages.byId.get(pgId)));
+        return compact(this.pageIds.map(pgId => this.referenceBook.pages.byId.get(pgId)));
     }
 
     @action addExercise(ex: Exercise) {
