@@ -1,18 +1,18 @@
 import { React, observer, styled } from 'vendor'
-import Theme from '../../../theme'
+import { colors, breakpoint } from '../../../theme'
 import { StudentTaskStep, Course, PracticeQuestions } from '../../../models'
 import { ExerciseSuggestCorrectionLink, Icon } from 'shared'
 import SavePracticeButton from '../../../components/buttons/save-practice'
 import BrowseTheBook from '../../../components/buttons/browse-the-book'
 
 interface StyledProps {
-    theme: typeof Theme,
+    hideToolbar: boolean,
 }
 
 const Toolbar = styled.div<StyledProps>`
     font-size: 1.4rem;
-    color: ${Theme.colors.neutral.darker};
-    border: 1px solid ${Theme.colors.neutral.pale};
+    color: ${colors.neutral.darker};
+    border: 1px solid ${colors.neutral.pale};
     background: #fff;
     z-index: 1;
 
@@ -27,7 +27,7 @@ const Toolbar = styled.div<StyledProps>`
         position: relative;
 
         &:focus {
-            outline: 2px solid ${Theme.colors.forms.borders.focus};
+            outline: 2px solid ${colors.forms.borders.focus};
         }
 
         &:nth-child(2):before, &:nth-child(2):after, &:nth-child(3):after {
@@ -37,7 +37,7 @@ const Toolbar = styled.div<StyledProps>`
 
         &:not(.is-saved.save-practice-button) svg.ox-icon,
         &:not(.is-saved.save-practice-button) span {
-            color: ${Theme.colors.neutral.std};
+            color: ${colors.neutral.std};
         }
 
         &:hover {
@@ -45,13 +45,13 @@ const Toolbar = styled.div<StyledProps>`
 
             &:not(.save-practice-button) {
                 & span, & svg.ox-icon {
-                    color: ${Theme.colors.neutral.darker};
+                    color: ${colors.neutral.darker};
                 }
                 background: inherit;
             }
 
             &:not(.is-saved).save-practice-button {
-                & svg, & span { color: ${Theme.colors.cerulan}; }
+                & svg, & span { color: ${colors.cerulan}; }
             }
             span {
                 display: block;
@@ -67,7 +67,7 @@ const Toolbar = styled.div<StyledProps>`
         }
     }
 
-    ${({ theme }) => theme.breakpoint.desktop`
+    ${breakpoint.desktop`
         position: absolute;
         top: 61px;
         left: -80px;
@@ -85,7 +85,7 @@ const Toolbar = styled.div<StyledProps>`
             }
 
             &:nth-child(2):after, &:nth-child(3):after {
-                border-top: 1px solid ${Theme.colors.neutral.bright};
+                border-top: 1px solid ${colors.neutral.bright};
                 width: 26px;
                 top: 0;
             }
@@ -98,7 +98,7 @@ const Toolbar = styled.div<StyledProps>`
         }
     `}
 
-    ${({ theme }) => theme.breakpoint.tablet`
+    ${breakpoint.tablet`
         position: relative;
         width: auto;
         border-width: 1px 0;
@@ -114,15 +114,15 @@ const Toolbar = styled.div<StyledProps>`
                 height: 40px;
             }
             &:nth-child(2):before {
-                border-left: 1px solid ${Theme.colors.neutral.bright};
+                border-left: 1px solid ${colors.neutral.bright};
                 left: 0;
             }
             &:nth-child(2):after {
-                border-right: 1px solid ${Theme.colors.neutral.bright};
+                border-right: 1px solid ${colors.neutral.bright};
                 right: 0;
             }
             &:not(.save-practice-button.is-saved) span {
-                color: ${Theme.colors.neutral.std};
+                color: ${colors.neutral.std};
             }
             span {
                 display: block;
@@ -133,9 +133,11 @@ const Toolbar = styled.div<StyledProps>`
                 min-width: 100px;
             }
         }
+
+        ${(props: StyledProps) => props.hideToolbar && `display: none;`}
     `}
 
-    ${({ theme }) => theme.breakpoint.mobile`
+    ${breakpoint.mobile`
         button, a {
             span {
                 min-width: initial;
@@ -155,17 +157,13 @@ interface StepToolbarProps {
     practiceQuestions: PracticeQuestions,
     hideContentLink?: boolean,
     showSaveToPractice?: boolean,
-    mobile?: boolean,
 }
 
 const StepToolbar: React.FC<StepToolbarProps> = observer(({
-    hideToolbar, course, step, hideContentLink, practiceQuestions, showSaveToPractice,
+    hideToolbar = false, course, step, hideContentLink, practiceQuestions, showSaveToPractice,
 }) => {
-    if (hideToolbar) {
-        return null;
-    }
     return (
-        <Toolbar>
+        <Toolbar hideToolbar={hideToolbar} data-test-id="step-toolbar">
             {
                 showSaveToPractice &&
                 <SavePracticeButton
