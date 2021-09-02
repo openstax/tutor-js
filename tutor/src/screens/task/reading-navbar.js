@@ -1,4 +1,4 @@
-import { React, PropTypes, observer, styled, inject, autobind, runInAction, cn } from 'vendor';
+import { React, PropTypes, observer, styled, inject, autobind } from 'vendor';
 import { ProgressBar } from 'react-bootstrap';
 import UX from './ux';
 import MilestonesToggle from './reading-milestones-toggle';

@@ -134,7 +134,7 @@ const Toolbar = styled.div<StyledProps>`
             }
         }
 
-        ${(props: StyledProps) => props.hideToolbar && `display: none;`}
+        ${(props: StyledProps) => props.hideToolbar && 'display: none;'}
     `}
 
     ${breakpoint.mobile`
