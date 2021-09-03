@@ -1,3 +1,4 @@
+import { DateTime } from 'luxon'
 import { visitPage, withUser, test, faker, expect } from './test'
 const COURSE_ID = 1
 const HW = 4
@@ -5,8 +6,6 @@ const RD = 2
 const GRADABLE=3
 
 test.describe('Assignment Review', () => {
-
-    test.skip()
 
     withUser('teacher01')
 
@@ -57,18 +56,73 @@ test.describe('Assignment Review', () => {
         await page.click('text="Save & Continue"')
         await page.click('text="Problem-Solving Strategies"')
         await page.click('text="Save & Continue"')
-        await page.click('text="Publish"')
+        await page.click('text="Save as Draft"')
 
-        await page.waitForSelector(`tourRegion=teacher-calendar >> css=.is-published.is-open >>     text="${assignmentName}"`)
+        await page.waitForSelector(`tourRegion=teacher-calendar >> text="${assignmentName}"`)
 
-        await page.click(`text="${assignmentName}"`)
-        await page.click('text="View assignment"')
+        await page.click(`text="${assignmentName}"`, { position: { x: 33, y: 8 } })
 
-        await page.click('testId=edit-assignment')
         await page.waitForSelector('tourRegion=reading-assignment-editor')
         expect(
             await page.evaluate(() => document.location.pathname)
         ).toMatch(/assignment\/edit\/reading/)
+
+        await page.click('.opens-at')
+        await page.click('.oxdt-dropdown:not(.oxdt-dropdown-hidden) .oxdt-cell')
+        await page.click('.oxdt-dropdown:not(.oxdt-dropdown-hidden) button')
+
+        await page.click('text="Save & Continue"')
+
+        await page.click('text="Save & Continue"')
+
+        await page.click('text="Publish"')
+
+        await page.waitForSelector(
+            `tourRegion=teacher-calendar >> css=.is-published.is-open >> text="${assignmentName}"`
+        )
+
+        await page.click(`text="${assignmentName}"`, { position: { x: 33, y: 8 } })
+        await page.waitForSelector('.tasking-date-time')
+        const format = 'ccc, MMM d, h:mm a z' // TimeHelper.HUMAN_DATE_TIME_TZ_FORMAT
+        const oldDueAt = DateTime.fromFormat(
+            await page.$eval(
+                '.tasking-date-time.row + .tasking-date-time.row .due-at', node => node.innerText
+            ), format
+        )
+        const oldClosesAt = DateTime.fromFormat(
+            await page.$eval(
+                '.tasking-date-time.row + .tasking-date-time.row .closes-at', node => node.innerText
+            ), format
+        )
+        await page.click('text="View assignment"')
+        await page.click('testId=edit-assignment')
+
+        await page.click('.due-at')
+        await page.click(
+            '.oxdt-dropdown:not(.oxdt-dropdown-hidden) .oxdt-cell.oxdt-cell-selected + .oxdt-cell'
+        )
+        await page.click('.oxdt-dropdown:not(.oxdt-dropdown-hidden) button')
+
+        await page.click('.closes-at')
+        await page.click(
+            '.oxdt-dropdown:not(.oxdt-dropdown-hidden) .oxdt-cell.oxdt-cell-selected + .oxdt-cell'
+        )
+        await page.click('.oxdt-dropdown:not(.oxdt-dropdown-hidden) button')
+
+        await page.click('text="Save changes"')
+
+        await page.waitForSelector('.modal', { state: 'detached' })
+
+        const reviewFormat = 'ccc, MMM d\nh:mma z'
+        const dueAtText = await page.$eval('.due-date', node => node.innerText)
+        const newDueAt = DateTime.fromFormat(dueAtText + ' ' + oldDueAt.zoneName, reviewFormat)
+        const closeAtText = await page.$eval('.close-date', node => node.innerText)
+        const newClosesAt = DateTime.fromFormat(
+            closeAtText + ' ' + oldClosesAt.zoneName, reviewFormat
+        )
+
+        expect(newDueAt.diff(oldDueAt).milliseconds).toEqual(86400000)
+        expect(newClosesAt.diff(oldClosesAt).milliseconds).toEqual(86400000)
 
         await page.click('testId=delete-assignment')
         await page.click('testId=confirm-delete-assignment')
