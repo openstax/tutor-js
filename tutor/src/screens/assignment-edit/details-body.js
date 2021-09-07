@@ -207,7 +207,7 @@ const DetailsBody = observer(({ ux }) => {
           Assign
                     <HintText>
             Course Time Zone:<br/>
-                        {ux.course.timezone}
+                        <span class="timezone">{ux.course.timezone}</span>
                         <HintText>
               (To immediately open an assignment, select ‘Now’ in the calendar.)
                         </HintText>
