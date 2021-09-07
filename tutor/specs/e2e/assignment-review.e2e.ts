@@ -86,12 +86,14 @@ test.describe('Assignment Review', () => {
         const format = 'ccc, MMM d, h:mm a z' // TimeHelper.HUMAN_DATE_TIME_TZ_FORMAT
         const oldDueAt = DateTime.fromFormat(
             await page.$eval(
-                '.tasking-date-time.row + .tasking-date-time.row .due-at', node => node.innerText
+                '.tasking-date-time.row + .tasking-date-time.row .due-at',
+                node => (node as HTMLElement).innerText
             ), format
         )
         const oldClosesAt = DateTime.fromFormat(
             await page.$eval(
-                '.tasking-date-time.row + .tasking-date-time.row .closes-at', node => node.innerText
+                '.tasking-date-time.row + .tasking-date-time.row .closes-at',
+                node => (node as HTMLElement).innerText
             ), format
         )
         await page.click('text="View assignment"')
@@ -114,9 +116,9 @@ test.describe('Assignment Review', () => {
         await page.waitForSelector('.modal', { state: 'detached' })
 
         const reviewFormat = 'ccc, MMM d\nh:mma z'
-        const dueAtText = await page.$eval('.due-date', node => node.innerText)
+        const dueAtText = await page.$eval('.due-date', node => (node as HTMLElement).innerText)
         const newDueAt = DateTime.fromFormat(dueAtText + ' ' + oldDueAt.zoneName, reviewFormat)
-        const closeAtText = await page.$eval('.close-date', node => node.innerText)
+        const closeAtText = await page.$eval('.close-date', node => (node as HTMLElement).innerText)
         const newClosesAt = DateTime.fromFormat(
             closeAtText + ' ' + oldClosesAt.zoneName, reviewFormat
         )
