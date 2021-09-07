@@ -73,11 +73,6 @@ test.describe('Assignment Review', () => {
         await page.click('.oxdt-dropdown:not(.oxdt-dropdown-hidden) .oxdt-cell-today')
         await page.click('.oxdt-dropdown:not(.oxdt-dropdown-hidden) button')
 
-        const inputFormat = 'MMM d | hh:mm a z'
-        const timezone = await page.$eval('.timezone', node => (node as HTMLElement).innerText)
-        const opensAtValue = await page.inputValue('.opens-at input')
-        const opensAtInput = DateTime.fromFormat(opensAtValue + ' ' + timezone, inputFormat)
-
         await page.click('text="Save & Continue"')
 
         await page.click('text="Save & Continue"')
@@ -91,12 +86,6 @@ test.describe('Assignment Review', () => {
         await page.click(`text="${assignmentName}"`, { position: { x: 33, y: 8 } })
 
         const detailsFormat = 'ccc, MMM d, h:mm a z' // TimeHelper.HUMAN_DATE_TIME_TZ_FORMAT
-        const oldOpensAt = DateTime.fromFormat(
-            await page.$eval(
-                '.tasking-date-time.row + .tasking-date-time.row .opens-at',
-                node => (node as HTMLElement).innerText
-            ), detailsFormat
-        )
         const oldDueAt = DateTime.fromFormat(
             await page.$eval(
                 '.tasking-date-time.row + .tasking-date-time.row .due-at',
@@ -124,6 +113,9 @@ test.describe('Assignment Review', () => {
             '.oxdt-dropdown:not(.oxdt-dropdown-hidden) .oxdt-cell-selected + .oxdt-cell'
         )
         await page.click('.oxdt-dropdown:not(.oxdt-dropdown-hidden) button')
+
+        const inputFormat = 'MMM d | hh:mm a z'
+        const timezone = await page.$eval('.timezone', node => (node as HTMLElement).innerText)
 
         const dueAtValue = await page.inputValue('.due-at input')
         const dueAtInput = DateTime.fromFormat(dueAtValue + ' ' + timezone, inputFormat)
@@ -177,11 +169,6 @@ test.describe('Assignment Review', () => {
             await page.click('.oxdt-dropdown:not(.oxdt-dropdown-hidden) .oxdt-cell-today')
             await page.click('.oxdt-dropdown:not(.oxdt-dropdown-hidden) button')
 
-            const inputFormat = 'MMM d | hh:mm a z'
-            const timezone = await page.$eval('.timezone', node => (node as HTMLElement).innerText)
-            const opensAtValue = await page.inputValue('.opens-at input')
-            const opensAtInput = DateTime.fromFormat(opensAtValue + ' ' + timezone, inputFormat)
-
             await page.click('text="Save & Continue"')
 
             await page.click('text="Save & Continue"')
@@ -195,12 +182,6 @@ test.describe('Assignment Review', () => {
             await page.click(`text="${assignmentName}"`, { position: { x: 33, y: 8 } })
 
             const detailsFormat = 'ccc, MMM d, h:mm a z' // TimeHelper.HUMAN_DATE_TIME_TZ_FORMAT
-            const oldOpensAt = DateTime.fromFormat(
-                await page.$eval(
-                    '.tasking-date-time.row + .tasking-date-time.row .opens-at',
-                    node => (node as HTMLElement).innerText
-                ), detailsFormat
-            )
             const oldDueAt = DateTime.fromFormat(
                 await page.$eval(
                     '.tasking-date-time.row + .tasking-date-time.row .due-at',
@@ -228,6 +209,9 @@ test.describe('Assignment Review', () => {
                 '.oxdt-dropdown:not(.oxdt-dropdown-hidden) .oxdt-cell-selected + .oxdt-cell'
             )
             await page.click('.oxdt-dropdown:not(.oxdt-dropdown-hidden) button')
+
+            const inputFormat = 'MMM d | hh:mm a z'
+            const timezone = await page.$eval('.timezone', node => (node as HTMLElement).innerText)
 
             const dueAtValue = await page.inputValue('.due-at input')
             const dueAtInput = DateTime.fromFormat(dueAtValue + ' ' + timezone, inputFormat)
