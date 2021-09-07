@@ -6,6 +6,7 @@ const RD = 2
 const GRADABLE=3
 
 test.describe('Assignment Review', () => {
+    test.use({ timezoneId: 'America/Chicago' });
 
     withUser('teacher01')
 
@@ -50,7 +51,7 @@ test.describe('Assignment Review', () => {
     });
 
     test('after creating assignment it edits and can delete', async ({ page }) => {
-        const assignmentName  = faker.hacker.phrase()
+        const assignmentName = faker.hacker.phrase()
         await visitPage(page, `/course/${COURSE_ID}/assignment/edit/reading/new`)
         await page.fill('testId=edit-assignment-name', assignmentName)
         await page.click('text="Save & Continue"')
@@ -148,6 +149,120 @@ test.describe('Assignment Review', () => {
         await page.click('testId=delete-assignment')
         await page.click('testId=confirm-delete-assignment')
         await page.waitForSelector('tourRegion=teacher-calendar')
+    })
+
+    test.describe('in a different timezone', () => {
+        test.use({ timezoneId: 'America/New_York' });
+
+        test('after creating assignment it edits and can delete', async ({ page }) => {
+            const assignmentName = faker.hacker.phrase()
+            await visitPage(page, `/course/${COURSE_ID}/assignment/edit/reading/new`)
+            await page.fill('testId=edit-assignment-name', assignmentName)
+            await page.click('text="Save & Continue"')
+            await page.click('text="Problem-Solving Strategies"')
+            await page.click('text="Save & Continue"')
+            await page.click('text="Save as Draft"')
+
+            await page.waitForSelector(`tourRegion=teacher-calendar >> text="${assignmentName}"`)
+
+            await page.click(`text="${assignmentName}"`, { position: { x: 33, y: 8 } })
+            await page.waitForSelector('.tasking-date-time')
+
+            await page.waitForSelector('tourRegion=reading-assignment-editor')
+            expect(
+                await page.evaluate(() => document.location.pathname)
+            ).toMatch(/assignment\/edit\/reading/)
+
+            await page.click('.opens-at')
+            await page.click('.oxdt-dropdown:not(.oxdt-dropdown-hidden) .oxdt-cell-today')
+            await page.click('.oxdt-dropdown:not(.oxdt-dropdown-hidden) button')
+
+            const inputFormat = 'MMM d | hh:mm a z'
+            const timezone = await page.$eval('.timezone', node => (node as HTMLElement).innerText)
+            const opensAtValue = await page.inputValue('.opens-at input')
+            const opensAtInput = DateTime.fromFormat(opensAtValue + ' ' + timezone, inputFormat)
+
+            await page.click('text="Save & Continue"')
+
+            await page.click('text="Save & Continue"')
+
+            await page.click('text="Publish"')
+
+            await page.waitForSelector(
+                `tourRegion=teacher-calendar >> css=.is-published.is-open >> text="${assignmentName}"`
+            )
+
+            await page.click(`text="${assignmentName}"`, { position: { x: 33, y: 8 } })
+
+            const detailsFormat = 'ccc, MMM d, h:mm a z' // TimeHelper.HUMAN_DATE_TIME_TZ_FORMAT
+            const oldOpensAt = DateTime.fromFormat(
+                await page.$eval(
+                    '.tasking-date-time.row + .tasking-date-time.row .opens-at',
+                    node => (node as HTMLElement).innerText
+                ), detailsFormat
+            )
+            const oldDueAt = DateTime.fromFormat(
+                await page.$eval(
+                    '.tasking-date-time.row + .tasking-date-time.row .due-at',
+                    node => (node as HTMLElement).innerText
+                ), detailsFormat
+            )
+            const oldClosesAt = DateTime.fromFormat(
+                await page.$eval(
+                    '.tasking-date-time.row + .tasking-date-time.row .closes-at',
+                    node => (node as HTMLElement).innerText
+                ), detailsFormat
+            )
+
+            await page.click('text="View assignment"')
+            await page.click('testId=edit-assignment')
+
+            await page.click('.due-at')
+            await page.click(
+                '.oxdt-dropdown:not(.oxdt-dropdown-hidden) .oxdt-cell-selected + .oxdt-cell'
+            )
+            await page.click('.oxdt-dropdown:not(.oxdt-dropdown-hidden) button')
+
+            await page.click('.closes-at')
+            await page.click(
+                '.oxdt-dropdown:not(.oxdt-dropdown-hidden) .oxdt-cell-selected + .oxdt-cell'
+            )
+            await page.click('.oxdt-dropdown:not(.oxdt-dropdown-hidden) button')
+
+            const dueAtValue = await page.inputValue('.due-at input')
+            const dueAtInput = DateTime.fromFormat(dueAtValue + ' ' + timezone, inputFormat)
+
+            const closesAtValue = await page.inputValue('.closes-at input')
+            const closesAtInput = DateTime.fromFormat(closesAtValue + ' ' + timezone, inputFormat)
+
+            await page.click('text="Save changes"')
+
+            await page.waitForSelector('.modal', { state: 'detached' })
+
+            // Note that unlike the other test (course and browser in the same timezone)
+            // dueAtText and closeAtText here already contain the timezone!
+            // Luxon's parseFormat method does not support the timezone "EDT"
+            const reviewFormat = 'ccc, MMM d\nh:mma z'
+            const dueAtText = await page.$eval('.due-date', node => (node as HTMLElement).innerText)
+            const newDueAt = DateTime.fromFormat(
+                dueAtText.replace('EDT', 'US/Eastern'), reviewFormat
+            )
+            const closeAtText = await page.$eval(
+                '.close-date', node => (node as HTMLElement).innerText
+            )
+            const newClosesAt = DateTime.fromFormat(
+                closeAtText.replace('EDT', 'US/Eastern'), reviewFormat
+            )
+
+            expect(newDueAt.diff(dueAtInput).milliseconds).toEqual(0)
+            expect(newDueAt.diff(oldDueAt).milliseconds).toEqual(86400000)
+            expect(newClosesAt.diff(closesAtInput).milliseconds).toEqual(0)
+            expect(newClosesAt.diff(oldClosesAt).milliseconds).toEqual(86400000)
+
+            await page.click('testId=delete-assignment')
+            await page.click('testId=confirm-delete-assignment')
+            await page.waitForSelector('tourRegion=teacher-calendar')
+        })
     })
 
 
