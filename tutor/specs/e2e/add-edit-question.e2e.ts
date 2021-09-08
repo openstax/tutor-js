@@ -1,4 +1,4 @@
-import { test, visitPage, expect, withUser, disableTours } from './test'
+import { test, visitPage, expect, withUser, disableTours, signTerm } from './test'
 
 
 test.describe('Add/Edit Questions', () => {
@@ -7,6 +7,7 @@ test.describe('Add/Edit Questions', () => {
 
     test.beforeEach(async ({ page }) => {
         await visitPage(page, '/course/1/questions')
+        await signTerm(page, 'exercise_editing')
         await page.evaluate(() => {
             window.localStorage.clear()
         })
@@ -83,6 +84,7 @@ test.describe('Add/Edit Questions', () => {
     test('requires Detailed solution to be present', async({ page }) => {
         // dispatchEvent to bypass issues with (even force-clicking) the hover controls
         await page.dispatchEvent('.copyEdit', 'click')
+
         const solutionSel = 'testId=add-edit-question >> .detailed-solution >> .editor'
         await page.click(solutionSel)
         const editorSel = `${solutionSel} >> .pw-prosemirror-editor`
