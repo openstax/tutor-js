@@ -5,6 +5,18 @@ const HW = 4
 const RD = 2
 const GRADABLE=3
 
+const openCalendarButtonCSS = '.oxdt-dropdown:not(.oxdt-dropdown-hidden) button'
+const openCalendarCellTodayCSS = '.oxdt-dropdown:not(.oxdt-dropdown-hidden) .oxdt-cell-today'
+const openCalendarCellAfterSelectedCellCSS = '.oxdt-dropdown:not(.oxdt-dropdown-hidden) ' +
+                                             '.oxdt-cell-selected + .oxdt-cell'
+
+const detailsDueAtCSS = '.tasking-date-time.row + .tasking-date-time.row .due-at'
+const detailsClosesAtCSS = '.tasking-date-time.row + .tasking-date-time.row .closes-at'
+
+const detailsDateTimeFormat = 'ccc, MMM d, h:mm a z' // TimeHelper.HUMAN_DATE_TIME_TZ_FORMAT
+const inputDateTimeFormat = 'MMM d | hh:mm a z'
+const reviewDateTimeFormat = 'ccc, MMM d\nh:mma z'
+
 test.describe('Assignment Review', () => {
     test.use({ timezoneId: 'America/Chicago' });
 
@@ -70,8 +82,8 @@ test.describe('Assignment Review', () => {
         ).toMatch(/assignment\/edit\/reading/)
 
         await page.click('.opens-at')
-        await page.click('.oxdt-dropdown:not(.oxdt-dropdown-hidden) .oxdt-cell-today')
-        await page.click('.oxdt-dropdown:not(.oxdt-dropdown-hidden) button')
+        await page.click(openCalendarCellTodayCSS)
+        await page.click(openCalendarButtonCSS)
 
         await page.click('text="Save & Continue"')
 
@@ -85,53 +97,52 @@ test.describe('Assignment Review', () => {
 
         await page.click(`text="${assignmentName}"`, { position: { x: 33, y: 8 } })
 
-        const detailsFormat = 'ccc, MMM d, h:mm a z' // TimeHelper.HUMAN_DATE_TIME_TZ_FORMAT
         const oldDueAt = DateTime.fromFormat(
             await page.$eval(
-                '.tasking-date-time.row + .tasking-date-time.row .due-at',
-                node => (node as HTMLElement).innerText
-            ), detailsFormat
+                detailsDueAtCSS, node => (node as HTMLElement).innerText
+            ), detailsDateTimeFormat
         )
         const oldClosesAt = DateTime.fromFormat(
             await page.$eval(
-                '.tasking-date-time.row + .tasking-date-time.row .closes-at',
-                node => (node as HTMLElement).innerText
-            ), detailsFormat
+                detailsClosesAtCSS, node => (node as HTMLElement).innerText
+            ), detailsDateTimeFormat
         )
 
         await page.click('text="View assignment"')
         await page.click('testId=edit-assignment')
 
         await page.click('.due-at')
-        await page.click(
-            '.oxdt-dropdown:not(.oxdt-dropdown-hidden) .oxdt-cell-selected + .oxdt-cell'
-        )
-        await page.click('.oxdt-dropdown:not(.oxdt-dropdown-hidden) button')
+        await page.click(openCalendarCellAfterSelectedCellCSS)
+        await page.click(openCalendarButtonCSS)
 
         await page.click('.closes-at')
-        await page.click(
-            '.oxdt-dropdown:not(.oxdt-dropdown-hidden) .oxdt-cell-selected + .oxdt-cell'
-        )
-        await page.click('.oxdt-dropdown:not(.oxdt-dropdown-hidden) button')
+        await page.click(openCalendarCellAfterSelectedCellCSS)
+        await page.click(openCalendarButtonCSS)
 
-        const inputFormat = 'MMM d | hh:mm a z'
-        const timezone = await page.$eval('.timezone', node => (node as HTMLElement).innerText)
+        const timezone = await page.$eval(
+            '[data-test-id="timezone"]', node => (node as HTMLElement).innerText
+        )
 
         const dueAtValue = await page.inputValue('.due-at input')
-        const dueAtInput = DateTime.fromFormat(dueAtValue + ' ' + timezone, inputFormat)
+        const dueAtInput = DateTime.fromFormat(dueAtValue + ' ' + timezone, inputDateTimeFormat)
 
         const closesAtValue = await page.inputValue('.closes-at input')
-        const closesAtInput = DateTime.fromFormat(closesAtValue + ' ' + timezone, inputFormat)
+        const closesAtInput = DateTime.fromFormat(
+            closesAtValue + ' ' + timezone, inputDateTimeFormat
+        )
 
         await page.click('text="Save changes"')
 
         await page.waitForSelector('.modal', { state: 'detached' })
 
-        const reviewFormat = 'ccc, MMM d\nh:mma z'
-        const dueAtText = await page.$eval('.due-date', node => (node as HTMLElement).innerText)
-        const newDueAt = DateTime.fromFormat(dueAtText + ' ' + timezone, reviewFormat)
-        const closeAtText = await page.$eval('.close-date', node => (node as HTMLElement).innerText)
-        const newClosesAt = DateTime.fromFormat(closeAtText + ' ' + timezone, reviewFormat)
+        const dueAtText = await page.$eval(
+            '[data-test-id="due-date"]', node => (node as HTMLElement).innerText
+        )
+        const newDueAt = DateTime.fromFormat(dueAtText + ' ' + timezone, reviewDateTimeFormat)
+        const closeAtText = await page.$eval(
+            '[data-test-id="close-date"]', node => (node as HTMLElement).innerText
+        )
+        const newClosesAt = DateTime.fromFormat(closeAtText + ' ' + timezone, reviewDateTimeFormat)
 
         expect(newDueAt.diff(dueAtInput).milliseconds).toEqual(0)
         expect(newDueAt.diff(oldDueAt).milliseconds).toEqual(86400000)
@@ -166,8 +177,8 @@ test.describe('Assignment Review', () => {
             ).toMatch(/assignment\/edit\/reading/)
 
             await page.click('.opens-at')
-            await page.click('.oxdt-dropdown:not(.oxdt-dropdown-hidden) .oxdt-cell-today')
-            await page.click('.oxdt-dropdown:not(.oxdt-dropdown-hidden) button')
+            await page.click(openCalendarCellTodayCSS)
+            await page.click(openCalendarButtonCSS)
 
             await page.click('text="Save & Continue"')
 
@@ -181,43 +192,39 @@ test.describe('Assignment Review', () => {
 
             await page.click(`text="${assignmentName}"`, { position: { x: 33, y: 8 } })
 
-            const detailsFormat = 'ccc, MMM d, h:mm a z' // TimeHelper.HUMAN_DATE_TIME_TZ_FORMAT
             const oldDueAt = DateTime.fromFormat(
                 await page.$eval(
-                    '.tasking-date-time.row + .tasking-date-time.row .due-at',
-                    node => (node as HTMLElement).innerText
-                ), detailsFormat
+                    detailsDueAtCSS, node => (node as HTMLElement).innerText
+                ), detailsDateTimeFormat
             )
             const oldClosesAt = DateTime.fromFormat(
                 await page.$eval(
-                    '.tasking-date-time.row + .tasking-date-time.row .closes-at',
-                    node => (node as HTMLElement).innerText
-                ), detailsFormat
+                    detailsClosesAtCSS, node => (node as HTMLElement).innerText
+                ), detailsDateTimeFormat
             )
 
             await page.click('text="View assignment"')
             await page.click('testId=edit-assignment')
 
             await page.click('.due-at')
-            await page.click(
-                '.oxdt-dropdown:not(.oxdt-dropdown-hidden) .oxdt-cell-selected + .oxdt-cell'
-            )
-            await page.click('.oxdt-dropdown:not(.oxdt-dropdown-hidden) button')
+            await page.click(openCalendarCellAfterSelectedCellCSS)
+            await page.click(openCalendarButtonCSS)
 
             await page.click('.closes-at')
-            await page.click(
-                '.oxdt-dropdown:not(.oxdt-dropdown-hidden) .oxdt-cell-selected + .oxdt-cell'
-            )
-            await page.click('.oxdt-dropdown:not(.oxdt-dropdown-hidden) button')
+            await page.click(openCalendarCellAfterSelectedCellCSS)
+            await page.click(openCalendarButtonCSS)
 
-            const inputFormat = 'MMM d | hh:mm a z'
-            const timezone = await page.$eval('.timezone', node => (node as HTMLElement).innerText)
+            const timezone = await page.$eval(
+                '[data-test-id="timezone"]', node => (node as HTMLElement).innerText
+            )
 
             const dueAtValue = await page.inputValue('.due-at input')
-            const dueAtInput = DateTime.fromFormat(dueAtValue + ' ' + timezone, inputFormat)
+            const dueAtInput = DateTime.fromFormat(dueAtValue + ' ' + timezone, inputDateTimeFormat)
 
             const closesAtValue = await page.inputValue('.closes-at input')
-            const closesAtInput = DateTime.fromFormat(closesAtValue + ' ' + timezone, inputFormat)
+            const closesAtInput = DateTime.fromFormat(
+                closesAtValue + ' ' + timezone, inputDateTimeFormat
+            )
 
             await page.click('text="Save changes"')
 
@@ -226,16 +233,17 @@ test.describe('Assignment Review', () => {
             // Note that unlike the other test (course and browser in the same timezone)
             // dueAtText and closeAtText here already contain the timezone!
             // Luxon's parseFormat method does not support the timezone "EDT"
-            const reviewFormat = 'ccc, MMM d\nh:mma z'
-            const dueAtText = await page.$eval('.due-date', node => (node as HTMLElement).innerText)
+            const dueAtText = await page.$eval(
+                '[data-test-id="due-date"]', node => (node as HTMLElement).innerText
+            )
             const newDueAt = DateTime.fromFormat(
-                dueAtText.replace('EDT', 'US/Eastern'), reviewFormat
+                dueAtText.replace('EDT', 'US/Eastern'), reviewDateTimeFormat
             )
             const closeAtText = await page.$eval(
-                '.close-date', node => (node as HTMLElement).innerText
+                '[data-test-id="close-date"]', node => (node as HTMLElement).innerText
             )
             const newClosesAt = DateTime.fromFormat(
-                closeAtText.replace('EDT', 'US/Eastern'), reviewFormat
+                closeAtText.replace('EDT', 'US/Eastern'), reviewDateTimeFormat
             )
 
             expect(newDueAt.diff(dueAtInput).milliseconds).toEqual(0)
