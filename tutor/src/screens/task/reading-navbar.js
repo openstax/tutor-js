@@ -3,6 +3,7 @@ import { ProgressBar } from 'react-bootstrap';
 import UX from './ux';
 import MilestonesToggle from './reading-milestones-toggle';
 import NotesSummaryToggle from '../../components/notes/summary-toggle';
+import StepToolbarToggle from './step-toolbar-toggle';
 import { Icon } from 'shared';
 import TutorLink from '../../components/link';
 import Time from '../../components/time';
@@ -15,6 +16,7 @@ const StyledNavbar = styled.div`
     }
   `}
 `;
+StyledNavbar.displayName = 'StyledNavbar';
 
 const StyledTutorLink = styled(TutorLink)`
   padding: 1.6rem 0 0;
@@ -23,6 +25,7 @@ const StyledTutorLink = styled(TutorLink)`
     margin: 0 0.2rem 0 0;
   }
 `;
+StyledTutorLink.displayName = 'StyledTutorLink';
 
 const Top = styled.div`
   padding: 0 ${breakpoint.margins.tablet};
@@ -30,15 +33,18 @@ const Top = styled.div`
     padding: 0 ${breakpoint.margins.mobile};
   `}
 `;
+Top.displayName = 'Top';
 
 const Middle = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 0 ${breakpoint.margins.tablet};
   ${breakpoint.only.mobile`
+
     padding: 0 ${breakpoint.margins.mobile};
   `}
 `;
+Middle.displayName = 'Middle';
 
 const Left = styled.div`
   display: flex;
@@ -70,6 +76,9 @@ const Right = styled.div`
       }
       .ox-icon {
         margin-right: 0.8rem;
+      }
+      .toolbar-icon {
+          display: none;
       }
     `}
   }
@@ -110,9 +119,8 @@ class ReadingNavbar extends React.Component {
     constructor(props) {
         super(props);
         if (!props.unDocked) {
-            props.setSecondaryTopControls(this.renderNavbar);
+            props.setSecondaryTopControls(this.renderNavbar, true);
         }
-        this.renderNavbar.unpadded = true;
     }
 
     componentWillUnmount() {
@@ -144,10 +152,11 @@ class ReadingNavbar extends React.Component {
                         <TaskTitle>{ux.task.title}</TaskTitle>
                         <Divider className="hide-mobile">|</Divider>
                         <span className="hide-mobile">
-              Due <Time date={ux.task.due_at} format="llll" />
+                            Due <Time date={ux.task.due_at} format="llll" />
                         </span>
                     </Left>
                     <Right>
+                        <StepToolbarToggle ux={ux} />
                         <NotesSummaryToggle
                             course={ux.course}
                             type="reading"
