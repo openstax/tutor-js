@@ -98,4 +98,10 @@ describe('Task Plan Model', function() {
         });
     });
 
+    it('fetches the reference book with the plan ecosystem not the course ecosystem', () => {
+        plan.ecosystem_id = 1
+        plan.course.ecosystem_id = 2
+        expect(plan.referenceBook.id).toEqual(1)
+    });
+
 });
