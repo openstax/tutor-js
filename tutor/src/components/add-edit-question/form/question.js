@@ -263,6 +263,7 @@ const Form = observer(({ ux }) => {
                     label='Answer Key'
                     placeholder="Enter a sample answer or a detailed solution. This is not visible to students."
                     className="question-answer-key"
+                    errorInfo={ux.isEmpty.detailedSolution ? 'Answer key field cannot be empty' : ''}
                 />
             );
         }
@@ -278,7 +279,7 @@ const Form = observer(({ ux }) => {
                             standalone
                         />
                         <p className="two-step-info">
-            Ask students to answer in their own words before displaying the multiple-choice options.
+                            Ask students to answer in their own words before displaying the multiple-choice options.
                         </p>
                     </div>
                 </div>
@@ -292,8 +293,8 @@ const Form = observer(({ ux }) => {
                     onChange={ux.changeDetailedSolution}
                     html={ux.detailedSolution}
                     label='Detailed solution'
-                    placeholder="Optional."
                     className="detailed-solution"
+                    errorInfo={ux.isEmpty.detailedSolution ? 'Detailed solution field cannot be empty' : ''}
                 />
             </>
         );
