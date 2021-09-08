@@ -83,6 +83,11 @@ class CoursePlanDetails extends React.Component {
         modelize(this);
     }
 
+    async componentDidMount() {
+        const { plan } = this.props;
+        await plan.referenceBook.ensureLoaded();
+    }
+
     @action UNSAFE_componentWillMount() {
         this.props.tourContext.otherModal = this;
     }
@@ -277,12 +282,21 @@ class CoursePlanDetails extends React.Component {
         return (
             <SectionsAssignedWrapper>
                 <h6>Sections Assigned</h6>
-                {assignedSections.map((section, i) => 
+                {assignedSections.map((section, i) =>
                     <ul key={section.pathId}>
-                        <li className={cn({ 'hidden': i >= 2 && !this.showMoreSections })}><BookPartTitle part={section} displayChapterSection /></li>
+                        <li className={cn({ 'hidden': i >= 2 && !this.showMoreSections })}>
+                            <BookPartTitle part={section} displayChapterSection />
+                        </li>
                     </ul>
                 )}
-                <Button variant="link" onClick={() => this.showMoreSections = !this.showMoreSections}>{this.showMoreSections ? 'See fewer sections' : `+${assignedSections.length - 2} more sections`}</Button>
+                <Button
+                    variant="link"
+                    onClick={action(() => this.showMoreSections = !this.showMoreSections)}
+                >
+                    {this.showMoreSections ?
+                        'See fewer sections' :
+                        `+${assignedSections.length - 2} more sections`}
+                </Button>
             </SectionsAssignedWrapper>
         );
     }
