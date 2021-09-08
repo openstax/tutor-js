@@ -108,9 +108,9 @@ export const selectCalendarSidebarOption = async (page: Page, option: string) =>
     await page.click(`.add-assignment-sidebar >> text="${option}"`)
 }
 
-export const signTerm = async (page: Page, termId: string) => {
-    await page.evaluate(() => {
-        const term = (window as any)._MODELS?.user.terms.get(termId)
+export const signTerm = async (page: Page, _termId: string) => {
+    await page.evaluate((_termId) => {
+        const term = (window as any)._MODELS?.user.terms.get(_termId)
         if (term) { term.is_signed = true }
     })
 }
