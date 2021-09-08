@@ -33,7 +33,7 @@ test.describe('Add/Edit Questions', () => {
         await expect(page).toHaveText('testId=terms-modal', 'edit only good things')
         await page.click('input.i-agree + label')
         await page.click('testId=agree-to-terms')
-        await expect(page).not.toHaveSelector('testId=terms-modal', { timeout: 10 })
+        await expect(page).not.toHaveSelector('testId=terms-modal')
         await page.click('.close')
     });
 
