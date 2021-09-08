@@ -109,10 +109,10 @@ export const selectCalendarSidebarOption = async (page: Page, option: string) =>
 }
 
 export const signTerm = async (page: Page, termId: string) => {
-    await page.evaluate(() => {
+    await page.evaluate((termId) => {
         const term = (window as any)._MODELS?.user.terms.get(termId)
         if (term) { term.is_signed = true }
-    })
+    }, termId)
 }
 
 export const disableTours = async (page: Page) => {

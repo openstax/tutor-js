@@ -19,6 +19,7 @@ export default class AddEditQuestionUX {
         selectedChapter: false,
         selectedChapterSection: false,
         questionText: false,
+        detailedSolution: false,
         correctOption: false,
         options: [false, false],
     }
@@ -342,16 +343,18 @@ export default class AddEditQuestionUX {
         const isTopicSelected = Boolean(this.selectedChapter && this.selectedChapterSection);
         // check question section
         let isQuestionFilled;
-        if(this.isMCQ) {
+        if (this.isMCQ) {
             isQuestionFilled = Boolean(this.questionText && this.filledOptions.length >= 2 && some(this.filledOptions, fo => fo.isCorrect));
         }
         else {
             isQuestionFilled = Boolean(this.questionText);
         }
+        // check "Detailed solution"/"Answer key"
+        const isDetailedSolutionFilled = Boolean(S.stripHTMLTags(this.detailedSolution));
         // check author
         const isAuthorSelected = Boolean(this.author);
 
-        return isTopicSelected && isQuestionFilled && isAuthorSelected;
+        return isTopicSelected && isQuestionFilled && isDetailedSolutionFilled && isAuthorSelected;
     }
 
     @computed get hasAnyFeedback() {
@@ -467,6 +470,9 @@ export default class AddEditQuestionUX {
 
     @action.bound changeDetailedSolution(value) {
         this.detailedSolution = value;
+        if(!S.isEmpty(S.stripHTMLTags(value))) {
+            this.isEmpty.detailedSolution = false;
+        }
     }
 
     // actions for tags form section
@@ -631,11 +637,11 @@ export default class AddEditQuestionUX {
 
         forEach(filterIsEmptyFields, (value, key) => {
             // check if there is a corect option selected
-            if(key === 'correctOption') {
+            if (key === 'correctOption') {
                 this.isEmpty[key] = every(this.options, o => !o.isCorrect);
             }
             else if (key === 'options' && this.filledOptions.length <= 1) {
-                // if there ar no filled options, show the inline error in the first two option editors
+                // if there are no filled options, show the inline error in the first two option editors
                 if(this.filledOptions.length === 0) {
                     this.isEmpty[key][0] = true;
                     this.isEmpty[key][1] = true;
