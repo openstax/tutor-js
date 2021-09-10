@@ -341,16 +341,18 @@ export default class AddEditQuestionUX {
     @computed get isReadyToPublish() {
         // check chapter and section
         const isTopicSelected = Boolean(this.selectedChapter && this.selectedChapterSection);
-        // check question section
+
+        // check question section && detailed solution (labeled Answer Key on WRMs)
         let isQuestionFilled;
+        let isDetailedSolutionFilled = true; // default to true because this field is optional in MCQs
+
         if (this.isMCQ) {
             isQuestionFilled = Boolean(this.questionText && this.filledOptions.length >= 2 && some(this.filledOptions, fo => fo.isCorrect));
         }
         else {
             isQuestionFilled = Boolean(this.questionText);
+            isDetailedSolutionFilled = Boolean(S.stripHTMLTags(this.detailedSolution));
         }
-        // check "Detailed solution"/"Answer key"
-        const isDetailedSolutionFilled = Boolean(S.stripHTMLTags(this.detailedSolution));
         // check author
         const isAuthorSelected = Boolean(this.author);
 
@@ -470,9 +472,7 @@ export default class AddEditQuestionUX {
 
     @action.bound changeDetailedSolution(value) {
         this.detailedSolution = value;
-        if(!S.isEmpty(S.stripHTMLTags(value))) {
-            this.isEmpty.detailedSolution = false;
-        }
+        this.isEmpty.detailedSolution = S.isEmpty(S.stripHTMLTags(value));
     }
 
     // actions for tags form section
