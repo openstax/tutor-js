@@ -253,15 +253,15 @@ const Form = observer(({ ux }) => {
     };
 
     const renderQuestionInfo = () => {
-    // if isMCQ is true, show MCQ form; otherwise show WRQ form
-        if(!ux.isMCQ) {
+        // if isMCQ is true, show MCQ form; otherwise show WRQ form
+        if (!ux.isMCQ) {
             return (
                 <AnswerHTMLEditor
                     onImageUpload={ux.onImageUpload}
                     onChange={ux.changeDetailedSolution}
                     html={ux.detailedSolution}
                     label='Answer Key'
-                    placeholder="Enter a sample answer or a detailed solution. This is not visible to students."
+                    placeholder="Enter a sample answer or a detailed solution."
                     className="question-answer-key"
                     errorInfo={ux.isEmpty.detailedSolution ? 'Answer key field cannot be empty' : ''}
                 />
@@ -294,7 +294,7 @@ const Form = observer(({ ux }) => {
                     html={ux.detailedSolution}
                     label='Detailed solution'
                     className="detailed-solution"
-                    errorInfo={ux.isEmpty.detailedSolution ? 'Detailed solution field cannot be empty' : ''}
+                    placeholder="Provide additional information on the correct choice."
                 />
             </>
         );
@@ -349,8 +349,10 @@ const QuestionForm = observer(({ ux }) => {
             variant="light"
             className={cn({ 'selected': ux.isMCQ })}
             onClick={() => ux.isMCQ = true}
-            disabled={ux.isMCQ}>
-          Multiple-choice question
+            disabled={ux.isMCQ}
+            data-test-id="switch-mcq"
+        >
+            Multiple-choice question
         </Button>;
         }
         if(!isEditing || !ux.isMCQ) buttons =
@@ -360,8 +362,10 @@ const QuestionForm = observer(({ ux }) => {
               variant="light"
               className={cn({ 'selected': !ux.isMCQ })}
               onClick={() => ux.isMCQ = false}
-              disabled={!ux.isMCQ}>
-          Written-response question
+              disabled={!ux.isMCQ}
+              data-test-id="switch-wrm"
+          >
+              Written-response question
           </Button>
       </>;
         return buttons;
