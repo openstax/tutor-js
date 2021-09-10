@@ -62,6 +62,7 @@ export class ReferenceBook extends BaseModel {
     }
 
     async fetch() {
+        // id/bookId is actually the ecosystem_id on the backend
         const data = await this.api.request<ReferenceBookData[]>(urlFor('fetchReferenceBook', { bookId: this.id }))
         this.update(omit(first(data), 'id'))
     }
