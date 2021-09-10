@@ -353,6 +353,7 @@ class TemplateForm extends React.Component {
                                 label="Yes"
                                 onChange={() => form.setFieldValue('allow_auto_graded_multiple_attempts', true)}
                                 defaultChecked={template.allow_auto_graded_multiple_attempts == true}
+                                data-test-id="turn-on-multiple-attempts"
                             />
                         </Setting>
                         <Setting>
@@ -361,6 +362,7 @@ class TemplateForm extends React.Component {
                                 label="No"
                                 onChange={() => form.setFieldValue('allow_auto_graded_multiple_attempts', false)}
                                 defaultChecked={template.allow_auto_graded_multiple_attempts == false}
+                                data-test-id="turn-off-multiple-attempts"
                             />
                         </Setting>
                     </div>

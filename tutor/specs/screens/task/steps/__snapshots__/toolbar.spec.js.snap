@@ -23,8 +23,8 @@ exports[`Task Step Toolbar matches snapshot 1`] = `
                                       <div>
                                         <Navbar area=\\"header\\" context={{...}} isDocked={false} />
                                         <StepToolbar course={{...}} step={{...}}>
-                                          <styled.div>
-                                            <div className=\\"sc-dkPtyc gjgZbv\\">
+                                          <styled.div hideToolbar={false} data-test-id=\\"step-toolbar\\">
+                                            <div data-test-id=\\"step-toolbar\\" className=\\"sc-dkPtyc lafAUD\\">
                                               <BrowseTheBook unstyled={true} course={{...}} chapterSection={{...}} tag=\\"a\\" windowImpl={{...}}>
                                                 <a data-test-id=\\"browse-the-book-btn\\" aria-label=\\"Browse course reference book\\" onClick={[Function: onClick] { isMobxAction: true }} href=\\"/book/2/section/1.2\\" target=\\"_blank\\" className=\\"browse-the-book\\">
                                                   <Icon type=\\"book-open\\" buttonProps={{...}} tooltipProps={{...}}>

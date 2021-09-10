@@ -124,8 +124,9 @@ class TutorLayout extends React.Component {
         modelize(this)
     }
 
-    @action.bound setSecondaryTopControls(controls) {
+    @action.bound setSecondaryTopControls(controls, unpadded = false) {
         this.secondaryTopControls = controls;
+        this.secondaryTopControls.unpadded = unpadded;
     }
 
     @action componentDidUpdate() {
