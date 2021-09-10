@@ -21,7 +21,7 @@ test.describe('Add/Edit Questions', () => {
         await page.route(/terms/, route => route.fulfill({
             status: 200,
             headers: { 'access-control-allow-origin': '*' },
-            body: JSON.stringify([ { name: 'exercise_editing', is_signed: false, content: 'i will edit only good things' } ]),
+            body: JSON.stringify([{ name: 'exercise_editing', is_signed: false, content: 'i will edit only good things' }]),
         }));
 
         await page.evaluate(() => {
@@ -84,9 +84,14 @@ test.describe('Add/Edit Questions', () => {
     test('requires Answer Key to be present for WRMs', async ({ page }) => {
         await page.click('testId=create-question')
         await page.click('testId=switch-wrm')
-        const solutionSel = 'testId=add-edit-question >> .detailed-solution >> .editor'
+        const stemSel = 'testId=add-edit-question >> .question-text >> .editor'
+        await page.click(stemSel)
+        let editorSel = `${stemSel} >> .pw-prosemirror-editor`
+        await page.focus(editorSel)
+        await page.type(editorSel, 'Hello World!')
+        const solutionSel = 'testId=add-edit-question >> .question-answer-key >> .editor'
         await page.click(solutionSel)
-        const editorSel = `${solutionSel} >> .pw-prosemirror-editor`
+        editorSel = `${solutionSel} >> .pw-prosemirror-editor`
         await page.focus(editorSel)
         await page.press(editorSel, 'Control+a')
         await page.press(editorSel, 'Backspace')
