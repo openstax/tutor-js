@@ -81,10 +81,9 @@ test.describe('Add/Edit Questions', () => {
         await page.click('.close')
     })
 
-    test('requires Detailed solution to be present', async({ page }) => {
-        // dispatchEvent to bypass issues with (even force-clicking) the hover controls
-        await page.dispatchEvent('.copyEdit', 'click')
-
+    test('requires Answer Key to be present for WRMs', async ({ page }) => {
+        await page.click('testId=create-question')
+        await page.click('testId=switch-wrm')
         const solutionSel = 'testId=add-edit-question >> .detailed-solution >> .editor'
         await page.click(solutionSel)
         const editorSel = `${solutionSel} >> .pw-prosemirror-editor`
@@ -92,6 +91,6 @@ test.describe('Add/Edit Questions', () => {
         await page.press(editorSel, 'Control+a')
         await page.press(editorSel, 'Backspace')
         await page.click('.tag-form button:first-child') // trigger focus blur for validation
-        await expect(page).toHaveText('Detailed solution field cannot be empty')
+        await expect(page).toHaveText('Answer key field cannot be empty')
     })
 })
