@@ -43,4 +43,21 @@ describe('DateTimeInput', () => {
 
         dt.unmount();
     });
+
+    it('works with timezones', () => {
+        const noTz = mount(<F initialValues={{
+            dte: new Date(),
+        }}><DateTimeInput {...props} /></F>);
+
+        expect(noTz.find('input').instance().value).toEqual('Feb 1 | 06:00 AM')
+
+        const withTz = mount(<F initialValues={{
+            dte: new Date(),
+        }}><DateTimeInput timezone='America/Los_Angeles' {...props} /></F>);
+
+        expect(withTz.find('input').instance().value).toEqual('Feb 1 | 04:00 AM')
+
+        noTz.unmount();
+        withTz.unmount();
+    });
 });

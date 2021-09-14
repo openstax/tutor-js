@@ -10,12 +10,12 @@ const openCalendarCellTodayCSS = '.oxdt-dropdown:not(.oxdt-dropdown-hidden) .oxd
 const openCalendarCellAfterSelectedCellCSS = '.oxdt-dropdown:not(.oxdt-dropdown-hidden) ' +
                                              '.oxdt-cell-selected + .oxdt-cell'
 
-const detailsDueAtCSS = '.tasking-date-time.row + .tasking-date-time.row .due-at'
-const detailsClosesAtCSS = '.tasking-date-time.row + .tasking-date-time.row .closes-at'
+const detailsDueAtCSS = 'testId=details-due-at'
+const detailsClosesAtCSS = 'testId=details-closes-at'
 
 const detailsDateTimeFormat = 'ccc, MMM d, h:mm a z' // TimeHelper.HUMAN_DATE_TIME_TZ_FORMAT
 const inputDateTimeFormat = 'MMM d | hh:mm a z'
-const reviewDateTimeFormat = 'ccc, MMM d\nh:mma z'
+const reviewDateTimeFormat = 'ccc, MMM d\nh:mm a z'
 
 test.describe('Assignment Review', () => {
     test.use({ timezoneId: 'America/Chicago' });
@@ -138,11 +138,11 @@ test.describe('Assignment Review', () => {
         const dueAtText = await page.$eval(
             '[data-test-id="due-date"]', node => (node as HTMLElement).innerText
         )
-        const newDueAt = DateTime.fromFormat(dueAtText + ' ' + timezone, reviewDateTimeFormat)
+        const newDueAt = DateTime.fromFormat(dueAtText, reviewDateTimeFormat)
         const closeAtText = await page.$eval(
             '[data-test-id="close-date"]', node => (node as HTMLElement).innerText
         )
-        const newClosesAt = DateTime.fromFormat(closeAtText + ' ' + timezone, reviewDateTimeFormat)
+        const newClosesAt = DateTime.fromFormat(closeAtText, reviewDateTimeFormat)
 
         expect(newDueAt.diff(dueAtInput).milliseconds).toEqual(0)
         expect(newDueAt.diff(oldDueAt).milliseconds).toEqual(86400000)
@@ -230,21 +230,14 @@ test.describe('Assignment Review', () => {
 
             await page.waitForSelector('.modal', { state: 'detached' })
 
-            // Note that unlike the other test (course and browser in the same timezone)
-            // dueAtText and closeAtText here already contain the timezone!
-            // Luxon's parseFormat method does not support the timezone "EDT"
             const dueAtText = await page.$eval(
                 '[data-test-id="due-date"]', node => (node as HTMLElement).innerText
             )
-            const newDueAt = DateTime.fromFormat(
-                dueAtText.replace('EDT', 'US/Eastern'), reviewDateTimeFormat
-            )
+            const newDueAt = DateTime.fromFormat(dueAtText, reviewDateTimeFormat)
             const closeAtText = await page.$eval(
-                '[data-test-id="close-date"]', node => (node as HTMLElement).innerText
+                '[data-test-id="close-date"]', node => (node as HTMLElement).innerText // nocheckin testId=
             )
-            const newClosesAt = DateTime.fromFormat(
-                closeAtText.replace('EDT', 'US/Eastern'), reviewDateTimeFormat
-            )
+            const newClosesAt = DateTime.fromFormat(closeAtText, reviewDateTimeFormat)
 
             expect(newDueAt.diff(dueAtInput).milliseconds).toEqual(0)
             expect(newDueAt.diff(oldDueAt).milliseconds).toEqual(86400000)

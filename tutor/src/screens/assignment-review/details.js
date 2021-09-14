@@ -270,8 +270,8 @@ const TemplateInfo = observer(({ template, ...props }) => {
     );
 });
 
-const dateFormat = 'ddd, MMM D';
-const timeFormat = 'h:mma z';
+const dateFormat = 'EEE, MMM d';
+const timeFormat = 'h:mm a z';
 
 const TaskingDates = observer(({ tasking, title }) => {
 
@@ -282,23 +282,23 @@ const TaskingDates = observer(({ tasking, title }) => {
                 <div>
                     <dt>Open date</dt>
                     <dd data-test-id="open-date">
-                        <div>{tasking.opensAt.format(dateFormat)}</div>
-                        <div>{tasking.opensAt.format(timeFormat)}</div>
+                        <div>{tasking.opensAt.toFormat(dateFormat)}</div>
+                        <div>{tasking.opensAt.toFormat(timeFormat)}</div>
                     </dd>
                 </div>
                 <div>
                     <dt>Due date</dt>
                     <dd data-test-id="due-date">
-                        <div>{tasking.dueAt.format(dateFormat)}</div>
-                        <div>{tasking.dueAt.format(timeFormat)}</div>
+                        <div>{tasking.dueAt.toFormat(dateFormat)}</div>
+                        <div>{tasking.dueAt.toFormat(timeFormat)}</div>
                     </dd>
                 </div>
                 {!tasking.plan.isEvent && (
                     <div>
                         <dt>Close date</dt>
                         <dd data-test-id="close-date">
-                            <div>{tasking.closesAt.format(dateFormat)}</div>
-                            <div>{tasking.closesAt.format(timeFormat)}</div>
+                            <div>{tasking.closesAt.toFormat(dateFormat)}</div>
+                            <div>{tasking.closesAt.toFormat(timeFormat)}</div>
                         </dd>
                     </div>)}
             </dl>

@@ -34,6 +34,14 @@ describe('time class', () => {
         expect(t.asISOString).toEqual(m.toISOString())
     });
 
+    it('converts to moment with tz', () => {
+        const t = new Time('2021-01-15T10:00:00.000Z').inZone('US/Arizona')
+        // Can't directly compare equality with t.zoneName because
+        // Moment Timezone can't output long form names
+        expect(t.asMomentTz.zoneName()).toEqual('MST')
+        expect(t.asISOString).toEqual(t.asMomentTz.toISOString())
+    })
+
     it('diffs', () => {
         const past = new Time('2021-01-15T10:00:00.000Z')
         const future = new Time('2021-01-15T10:58:00.000Z')

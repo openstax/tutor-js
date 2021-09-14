@@ -157,10 +157,13 @@ export class TaskingPlan extends BaseModel {
     }
 
     @computed get dataForSave() {
+        // Make sure datetime is in the course timezone before formatting.
+        // Format doesn't contain TZ info because the backend assumes all
+        // incoming datetimes are in the course TZ.
         return extend(pick(this, 'target_id', 'target_type'), {
-            opens_at: this.opensAt.format('YYYY-MM-DD HH:mm'),
-            due_at: this.dueAt.format('YYYY-MM-DD HH:mm'),
-            closes_at: this.closesAt.format('YYYY-MM-DD HH:mm'),
+            opens_at: this.opensAt.inZone(this.course.timezone).toFormat('yyyy-MM-dd HH:mm'),
+            due_at: this.dueAt.inZone(this.course.timezone).toFormat('yyyy-MM-dd HH:mm'),
+            closes_at: this.closesAt.inZone(this.course.timezone).toFormat('yyyy-MM-dd HH:mm'),
         });
     }
 
