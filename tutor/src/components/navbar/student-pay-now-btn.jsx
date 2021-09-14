@@ -2,7 +2,7 @@ import { React, PropTypes, action, observer, modelize } from 'vendor';
 import { Button } from 'react-bootstrap';
 import { FeatureFlags, Course } from '../../models';
 import { Icon } from 'shared';
-import { PAY_LATER_CHOICE } from '../onboarding/ux/student-course';
+import { PAY_LATER_CHOICE, DISPLAY_OPTIONS_STEP } from '../onboarding/ux/student-course';
 import UiSettings from 'shared/model/ui-settings';
 
 const FREE_TRIAL_MESSAGE = `
@@ -42,8 +42,8 @@ class StudentPayNowBtn extends React.Component {
 
     @action.bound
     onClick() {
-        // Unsetting the PL choice will render the normal fullscreen onboarding component
-        UiSettings.set(PAY_LATER_CHOICE, null);
+        // Override PL choice to render onboarding at Payment Options step
+        UiSettings.set(PAY_LATER_CHOICE, DISPLAY_OPTIONS_STEP);
     }
 
     render() {

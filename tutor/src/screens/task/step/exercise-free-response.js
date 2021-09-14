@@ -26,16 +26,17 @@ const TextAreaErrorStyle = css`
 const InfoRow = styled.div`
   margin: 8px 0;
   display: flex;
-  justify-content: ${props => props.hasSubmitted ? 'space-between' : 'flex-end'};
+  justify-content: space-between;
   line-height: 1.6rem;
 
   .word-limit-error-info {
     color: ${colors.danger};
   }
-
+  
   div > span {
     font-size: 12px;
     line-height: 16px;
+
     + span {
       margin-left: 1rem;
     }
