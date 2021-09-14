@@ -173,7 +173,7 @@ const DetailsBody = observer(({ ux }) => {
     // otherwise it will keep focusing the field because of the `haserror` prop that updates to check if the field is invalid
     useEffect(() => nameInputField.current && nameInputField.current.focus(), []);
     return (
-        <Body>
+        <Body data-test-id="assignment-edit-fields">
             <SplitRow>
                 <RowLabel htmlFor="title">
                     {ux.titleTextLabel}

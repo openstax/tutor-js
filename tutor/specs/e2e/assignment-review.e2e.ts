@@ -286,6 +286,7 @@ test.describe('Assignment Review', () => {
     test('cannot deselect sections', async ({ page }) => {
         await visitPage(page, `/course/1/assignment/review/${HW}`)
         await page.click('testId=edit-assignment')
+        await page.waitForSelector('testId=assignment-edit-fields')
         await page.click('testId=select-sections', { force: true })
         await page.hover('testId=tasking >> css=[data-icon="check-square"]')
         await expect(page).toMatchText('css=[role=tooltip]', /cannot withdraw/)
