@@ -218,7 +218,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
                 unit test product
               </td>
               <td>
-                Jun 30th 2017
+                July 16, 2017
               </td>
               <td>
                 cufu6hr4xicy
@@ -246,7 +246,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
                 unit test product refund
               </td>
               <td>
-                Jun 30th 2017
+                July 19, 2017
               </td>
               <td>
                 cufu6hr4xicy:refund
