@@ -1,5 +1,5 @@
 import { visitPage, withUser, expect, test, disableTours } from './test';
-
+import * as faker from 'faker';
 
 withUser('teacher02')
 
@@ -10,6 +10,10 @@ test.describe('without any students', () => {
         await page.click('[role=button].choice')
         await page.click('testId=next-btn')
         await page.click('testId=next-btn')
+
+        const courseName = faker.commerce.productName();
+        await page.fill('.course-details-name form-group input', courseName)
+
         await page.click('testId=next-btn')
 
         await page.fill('#number-students', '1')
@@ -24,7 +28,6 @@ test.describe('without any students', () => {
 
         await page.click('testId=course-details-tab')
         await expect(page).toHaveSelector('.course-detail-settings-form')
-        const courseName = await page.$eval('input#course-name', (el: any) => el.value)
         await page.click('testId=delete-course-btn')
         await expect(page).toMatchText('testId=delete-course-message', /delete/)
         await expect(page).not.toHaveSelector('testId=disabled-delete-course-message-warning', { timeout: 100 })
