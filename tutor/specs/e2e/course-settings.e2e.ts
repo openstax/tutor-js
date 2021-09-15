@@ -12,7 +12,7 @@ test.describe('without any students', () => {
         await page.click('testId=next-btn')
 
         const courseName = faker.commerce.productName();
-        await page.fill('.course-details-name form-group input', courseName)
+        await page.fill('.course-details-name input', courseName)
 
         await page.click('testId=next-btn')
 
