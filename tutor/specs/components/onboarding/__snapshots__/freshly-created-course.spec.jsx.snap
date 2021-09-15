@@ -38,6 +38,8 @@ exports[`Freshly Created Course prompt student renders and matches snapshot 1`] 
           "redeemed_at": "1970-01-01T00:00:00.000Z",
         },
         "paymentCodeError": "",
+        "paymentCodePost": "",
+        "paymentCodePrefix": "",
         "priority": 3,
         "tourContext": Object {},
       }

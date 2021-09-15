@@ -7,8 +7,9 @@ import { Course, TourContext } from '../../../models';
 import { Payments } from '../../../helpers/payments';
 import { PaymentCode } from '../../../models'
 
-export const PAY_LATER_CHOICE = 'PL';
-const TRIAL_ACKNOWLEDGED = 'FTA';
+export const PAY_LATER_CHOICE = 'PL'
+export const DISPLAY_OPTIONS_STEP = 'NOW'
+const TRIAL_ACKNOWLEDGED = 'FTA'
 
 export class StudentCourseOnboarding extends BaseOnboarding {
     @observable displayPayment = false
@@ -19,6 +20,8 @@ export class StudentCourseOnboarding extends BaseOnboarding {
     @observable needsTermsSigned = false
     @observable paymentCode: PaymentCode
     @observable paymentCodeError = ''
+    @observable paymentCodePrefix = ''
+    @observable paymentCodePost = ''
 
     constructor(course: Course, tourContext: TourContext) {
         super(course, tourContext)
@@ -42,6 +45,10 @@ export class StudentCourseOnboarding extends BaseOnboarding {
                 return Nags.freeTrialEnded;
             } else if (this.displayTrialActive) {
                 return Nags.freeTrialActivated;
+            } else if (UiSettings.get(PAY_LATER_CHOICE) == DISPLAY_OPTIONS_STEP) {
+                runInAction(() => this.displayPaymentOptions = true)
+                UiSettings.set(PAY_LATER_CHOICE, null)
+                return Nags.paymentOptions
             } else if (!UiSettings.get(PAY_LATER_CHOICE, this.course.id)) {
                 return Nags.payNowOrLater;
             }
@@ -95,9 +102,10 @@ export class StudentCourseOnboarding extends BaseOnboarding {
 
     @action.bound
     onPayLater() {
-        UiSettings.set(PAY_LATER_CHOICE, this.course.id, true);
-        this.displayTrialActive = true;
-        this.displayPayment = false;
+        UiSettings.set(PAY_LATER_CHOICE, this.course.id, true)
+        this.displayRedeemCode = false
+        this.displayTrialActive = true
+        this.displayPayment = false
     }
 
     @action.bound
@@ -108,9 +116,20 @@ export class StudentCourseOnboarding extends BaseOnboarding {
         this.course.studentTaskPlans.startFetching();
     }
 
-    @action.bound setCode(code: string) {
+    @action.bound setPaymentCodePrefix(prefix: string) {
         this.paymentCodeError = ''
-        return this.paymentCode.code = code
+        this.paymentCodePrefix = prefix
+        this.updatePaymentCode()
+    }
+
+    @action.bound setPaymentCodePost(post: string) {
+        this.paymentCodeError = ''
+        this.paymentCodePost = post
+        this.updatePaymentCode()
+    }
+
+    @action.bound updatePaymentCode() {
+        return this.paymentCode.code = `${this.paymentCodePrefix}-${this.paymentCodePost}`
     }
 
     @computed get codeRedeemable() {
