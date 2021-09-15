@@ -12,11 +12,15 @@ exports[`Redeem Code renders and matches snapshot 1`] = `
 }
 
 .c0 input {
-  width: 200px;
+  width: 130px;
   padding: 0 16px;
   height: 48px;
   border-width: 1px;
   border-style: solid;
+}
+
+.c0 input:first-child {
+  width: 70px;
 }
 
 .c0 .has-errors input {
@@ -44,10 +48,6 @@ exports[`Redeem Code renders and matches snapshot 1`] = `
   margin: 20px 15px 50px;
 }
 
-.c2 > *:not(:last-child) {
-  margin-right: 16px;
-}
-
 .c3 {
   font-size: 1.4rem;
   width: 376px;
@@ -64,6 +64,36 @@ exports[`Redeem Code renders and matches snapshot 1`] = `
 .c3 a {
   -webkit-text-decoration: underline;
   text-decoration: underline;
+}
+
+@media (min-width:1000px) {
+  .c2 > *:not(:last-child) {
+    margin-right: 16px;
+  }
+}
+
+@media (max-width:600px) {
+  .c2 {
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+  }
+
+  .c2 .error-message {
+    text-align: center;
+  }
+
+  .c2 .btn.btn-primary {
+    margin-top: 1.6rem;
+    max-width: 216px;
+    -webkit-align-self: center;
+    -ms-flex-item-align: center;
+    align-self: center;
+  }
 }
 
 <div
@@ -103,10 +133,23 @@ exports[`Redeem Code renders and matches snapshot 1`] = `
               >
                 <input
                   autoFocus={true}
+                  data-test-id="payment-code-prefix"
                   maxLength={999}
-                  minLength={12}
+                  minLength={1}
                   onChange={[Function]}
-                  placeholder="OST-100234ABCD"
+                  placeholder="OST"
+                  required={true}
+                  type="input"
+                />
+                <span>
+                   - 
+                </span>
+                <input
+                  data-test-id="payment-code-post"
+                  maxLength={10}
+                  minLength={10}
+                  onChange={[Function]}
+                  placeholder="100234ABCD"
                   required={true}
                   type="input"
                 />
