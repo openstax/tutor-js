@@ -57,7 +57,6 @@ test.describe('Assignment Review', () => {
 
     test('can render grading template preview', async ({ page }) => {
         await visitPage(page, `/course/${COURSE_ID}/assignment/review/${HW}`)
-        await expect(page).not.toHaveSelector('testId=grading-template-card', { timeout: 100 })
         await page.click('testId=preview-card-trigger')
         await expect(page).toHaveSelector('testId=grading-template-card')
     });
