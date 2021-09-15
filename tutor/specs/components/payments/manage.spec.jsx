@@ -24,8 +24,8 @@ describe('Student Payments Management', () => {
         const component = renderer.create(<C noRef><Payments /></C>)
 
         // clearing react lifecycle
-        await new Promise(resolve => setTimeout(resolve, 1));
-        await new Promise(resolve => setTimeout(resolve, 1));
+        await new Promise(setImmediate);
+        await new Promise(setImmediate);
 
         expect.snapshot(component).toMatchSnapshot();
         component.unmount()
