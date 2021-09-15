@@ -1,5 +1,6 @@
 import { C, ApiMock, TimeMock } from '../../helpers';
 import Payments from '../../../src/components/payments/manage';
+import renderer from 'react-test-renderer';
 import { currentPurchases } from '../../../src/models';
 import Router from '../../../src/helpers/router';
 import mockData from '../../../api/purchases.json';
@@ -19,8 +20,15 @@ describe('Student Payments Management', () => {
         Router.makePathname.mockImplementation(() => '/foo');
     });
 
-    it('renders and matches snapshot', () => {
-        expect.snapshot(<C noRef><Payments /></C>).toMatchSnapshot();
+    it('renders and matches snapshot', async () => {
+        const component = renderer.create(<C noRef><Payments /></C>)
+
+        // clearing react lifecycle
+        await new Promise(setImmediate);
+        await new Promise(setImmediate);
+
+        expect.snapshot(component).toMatchSnapshot();
+        component.unmount()
     });
 
     it('renders empty when no payments', () => {
