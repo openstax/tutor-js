@@ -79,11 +79,11 @@ const DateTimeInput = observer((assignedProps) => {
     const LabelWrapper = props.labelWrapper || React.Fragment;
 
     const momentValue = (value, timezone) => {
-        const time = new Time(field.value)
+        const time = value ? new Time(value) : Time.now
         return timezone ? time.inZone(timezone).asMomentTz : time.asMoment
     }
 
-    const timeValue = field.value ? momentValue(field.value, props.timezone) : null
+    const timeValue = momentValue(field.value, props.timezone)
 
     const onUpdateDate = dt => {
         const ev = { target: { name: field.name, value: dt } };

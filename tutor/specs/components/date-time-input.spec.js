@@ -55,12 +55,8 @@ describe('DateTimeInput', () => {
             dt.unmount();
         });
 
-        it('works without an initial value', () => {
+        it('defaults to now if there is not an initial value', () => {
             const dt = mount(<F initialValues={{}}><DateTimeInput timezone='America/Los_Angeles' {...props} /></F>);
-            expect(dt.find('input').instance().value).toEqual('');
-
-            dt.find('input').simulate('mouseDown');
-            dt.find('.oxdt-now-btn').simulate('click');
             expect(dt.find('input').instance().value).toEqual('Feb 1 | 04:00 AM');
 
             dt.unmount();
@@ -78,13 +74,9 @@ describe('DateTimeInput', () => {
             dt.unmount();
         });
 
-        it('works without an initial value', () => {
+        it('defaults to now if there is not an initial value', () => {
             const dt = mount(<F initialValues={{}}><DateTimeInput {...props} /></F>);
-            expect(dt.find('input').instance().value).toEqual('')
-
-            dt.find('input').simulate('mouseDown');
-            dt.find('.oxdt-now-btn').simulate('click');
-            expect(dt.find('input').instance().value).toEqual('Feb 1 | 06:00 AM');
+            expect(dt.find('input').instance().value).toEqual('Feb 1 | 06:00 AM')
 
             dt.unmount();
         });
