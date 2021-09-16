@@ -44,20 +44,49 @@ describe('DateTimeInput', () => {
         dt.unmount();
     });
 
-    it('works with timezones', () => {
-        const noTz = mount(<F initialValues={{
-            dte: new Date(),
-        }}><DateTimeInput {...props} /></F>);
+    describe('with a given timezone', () => {
+        it('works with an initial value', () => {
+            const dt = mount(<F initialValues={{
+                dte: new Date(),
+            }}><DateTimeInput timezone='America/Los_Angeles' {...props} /></F>);
 
-        expect(noTz.find('input').instance().value).toEqual('Feb 1 | 06:00 AM')
+            expect(dt.find('input').instance().value).toEqual('Feb 1 | 04:00 AM')
 
-        const withTz = mount(<F initialValues={{
-            dte: new Date(),
-        }}><DateTimeInput timezone='America/Los_Angeles' {...props} /></F>);
+            dt.unmount();
+        });
 
-        expect(withTz.find('input').instance().value).toEqual('Feb 1 | 04:00 AM')
+        it('works without an initial value', () => {
+            const dt = mount(<F initialValues={{}}><DateTimeInput timezone='America/Los_Angeles' {...props} /></F>);
+            expect(dt.find('input').instance().value).toEqual('');
 
-        noTz.unmount();
-        withTz.unmount();
+            dt.find('input').simulate('mouseDown');
+            dt.find('.oxdt-now-btn').simulate('click');
+            expect(dt.find('input').instance().value).toEqual('Feb 1 | 04:00 AM');
+
+            dt.unmount();
+        });
+    });
+
+    describe('without a given timezone', () => {
+        it('works with an initial value', () => {
+            const dt = mount(<F initialValues={{
+                dte: new Date(),
+            }}><DateTimeInput {...props} /></F>);
+
+            expect(dt.find('input').instance().value).toEqual('Feb 1 | 06:00 AM')
+
+            dt.unmount();
+        });
+
+        it('works without an initial value', () => {
+            const dt = mount(<F initialValues={{}}><DateTimeInput {...props} /></F>);
+            expect(dt.find('input').instance().value).toEqual('')
+
+            dt.find('input').simulate('mouseDown');
+            dt.find('.oxdt-now-btn').simulate('click');
+            expect(dt.find('input').instance().value).toEqual('Feb 1 | 06:00 AM');
+
+            dt.unmount();
+        });
     });
 });
