@@ -62,6 +62,7 @@
     "@types/faker": "^5.1.7",
     "@types/htmlparser2": "^3.10.2",
     "@types/jest": "^26.0.20",
+    "@types/jsdom": "^16.2.13",
     "@types/loadjs": "^4.0.0",
     "@types/lodash": "^4.14.168",
     "@types/luxon": "^1.26.2",
