@@ -43,16 +43,16 @@ export default class Pardot {
 
     static setup(win: Window | DOMWindow = window) {
         const doc = win.document
+        const config = this.getConfig(doc.location.hostname)
+        win.piAId = config.piAId
+        win.piCId = config.piCId
+        win.piHostname = config.piHostname
+
         const script = doc.createElement('script')
         const prefix = 'https:' == doc.location.protocol ? 'https://pi' : 'http://cdn'
         const src = `${prefix}.pardot.com/pd.js`
         script.src = src
         script.async = true
-
-        const config = this.getConfig(doc.location.hostname)
-        win.piAId = config.piAId
-        win.piCId = config.piCId
-        win.piHostname = config.piHostname
 
         const tag = doc.getElementsByTagName('script').item(0)
         tag?.parentNode?.insertBefore(script, tag)
