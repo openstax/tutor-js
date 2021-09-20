@@ -7,6 +7,7 @@ describe('Pardot', () => {
     it('skips localhost', () => {
         const { window } = new JSDOM(dom)
         expect(Pardot.setup(window)).toBe(undefined)
+        expect(window.document.getElementsByTagName('script')[0].src).not.toMatch('pd.js')
     })
 
     it('matches sandbox hostname', () => {
