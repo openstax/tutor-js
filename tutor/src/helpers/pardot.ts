@@ -9,22 +9,36 @@ declare global {
     }
 }
 
-export default class Pardot {
-    static configs = {
-        dev: {
-            piAId: '309222',
-            piCId: '2313',
-            piHostname: 'pi.demo.pardot.com',
-        },
-        prod: {
-            piAId: '219812',
-            piCId: '1120',
-            piHostname: 'pi.pardot.com',
-        },
-    };
+const SANDBOX_HOSTNAME = /dev.tutor.sandbox.openstax.org/
 
-    static get config() {
-        return isProd ? this.configs.prod : this.configs.dev
+export const pardotConfig = {
+    dev: {
+        piAId: '309222',
+        piCId: '2313',
+        piHostname: 'pi.demo.pardot.com',
+    },
+    prod: {
+        piAId: '219812',
+        piCId: '1120',
+        piHostname: 'pi.pardot.com',
+    },
+};
+
+
+export default class Pardot {
+
+    static getConfig(hostname: string) {
+        if (this.isSandbox(hostname)) { return pardotConfig.dev }
+
+        return this.isProduction ? pardotConfig.prod : pardotConfig.dev
+    }
+
+    static get isProduction() {
+        return isProd
+    }
+
+    static isSandbox(hostname: string) {
+        return SANDBOX_HOSTNAME.test(hostname)
     }
 
     static setup(win: Window | DOMWindow = window) {
@@ -35,9 +49,10 @@ export default class Pardot {
         script.src = src
         script.async = true
 
-        win.piAId = this.config.piAId
-        win.piCId = this.config.piCId
-        win.piHostname = this.config.piHostname
+        const config = this.getConfig(doc.location.hostname)
+        win.piAId = config.piAId
+        win.piCId = config.piCId
+        win.piHostname = config.piHostname
 
         const tag = doc.getElementsByTagName('script').item(0)
         tag?.parentNode?.insertBefore(script, tag)
