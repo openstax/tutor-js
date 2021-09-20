@@ -12,7 +12,7 @@ declare global {
 const SANDBOX_HOSTNAME = /dev.tutor.sandbox.openstax.org/
 
 export const pardotConfig = {
-    dev: {
+    sand: {
         piAId: '309222',
         piCId: '2313',
         piHostname: 'pi.demo.pardot.com',
@@ -28,9 +28,9 @@ export const pardotConfig = {
 export default class Pardot {
 
     static getConfig(hostname: string) {
-        if (this.isSandbox(hostname)) { return pardotConfig.dev }
+        if (this.isSandbox(hostname)) { return pardotConfig.sand }
 
-        return this.isProduction ? pardotConfig.prod : pardotConfig.dev
+        return this.isProduction ? pardotConfig.prod : pardotConfig.sand
     }
 
     static get isProduction() {
@@ -43,7 +43,13 @@ export default class Pardot {
 
     static setup(win: Window | DOMWindow = window) {
         const doc = win.document
-        const config = this.getConfig(doc.location.hostname)
+        const hostname = doc.location.hostname
+
+        if (!this.isSandbox(hostname) && !this.isProduction) {
+            return
+        }
+
+        const config = this.getConfig(hostname)
         win.piAId = config.piAId
         win.piCId = config.piCId
         win.piHostname = config.piHostname
