@@ -5,7 +5,7 @@ import { map, compact, flatten, max, min, isString, isNumber, isDate } from 'lod
 import { readonly } from 'core-decorators'
 import { modelize } from 'modeled-mobx'
 import { observable } from 'mobx'
-import moment from 'moment';
+import moment from 'moment-timezone';
 import { extendMoment } from 'moment-range';
 import pluralize from 'pluralize';
 import { now as getNow } from 'mobx-utils'
@@ -97,6 +97,7 @@ export default class Time {
     get asISODateString() { return this.toFormat('yyyy-LL-dd') }
 
     get asMoment() { return moment(this._value.toJSDate()) }
+    get asMomentTz() { return moment.tz(this._value.toJSDate(), this._value.zoneName) }
     get asDate() { return this._value.toJSDate() }
     get asDateTime() { return this._value }
 
