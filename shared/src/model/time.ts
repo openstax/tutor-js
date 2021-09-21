@@ -173,10 +173,11 @@ function toLDT(dateThing: TimeInputs):LDT {
     } else if (moment.isMoment(dateThing)) {
         const fromMoment = LDT.fromMillis(dateThing.valueOf())
         const timeZone = dateThing.tz && dateThing.tz();
-        if (timeZone) {
-          return fromMoment.setZone(timeZone);
-        }
-        return fromMoment;
+
+        return timeZone
+            ? fromMoment.setZone(timeZone)
+            : fromMoment
+        ;
     } else {
         return LDT.invalid(dateThing ? `unknown date type ${typeof dateThing} (${dateThing})` : 'undefined/null value')
     }
