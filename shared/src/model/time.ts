@@ -42,7 +42,7 @@ const Store = {
 
 export type { DurationUnit }
 export type ComparableValue = Date | Time | LDT
-export type TimeInputs = Time | Date | string | number | LDT
+export type TimeInputs = Time | Date | string | number | LDT | moment.Moment
 
 export type DATE_TIME_FORMAT = keyof typeof LDT // DateTimeFormatOptions
 
@@ -162,7 +162,7 @@ function toLDT(dateThing: TimeInputs):LDT {
     if (isDate(dateThing)){
         return LDT.fromJSDate(dateThing)
     } else if (dateThing instanceof Time) {
-        return dateThing._value // n.b. we're copying _value which should be safe since it's never mutated
+        return dateThing._value // n.b. we're sharing reference of _value which should be safe since it's never mutated
     } else if (isString(dateThing)) {
         return LDT.fromISO(dateThing)
     } else if (isNumber(dateThing)) {
@@ -170,7 +170,12 @@ function toLDT(dateThing: TimeInputs):LDT {
     } else if (LDT.isDateTime(dateThing)) {
         return dateThing
     } else if (moment.isMoment(dateThing)) {
-        return LDT.fromMillis((dateThing as any).valueOf())
+        const fromMoment = LDT.fromMillis(dateThing.valueOf())
+        const timeZone = dateThing.tz && dateThing.tz();
+        if (timeZone) {
+          return fromMoment.setZone(timeZone);
+        }
+        return fromMoment;
     } else {
         return LDT.invalid(dateThing ? `unknown date type ${typeof dateThing} (${dateThing})` : 'undefined/null value')
     }
