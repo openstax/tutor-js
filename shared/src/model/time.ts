@@ -172,7 +172,7 @@ function toLDT(dateThing: TimeInputs):LDT {
         return dateThing
     } else if (moment.isMoment(dateThing)) {
         const fromMoment = LDT.fromMillis(dateThing.valueOf())
-        const timeZone = 'tz' in dateThing && dateThing.tz();
+        const timeZone = dateThing.tz && dateThing.tz();
         if (timeZone) {
           return fromMoment.setZone(timeZone);
         }
