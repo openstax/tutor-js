@@ -26,7 +26,7 @@ describe('DateTimeInput', () => {
         }}><DateTimeInput {...props} /></F>);
         dt.find('input').simulate('mouseDown')
         dt.find('td[title="2020-02-15"]').simulate('click')
-    
+
         //Note for hour selection:
         //the order in the browser is different from what jest simulates. There is CSS that reorders the flow of the hour options
         //Browser: 12, 11, 10, ...., 1
@@ -61,7 +61,14 @@ describe('DateTimeInput', () => {
 
             dt.find('input').simulate('mouseDown');
             dt.find('.oxdt-now-btn').simulate('click');
-            expect(dt.find('input').instance().value).toEqual('Feb 1 | 04:00 AM');
+            // Without an initial value, rc-picker will default to the browser's
+            // timezone when creating the fallback moment object (America/Chicago
+            // in this test.) So 6AM may seem incorrect at first, but the component
+            // uses asLocal to convert the displayed default browser TZ time to the
+            // given timezone. Basically, we don't care what timezone rc-picker
+            // defaulted the moment object to, we clicked 6AM, so we want the output
+            // object to be 6AM America/Los_Angeles.
+            expect(dt.find('input').instance().value).toEqual('Feb 1 | 06:00 AM');
 
             dt.unmount();
         });

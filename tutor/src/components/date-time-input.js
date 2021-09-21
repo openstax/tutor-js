@@ -79,20 +79,14 @@ const DateTimeInput = observer((assignedProps) => {
     const LabelWrapper = props.labelWrapper || React.Fragment;
 
     const momentValue = (value, timezone) => {
-        const time = new Time(field.value).inZone(props.timezone).asLocal();
-        
-        console.log('momentValue', time.toISOString(), time.zoneName);
+        const time = new Time(field.value).inZone(props.timezone);
         return timezone ? time.asMomentTz : time.asMoment
     }
 
-    console.log('field.value', field.value, typeof field.value);
     const timeValue = field.value ? momentValue(field.value, props.timezone) : null
 
     const onUpdateDate = dt => {
-        console.log('onUpdateDate0', dt);
-        console.log('onUpdateDate1', new Time(dt).zoneName)
-        const inputTime = new Time(dt).asZone(props.timezone);
-        console.log('onUpdateDate', inputTime.toISOString(), inputTime.zoneName);
+        const inputTime = props.value ? new Time(dt) : new Time(dt).asZone(props.timezone);
         const ev = { target: { name: field.name, value: inputTime } };
         field.onBlur(ev);
         field.onChange(ev);
