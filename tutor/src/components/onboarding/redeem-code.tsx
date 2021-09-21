@@ -1,6 +1,7 @@
 import { React, observer, styled, Box } from 'vendor'
 import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap'
 import { OnboardingNag, Body } from './onboarding-nag'
+import { breakpoint } from '../../theme'
 
 import type { StudentCourseOnboarding } from './ux/student-course'
 
@@ -10,11 +11,15 @@ interface PaymentOptionsProps {
 
 const CodeWrapper = styled.div`
     input {
-        width: 200px;
+        width: 130px;
         padding: 0 16px;
         height: 48px;
         border-width: 1px;
         border-style: solid;
+
+        &:first-child {
+            width: 70px;
+        }
     }
 
     .has-errors input {
@@ -41,9 +46,25 @@ const CodeWrapper = styled.div`
 const StyledBox = styled(Box)`
     margin: 20px 15px 50px;
 
-    > *:not(:last-child) {
-        margin-right: 16px;
-    }
+    ${breakpoint.desktop`
+        > *:not(:last-child) {
+            margin-right: 16px;
+        }
+    `}
+
+    ${breakpoint.mobile`
+        flex-direction: column;
+        justify-content: center;
+
+        .error-message {
+            text-align: center;
+        }
+        .btn.btn-primary {
+            margin-top: 1.6rem;
+            max-width: 216px;
+            align-self: center;
+        }
+    `}
 `
 
 const CodeFooter = styled.div`
@@ -96,13 +117,24 @@ export default class RedeemCode extends React.Component<PaymentOptionsProps> {
                 <StyledBox>
                     <div className={ux.paymentCodeError ? 'has-errors' : ''}>
                         <input
+                            data-test-id="payment-code-prefix"
                             type="input"
-                            placeholder="OST-100234ABCD"
+                            placeholder="OST"
                             required
-                            onChange={(e) => { ux.setCode(e.target.value) }}
-                            minLength={12}
+                            onChange={(e) => { ux.setPaymentCodePrefix(e.target.value) }}
+                            minLength={1}
                             maxLength={999}
                             autoFocus
+                        />
+                        <span>&nbsp;-&nbsp;</span>
+                        <input
+                            data-test-id="payment-code-post"
+                            type="input"
+                            placeholder="100234ABCD"
+                            required
+                            onChange={(e) => { ux.setPaymentCodePost(e.target.value) }}
+                            minLength={10}
+                            maxLength={10}
                         />
                         <div className="error-message">
                             {ux.paymentCodeError}
@@ -120,7 +152,7 @@ export default class RedeemCode extends React.Component<PaymentOptionsProps> {
                     <h6>Once redeemed, this access code is non-refundable.</h6>
                     <p>
                         If you’re unsure about enrolling in this class, we recommend taking
-                        advantage of our <a href="#" onClick={ux.reset}>14-day free trial period</a>.
+                        advantage of our <a href="#" onClick={ux.onPayLater}>14-day free trial period</a>.
                     </p>
                 </CodeFooter>
             </CodeWrapper>

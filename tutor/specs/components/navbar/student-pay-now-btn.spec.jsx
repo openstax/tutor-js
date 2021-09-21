@@ -42,7 +42,7 @@ describe('Student get access button', function() {
         props.course.userStudentRecord = { trialTimeRemaining: '1 day', markPaid: jest.fn() };
         const btn = mount(<GetAccess {...props} />);
         btn.find('Button').simulate('click');
-        expect(UiSettings.get(PAY_LATER_CHOICE)).toBeNull()
+        expect(UiSettings.get(PAY_LATER_CHOICE)).toBe('NOW')
     });
 
 });

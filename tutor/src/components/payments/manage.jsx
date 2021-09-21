@@ -3,7 +3,6 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { observable, action, modelize, computed } from 'shared/model'
 import { Table } from 'react-bootstrap';
-import moment from 'moment';
 import { map, extend, isFunction, isEmpty, sortBy } from 'lodash';
 import styled from 'styled-components';
 import cn from 'classnames';
@@ -17,7 +16,7 @@ import Header from '../header';
 import Responsive from '../responsive';
 import { colors, breakpoint } from 'theme';
 
-const formatDate = (dte) => moment(dte).format('MMM Do YYYY');
+const formatDate = (dte) => dte.toLocaleString('DATE_FULL');
 
 const StyledContainer = styled.div`
   padding: 4rem 10rem 50rem;

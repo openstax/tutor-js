@@ -118,8 +118,12 @@ describe('Student Course Onboarding', () => {
     it('redeems payment codes', async () => {
         (ux.course as any).needsPayment = true
         expect(ux.codeRedeemable).toBe(false)
-        ux.setCode('abc-1234567890')
-        expect(ux.paymentCode.code).toBe('abc-1234567890')
+        ux.setPaymentCodePrefix('ABC')
+        ux.setPaymentCodePost('1234567890')
+        expect(ux.paymentCode.code).toBe('ABC-1234567890')
+        expect(ux.codeRedeemable).toBe(true)
+        ux.setPaymentCodePrefix('EFG')
+        expect(ux.paymentCode.code).toBe('EFG-1234567890')
         expect(ux.codeRedeemable).toBe(true)
         await ux.redeemCode()
         expect(ux.paymentCodeError).toBe('')

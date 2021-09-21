@@ -26,18 +26,26 @@ const TextAreaErrorStyle = css`
 const InfoRow = styled.div`
   margin: 8px 0;
   display: flex;
-  justify-content: ${props => props.hasSubmitted ? 'space-between' : 'flex-end'};
+  justify-content: space-between;
   line-height: 1.6rem;
+
   .word-limit-error-info {
     color: ${colors.danger};
   }
-  span {
+  
+  div > span {
     font-size: 12px;
     line-height: 16px;
+
     + span {
       margin-left: 1rem;
     }
-  };
+  }
+
+  .last-submitted + * {
+    margin-top: 0.8rem;
+  }
+
   color: ${colors.neutral.thin};
 `;
 
@@ -146,7 +154,7 @@ class FreeResponseInput extends React.Component {
                     />
                     <InfoRow hasSubmitted={!!ux.lastSubmitted}>
                         <div>
-                            {ux.lastSubmitted && <span>Last submitted on {ux.lastSubmitted.format('MMM DD [at] hh:mm A')}</span>}
+                            {ux.lastSubmitted && <span className="last-submitted">Last submitted on {ux.lastSubmitted.format('MMM DD [at] hh:mm A')}</span>}
                             {ux.isDisplayingNudge && <NudgeMessage course={course} step={step} ux={ux} />}
                         </div>
 
