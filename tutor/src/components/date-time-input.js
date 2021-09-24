@@ -80,7 +80,7 @@ const DateTimeInput = observer((assignedProps) => {
 
     const momentValue = (value, timezone) => {
         // We sure it's set in the prop timezone before handing off to rc-picker
-        const time = new Time(field.value).inZone(props.timezone).asLocal();
+        const time = new Time(field.value).inZone(props.timezone);
         return timezone ? time.asMomentTz : time.asMoment
     }
 
@@ -93,7 +93,7 @@ const DateTimeInput = observer((assignedProps) => {
         // timezone was also passed (like the course timezone) then we want to discard
         // the browser TZ and treat the selected value as in the prop timezone using
         // asZone (Luxon's keepLocalTime set to true)
-        const inputTime = new Time(dt).asZone(props.timezone);
+        const inputTime = field.value ? new Time(dt) : new Time(dt).asZone(props.timezone);
         const ev = { target: { name: field.name, value: inputTime } };
         field.onBlur(ev);
         field.onChange(ev);
