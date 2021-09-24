@@ -81,7 +81,7 @@
     "@typescript-eslint/eslint-plugin": "^4.18.0",
     "@typescript-eslint/parser": "4.18.0",
     "apexcharts": "^3.24.0",
-    "axios": "0.21.1",
+    "axios": "0.21.2",
     "babel-plugin-styled-components": "^1.10.7",
     "babel7-jest": "^1.0.1",
     "big.js": "^5.2.2",
