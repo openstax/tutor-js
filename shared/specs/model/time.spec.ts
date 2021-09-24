@@ -1,6 +1,6 @@
 import Time, { Interval, setNow, setResolution } from '../../src/model/time'
 import { autorun } from 'mobx'
-import moment from 'moment'
+import moment from 'moment-timezone'
 
 const SERVER_TIME = new Date('2000-02-02');
 
@@ -30,15 +30,21 @@ describe('time class', () => {
 
     it('converts from momentjs', () => {
         const m = moment()
-        const t = new Time(m as any)
+        const t = new Time(m)
         expect(t.asISOString).toEqual(m.toISOString())
+    });
+
+    it('converts from momentjs and keeps timezone', () => {
+        const m = moment.tz('2021-01-15T10:00:00.000Z', 'US/Arizona');
+        const t = new Time(m)
+
+        expect(t.asISOString).toEqual(m.toISOString())
+        expect(t.zoneName).toEqual('US/Arizona');
     });
 
     it('converts to moment with tz', () => {
         const t = new Time('2021-01-15T10:00:00.000Z').inZone('US/Arizona')
-        // Can't directly compare equality with t.zoneName because
-        // Moment Timezone can't output long form names
-        expect(t.asMomentTz.zoneName()).toEqual('MST')
+        expect(t.asMomentTz.tz()).toEqual('US/Arizona')
         expect(t.asISOString).toEqual(t.asMomentTz.toISOString())
     })
 
