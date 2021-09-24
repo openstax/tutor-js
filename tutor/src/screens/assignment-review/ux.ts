@@ -219,9 +219,9 @@ export default class AssignmentReviewUX {
     }
 
     @action.bound async saveDisplayingGrantExtension(values: any) {
-        const format = "yyyy-MM-dd'T'HH:mm:ssZZ"
+        const format = `yyyy-MM-dd'T'HH:mm:ssZZ`
         const due_at = values.extension_due_date.inZone(this.course.timezone).toFormat(format)
-        const closes_at = values.extension_close_date.inZone(this.course.timezone).toFormat(format);
+        const closes_at = values.extension_close_date.inZone(this.course.timezone).toFormat(format)
         const extensions: any[] = [];
         this.pendingExtensions.forEach((extend, role_id) => {
             if (extend) {
