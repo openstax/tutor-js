@@ -9,10 +9,10 @@ declare global {
     }
 }
 
-const SANDBOX_HOSTNAME = /dev.tutor.sandbox.openstax.org/
+const PRODUCTION_HOSTNAME = /^tutor.openstax.org/
 
 export const pardotConfig = {
-    sand: {
+    demo: {
         piAId: '309222',
         piCId: '2313',
         piHostname: 'pi.demo.pardot.com',
@@ -27,32 +27,38 @@ export const pardotConfig = {
 
 export default class Pardot {
 
-    static getConfig(hostname: string) {
-        if (this.isSandbox(hostname)) { return pardotConfig.sand }
-
-        return this.isProduction ? pardotConfig.prod : pardotConfig.sand
+    static get config() {
+        return this.isProduction ? pardotConfig.prod : pardotConfig.demo
     }
 
     static get isProduction() {
+        return this.isProductionEnvironment && this.isProductionHostname
+    }
+
+    static get isProductionEnvironment() {
+        // checks NODE_ENV, here for mocking
         return isProd
     }
 
-    static isSandbox(hostname: string) {
-        return SANDBOX_HOSTNAME.test(hostname)
+    static isProductionHostname(hostname: string) {
+        return PRODUCTION_HOSTNAME.test(hostname)
+    }
+
+    static isNonOpenStaxHostname(hostname: string) {
+        return !/openstax.org/.test(hostname)
     }
 
     static setup(win: Window | DOMWindow = window) {
         const doc = win.document
         const hostname = doc.location.hostname
 
-        if (!this.isSandbox(hostname) && !this.isProduction) {
+        if (this.isNonOpenStaxHostname(hostname)) {
             return
         }
 
-        const config = this.getConfig(hostname)
-        win.piAId = config.piAId
-        win.piCId = config.piCId
-        win.piHostname = config.piHostname
+        win.piAId = this.config.piAId
+        win.piCId = this.config.piCId
+        win.piHostname = this.config.piHostname
 
         const script = doc.createElement('script')
         const prefix = 'https:' == doc.location.protocol ? 'https://pi' : 'http://cdn'
