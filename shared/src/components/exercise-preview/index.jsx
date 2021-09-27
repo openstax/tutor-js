@@ -138,8 +138,8 @@ class ExercisePreview extends React.Component {
                 {this.props.header && <Card.Header>{this.props.header}</Card.Header>}
                 <Card.Body>
                     {this.props.isSelected && <div className="selected-mask" />}
-                    { this.props.isSelected && this.props.questionType === 'student-mpp' &&
-            <div className="selected-student-mpp-check" />}
+                    {this.props.isSelected && this.props.questionType === 'student-mpp' && (
+                        <div className="selected-student-mpp-check" />)}
                     {this.props.disableMessage && (
                         <div className="disabled-message">
                             <p>{this.props.disableMessage}</p>
@@ -172,7 +172,7 @@ class ExercisePreview extends React.Component {
                                 {
                                     question.isWrittenResponse && (
                                         <div className="student-free-response-box-preview">
-                      Student Response...
+                                            Student Response...
                                         </div>
                                     )
                                 }
@@ -183,13 +183,13 @@ class ExercisePreview extends React.Component {
                         <div>
                             {
                                 this.props.questionType !== 'student-mpp' &&
-                <div className="exercise-tags">
-                    {map(this.tags, (tag, index) => (
-                        <span key={index} className="exercise-tag" data-test-id={`tag-type-${tag.type}`}>
-                            {tag.title}
-                        </span>
-                    ))}
-                </div>
+                                    <div className="exercise-tags">
+                                        {map(this.tags, (tag, index) => (
+                                            <span key={index} className="exercise-tag" data-test-id={`tag-type-${tag.type}`}>
+                                                {tag.title}
+                                            </span>
+                                        ))}
+                                    </div>
                             }
                             {this.props.leftFooterRenderer}
                         </div>

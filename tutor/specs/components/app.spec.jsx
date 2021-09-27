@@ -1,6 +1,7 @@
 import { C } from '../helpers';
 import App from '../../src/components/app';
 import { currentUser } from '../../src/models';
+import Pardot from '../../src/helpers/pardot';
 
 jest.mock('../../src/models/user', () => ({
     currentUser: {
@@ -32,6 +33,8 @@ describe('main Tutor App', () => {
             app: {},
             location: { pathname: '/' },
         };
+
+        Pardot.setup = jest.fn();
     });
 
     it('renders and matches snapshot', () => {
@@ -42,6 +45,11 @@ describe('main Tutor App', () => {
     it('records user session', () => {
         mount(<C><App {...props} /></C>);
         expect(currentUser.recordSessionStart).toHaveBeenCalled();
+    });
+
+    it('starts Pardot', () => {
+        mount(<C><App {...props} /></C>);
+        expect(Pardot.setup).toHaveBeenCalled();
     });
 
 });
