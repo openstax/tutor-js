@@ -56,6 +56,7 @@ test.describe('Add/Edit Questions', () => {
         await page.press(editorSel, 'Control+a')
         await page.type(editorSel, 'Hello World!')
         await page.click('.tag-form button:first-child') // trigger focus blur for validation
+        await page.click('.tag-difficulty button')
         await page.click('testId=publish-btn')
         await page.waitForTimeout(1000)
     })
