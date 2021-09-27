@@ -13,9 +13,9 @@ const preAuthUsers = async () => {
     }
     for (const n of [1, 2]) {
         const browser = await chromium.launch();
-        browser.setDefaultTimeout(DEFAULT_TIMEOUT);
-        browser.setDefaultNavigationTimeout(DEFAULT_NAVIGATION_TIMEOUT);
         const page = await browser.newPage();
+        page.setDefaultTimeout(DEFAULT_TIMEOUT);
+        page.setDefaultNavigationTimeout(DEFAULT_NAVIGATION_TIMEOUT)
         await loginAs(`teacher0${n}`, page)
         await page.context().storageState({ path: `temp/teacher0${n}-state.json` });
         await browser.close();
@@ -23,9 +23,9 @@ const preAuthUsers = async () => {
 
     for (const n of [1, 2]) {
         const browser = await chromium.launch();
-        browser.setDefaultTimeout(DEFAULT_TIMEOUT);
-        browser.setDefaultNavigationTimeout(DEFAULT_NAVIGATION_TIMEOUT);
         const page = await browser.newPage();
+        page.setDefaultTimeout(DEFAULT_TIMEOUT);
+        page.setDefaultNavigationTimeout(DEFAULT_NAVIGATION_TIMEOUT)
         await loginAs(`reviewstudent${n}`, page)
         await page.context().storageState({ path: `temp/reviewstudent${n}-state.json` });
         await browser.close();
