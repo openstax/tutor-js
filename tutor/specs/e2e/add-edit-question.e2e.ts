@@ -81,6 +81,20 @@ test.describe('Add/Edit Questions', () => {
         await page.click('.close')
     })
 
+    test('requires Question to be present', async ({ page }) => {
+        await page.click('testId=create-question')
+        await page.click('testId=switch-wrm')
+        const stemSel = 'testId=add-edit-question >> .question-text >> .editor'
+        await page.click(stemSel)
+        let editorSel = `${stemSel} >> .pw-prosemirror-editor`
+        await page.focus(editorSel)
+        await page.press(editorSel, 'Control+a')
+        await page.press(editorSel, 'Backspace')
+        await page.click('.tag-form button:first-child') // trigger focus blur for validation
+        await expect(page).toHaveText('Question field cannot be empty')
+        await page.click('.close')
+    })
+
     test('requires Answer Key to be present for WRMs', async ({ page }) => {
         await page.click('testId=create-question')
         await page.click('testId=switch-wrm')
@@ -97,5 +111,6 @@ test.describe('Add/Edit Questions', () => {
         await page.press(editorSel, 'Backspace')
         await page.click('.tag-form button:first-child') // trigger focus blur for validation
         await expect(page).toHaveText('Answer key field cannot be empty')
+        await page.click('.close')
     })
 })

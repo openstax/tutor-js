@@ -345,12 +345,13 @@ export default class AddEditQuestionUX {
         // check question section && detailed solution (labeled Answer Key on WRMs)
         let isQuestionFilled;
         let isDetailedSolutionFilled = true; // default to true because this field is optional in MCQs
+        const hasQuestionText = Boolean(S.stripHTMLTags(this.questionText))
 
         if (this.isMCQ) {
-            isQuestionFilled = Boolean(this.questionText && this.filledOptions.length >= 2 && some(this.filledOptions, fo => fo.isCorrect));
+            isQuestionFilled = Boolean(hasQuestionText && this.filledOptions.length >= 2 && some(this.filledOptions, fo => fo.isCorrect));
         }
         else {
-            isQuestionFilled = Boolean(this.questionText);
+            isQuestionFilled = hasQuestionText;
             isDetailedSolutionFilled = Boolean(S.stripHTMLTags(this.detailedSolution));
         }
         // check author
@@ -405,9 +406,7 @@ export default class AddEditQuestionUX {
     // actions for question form section
     @action.bound changeQuestionText(text) {
         this.questionText = text;
-        if(!S.isEmpty(S.stripHTMLTags(text))) {
-            this.isEmpty.questionText = false;
-        }
+        this.isEmpty.questionText = S.isEmpty(S.stripHTMLTags(text));
     }
 
     // called when an image is added to the HTML for question text
