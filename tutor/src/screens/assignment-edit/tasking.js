@@ -228,13 +228,6 @@ class Tasking extends React.Component {
                   timezone={this.course.timezone}
                   errorMessage={this.displayCloseDateError(tasking)}
               />
-
-              <DateTime
-                  label="empty"
-                  name={`tasking_plans[${index}].foobar`}
-                  name="empty"
-                  timezone={this.course.timezone}
-              />
           </Col>
                 }
             </Row>
