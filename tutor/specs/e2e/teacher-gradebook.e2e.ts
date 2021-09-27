@@ -30,8 +30,8 @@ test.describe('Teacher Gradebook', () => {
     test('sets preferences', async ({ page }) => {
         await page.click('testId=settings-btn')
         const settings = ['displayScoresAsPoints', 'arrangeColumnsByType','showDroppedStudents']
-        await page.click(`testId=${settings[0]}-checkbox`, { force: true })
-        await page.click(`testId=${settings[1]}-checkbox`, { force: true })
-        await page.click(`testId=${settings[2]}-checkbox`, { force: true })
+        await page.click(`testId=${settings[0]}-checkbox`)
+        await page.click(`testId=${settings[1]}-checkbox`)
+        await page.click(`testId=${settings[2]}-checkbox`)
     })
 })

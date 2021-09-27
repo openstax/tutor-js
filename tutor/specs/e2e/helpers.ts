@@ -24,7 +24,7 @@ export type { TestConfig }
 export const visitPage = async (page: Page, path: string) => {
     const url = `${TC.URL}${path}`
     await page.goto(url)
-    await page.waitForLoadState('domcontentloaded')
+    await page.waitForLoadState('networkidle')
     await loaderNotVisible(page)
     await disableTours(page)
 }

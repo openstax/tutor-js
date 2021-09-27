@@ -4,19 +4,27 @@ import { loginAs } from './helpers'
 
 const AUTH_SENTINEL = 'temp/auth-complete'
 
+export const DEFAULT_TIMEOUT = 5000;
+export const DEFAULT_NAVIGATION_TIMEOUT = 10000;
+
 const preAuthUsers = async () => {
     if (fs.existsSync(AUTH_SENTINEL)) {
         return
     }
     for (const n of [1, 2]) {
         const browser = await chromium.launch();
+        browser.setDefaultTimeout(DEFAULT_TIMEOUT);
+        browser.setDefaultNavigationTimeout(DEFAULT_NAVIGATION_TIMEOUT);
         const page = await browser.newPage();
         await loginAs(`teacher0${n}`, page)
         await page.context().storageState({ path: `temp/teacher0${n}-state.json` });
+        await browser.close();
     }
 
     for (const n of [1, 2]) {
         const browser = await chromium.launch();
+        browser.setDefaultTimeout(DEFAULT_TIMEOUT);
+        browser.setDefaultNavigationTimeout(DEFAULT_NAVIGATION_TIMEOUT);
         const page = await browser.newPage();
         await loginAs(`reviewstudent${n}`, page)
         await page.context().storageState({ path: `temp/reviewstudent${n}-state.json` });
