@@ -7,6 +7,7 @@ import S from '../helpers/string';
 import classnames from 'classnames';
 import Router from '../helpers/router';
 import Analytics from '../helpers/analytics';
+import Pardot from '../helpers/pardot';
 import MatchForTutor from './match-for-tutor';
 import TeacherAsStudentFrame from '../components/teacher-as-student-frame';
 import { DndProvider } from 'react-dnd';
@@ -40,6 +41,7 @@ class App extends React.Component {
 
     componentDidMount() {
         Analytics.setGa(window.ga);
+        Pardot.setup();
         currentUser.recordSessionStart();
         this.storeHistory();
     }
