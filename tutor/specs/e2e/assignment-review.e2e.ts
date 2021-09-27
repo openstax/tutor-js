@@ -273,13 +273,13 @@ test.describe('Assignment Review', () => {
         // TODO add these types
         // External
         // await visitPage(page, `/course/${COURSE_ID}/assignment/review/4`)
-        // await expect(page).not.toHaveSelector('testId=submission-overview-tab', { timeout: 100 })
+        // await expect(page).not.toHaveSelector('testId=submission-overview-tab')
         // await expect(page).toHaveSelector('testId=assignment-scores-tab')
 
         // // Event
         // await visitPage(page, '/course/1/assignment/review/5')
-        // await expect(page).not.toHaveSelector('testId=submission-overview-tab', { timeout: 100 })
-        // await expect(page).not.toHaveSelector('testId=assignment-scores-tab', { timeout: 100 })
+        // await expect(page).not.toHaveSelector('testId=submission-overview-tab')
+        // await expect(page).not.toHaveSelector('testId=assignment-scores-tab')
     });
 
     test('cannot deselect sections', async ({ page }) => {

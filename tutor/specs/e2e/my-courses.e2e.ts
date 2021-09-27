@@ -27,13 +27,13 @@ test.describe('Onboarding', () => {
         expect(
             await page.evaluate(() => document.location.search)
         ).toContain('onboarding=0')
-        await expect(page).not.toHaveSelector('testId=show-detail', { timeout: 100 })
+        await expect(page).not.toHaveSelector('testId=show-detail')
         await page.type('testId=input-suggested-subject', 'test')
         await page.click('testId=offering-0', { force: true })
         await expect(page).toHaveSelector('testId=show-detail')
-        await expect(page).not.toHaveSelector('testId=submit-suggested-subject', { timeout: 100 })
+        await expect(page).not.toHaveSelector('testId=submit-suggested-subject')
         await page.type('testId=input-suggested-subject', 'test')
-        await expect(page).not.toHaveSelector('testId=show-detail', { timeout: 100 })
+        await expect(page).not.toHaveSelector('testId=show-detail')
         await page.click('testId=offering-0', { force: true })
         await page.click('testId=show-detail')
     })
@@ -53,7 +53,7 @@ test.describe('single course teacher', () => {
         const offerings = await page.$$('testId=offering-container')
         await page.click('testId=add-subject-dropdown-btn')
         // there is a delay between clicking the offering and scrolling to the top
-        await page.click('.dropdown-menu.show .offering-item:not(.disabled)', { timeout: 500 })
+        await page.click('.dropdown-menu.show .offering-item:not(.disabled)')
         const updatedOfferings = await page.$$('testId=offering-container')
         // we added a new offering
         expect(updatedOfferings).toHaveLength(offerings.length + 1)
