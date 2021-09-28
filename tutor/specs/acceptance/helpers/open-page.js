@@ -14,7 +14,7 @@ export default async function openPage(
     const url = `${global.__SERVER__.url}${path}`;
     const page = await global.__BROWSER__.newPage();
     page.setViewport(viewport);
-    await page.goto(url, { waitUntil: 'networkidle0' });
-    await page.waitForSelector('#ox-react-root-container', { timeout: 5000 });
+    await page.goto(url, { waitUntil: 'networkidle' });
+    await page.waitForSelector('#ox-react-root-container');
     return page;
 }

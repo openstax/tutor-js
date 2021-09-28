@@ -35,7 +35,7 @@ test('selects from menu', async ({ page }) => {
     await page.click('.tutor-navbar .actions-menu .dropdown-toggle')
     await page.click('[data-item=createNewCourse]')
     await expect(page).toHaveSelector('testId=new-course-wizard')
-    await expect(page).not.toHaveSelector('.choice.active', { timeout: 100 })
+    await expect(page).not.toHaveSelector('.choice.active')
 })
 
 

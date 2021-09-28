@@ -30,13 +30,13 @@ test.describe('without any students', () => {
         await expect(page).toHaveSelector('.course-detail-settings-form')
         await page.click('testId=delete-course-btn')
         await expect(page).toMatchText('testId=delete-course-message', /delete/)
-        await expect(page).not.toHaveSelector('testId=disabled-delete-course-message-warning', { timeout: 100 })
+        await expect(page).not.toHaveSelector('testId=disabled-delete-course-message-warning')
         await page.click('testId=confirm-delete-btn')
         await expect(page).toHaveSelector('testId=existing-teacher-screen')
         expect(
             await page.evaluate(() => document.location.pathname)
         ).toEqual('/courses')
-        await expect(page).not.toHaveSelector(`testId=course-card >> text=${courseName}`, { timeout: 100 })
+        await expect(page).not.toHaveSelector(`testId=course-card >> text=${courseName}`)
     });
 })
 
@@ -74,7 +74,7 @@ test.describe('with students', () => {
         const currentTZ = await page.$eval(timezoneDropdownTestId, el => el.textContent) || ''
         await page.click(`${timezoneDropdownTestId} .dropdown-toggle`, { force: true })
         await page.click(`${timezoneDropdownTestId} .dropdown-menu.show a:nth-child(2)`)
-        await expect(page).not.toMatchText(`${timezoneDropdownTestId} .dropdown-toggle div`, RegExp(currentTZ), { timeout: 100 })
+        await expect(page).not.toMatchText(`${timezoneDropdownTestId} .dropdown-toggle div`, RegExp(currentTZ))
         await expect(page).toHaveSelector('.save-changes-button')
     })
 

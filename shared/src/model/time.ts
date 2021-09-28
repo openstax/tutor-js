@@ -115,6 +115,8 @@ export default class Time {
     toString() { return this.asISOString }
 
     inZone(zone: Zone|string) { return new Time(this._value.setZone(zone)) }
+    asZone(zone: Zone|string) { return new Time(this._value.setZone(zone, { keepLocalTime: true })) }
+    asLocal() { return this.asZone(LDT.local().zoneName) }
     get zoneName() { return this._value.zoneName }
 
     minus(toSub: Duration | DurationObject) {

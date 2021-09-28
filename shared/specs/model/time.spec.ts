@@ -34,7 +34,7 @@ describe('time class', () => {
         expect(t.asISOString).toEqual(m.toISOString())
     });
 
-    it.only('converts from momentjs and keeps timezone', () => {
+    it('converts from momentjs and keeps timezone', () => {
         const m = moment.tz('2021-01-15T10:00:00.000Z', 'US/Arizona');
         const t = new Time(m)
 

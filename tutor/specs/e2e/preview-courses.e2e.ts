@@ -36,7 +36,7 @@ test.describe('Preview Courses', () => {
         })
         await page.goForward()
 
-        await expect(page).not.toHaveSelector('testId=side-panel >> testId=preview-panel-create-course', { timeout: 100 })
+        await expect(page).not.toHaveSelector('testId=side-panel >> testId=preview-panel-create-course')
     })
 
     test('hides preview panel for non-available offerings', async ({ page }) => {
@@ -48,6 +48,6 @@ test.describe('Preview Courses', () => {
         })
         await page.goForward()
         await loaderNotVisible()
-        await expect(page).not.toHaveSelector('testId=side-panel >> testId=preview-panel-create-course', { timeout: 100 })
+        await expect(page).not.toHaveSelector('testId=side-panel >> testId=preview-panel-create-course')
     })
 })

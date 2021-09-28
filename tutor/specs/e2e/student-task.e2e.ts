@@ -95,7 +95,7 @@ test('should show word limit error message and disable submit button if response
     await page.click(`text="${assignmentName}"`)
     await page.click('[data-step-index="3"]')
 
-    await page.fill('testId=free-response-box', faker.lorem.words(510), { timeout: 30000 })
+    await page.fill('testId=free-response-box', faker.lorem.words(510))
     await expect(page).toHaveSelector('text="Maximum 500 words"')
     expect(
         //@ts-ignore

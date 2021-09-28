@@ -23,9 +23,7 @@ export type { TestConfig }
 
 export const visitPage = async (page: Page, path: string) => {
     const url = `${TC.URL}${path}`
-    await page.goto(url)
-    await page.waitForLoadState()
-    await page.waitForTimeout(500)
+    await page.goto(url, { waitUntil: 'networkidle' })
     await loaderNotVisible(page)
     await disableTours(page)
 }
@@ -149,7 +147,7 @@ export const loginAs = async (userName: string, page: Page = (global as any).pag
 }
 
 export const selectAnswer = async (page: Page, choice : string, freeResponse: string) => {
-    await page.waitForSelector('css=.exercise-step >> testId=free-response-box', { timeout: 2000 })
+    await page.waitForSelector('css=.exercise-step >> testId=free-response-box')
         .then(async () => {
             await page.type('css=.exercise-step >> testId=free-response-box', freeResponse)
             await page.click('testId=submit-answer-btn')
@@ -157,7 +155,7 @@ export const selectAnswer = async (page: Page, choice : string, freeResponse: st
         // free response is submitted
         .catch(() => {})
 
-    await page.waitForSelector(`css=.answer-checked >> testId=answer-choice-${choice}`, { timeout: 2000 })
+    await page.waitForSelector(`css=.answer-checked >> testId=answer-choice-${choice}`)
         .then(async () => {
             await page.click(`css=.answer-checked >> testId=answer-choice-${choice}`)
         })

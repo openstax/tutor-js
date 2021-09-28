@@ -258,14 +258,14 @@ class CoursePlanDetails extends React.Component {
                         </Col>)}
                 </Row>
                 <Row className="tasking-date-time">
-                    <Col xs={12} md={mdWidth} className="opens-at">
+                    <Col xs={12} md={mdWidth} className="opens-at" data-test-id="details-opens-at">
                         {course.dateTimeInZone (this.tasking.opens_at).toFormat(format)}
                     </Col>
-                    <Col xs={12} md={mdWidth} className="due-at">
+                    <Col xs={12} md={mdWidth} className="due-at" data-test-id="details-due-at">
                         {course.dateTimeInZone(this.tasking.due_at).toFormat(format)}
                     </Col>
                     {!isEvent && (
-                        <Col xs={12} md={mdWidth} className="closes-at">
+                        <Col xs={12} md={mdWidth} className="closes-at" data-test-id="details-closes-at">
                             {course.dateTimeInZone(this.tasking.closes_at).toFormat(format)}
                         </Col>)}
                 </Row>

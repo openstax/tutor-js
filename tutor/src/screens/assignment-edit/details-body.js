@@ -173,7 +173,7 @@ const DetailsBody = observer(({ ux }) => {
     // otherwise it will keep focusing the field because of the `haserror` prop that updates to check if the field is invalid
     useEffect(() => nameInputField.current && nameInputField.current.focus(), []);
     return (
-        <Body>
+        <Body data-test-id="assignment-edit-fields">
             <SplitRow>
                 <RowLabel htmlFor="title">
                     {ux.titleTextLabel}
@@ -207,7 +207,7 @@ const DetailsBody = observer(({ ux }) => {
           Assign
                     <HintText>
             Course Time Zone:<br/>
-                        {ux.course.timezone}
+                        <span data-test-id="timezone">{ux.course.timezone}</span>
                         <HintText>
               (To immediately open an assignment, select ‘Now’ in the calendar.)
                         </HintText>
