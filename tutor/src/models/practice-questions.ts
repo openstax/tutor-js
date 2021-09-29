@@ -47,6 +47,10 @@ export class PracticeQuestions extends Map<ID, PracticeQuestion> {
         return this.array.find(prc => prc.exercise_id == exerciseId);
     }
 
+    findByTaskedId(taskedExerciseId: ID) {
+        return this.array.find(prc => prc.tasked_exercise_id == taskedExerciseId);
+    }
+
     getAllExerciseIds() {
         return map(this.array, a => a.exercise_id);
     }
