@@ -77,7 +77,7 @@ const SavePracticeButton = observer(({
     };
 
     const getPracticeQuestion = () => {
-        return practiceQuestions.findByExerciseId(taskStep.exercise_id);
+        return practiceQuestions.findByTaskedId(taskStep.tasked_id);
     };
 
     const isSaved = () => {
