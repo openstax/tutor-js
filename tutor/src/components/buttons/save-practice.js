@@ -77,6 +77,17 @@ const SavePracticeButton = observer(({
     };
 
     const getPracticeQuestion = () => {
+        const multiPartGroup = taskStep.multiPartGroup
+
+        if (multiPartGroup) {
+            for (const tasked_id of multiPartGroup.steps.map((step) => step.tasked_id)) {
+                const practiceQuestion = practiceQuestions.findByTaskedId(tasked_id)
+                if (practiceQuestion) {
+                    return practiceQuestion;
+                }
+            }
+        }
+
         return practiceQuestions.findByTaskedId(taskStep.tasked_id);
     };
 
