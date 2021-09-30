@@ -4,8 +4,9 @@ import {
     modelize, getParentOf, hydrateModel, array,
     action, computed, override,
 } from 'shared/model';
-import { currentMedia, ChapterSection }from '../../models'
+import { currentMedia, ChapterSection } from '../../models'
 import type { ReferenceBook } from '../reference-book'
+import S from 'shared/helpers/string'
 
 import urlFor from '../../api';
 
@@ -173,9 +174,9 @@ export class ReferenceBookNode extends BaseModel {
     }
 
     @computed get titleWithSection() {
-        if(!this.chapter_section || !this.chapter_section.chapter) {
+        if (!this.chapter_section || !this.chapter_section.chapter) {
             return this.titleText;
         }
-        return `${this.chapter_section.asString}. ${this.titleText}`;
+        return `${this.chapter_section.asString}. ${S.stripHTMLTags(this.titleText)}`;
     }
 }
