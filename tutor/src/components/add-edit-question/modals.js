@@ -107,11 +107,11 @@ const ExitWarningModal = observer(({ ux }) => {
                 <p>The question is not published yet and will not be saved. Are you sure you want to exit this form?</p>
                 <ControlsWrapper>
                     <Controls>
-                      <Button variant="default" size="lg" onClick={action(() => {
+                        <Button variant="default" size="lg" onClick={action(() => {
                             ux.clearAutosave();
                             ux.showExitWarningModal = false;
                             ux.onDisplayModal(false);
-                      })}>
+                        })}>
                             Yes, exit
                         </Button>
                         <Button variant="primary" size="lg" onClick={() => ux.showExitWarningModal = false}>
