@@ -13,7 +13,7 @@ class CnxFeature extends React.Component {
     validateInput = (value) => {
         if (!value.match(
             /^[\w-]+$/i
-        )) { return 'Must match feature ID'; }
+        )) { return 'Must be the ID of the HTML element containing the feature (alphanumeric characters, hyphens and/or underscores only)'; }
     };
 
     cleanInput = (val) => {
@@ -24,7 +24,7 @@ class CnxFeature extends React.Component {
         return (
             <MultiInput
                 {...this.props}
-                label="CNX Feature"
+                label="Element ID"
                 type="context-cnxfeature"
                 cleanInput={this.cleanInput}
                 placeholder="feature-id"
