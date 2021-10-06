@@ -7,13 +7,14 @@ import ScrollSpy from '../../components/scroll-spy';
 import Sectionizer from '../../components/exercises/sectionizer';
 import RadioInput from '../../components/radio-input';
 import HomeExerciseFilters from '../../components/exercises/homework-exercise-filters';
-import { colors } from 'theme';
+import { colors, breakpoint } from 'theme';
 import { Icon } from 'shared';
 
 const StyledExerciseControls = styled.div`
   .exercise-controls-bar {
     display: flex;
     height: 60px;
+
     label {
       font-size: 1.4rem;
     }
@@ -40,13 +41,19 @@ const StyledExerciseControls = styled.div`
   }
   .filters-control {
     justify-content: space-between;
-    padding: 0 2.2rem;
+    padding: 1rem 2.2rem;
+
     .library-label {
       font-weight: 700;
       color: ${colors.neutral.grayblue};
     }
     .exercise-controls-wrapper {
-      display: flex;
+      &, .exercise-type-toggle {
+        display: flex;
+      }
+      .exercise-type-toggle > * {
+          flex-shrink: 0;
+      }
       .exercise-filters {
         margin-left: 2.3rem;
         label {
@@ -60,14 +67,72 @@ const StyledExerciseControls = styled.div`
     .questions-controls-wrapper {
       display: flex;
       height: 40px;
+
       .question-filters {
         padding: 1rem 3rem;
+
+        > * {
+          flex-shrink: 0
+        }
       }
       .btn {
         padding: 0 4rem;
+        flex-shrink: 0
       }
     }
   }
+
+  ${breakpoint.tablet`
+    && .exercise-controls-bar {
+      height: auto;
+    }
+    .filters-control .exercise-controls-wrapper {
+      flex-direction: column;
+
+      .exercise-type-toggle {
+        display: block;
+      }
+
+      .exercise-filters {
+        margin: 0;
+
+        span {
+            display: flex;
+            margin-top: 1rem;
+        }
+        span + span {
+            margin-left: 0;
+        }
+      }
+    }
+
+    .filters-control .questions-controls-wrapper {
+      .btn {
+        padding: 0 2.4rem;
+      }
+      .question-filters {
+          padding-left: 1rem;
+      }
+    }
+  `}
+
+  ${breakpoint.mobile`
+      .filters-control .questions-controls-wrapper {
+        .question-filters {
+          flex-wrap: wrap;
+          padding-top: 0;
+          margin-top: -0.7rem;
+
+          .dropdown + .dropdown {
+            margin: 2.4rem 0 0 0;
+          }
+        }
+
+        .btn {
+          padding: 0 1.6rem;
+        }
+      }
+  `}
 `;
 
 const StyledPopover = styled(Popover)`
@@ -194,7 +259,7 @@ class ExerciseControls extends React.Component {
                             <span className="library-label">Library</span>
                         </OverlayTrigger>
                         <div className="exercise-filters">
-                            <TourAnchor id="exercise-type-toggle">
+                            <TourAnchor id="exercise-type-toggle" className="exercise-type-toggle">
                                 <RadioInput
                                     name="filter-assignment-type"
                                     value="homework"
