@@ -75,11 +75,10 @@ describe('Event Row', function() {
     });
 
     it('shows only visible to instructors message', () => {
-        const task = Factory.studentDashboardTask();
+        const task = Factory.studentDashboardTask({}, { course: { currentRole: { isTeacherStudent: true } } });
+        expect(task.isTeacherStudent).toBe(true);
         task.opens_at = Time.now.plus({ day: 1 }).asDate;
         expect(task.isOpen).toBe(false);
-        task.tasks = { course: { currentRole: { isTeacherStudent: true } } };
-        expect(task.isTeacherStudent).toBe(true);
         const row = mount(<C><EventRow event={task} course={course} /></C>);
         expect(row.find('NotOpenNotice').text()).toContain('only visible to instructors');
         row.unmount();
