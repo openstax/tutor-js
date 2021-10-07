@@ -9,7 +9,7 @@ export default class TagsAssociation {
     constructor() {
         modelize(this)
     }
-    remove(tag: Tag){ return remove(this.all, tag) }
+    remove(tag: Tag){ return remove(this.all, elt => elt == tag) }
     push(attrs: any) { return this.all.push(hydrateModel(Tag, attrs)) }
     clear() { this.all.splice(0, this.all.length) }
     get length() { return this.all.length }
@@ -38,9 +38,7 @@ export default class TagsAssociation {
 
     @action setUniqueValue(tag:Tag, value: string) {
         const existing = find(this.all, { type: tag.type, value: value });
-        if (existing) {
-            remove(this.all, tag)
-        }
+        if (existing) this.remove(tag);
         tag.value = value;
     }
 
