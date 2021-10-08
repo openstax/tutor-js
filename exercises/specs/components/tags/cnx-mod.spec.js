@@ -34,7 +34,7 @@ describe('CNX mod tags component', function() {
         expect(modules).toHaveRendered('.has-error');
 
         expect(modules.find('TagError').props().error)
-            .toContain('Must match CNX module ID');
+            .toContain('Must be the UUID of a module in the book (with hyphens)');
         const uuid = 'cb7cf05b-7e16-4a53-a498-003b01ec3d7f';
 
         input.simulate('change', { target: { value: uuid } });
