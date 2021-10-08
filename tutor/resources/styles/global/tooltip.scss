@@ -1,4 +1,7 @@
 .tooltip {
+  &.show {
+    opacity: 1 !important;
+  }
   .tooltip-inner {
     text-align: left;
     color: $tutor-neutral-darker;
