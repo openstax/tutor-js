@@ -1059,7 +1059,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
               </div>
             </div>
             <div
-              className="tag-type cnxModule has-single-tag"
+              className="tag-type moduleUuid has-single-tag"
             >
               <div
                 className="heading"
@@ -1067,7 +1067,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                 <span
                   className="label"
                 >
-                  CNX Module
+                  Module UUID
                 </span>
                 <div
                   className="controls"
@@ -1140,7 +1140,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
               </div>
             </div>
             <div
-              className="tag-type cnxFeature has-single-tag"
+              className="tag-type elementId has-single-tag"
             >
               <div
                 className="heading"
@@ -1148,7 +1148,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                 <span
                   className="label"
                 >
-                  CNX Feature
+                  Element ID
                 </span>
                 <div
                   className="controls"
@@ -4382,7 +4382,7 @@ exports[`Exercises component renders with intro and a multiple questions when ex
               </div>
             </div>
             <div
-              className="tag-type cnxModule has-single-tag"
+              className="tag-type moduleUuid has-single-tag"
             >
               <div
                 className="heading"
@@ -4390,7 +4390,7 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                 <span
                   className="label"
                 >
-                  CNX Module
+                  Module UUID
                 </span>
                 <div
                   className="controls"
@@ -4463,7 +4463,7 @@ exports[`Exercises component renders with intro and a multiple questions when ex
               </div>
             </div>
             <div
-              className="tag-type cnxFeature has-single-tag"
+              className="tag-type elementId has-single-tag"
             >
               <div
                 className="heading"
@@ -4471,7 +4471,7 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                 <span
                   className="label"
                 >
-                  CNX Feature
+                  Element ID
                 </span>
                 <div
                   className="controls"
@@ -6547,12 +6547,12 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                 <HistoricalThinkingTag exercise={{...}} />
                                 <ReasoningProcessTag exercise={{...}} />
                                 <CnxModTag exercise={{...}}>
-                                  <MultiInput exercise={{...}} label=\\"CNX Module\\" type=\\"context-cnxmod\\" cleanInput={[Function (anonymous)]} validateInput={[Function (anonymous)]} placeholder=\\"########-####-####-####-############\\">
-                                    <TagWrapper label=\\"CNX Module\\" onAdd={[Function: add] { isMobxAction: true }} singleTag={true}>
-                                      <div className=\\"tag-type cnxModule has-single-tag\\">
+                                  <MultiInput exercise={{...}} label=\\"Module UUID\\" type=\\"context-cnxmod\\" cleanInput={[Function (anonymous)]} validateInput={[Function (anonymous)]} placeholder=\\"########-####-####-####-############\\">
+                                    <TagWrapper label=\\"Module UUID\\" onAdd={[Function: add] { isMobxAction: true }} singleTag={true}>
+                                      <div className=\\"tag-type moduleUuid has-single-tag\\">
                                         <div className=\\"heading\\">
                                           <span className=\\"label\\">
-                                            CNX Module
+                                            Module UUID
                                           </span>
                                           <div className=\\"controls\\">
                                             <Icon onClick={[Function: add] { isMobxAction: true }} type=\\"plus-circle\\" buttonProps={{...}} tooltipProps={{...}}>
@@ -6570,7 +6570,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                             </Icon>
                                           </div>
                                         </div>
-                                        <Input exercise={{...}} label=\\"CNX Module\\" type=\\"context-cnxmod\\" cleanInput={[Function (anonymous)]} validateInput={[Function (anonymous)]} placeholder=\\"########-####-####-####-############\\" tag={{...}} inputType=\\"text\\">
+                                        <Input exercise={{...}} label=\\"Module UUID\\" type=\\"context-cnxmod\\" cleanInput={[Function (anonymous)]} validateInput={[Function (anonymous)]} placeholder=\\"########-####-####-####-############\\" tag={{...}} inputType=\\"text\\">
                                           <div className=\\"tag\\">
                                             <input className=\\"form-control\\" type=\\"text\\" onChange={[Function: onChange] { isMobxAction: true }} onBlur={[Function: validateAndSave] { isMobxAction: true }} value=\\"\\" placeholder=\\"########-####-####-####-############\\" />
                                             <TagError error=\\"\\" />
@@ -6596,12 +6596,12 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                   </MultiInput>
                                 </CnxModTag>
                                 <CnxFeature exercise={{...}}>
-                                  <MultiInput exercise={{...}} label=\\"CNX Feature\\" type=\\"context-cnxfeature\\" cleanInput={[Function (anonymous)]} placeholder=\\"feature-id\\" validateInput={[Function (anonymous)]}>
-                                    <TagWrapper label=\\"CNX Feature\\" onAdd={[Function: add] { isMobxAction: true }} singleTag={true}>
-                                      <div className=\\"tag-type cnxFeature has-single-tag\\">
+                                  <MultiInput exercise={{...}} label=\\"Element ID\\" type=\\"context-cnxfeature\\" cleanInput={[Function (anonymous)]} placeholder=\\"feature-id\\" validateInput={[Function (anonymous)]}>
+                                    <TagWrapper label=\\"Element ID\\" onAdd={[Function: add] { isMobxAction: true }} singleTag={true}>
+                                      <div className=\\"tag-type elementId has-single-tag\\">
                                         <div className=\\"heading\\">
                                           <span className=\\"label\\">
-                                            CNX Feature
+                                            Element ID
                                           </span>
                                           <div className=\\"controls\\">
                                             <Icon onClick={[Function: add] { isMobxAction: true }} type=\\"plus-circle\\" buttonProps={{...}} tooltipProps={{...}}>
@@ -6619,7 +6619,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                             </Icon>
                                           </div>
                                         </div>
-                                        <Input exercise={{...}} label=\\"CNX Feature\\" type=\\"context-cnxfeature\\" cleanInput={[Function (anonymous)]} placeholder=\\"feature-id\\" validateInput={[Function (anonymous)]} tag={{...}} inputType=\\"text\\">
+                                        <Input exercise={{...}} label=\\"Element ID\\" type=\\"context-cnxfeature\\" cleanInput={[Function (anonymous)]} placeholder=\\"feature-id\\" validateInput={[Function (anonymous)]} tag={{...}} inputType=\\"text\\">
                                           <div className=\\"tag\\">
                                             <input className=\\"form-control\\" type=\\"text\\" onChange={[Function: onChange] { isMobxAction: true }} onBlur={[Function: validateAndSave] { isMobxAction: true }} value=\\"one-1\\" placeholder=\\"feature-id\\" />
                                             <TagError error=\\"\\" />

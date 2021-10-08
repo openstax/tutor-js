@@ -9,7 +9,7 @@ exports[`CNX mod tags component renders mod tags 1`] = `
 }
 
 <div
-  className="tag-type cnxModule"
+  className="tag-type moduleUuid"
 >
   <div
     className="heading"
@@ -17,7 +17,7 @@ exports[`CNX mod tags component renders mod tags 1`] = `
     <span
       className="label"
     >
-      CNX Module
+      Module UUID
     </span>
     <div
       className="controls"
