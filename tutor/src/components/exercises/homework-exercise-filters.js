@@ -22,6 +22,7 @@ const StyledDropdown = styled(Dropdown)`
         color: ${colors.neutral.grayblue};
         font-weight: 700;
         border: 1px solid transparent;
+        flex: 1;
         svg {
             margin-left: 0.7rem;
         }
@@ -147,7 +148,6 @@ const QuestionFilters = ({ exercises, returnFilteredExercises, className='' }) =
                 <Dropdown.Toggle
                     as={CustomToggle}
                     text="Question Type"
-
                     id="dropdown-custom-components"/>
                 <Dropdown.Menu as={CustomMenu}>
                     <CheckboxInput
