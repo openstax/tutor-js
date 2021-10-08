@@ -221,7 +221,10 @@ const FieldsetRow = observer(({ legend, legendHint, hint, children, ...fieldsetP
 
 FieldsetRow.propTypes = {
     legend: PropTypes.string.isRequired,
-    legendHint: PropTypes.string,
+    legendHint: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.node,
+    ]),
 };
 
 @observer

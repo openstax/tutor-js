@@ -11,7 +11,7 @@ const isLink = (a) => Boolean(a && 'A' == a.tagName);
 const isExternalLink = (a) => Boolean(isLink(a) && (a.origin !== window.location.origin || a.target == '_blank'));
 const propTypes = {
     className: PropTypes.string,
-    html: PropTypes.string.isRequired,
+    html: PropTypes.string,
     block: PropTypes.bool,
     processHtmlAndMath: PropTypes.func,
     shouldExcludeFrame: PropTypes.func,
