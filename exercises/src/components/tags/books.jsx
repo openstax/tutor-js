@@ -79,8 +79,8 @@ class BookTags extends React.Component {
         const tags = this.props.exercise.tags.withType('book', { multiple: true });
         return (
             <Wrapper label="Book" onAdd={this.add} singleTag={tags.length === 1}>
-                {tags.map((tag) =>
-                    <BookTagSelect key={tag.asString} {...this.props} tag={tag} />)}
+                {tags.map((tag, i) =>
+                    <BookTagSelect key={i} {...this.props} tag={tag} />)}
             </Wrapper>
         );
     }
