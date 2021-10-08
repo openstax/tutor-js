@@ -1,7 +1,10 @@
 import { get, isNil } from 'lodash';
 import ScoresHelper, { UNWORKED } from '../../../helpers/scores';
-import { BaseModel, field, modelize, observable, computed, model, NEW_ID } from 'shared/model';
+import {
+    BaseModel, field, modelize, observable, computed, model, NEW_ID, getParentOf,
+} from 'shared/model';
 import Time from 'shared/model/time';
+import { StudentTaskPlans } from '../../../models';
 
 // a task on the student's dashboard
 export class StudentDashboardTask extends BaseModel {
@@ -36,7 +39,11 @@ export class StudentDashboardTask extends BaseModel {
 
     constructor() {
         super()
-        modelize(this);
+        modelize(this)
+    }
+
+    get tasks() {
+        return getParentOf<StudentTaskPlans>(this)
     }
 
     @computed get workedLate() {
