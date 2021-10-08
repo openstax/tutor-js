@@ -1,4 +1,4 @@
-import { React, PropTypes, styled, observer, useState, useEffect, hydrateModel } from 'vendor';
+import { React, PropTypes, styled, observer, useState, useEffect, hydrateModel, action } from 'vendor';
 import { Button, Modal } from 'react-bootstrap';
 import { map, find, isEmpty } from 'lodash';
 import { colors } from 'theme';
@@ -107,11 +107,11 @@ const ExitWarningModal = observer(({ ux }) => {
                 <p>The question is not published yet and will not be saved. Are you sure you want to exit this form?</p>
                 <ControlsWrapper>
                     <Controls>
-                        <Button variant="default" size="lg" onClick={() => {
+                        <Button variant="default" size="lg" onClick={action(() => {
                             ux.clearAutosave();
                             ux.showExitWarningModal = false;
                             ux.onDisplayModal(false);
-                        }}>
+                        })}>
                             Yes, exit
                         </Button>
                         <Button variant="primary" size="lg" onClick={() => ux.showExitWarningModal = false}>

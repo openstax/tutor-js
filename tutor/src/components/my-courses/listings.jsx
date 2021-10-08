@@ -144,7 +144,7 @@ class MyCoursesBasic extends React.Component {
     static propTypes = {
         title:    PropTypes.string.isRequired,
         baseName: PropTypes.string.isRequired,
-        courses:  PropTypes.arrayOf( PropTypes.instanceOf(Course) ).isRequired,
+        courses:  PropTypes.arrayOf( PropTypes.instanceOf(CourseModel) ).isRequired,
         before:   PropTypes.element,
         after:    PropTypes.element,
     }
