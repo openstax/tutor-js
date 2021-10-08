@@ -66,7 +66,7 @@ const NotOpenNotice = ({ task, course }) => {
     return (
         <NotOpenNoticeWrapper className="not-open-notice">
             <Icon type="eye" /> This assignment is only visible to instructors.
-            Open date for students is {course.dateTimeInZone(task.opens_at).format(timeFormat)}
+            Open date for students is {course.dateTimeInZone(task.opens_at).toFormat(timeFormat)}
         </NotOpenNoticeWrapper>
     );
 };
@@ -158,14 +158,14 @@ class EventRow extends React.Component {
                     </div>
                     <div className="mobile-event-info-container">
                         <div className="mobile-event-info">
-                            <span>Due on</span> 
+                            <span>Due on</span>
                             <span>
                                 <EventTime event={event} />
                                 {event.is_extended && <StyledEIcon />}
                             </span>
                         </div>
                         <div className="mobile-event-info">
-                            <span>Status</span> 
+                            <span>Status</span>
                             <span>
                                 <TaskStatus event={event} course={course} />
                             </span>
@@ -204,7 +204,7 @@ class EventRow extends React.Component {
                         desktop={this.renderDesktop()}
                         mobile={this.renderMobile()}
                     />
-          
+
                 </TaskRow>
             </>
         );

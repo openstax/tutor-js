@@ -13,7 +13,7 @@ class CnxModTag extends React.Component {
     validateInput = (value) => {
         if (!value.match(
             /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
-        )) { return 'Must match CNX module ID (without version number)'; }
+        )) { return 'Must be the UUID of a module in the book (with hyphens)'; }
         return null
     };
 
@@ -25,7 +25,7 @@ class CnxModTag extends React.Component {
         return (
             <MultiInput
                 {...this.props}
-                label="CNX Module"
+                label="Module UUID"
                 type="context-cnxmod"
                 cleanInput={this.cleanInput}
                 validateInput={this.validateInput}
