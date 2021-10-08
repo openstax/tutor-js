@@ -9,7 +9,7 @@ export default class TagsAssociation {
     constructor() {
         modelize(this)
     }
-    remove(tag: Tag){ return remove(this.all, elt => elt == tag) }
+    remove(tag: Tag) { return remove(this.all, elt => elt == tag) }
     push(attrs: any) { return this.all.push(hydrateModel(Tag, attrs)) }
     clear() { this.all.splice(0, this.all.length) }
     get length() { return this.all.length }
