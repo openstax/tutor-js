@@ -19,7 +19,7 @@ import TourConductor from './tours/conductor';
 import ErrorBoundary from './error-monitoring/boundary';
 import { TutorLayout } from './tutor-layout';
 
-const RouteChange = function(props) {
+const RouteChange = function(props) { // TODO: Still needed? No other refs...
     navHistory.record(props.pathname)
     return <span />;
 };
@@ -53,6 +53,7 @@ class App extends React.Component {
     storeHistory() {
         Analytics.onNavigation(this.props.location.pathname);
         navHistory.record(this.props.location.pathname);
+        Pardot.track();
     }
 
     render() {

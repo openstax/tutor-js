@@ -6,6 +6,7 @@ declare global {
         piAId: string
         piCId: string
         piHostname: string
+        piTracker?: (url: string) => void
     }
 }
 
@@ -68,5 +69,13 @@ export default class Pardot {
 
         const tag = doc.getElementsByTagName('script').item(0)
         tag?.parentNode?.insertBefore(script, tag)
+    }
+
+    static track(win: Window | DOMWindow = window) {
+        if (!win.piTracker) {
+            return false
+        }
+
+        return win.piTracker(win.location.toString())
     }
 }

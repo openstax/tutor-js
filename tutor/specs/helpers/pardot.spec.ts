@@ -49,4 +49,12 @@ describe('Pardot', () => {
         expect(window.document.getElementsByTagName('script')[0].src).toMatch('pd.js')
         expect(window.document.getElementsByTagName('script')[0].src).toMatch('https://pi')
     })
+
+    it('tracks', () => {
+        const url = 'https://tutor.openstax.org/courses/1'
+        const { window } = new JSDOM(dom, { url: url })
+        window.piTracker = jest.fn()
+        Pardot.track(window)
+        expect(window.piTracker).toHaveBeenCalledWith(url)
+    })
 })
