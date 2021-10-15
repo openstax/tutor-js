@@ -1,5 +1,37 @@
-import { test, visitPage, expect, withUser, disableTours, signTerm } from './test'
+import { keyboardShortcuts, faker, test, visitPage, expect, withUser, disableTours, signTerm } from './test'
+import { Page } from "@playwright/test";
 
+const clickEditExercise = async (page: Page, baseSelector: string) => {
+  // make page larger so it doesn't scroll when hovering card controls
+  // scrolling will unfocus, making controls unclickable
+  await page.setViewportSize({ width: 1280, height: 1600 })
+  //
+  // not sure why click with {force: true} doesn't work here
+  await page.$eval(`${baseSelector} >> .copyEdit` , (cped: HTMLElement) => cped.click())
+}
+
+const getFirstExerciseContainer = async (page: Page) => {
+    await expect(page).toHaveSelector('.openstax-exercise-preview')
+    const exId = await page.$eval('.openstax-exercise-preview' , ex => ex.dataset.exerciseId)
+    return `.openstax-exercise-preview[data-exercise-id="${exId}"]`
+};
+
+const replaceQuestionStemInForm = async (page: Page, newValue: string, initialValue?: string) => {
+    const stemSel = '[data-test-id=add-edit-question].modal-dialog >> .question-text >> .editor'
+
+    if (initialValue) {
+        await expect(page).toHaveText(stemSel, initialValue)
+    }
+    await page.click(stemSel)
+    await expect(page).toHaveSelector(`${stemSel} >> .isEditing`)
+    const editorSel = `${stemSel} >> .pw-prosemirror-editor`
+    await page.focus(editorSel)
+    await page.pause();
+    await keyboardShortcuts(page).selectAll(editorSel);
+    await page.type(editorSel, newValue)
+
+    await page.click('.tag-form button:first-child') // trigger focus blur for validation
+};
 
 test.describe('Add/Edit Questions', () => {
 
@@ -17,48 +49,59 @@ test.describe('Add/Edit Questions', () => {
         await page.click('testId=show-questions')
     });
 
-    test('shows terms before editing exercise', async ({ page }) => {
-        await page.route(/terms/, route => route.fulfill({
-            status: 200,
-            headers: { 'access-control-allow-origin': '*' },
-            body: JSON.stringify([{ name: 'exercise_editing', is_signed: false, content: 'i will edit only good things' }]),
-        }));
+    test.describe('shows terms', () => {
 
-        await page.evaluate(() => {
-            const term = (window as any)._MODELS?.user.terms.get('exercise_editing')
-            if (term) { term.is_signed = false }
-        })
-        await page.click('testId=create-question')
-        await page.waitForSelector('testId=terms-modal >> [data-is-loaded="true"]')
-        await expect(page).toHaveText('testId=terms-modal', 'edit only good things')
-        await page.click('input.i-agree + label')
-        await page.click('testId=agree-to-terms')
-        await expect(page).not.toHaveSelector('testId=terms-modal')
-        await page.click('.close')
+        test.beforeEach(async ({page}) => {
+            await page.route(/terms/, route => route.fulfill({
+                status: 200,
+                headers: { 'access-control-allow-origin': '*' },
+                body: JSON.stringify([{ name: 'exercise_editing', is_signed: false, content: 'i will edit only good things' }]),
+            }));
+
+            await page.evaluate(() => {
+                const term = (window as any)._MODELS?.user.terms.get('exercise_editing')
+                if (term) { term.is_signed = false }
+            })
+        });
+
+        test.only('C639439: before editing exercise', async ({ page }) => {
+            const ex = await getFirstExerciseContainer(page);
+            //expect(await page.$eval(`${ex} .copyEdit .label-message`, (s: HTMLElement) => s.textContent)).toEqual('Copy & Edit')
+            expect(await page.$eval(`${ex} .copyEdit .label-message`, (s: HTMLElement) => s.textContent)).toEqual('Edit')
+            await clickEditExercise(page, ex);
+            await page.waitForSelector('testId=terms-modal >> [data-is-loaded="true"]')
+            await expect(page).toHaveText('testId=terms-modal', 'edit only good things')
+            await expect(page).toHaveSelector('button[data-test-id="agree-to-terms"][disabled]')
+            await page.click('input.i-agree + label')
+            await expect(page).toHaveSelector('button[data-test-id="agree-to-terms"]:not([disabled])')
+            await page.click('testId=agree-to-terms')
+            await expect(page).not.toHaveSelector('testId=terms-modal')
+            const newValue = faker.lorem.sentences()
+            await replaceQuestionStemInForm(page, newValue);
+            await page.click('testId=publish-btn')
+            await expect(page).toHaveText(`${ex} .question-stem`, newValue)
+        });
+        
+        test('before creating exercise', async ({ page }) => {
+            await page.click('testId=create-question')
+            await page.waitForSelector('testId=terms-modal >> [data-is-loaded="true"]')
+            await expect(page).toHaveText('testId=terms-modal', 'edit only good things')
+            await page.click('input.i-agree + label')
+            await page.click('testId=agree-to-terms')
+            await expect(page).not.toHaveSelector('testId=terms-modal')
+            await page.click('.close')
+        });
     });
 
     test('edits an existing exercise', async ({ page }) => {
-        // make page larger so it doesn't scroll when hovering card controls
-        // scrolling will unfocus, making controls unclickable
-        //await page.setViewportSize({ width: 1280, height: 1600 })
-        await expect(page).toHaveSelector('.openstax-exercise-preview')
-        const exId = await page.$eval('.openstax-exercise-preview' , ex => ex.dataset.exerciseId)
-        const ex = `.openstax-exercise-preview[data-exercise-id="${exId}"]`
-        const stem = await page.$eval(`${ex} .question-stem`, (s: HTMLElement) => s.innerText)
-        // not sure why click with {force: true} doesn't work here
-        await page.$eval(`${ex} >> .copyEdit` , (cped: HTMLElement) => cped.click())
-        const stemSel = 'testId=add-edit-question >> .question-text >> .editor'
-        await expect(page).toHaveText(stemSel, stem)
-        await page.click(stemSel)
-        await expect(page).toHaveSelector(`${stemSel} >> .isEditing`)
-        const editorSel = `${stemSel} >> .pw-prosemirror-editor`
-        await page.focus(editorSel)
-        await page.press(editorSel, 'Control+a')
-        await page.type(editorSel, 'Hello World!')
-        await page.click('.tag-form button:first-child') // trigger focus blur for validation
-        await page.click('.tag-difficulty button')
+        const ex = await getFirstExerciseContainer(page);
+        const currentValue = await page.$eval(`${ex} .question-stem`, (s: HTMLElement) => s.innerText)
+        const newValue = faker.lorem.sentences()
+        await clickEditExercise(page, ex);
+        await replaceQuestionStemInForm(page, newValue, currentValue)
         await page.click('testId=publish-btn')
         await page.waitForTimeout(1000)
+        await expect(page).toHaveText(`${ex} .question-stem`, newValue)
     })
 
     test('autosaves', async({ page }) => {

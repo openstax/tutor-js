@@ -103,7 +103,13 @@ export default class AddEditQuestionUX {
             this.isMCQ = true;
         }
         // get author
-        this.author = this.authors[0];
+        this.author = this.course.teachers.current;
+
+        // on create user can select from all current co-teachers as the author 
+        if (!props.exercise) {
+            this.course.allTeachers.fetch();
+        }
+
         //track initial state
         this.setInitialState();
         // make `this.options` observable after getting a shallow copy of `this.options` in `this.setInitialState`.
@@ -312,12 +318,16 @@ export default class AddEditQuestionUX {
     }
 
     @computed get authors() {
-        // if creating or editing own question, show all teachers in course
-        if (this.course.teacher_profiles.length > 0 && (!this.from_exercise_id || this.isUserGeneratedQuestion)) {
-            return [...this.course.teacher_profiles];
+        // creating
+        if (!this.from_exercise_id) {
+            // course.teachers is actually only the current user, allTeachers is lazy loaded
+            // so this will populate the other options when they come in
+            return [this.course.teachers.current, ...this.course.allTeachers.notCurrent.values()];
         }
-        else
-            return [this.course.teacher_profiles.current];
+        // editing any question, including copy & edit from another author
+        else {
+            return [this.course.teachers.current];
+        }
     }
 
     // Get the browse book link with the chapter or section selected
