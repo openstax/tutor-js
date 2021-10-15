@@ -1,35 +1,35 @@
 import { keyboardShortcuts, faker, test, visitPage, expect, withUser, disableTours, signTerm } from './test'
-import { Page } from "@playwright/test";
+import { Page } from '@playwright/test';
 
 const incrementExerciseIdVersion = (selector: string) => {
-  const versionString = selector.match(/\d+@\d+/)?.[0];
-  if (!versionString) throw new Error('invalid exercise selector')
-  const [id, version] = versionString.split('@');
-  const newVersionString = id + '@' + (parseInt(version, 10) + 1)
-  return selector.replace(versionString, newVersionString);
+    const versionString = selector.match(/\d+@\d+/)?.[0];
+    if (!versionString) throw new Error('invalid exercise selector')
+    const [id, version] = versionString.split('@');
+    const newVersionString = id + '@' + (parseInt(version, 10) + 1)
+    return selector.replace(versionString, newVersionString);
 }
 
 const clickEditExercise = async (page: Page, baseSelector: string) => {
-  // make page larger so it doesn't scroll when hovering card controls
-  // scrolling will unfocus, making controls unclickable
-  await page.setViewportSize({ width: 1280, height: 1600 })
-  //
-  // not sure why click with {force: true} doesn't work here
-  await page.$eval(`${baseSelector} >> .copyEdit` , (cped: HTMLElement) => cped.click())
+    // make page larger so it doesn't scroll when hovering card controls
+    // scrolling will unfocus, making controls unclickable
+    await page.setViewportSize({ width: 1280, height: 1600 })
+    //
+    // not sure why click with {force: true} doesn't work here
+    await page.$eval(`${baseSelector} >> .copyEdit` , (cped: HTMLElement) => cped.click())
 }
 
 const getFirstExerciseContainerWithEditButtonText = async (page: Page, text: string) => {
     await expect(page).toHaveSelector('.openstax-exercise-preview')
 
     const exId = await page.evaluate((text: string) => {
-      const ex = Array.from(document.querySelectorAll('.openstax-exercise-preview')).find(preview => {
-          const label = preview.querySelector('.copyEdit .label-message')
-          return label && label.textContent === text
-      }) as any;
+        const ex = Array.from(document.querySelectorAll('.openstax-exercise-preview')).find(preview => {
+            const label = preview.querySelector('.copyEdit .label-message')
+            return label && label.textContent === text
+        }) as any;
 
-      if (ex) {
-          return ex.dataset.exerciseId;
-      }
+        if (ex) {
+            return ex.dataset.exerciseId;
+        }
     }, text)
 
     if (exId) {
@@ -74,7 +74,7 @@ test.describe('Add/Edit Questions', () => {
 
     test.describe('shows terms', () => {
 
-        test.beforeEach(async ({page}) => {
+        test.beforeEach(async ({ page }) => {
             await page.route(/terms/, route => route.fulfill({
                 status: 200,
                 headers: { 'access-control-allow-origin': '*' },

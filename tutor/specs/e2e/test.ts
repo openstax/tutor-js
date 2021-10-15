@@ -62,7 +62,7 @@ const test = base.extend<TestFixtures>({
 })
 
 export const keyboardShortcuts = (page: Page) => ({
-  selectAll: (selector: string) => page.press(selector, process.platform === 'darwin' ? 'Meta+a' : 'Control+a')
+    selectAll: (selector: string) => page.press(selector, process.platform === 'darwin' ? 'Meta+a' : 'Control+a'),
 })
 
 
