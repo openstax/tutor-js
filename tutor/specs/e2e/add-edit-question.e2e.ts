@@ -31,7 +31,7 @@ const getFirstExerciseContainerWithEditButtonText = async (page: Page, text: str
           return ex.dataset.exerciseId;
       }
     }, text)
-    
+
     if (exId) {
         return `.openstax-exercise-preview[data-exercise-id="${exId}"]`
     } else {
@@ -102,7 +102,7 @@ test.describe('Add/Edit Questions', () => {
             await page.click('testId=publish-btn')
             await expect(page).toHaveText(newValue)
         });
-        
+
         test('before creating an exercise', async ({ page }) => {
             await page.click('testId=create-question')
             await page.waitForSelector('testId=terms-modal >> [data-is-loaded="true"]')
