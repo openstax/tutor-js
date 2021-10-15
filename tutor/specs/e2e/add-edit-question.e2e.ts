@@ -1,6 +1,14 @@
 import { keyboardShortcuts, faker, test, visitPage, expect, withUser, disableTours, signTerm } from './test'
 import { Page } from "@playwright/test";
 
+const incrementExerciseIdVersion = (selector: string) => {
+  const versionString = selector.match(/\d+@\d+/)?.[0];
+  if (!versionString) throw new Error('invalid exercise selector')
+  const [id, version] = versionString.split('@');
+  const newVersionString = id + '@' + (parseInt(version, 10) + 1)
+  return selector.replace(versionString, newVersionString);
+}
+
 const clickEditExercise = async (page: Page, baseSelector: string) => {
   // make page larger so it doesn't scroll when hovering card controls
   // scrolling will unfocus, making controls unclickable
@@ -10,10 +18,25 @@ const clickEditExercise = async (page: Page, baseSelector: string) => {
   await page.$eval(`${baseSelector} >> .copyEdit` , (cped: HTMLElement) => cped.click())
 }
 
-const getFirstExerciseContainer = async (page: Page) => {
+const getFirstExerciseContainerWithEditButtonText = async (page: Page, text: string) => {
     await expect(page).toHaveSelector('.openstax-exercise-preview')
-    const exId = await page.$eval('.openstax-exercise-preview' , ex => ex.dataset.exerciseId)
-    return `.openstax-exercise-preview[data-exercise-id="${exId}"]`
+
+    const exId = await page.evaluate((text: string) => {
+      const ex = Array.from(document.querySelectorAll('.openstax-exercise-preview')).find(preview => {
+          const label = preview.querySelector('.copyEdit .label-message')
+          return label && label.textContent === text
+      }) as any;
+
+      if (ex) {
+          return ex.dataset.exerciseId;
+      }
+    }, text)
+    
+    if (exId) {
+        return `.openstax-exercise-preview[data-exercise-id="${exId}"]`
+    } else {
+        throw new Error('could not find exercise with button text ' + text);
+    }
 };
 
 const replaceQuestionStemInForm = async (page: Page, newValue: string, initialValue?: string) => {
@@ -26,7 +49,7 @@ const replaceQuestionStemInForm = async (page: Page, newValue: string, initialVa
     await expect(page).toHaveSelector(`${stemSel} >> .isEditing`)
     const editorSel = `${stemSel} >> .pw-prosemirror-editor`
     await page.focus(editorSel)
-    await page.pause();
+    //await page.pause();
     await keyboardShortcuts(page).selectAll(editorSel);
     await page.type(editorSel, newValue)
 
@@ -64,10 +87,8 @@ test.describe('Add/Edit Questions', () => {
             })
         });
 
-        test.only('C639439: before editing exercise', async ({ page }) => {
-            const ex = await getFirstExerciseContainer(page);
-            //expect(await page.$eval(`${ex} .copyEdit .label-message`, (s: HTMLElement) => s.textContent)).toEqual('Copy & Edit')
-            expect(await page.$eval(`${ex} .copyEdit .label-message`, (s: HTMLElement) => s.textContent)).toEqual('Edit')
+        test('C639439: before copying an exercise', async ({ page }) => {
+            const ex = await getFirstExerciseContainerWithEditButtonText(page, 'Copy & Edit');
             await clickEditExercise(page, ex);
             await page.waitForSelector('testId=terms-modal >> [data-is-loaded="true"]')
             await expect(page).toHaveText('testId=terms-modal', 'edit only good things')
@@ -79,10 +100,10 @@ test.describe('Add/Edit Questions', () => {
             const newValue = faker.lorem.sentences()
             await replaceQuestionStemInForm(page, newValue);
             await page.click('testId=publish-btn')
-            await expect(page).toHaveText(`${ex} .question-stem`, newValue)
+            await expect(page).toHaveText(newValue)
         });
         
-        test('before creating exercise', async ({ page }) => {
+        test('before creating an exercise', async ({ page }) => {
             await page.click('testId=create-question')
             await page.waitForSelector('testId=terms-modal >> [data-is-loaded="true"]')
             await expect(page).toHaveText('testId=terms-modal', 'edit only good things')
@@ -94,14 +115,15 @@ test.describe('Add/Edit Questions', () => {
     });
 
     test('edits an existing exercise', async ({ page }) => {
-        const ex = await getFirstExerciseContainer(page);
+        const ex = await getFirstExerciseContainerWithEditButtonText(page, 'Edit');
         const currentValue = await page.$eval(`${ex} .question-stem`, (s: HTMLElement) => s.innerText)
         const newValue = faker.lorem.sentences()
         await clickEditExercise(page, ex);
         await replaceQuestionStemInForm(page, newValue, currentValue)
         await page.click('testId=publish-btn')
         await page.waitForTimeout(1000)
-        await expect(page).toHaveText(`${ex} .question-stem`, newValue)
+        await expect(page).not.toHaveSelector(ex)
+        await expect(page).toHaveText(`${incrementExerciseIdVersion(ex)} .question-stem`, newValue)
     })
 
     test('autosaves', async({ page }) => {
