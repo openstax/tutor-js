@@ -227,6 +227,16 @@ $openstax-books: (
     highlight  : $tutor-highlight,
     accent     : lighten($tutor-primary, 5%),
     control    : $tutor-neutral-lightest,
+  ),
+  american_government_3e: (
+    primary    : #fff,
+    secondary  : #0dc0dc,
+    text       : $openstax-book-text-on-dark-labels,
+    tertiary   : $tutor-tertiary,  // dark blue
+    quaternary : $tutor-quaternary,
+    highlight  : $tutor-highlight,
+    accent     : lighten($tutor-primary, 5%),
+    control    : $tutor-neutral-lightest,
   )
 );
 
