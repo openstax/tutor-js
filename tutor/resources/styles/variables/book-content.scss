@@ -246,21 +246,22 @@ $openstax-books: (
 
 // books that we have thumbnails for.  Some appearance codes share thumbnails
 $openstax-book-thumbnails: (
-  intro_sociology:    'sociology-book-thumbnail.svg',
-  intro_sociology_3e: 'sociology-3e-book-thumbnail.svg',
-  us_history:         'us-history-book-thumbnail.svg',
-  hs_physics:         'hs_physics-book-thumbnail.png',
-  ap_physics:         'ap_physics-book-thumbnail.svg',
-  physics:            'college_physics-book-thumbnail.svg',
-  college_physics:    'college_physics-book-thumbnail.svg',
-  biology:            'biology-book-thumbnail.svg',
-  ap_biology:         'biology-book-thumbnail.svg',
-  college_biology:    'biology-book-thumbnail.svg',
-  ap_us_history:      'ap_us_history-book-thumbnail.svg',
-  biology_2e:         'biology_2e-book-thumbnail.svg',
-  entrepreneurship:   'entrepreneurship-book-thumbnail.svg',
-  psych_2e:           'psychology_2e.svg',
-  anatomy_physiology: 'anatomy_physiology-thumbnail.svg'
+  intro_sociology:        'sociology-book-thumbnail.svg',
+  intro_sociology_3e:     'sociology-3e-book-thumbnail.svg',
+  us_history:             'us-history-book-thumbnail.svg',
+  hs_physics:             'hs_physics-book-thumbnail.png',
+  ap_physics:             'ap_physics-book-thumbnail.svg',
+  physics:                'college_physics-book-thumbnail.svg',
+  college_physics:        'college_physics-book-thumbnail.svg',
+  biology:                'biology-book-thumbnail.svg',
+  ap_biology:             'biology-book-thumbnail.svg',
+  college_biology:        'biology-book-thumbnail.svg',
+  ap_us_history:          'ap_us_history-book-thumbnail.svg',
+  biology_2e:             'biology_2e-book-thumbnail.svg',
+  entrepreneurship:       'entrepreneurship-book-thumbnail.svg',
+  psych_2e:               'psychology_2e.svg',
+  anatomy_physiology:     'anatomy_physiology-thumbnail.svg',
+  american_government_3e: 'american-government-3e-book-thumbnail.svg',
 );
 
 @mixin book-content-thumbnail($book) {
