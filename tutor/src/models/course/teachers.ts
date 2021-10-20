@@ -19,6 +19,8 @@ export class CourseTeachers extends Map<ID, CourseTeacher> {
 
     get notCurrent() { return this.where((t) => t.profile_id !== String(currentUser.profile_id)) }
 
+    findById(id: CourseTeacher['id']) { return this.values().find((t) => t.id == id) }
+
     async fetch() {
         const items = await this.api.request(urlFor('fetchCourseTeachers', { courseId: this.course.id }))
         this.mergeModelData(items)

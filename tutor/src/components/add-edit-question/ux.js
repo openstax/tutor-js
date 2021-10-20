@@ -241,7 +241,7 @@ export default class AddEditQuestionUX {
             course: this.course,
             data: {
                 selectedChapterSection: this.selectedChapterSection?.id,
-                authorId: parseInt(this.author.id, 10),
+                authorId: parseInt(this.author.profile_id, 10),
                 derived_from_id: this.from_exercise_id,
                 questionText: this.questionText,
                 questionName: this.questionName,
@@ -506,8 +506,8 @@ export default class AddEditQuestionUX {
         this.questionName = value;
     }
 
-    @action.bound changeAuthor(userProfileId) {
-        this.author = find(this.course.teacher_profiles, tp => tp.id == userProfileId);
+    @action.bound changeAuthor(teacherId) {
+        this.author = this.course.allTeachers.findById(teacherId);
     }
 
     @action.bound changeAllowOthersCopyEdit({ target: { checked } }) {
