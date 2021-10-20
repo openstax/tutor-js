@@ -27,7 +27,7 @@ class MyCourses extends React.Component<MyCoursesProps> {
         if (history && history.action === 'POP') {
             await currentCourses.fetch();
         }
-        currentUser.logEvent({ category: 'onboarding', code: 'arrived_my_courses', data: '' });
+        currentUser.logEvent({ category: 'onboarding', code: 'arrived_my_courses' });
     }
 
     @computed get firstCourse() {
