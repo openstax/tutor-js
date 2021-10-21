@@ -236,7 +236,7 @@ $openstax-books: (
     quaternary : $tutor-quaternary,
     highlight  : $tutor-highlight,
     accent     : lighten($tutor-primary, 5%),
-    control    : $tutor-neutral-lightest,
+    control    : #000,
   )
 );
 
