@@ -13,8 +13,8 @@ const PRODUCTION_HOSTNAME = /^tutor.openstax.org/
 
 export const pardotConfig = {
     demo: {
-        piAId: '309222',
-        piCId: '2313',
+        piAId: '326383',
+        piCId: '4299',
         piHostname: 'pi.demo.pardot.com',
     },
     prod: {
