@@ -41,10 +41,10 @@ function BookSelection(props) {
             onChange={props.onChange}
             value={props.selected || ''}
         >
-            {isEmpty(props.selected) && <option key="blank" value="" />}
+            {(props.includeBlank || isEmpty(props.selected)) && <option key="blank" value="" />}
             {map(books, (name, tag) => (
                 <option key={tag} value={tag}>
-                    {name}
+                   {name}
                 </option>)
             )}
         </select>
@@ -55,6 +55,7 @@ BookSelection.propTypes = {
     onChange: PropTypes.func,
     selected: PropTypes.string,
     limit: PropTypes.array,
+    includeBlank: PropTypes.bool,
 };
 
 BookSelection.defaultProps = {
