@@ -26,7 +26,7 @@ test.beforeAll(async ({ browser }) => {
         await page.click('text="Add new template"')
         await page.click('.modal-content >> text="Homework"')
         await page.fill('.modal-content >>#template_name', 'MultipleAttempts')
-        await page.click('.modal-content >> [data-test-id=turn-on-multiple-attempts]', { force: true })
+        await page.click('.modal-content >> [data-test-id=turn-on-multiple-attempts]')
         await page.click('.modal-content >> .btn-primary')
     }
 

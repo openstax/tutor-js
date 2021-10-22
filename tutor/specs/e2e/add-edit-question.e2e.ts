@@ -13,9 +13,8 @@ const clickEditExercise = async (page: Page, baseSelector: string) => {
     // make page larger so it doesn't scroll when hovering card controls
     // scrolling will unfocus, making controls unclickable
     await page.setViewportSize({ width: 1280, height: 1600 })
-    //
-    // not sure why click with {force: true} doesn't work here
-    await page.$eval(`${baseSelector} >> .copyEdit` , (cped: HTMLElement) => cped.click())
+    await page.hover(baseSelector)
+    await page.click(`${baseSelector} >> .copyEdit`)
 }
 
 const getFirstExerciseContainerWithEditButtonText = async (page: Page, text: string) => {

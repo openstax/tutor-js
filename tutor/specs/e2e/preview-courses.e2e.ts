@@ -12,7 +12,7 @@ test.describe('Preview Courses', () => {
         await page.waitForSelector('.tutor-navbar')
         const onOfferingScreen = await page.$('data-test-id=new-teacher-screen')
         if (onOfferingScreen) {
-            await page.click('testId=offering-0', { force: true })
+            await page.click('testId=offering-0')
             await page.click('testId=show-detail')
             await page.click('testId=create-preview')
         }

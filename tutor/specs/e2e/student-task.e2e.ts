@@ -27,7 +27,7 @@ test.beforeAll(async ({ browser }) => {
         await page.click('text="Add new template"')
         await page.click('.modal-content >> text="Homework"')
         await page.fill('.modal-content >>#template_name', 'NoFeedback')
-        await page.click('.modal-content >> text="After the due date"', { force: true })
+        await page.click('.modal-content >> text="After the due date"')
         await page.click('.modal-content >> .btn-primary')
     }
 

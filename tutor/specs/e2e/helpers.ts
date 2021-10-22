@@ -135,8 +135,8 @@ export const loginAs = async (userName: string, page: Page = (global as any).pag
         if (currentUserName == userName) {
             return
         }
-        await userMenu.click({ force: true })
-        await page.click('.logout [type=submit]', { force: true })
+        await userMenu.click()
+        await page.click('.logout [type=submit]')
     }
     await page.goto(`${TC.URL}/accounts/dev/accounts`)
     await page.click(`text="${userName}"`)
