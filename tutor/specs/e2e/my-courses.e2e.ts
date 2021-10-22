@@ -18,15 +18,9 @@ test.describe('Onboarding', () => {
         await page.click('testId=submit-suggested-subject')
 
         await page.waitForSelector('testId=new-teacher-screen')
-        await page.waitForTimeout(100)
-        expect(
-            await page.evaluate(() => document.location.search)
-        ).toContain('onboarding=2')
+        await page.waitForURL('**/courses?onboarding=2')
         await page.click('testId=back-to-select')
-        await page.waitForTimeout(100)
-        expect(
-            await page.evaluate(() => document.location.search)
-        ).toContain('onboarding=0')
+        await page.waitForURL('**/courses?onboarding=0')
         await expect(page).not.toHaveSelector('testId=show-detail')
         await page.type('testId=input-suggested-subject', 'test')
         await page.click('testId=offering-0')
@@ -149,7 +143,6 @@ test.describe('invalid teacher', () => {
 
     test('displays not available message when account is old', async ({ page }) => {
         await visitPage(page, '/courses')
-        await page.waitForTimeout(100) // let page fully render so models are set up
         await page.evaluate(() => window._MODELS.user.created_at = '2010-01-01')
         await expect(page).toMatchText('testId="non-allowed-instructors"', /not able to offer/)
     })

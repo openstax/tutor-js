@@ -3,7 +3,7 @@ import faker from 'faker'
 import {
     visitPage, expect, test, setDateTimeRelative,
     selectCalendarSidebarOption, selectExeciseCard,
-    withUser,
+    withUser, DEFAULT_TIMEOUT, DEFAULT_NAVIGATION_TIMEOUT
 } from './test'
 
 const COURSE_ID = 2
@@ -15,6 +15,8 @@ withUser('reviewstudent2')
 test.beforeAll(async ({ browser }) => {
 
     const context = await browser.newContext({ storageState: 'temp/teacher02-state.json' })
+    context.setDefaultTimeout(DEFAULT_TIMEOUT)
+    context.setDefaultNavigationTimeout(DEFAULT_NAVIGATION_TIMEOUT)
     const page = await context.newPage()
 
     await visitPage(page, `/course/${COURSE_ID}`)
@@ -69,10 +71,10 @@ test('advances after answering a free-response only question', async ({ page }) 
 
     await page.click('[data-step-index="2"]')
     await page.fill('testId=free-response-box', '')
-    const submitBtn = await page.$('testId=submit-answer-btn')
-    await submitBtn!.waitForElementState('disabled')
+    const submitBtn = await page.waitForSelector('testId=submit-answer-btn')
+    await submitBtn.waitForElementState('disabled')
     await page.type('testId=free-response-box', 'this is a answer answering and fully explaining my reasoning for the question')
-    await submitBtn!.waitForElementState('enabled')
+    await submitBtn.waitForElementState('enabled')
 })
 
 test('can change and re-submit answers to questions', async ({ page }) => {
@@ -106,8 +108,9 @@ test('should show word limit error message and disable submit button if response
 test('should be able to save question to my practice', async ({ page }) => {
     await page.click('.sticky-table [data-step-index="1"]')
     const saveBtn = await page.waitForSelector('testId=save-practice-button')
-    const wasSaved = (await saveBtn!.textContent())?.match(/Remove/)
+    const wasSaved = (await saveBtn.textContent())?.match(/Remove/)
     await saveBtn.click()
+    console.log(page._timeoutSettings)
     await saveBtn.waitForElementState('enabled')
     expect(await saveBtn.textContent()).toMatch(wasSaved ? 'Save to practice' : 'Remove from practice')
 })

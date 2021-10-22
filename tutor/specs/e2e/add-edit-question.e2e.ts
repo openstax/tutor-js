@@ -133,7 +133,7 @@ test.describe('Add/Edit Questions', () => {
         await page.focus(editorSel)
         await page.type(editorSel, 'Hello World!')
         await page.click('testId=add-edit-question >> .detailed-solution')
-        await page.waitForTimeout(10) // Give the autosave time
+        await page.waitForTimeout(0) // Give the autosave time; There's no waitForLocalStorage()
         await page.reload()
         await disableTours(page)
         await page.waitForSelector('testId=create-question')

@@ -3,7 +3,7 @@ import faker from 'faker'
 import {
     visitPage, expect, test, setDateTimeRelative,
     selectCalendarSidebarOption, selectExeciseCard,
-    withUser,
+    withUser, DEFAULT_TIMEOUT, DEFAULT_NAVIGATION_TIMEOUT
 } from './test'
 
 const COURSE_ID = 2
@@ -14,6 +14,8 @@ withUser('reviewstudent2')
 
 test.beforeAll(async ({ browser }) => {
     const context = await browser.newContext({ storageState: 'temp/teacher02-state.json' })
+    context.setDefaultTimeout(DEFAULT_TIMEOUT)
+    context.setDefaultNavigationTimeout(DEFAULT_NAVIGATION_TIMEOUT)
     const page = await context.newPage()
 
     await visitPage(page, `/course/${COURSE_ID}`)
@@ -68,8 +70,8 @@ test('can re-attempt answers', async ({ page }) => {
 
     await page.click('[data-step-index="2"]')
     await page.fill('testId=free-response-box', '')
-    let submitBtn = await page.$('testId=submit-answer-btn')
-    await submitBtn!.waitForElementState('disabled')
+    let submitBtn = await page.waitForSelector('testId=submit-answer-btn')
+    await submitBtn.waitForElementState('disabled')
     await page.type('testId=free-response-box', 'this is a answer answering and fully explaining my reasoning for the question')
     await page.click('testId=submit-answer-btn')
 

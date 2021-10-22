@@ -3,11 +3,12 @@ import Factory from 'object-factory-bot'
 import * as faker from 'faker';
 import 'expect-playwright'
 import '../factories/definitions'
-import { DEFAULT_TIMEOUT, DEFAULT_NAVIGATION_TIMEOUT } from './setup'
 export * from '@playwright/test'
 export { faker, Factory }
 
 export * from './helpers'
+import { DEFAULT_TIMEOUT, DEFAULT_NAVIGATION_TIMEOUT } from './setup'
+export { DEFAULT_TIMEOUT, DEFAULT_NAVIGATION_TIMEOUT } from './setup'
 
 export const createTestIdEngine = () => {
     const toTestSelector = (sel: string) => {
@@ -71,11 +72,9 @@ test.beforeAll(async () => {
     await selectors.register('tourRegion', createTourRegionEngine)
 })
 
-test.beforeEach(({ context, page }) => {
+test.beforeEach(({ context }) => {
     context.setDefaultTimeout(DEFAULT_TIMEOUT);
-    page.setDefaultTimeout(DEFAULT_TIMEOUT);
     context.setDefaultNavigationTimeout(DEFAULT_NAVIGATION_TIMEOUT);
-    page.setDefaultNavigationTimeout(DEFAULT_NAVIGATION_TIMEOUT);
 });
 
 // logins stored in ./setup.ts

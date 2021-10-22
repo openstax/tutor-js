@@ -23,7 +23,7 @@ export type { TestConfig }
 
 export const visitPage = async (page: Page, path: string) => {
     const url = `${TC.URL}${path}`
-    await page.goto(url, { waitUntil: 'networkidle' })
+    await page.goto(url)
     await loaderNotVisible(page)
     await disableTours(page)
 }

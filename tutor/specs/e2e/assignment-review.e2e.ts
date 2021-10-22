@@ -43,9 +43,9 @@ test.describe('Assignment Review', () => {
 
         await page.fill('input[name="score"]', String(Math.round((Math.random() * 100))/100))
         await page.fill('textarea[name="comment"]', faker.company.bsBuzz())
-        const saveBtn = await page.$('testId=save-grade-btn')
-        await saveBtn!.click()
-        await saveBtn!.waitForElementState('disabled')
+        const saveBtn = await page.waitForSelector('testId=save-grade-btn')
+        await saveBtn.click()
+        await saveBtn.waitForElementState('disabled')
     });
 
     test('can drop questions', async ({ page }) => {

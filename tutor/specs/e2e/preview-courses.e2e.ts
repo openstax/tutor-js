@@ -1,4 +1,7 @@
-import { visitPage, test, expect, loaderNotVisible, findOrCreateTeacherAccount } from './test'
+import {
+  visitPage, test, expect, loaderNotVisible, findOrCreateTeacherAccount,
+  DEFAULT_TIMEOUT, DEFAULT_NAVIGATION_TIMEOUT
+} from './test'
 
 
 test.describe('Preview Courses', () => {
@@ -7,6 +10,8 @@ test.describe('Preview Courses', () => {
 
     test.beforeAll(async ({ browser }) => {
         const context = await browser.newContext()
+        context.setDefaultTimeout(DEFAULT_TIMEOUT)
+        context.setDefaultNavigationTimeout(DEFAULT_NAVIGATION_TIMEOUT)
         const page = await context.newPage()
         await findOrCreateTeacherAccount({ page, userName: 'previewteacher' })
         await page.waitForSelector('.tutor-navbar')
