@@ -49,6 +49,7 @@ const Definitions = {
     confirmCourseEnroll:    r<{enrollmentId: ID}>('PUT', 'enrollment/{enrollmentId}/approve'),
 
     fetchCourseRoster:      r<CourseId>('GET', 'courses/{courseId}/roster'),
+    fetchCourseTeachers:    r<CourseId>('GET', 'courses/{courseId}/teachers'),
 
     fetchCourseLMS:         r<CourseId>('GET', 'lms/courses/{courseId}'),
 
