@@ -5,7 +5,7 @@ import { loginAs } from './helpers'
 const AUTH_SENTINEL = 'temp/auth-complete'
 
 export const DEFAULT_TIMEOUT = 10000;
-export const DEFAULT_NAVIGATION_TIMEOUT = 15000;
+export const DEFAULT_NAVIGATION_TIMEOUT = 20000;
 
 const preAuthUsers = async () => {
     if (fs.existsSync(AUTH_SENTINEL)) {

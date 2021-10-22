@@ -125,9 +125,7 @@ export const getCourseIdFromURL = async (page: Page) => {
 }
 
 export const loaderNotVisible = async (page: Page = (global as any).page) => {
-    while (await page.$('css=.loading-animation')) {
-        await page.waitForTimeout(100)
-    }
+    await page.waitForSelector('.loading-animation', { state: 'detached' })
 }
 
 export const loginAs = async (userName: string, page: Page = (global as any).page ) => {
