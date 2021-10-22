@@ -3,7 +3,7 @@ import faker from 'faker'
 import {
     visitPage, expect, test, setDateTimeRelative,
     selectCalendarSidebarOption, selectExeciseCard,
-    withUser, DEFAULT_TIMEOUT, DEFAULT_NAVIGATION_TIMEOUT
+    withUser,
 } from './test'
 
 const COURSE_ID = 2
@@ -14,8 +14,6 @@ withUser('reviewstudent2')
 
 test.beforeAll(async ({ browser }) => {
     const context = await browser.newContext({ storageState: 'temp/teacher02-state.json' })
-    context.setDefaultTimeout(DEFAULT_TIMEOUT)
-    context.setDefaultNavigationTimeout(DEFAULT_NAVIGATION_TIMEOUT)
     const page = await context.newPage()
 
     await visitPage(page, `/course/${COURSE_ID}`)

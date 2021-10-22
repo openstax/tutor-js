@@ -3,7 +3,7 @@ import faker from 'faker'
 import {
     visitPage, expect, test, setDateTimeRelative,
     selectCalendarSidebarOption, selectExeciseCard,
-    withUser, DEFAULT_TIMEOUT, DEFAULT_NAVIGATION_TIMEOUT
+    withUser,
 } from './test'
 
 const COURSE_ID = 2
@@ -15,8 +15,6 @@ withUser('reviewstudent2')
 test.beforeAll(async ({ browser }) => {
 
     const context = await browser.newContext({ storageState: 'temp/teacher02-state.json' })
-    context.setDefaultTimeout(DEFAULT_TIMEOUT)
-    context.setDefaultNavigationTimeout(DEFAULT_NAVIGATION_TIMEOUT)
     const page = await context.newPage()
 
     await visitPage(page, `/course/${COURSE_ID}`)
@@ -110,7 +108,6 @@ test('should be able to save question to my practice', async ({ page }) => {
     const saveBtn = await page.waitForSelector('testId=save-practice-button')
     const wasSaved = (await saveBtn.textContent())?.match(/Remove/)
     await saveBtn.click()
-    console.log(page._timeoutSettings)
     await saveBtn.waitForElementState('enabled')
     expect(await saveBtn.textContent()).toMatch(wasSaved ? 'Save to practice' : 'Remove from practice')
 })

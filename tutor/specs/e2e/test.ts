@@ -7,8 +7,6 @@ export * from '@playwright/test'
 export { faker, Factory }
 
 export * from './helpers'
-import { DEFAULT_TIMEOUT, DEFAULT_NAVIGATION_TIMEOUT } from './setup'
-export { DEFAULT_TIMEOUT, DEFAULT_NAVIGATION_TIMEOUT } from './setup'
 
 export const createTestIdEngine = () => {
     const toTestSelector = (sel: string) => {
@@ -71,11 +69,6 @@ test.beforeAll(async () => {
     await selectors.register('testId', createTestIdEngine)
     await selectors.register('tourRegion', createTourRegionEngine)
 })
-
-test.beforeEach(({ context }) => {
-    context.setDefaultTimeout(DEFAULT_TIMEOUT);
-    context.setDefaultNavigationTimeout(DEFAULT_NAVIGATION_TIMEOUT);
-});
 
 // logins stored in ./setup.ts
 type UserLogin = 'teacher01' | 'teacher02' | 'reviewstudent1' | 'reviewstudent2'
