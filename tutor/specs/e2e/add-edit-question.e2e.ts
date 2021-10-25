@@ -142,7 +142,9 @@ test.describe('Add/Edit Questions', () => {
             window._MODELS.feature_flags.set('tours', false)
         })
         await page.click('testId=create-question')
-        await expect(page).toMatchText('testId=add-edit-question >> .question-text', 'Hello World!')
+        await expect(page).toMatchText(
+            'testId=add-edit-question >> .question-text', 'QuestionHello World!'
+        )
         await page.click('.close')
     })
 
@@ -156,7 +158,7 @@ test.describe('Add/Edit Questions', () => {
         await page.press(editorSel, 'Control+a')
         await page.press(editorSel, 'Backspace')
         await page.click('.tag-form button:first-child') // trigger focus blur for validation
-        await expect(page).toMatchText('Question field cannot be empty')
+        await expect(page).toMatchText(/Question field cannot be empty/)
         await page.click('.close')
     })
 
@@ -175,7 +177,7 @@ test.describe('Add/Edit Questions', () => {
         await page.press(editorSel, 'Control+a')
         await page.press(editorSel, 'Backspace')
         await page.click('.tag-form button:first-child') // trigger focus blur for validation
-        await expect(page).toMatchText('Answer key field cannot be empty')
+        await expect(page).toMatchText(/Answer key field cannot be empty/)
         await page.click('.close')
     })
 })
