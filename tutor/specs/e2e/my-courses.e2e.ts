@@ -9,7 +9,6 @@ test.describe('Onboarding', () => {
             agreeToTerms: true,
             page,
         })
-        await visitPage(page, '/courses')
     })
 
     test('allows a new teacher select and suggest subjects', async ({ page }) => {
@@ -53,7 +52,7 @@ test.describe('single course teacher', () => {
         expect(updatedOfferings).toHaveLength(offerings.length + 1)
 
         const newOffering = updatedOfferings.find(elt => !offerings.includes(elt))
-        const newOfferingId = await newOffering.getAttribute('data-offering-id')
+        const newOfferingId = await newOffering!.getAttribute('data-offering-id')
         await page.click(`.offering-container[data-offering-id="${newOfferingId}"] button[data-test-id="delete-offering"]`)
         await page.click('testId=delete-offering-modal-btn')
 
@@ -95,8 +94,11 @@ test.describe('multi course teacher', () => {
 
         await page.click('testId=dashboard-settings-btn')
 
-        await page.click('testId=add-subject-dropdown-btn')
-        await page.click('css=.offering-item:not(.disabled)')
+        const offerings = await page.$$('testId=offering-container')
+        if (offerings.length === 1) {
+            await page.click('testId=add-subject-dropdown-btn')
+            await page.click('css=.offering-item:not(.disabled)')
+        }
         expect(page).toMatchText('testId=dashboard-settings-btn', /Exit settings/)
         await expect(page).toHaveSelector('testId=edit-mode-icons')
         await expect(page).toHaveSelector('testId=add-subject-dropdown')
@@ -146,12 +148,10 @@ test.describe('invalid teacher', () => {
     })
 
     test('displays pending message', async ({ page }) => {
-        await visitPage(page, '/courses')
         await expect(page).toMatchText('testId=pending-verification', /Pending faculty verification/)
     })
 
     test('displays not available message when account is old', async ({ page }) => {
-        await visitPage(page, '/courses')
         await page.evaluate(() => window._MODELS.user.created_at = '2010-01-01')
         await expect(page).toMatchText('testId="non-allowed-instructors"', /not able to offer/)
     })
