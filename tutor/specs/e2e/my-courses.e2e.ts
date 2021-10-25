@@ -128,7 +128,9 @@ test.describe('multi course teacher', () => {
 
     test('goes to course settings details tab when clicking on "Course Settings" option', async ({ page }) => {
         await page.waitForSelector('testId=offering-container')
-        const courseId = await page.$eval('.offering-container .my-courses-item' , ex => ex.dataset.courseId);
+        const courseId = await page.$eval(
+            '.offering-container .my-courses-item:not(.preview)' , ex => ex.dataset.courseId
+        )
         await page.click(`testId=course-card-item-actions-${courseId}`)
         await page.click(`testId=course-card-item-actions-course-settings-${courseId}`)
         expect(
