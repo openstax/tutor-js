@@ -39,7 +39,7 @@ test.beforeAll(async ({ browser }) => {
     setDateTimeRelative(page, 'input[name="tasking_plans[0].opens_at"]', { day: -2 })
 
     await page.click('testId=grading-templates-btn')
-    await page.click('.dropdown-menu >> text=MultipleAttempts')
+    await page.click('[data-test-id="grading-templates"] .dropdown-menu >> text=MultipleAttempts')
 
     await page.click('text="Save & Continue"')
 
