@@ -10,7 +10,6 @@ import {
 } from 'lodash';
 import isUrl from 'validator/lib/isURL';
 import urlFor from '../../../api';
-import moment from '../../../helpers/moment-range';
 import { TASK_PLAN_SELECTION_COUNTS } from '../../../config';
 
 import type {
@@ -348,8 +347,8 @@ export class TeacherTaskPlan extends BaseModel {
             get(this.unmodified_plans, 'length', 0) != get(this.tasking_plans, 'length', 0) ||
                 find(this.unmodified_plans, (a, i) => {
                     const b = this.tasking_plans[i];
-                    return !moment(a.opens_at).isSame(b.opens_at) ||
-                        !moment(a.due_at).isSame(b.due_at);
+                    return !(new Time(a.opens_at)).isSame(new Time(b.opens_at)) ||
+                        !(new Time(a.due_at)).isSame(new Time(b.due_at));
                 })
         );
     }

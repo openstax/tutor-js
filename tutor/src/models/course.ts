@@ -11,7 +11,7 @@ import UiSettings from 'shared/model/ui-settings';
 import {
     Time, Interval, Notes, CourseData, currentOfferings, Offering,
     CourseScores as Scores, CoursePeriod as Period, CourseRole as Role, CourseStudent as Student, CourseRoster as Roster,
-    TeacherProfile, CourseTeacher, StudentTasks, PastTaskPlans, CourseLMS as LMS, TeacherTaskPlans, StudentTaskPlans, GradingTemplates,
+    TeacherProfile, CourseTeacher, CourseTeachers, StudentTasks, PastTaskPlans, CourseLMS as LMS, TeacherTaskPlans, StudentTaskPlans, GradingTemplates,
     PracticeQuestions, ReferenceBook, FeatureFlags, Exercise, CourseInformation, CoursePerformance,
 } from '../models'
 import PH from '../helpers/period';
@@ -70,6 +70,7 @@ export class Course extends BaseModel {
     @lazyGetter get lms() { return hydrateModel(LMS, {}, this) }
     @lazyGetter get notes() { return hydrateModel(Notes, {}, this) }
     @lazyGetter get roster() { return hydrateModel(Roster, {}, this) }
+    @lazyGetter get allTeachers() { return hydrateModel(CourseTeachers, {}, this) }
     @lazyGetter get scores() { return hydrateModel(Scores, {}, this) }
     @lazyGetter get performance() { return hydrateModel(CoursePerformance, {}, this) }
     @lazyGetter get studentTasks() { return hydrateModel(StudentTasks, {}, this) }
@@ -81,9 +82,8 @@ export class Course extends BaseModel {
     @lazyGetter get practiceQuestions() { return hydrateModel(PracticeQuestions, {}, this) }
 
     @model(TeacherProfile) teacher_profiles = array((profiles: TeacherProfile[]) => ({
-        get current() {
-            return find(profiles, tp => tp.isCurrentUser);
-        },
+        get sorted() { return sortBy(profiles, 'name') },
+        get current() { return find(profiles, tp => tp.isCurrentUser); },
     }))
     @model(CourseTeacher) teachers = array((teachers: CourseTeacher[]) => ({
         get current() { return teachers.find(t => t.isTeacherOfCourse) },
