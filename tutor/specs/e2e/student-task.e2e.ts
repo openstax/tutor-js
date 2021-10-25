@@ -39,7 +39,12 @@ test.beforeAll(async ({ browser }) => {
     await page.fill('testId=edit-assignment-name', assignmentName)
     setDateTimeRelative(page, 'input[name="tasking_plans[0].opens_at"]', { day: -2 })
 
-    await page.click('testId=grading-templates-btn')
+    // The dropdown is flaky so try to click it multiple times until it opens
+    let attempts = 3
+    while (attempts > 0 && !await page.$('[data-test-id="grading-templates"] .dropdown-menu')) {
+        await page.click('testId=grading-templates-btn')
+        attempts -= 1
+    }
     await page.click('[data-test-id="grading-templates"] .dropdown-menu >> text=NoFeedback')
 
     await page.click('text="Save & Continue"')
