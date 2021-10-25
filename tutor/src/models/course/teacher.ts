@@ -1,13 +1,15 @@
 import { BaseModel, computed, field, modelize, NEW_ID, getParentOf, action } from 'shared/model';
 import urlFor from '../../api'
-import { Course, CourseRoster } from '../../models'
+import { Course, CourseRoster, currentUser } from '../../models'
 
 export class CourseTeacher extends BaseModel {
 
     @field id = NEW_ID;
     @field role_id = NEW_ID;
+    @field profile_id = '';
     @field first_name = '';
     @field last_name = '';
+    @field name = '';
     @field is_active = false;
 
     constructor() {
@@ -43,6 +45,10 @@ export class CourseTeacher extends BaseModel {
 
     @computed get isTeacherOfCourse() {
         return this.course.primaryRole.id === this.role_id;
+    }
+
+    @computed get isCurrentUser () {
+        return this.profile_id == currentUser.profile_id;
     }
 
     onDropped() {
