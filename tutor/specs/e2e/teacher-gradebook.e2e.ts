@@ -12,7 +12,7 @@ test.describe('Teacher Gradebook', () => {
     });
 
     test('loads and views grades', async ({ page }) => {
-        await expect(page).toHaveText('testId=page-title', 'Gradebook')
+        await expect(page).toMatchText('testId=page-title', 'Gradebook')
     })
 
     test('switches tabs', async ({ page }) => {

@@ -42,7 +42,7 @@ const replaceQuestionStemInForm = async (page: Page, newValue: string, initialVa
     const stemSel = '[data-test-id=add-edit-question].modal-dialog >> .question-text >> .editor'
 
     if (initialValue) {
-        await expect(page).toHaveText(stemSel, initialValue)
+        await expect(page).toMatchText(stemSel, initialValue)
     }
     await page.click(stemSel)
     await expect(page).toHaveSelector(`${stemSel} >> .isEditing`)
@@ -90,7 +90,7 @@ test.describe('Add/Edit Questions', () => {
             const ex = await getFirstExerciseContainerWithEditButtonText(page, 'Copy & Edit');
             await clickEditExercise(page, ex);
             await page.waitForSelector('testId=terms-modal >> [data-is-loaded="true"]')
-            await expect(page).toHaveText('testId=terms-modal', 'edit only good things')
+            await expect(page).toMatchText('testId=terms-modal', 'i will edit only good things')
             await expect(page).toHaveSelector('button[data-test-id="agree-to-terms"][disabled]')
             await page.click('input.i-agree + label')
             await expect(page).toHaveSelector('button[data-test-id="agree-to-terms"]:not([disabled])')
@@ -99,13 +99,13 @@ test.describe('Add/Edit Questions', () => {
             const newValue = faker.lorem.sentences()
             await replaceQuestionStemInForm(page, newValue);
             await page.click('testId=publish-btn')
-            await expect(page).toHaveText(newValue)
+            await expect(page).toMatchText(newValue)
         });
 
         test('before creating an exercise', async ({ page }) => {
             await page.click('testId=create-question')
             await page.waitForSelector('testId=terms-modal >> [data-is-loaded="true"]')
-            await expect(page).toHaveText('testId=terms-modal', 'edit only good things')
+            await expect(page).toMatchText('testId=terms-modal', 'i will edit only good things')
             await page.click('input.i-agree + label')
             await page.click('testId=agree-to-terms')
             await expect(page).not.toHaveSelector('testId=terms-modal')
@@ -122,7 +122,7 @@ test.describe('Add/Edit Questions', () => {
         await page.click('testId=publish-btn')
         await page.waitForTimeout(1000)
         await expect(page).not.toHaveSelector(ex)
-        await expect(page).toHaveText(`${incrementExerciseIdVersion(ex)} .question-stem`, newValue)
+        await expect(page).toMatchText(`${incrementExerciseIdVersion(ex)} .question-stem`, newValue)
     })
 
     test('autosaves', async({ page }) => {
@@ -142,7 +142,7 @@ test.describe('Add/Edit Questions', () => {
             window._MODELS.feature_flags.set('tours', false)
         })
         await page.click('testId=create-question')
-        await expect(page).toHaveText('testId=add-edit-question >> .question-text', 'Hello World!')
+        await expect(page).toMatchText('testId=add-edit-question >> .question-text', 'Hello World!')
         await page.click('.close')
     })
 
@@ -156,7 +156,7 @@ test.describe('Add/Edit Questions', () => {
         await page.press(editorSel, 'Control+a')
         await page.press(editorSel, 'Backspace')
         await page.click('.tag-form button:first-child') // trigger focus blur for validation
-        await expect(page).toHaveText('Question field cannot be empty')
+        await expect(page).toMatchText('Question field cannot be empty')
         await page.click('.close')
     })
 
@@ -175,7 +175,7 @@ test.describe('Add/Edit Questions', () => {
         await page.press(editorSel, 'Control+a')
         await page.press(editorSel, 'Backspace')
         await page.click('.tag-form button:first-child') // trigger focus blur for validation
-        await expect(page).toHaveText('Answer key field cannot be empty')
+        await expect(page).toMatchText('Answer key field cannot be empty')
         await page.click('.close')
     })
 })

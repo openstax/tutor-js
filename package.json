@@ -99,7 +99,7 @@
     "enzyme-adapter-react-16": "^1.15.6",
     "es6-object-assign": "1.1.0",
     "eventemitter2": "5.0.1",
-    "expect-playwright": "^0.7.2",
+    "expect-playwright": "^0.8.0",
     "fast-sass-loader": "1.5.0",
     "fixed-data-table-2": "^0.8.26",
     "formik": "2.1.4",
