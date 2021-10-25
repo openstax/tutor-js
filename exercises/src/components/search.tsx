@@ -42,7 +42,7 @@ class Search extends React.Component<SearchProps> {
     @observable selectedOption = 'section'
     options = [
         { value: 'section', label: 'section' },
-        { value: 'tag', label: 'tag' }
+        { value: 'tag', label: 'tag' },
     ]
 
     static propTypes = {
