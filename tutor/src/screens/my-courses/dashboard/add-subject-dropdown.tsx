@@ -60,7 +60,8 @@ const AddSubjectsDropdown: React.FC<AddSubjectsDropdownProps> = ({ displayedOffe
             <TutorDropdown
                 toggleName="Select a subject you will be teaching"
                 dropdownItems={subjects}
-                dropdownTestId="add-subject-dropdown-btn"
+                dropdownTestId="add-subject-dropdown"
+                toggleDataTestId="add-subject-dropdown-btn"
             />
         </div>
     )

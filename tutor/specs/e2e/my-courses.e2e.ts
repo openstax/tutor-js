@@ -38,7 +38,7 @@ test.describe('Onboarding', () => {
 test.describe('single course teacher', () => {
     withUser('teacher01')
 
-    test('can add an offering', async ({ page }) => {
+    test('can add and delete an offering', async ({ page }) => {
         await visitPage(page, '/courses')
 
         await page.click('testId=dashboard-settings-btn')
@@ -48,9 +48,18 @@ test.describe('single course teacher', () => {
         await page.click('testId=add-subject-dropdown-btn')
         // there is a delay between clicking the offering and scrolling to the top
         await page.click('.dropdown-menu.show .offering-item:not(.disabled)')
-        const updatedOfferings = await page.$$('testId=offering-container')
+        let updatedOfferings = await page.$$('testId=offering-container')
         // we added a new offering
         expect(updatedOfferings).toHaveLength(offerings.length + 1)
+
+        const newOffering = updatedOfferings.find(elt => !offerings.includes(elt))
+        const newOfferingId = await newOffering.getAttribute('data-offering-id')
+        await page.click(`.offering-container[data-offering-id="${newOfferingId}"] button[data-test-id="delete-offering"]`)
+        await page.click('testId=delete-offering-modal-btn')
+
+        updatedOfferings = await page.$$('testId=offering-container')
+        // we deleted the new offering
+        expect(updatedOfferings).toHaveLength(offerings.length)
 
         await page.click('testId=dashboard-settings-btn')
         expect(await page.$eval('testId=dashboard-settings-btn', node => node.textContent)).toEqual('Manage subjects')
@@ -86,7 +95,7 @@ test.describe('multi course teacher', () => {
 
         await page.click('testId=dashboard-settings-btn')
 
-        await page.click('testId=add-subject-dropdown-btn >> button')
+        await page.click('testId=add-subject-dropdown-btn')
         await page.click('css=.offering-item:not(.disabled)')
         expect(page).toMatchText('testId=dashboard-settings-btn', /Exit settings/)
         await expect(page).toHaveSelector('testId=edit-mode-icons')

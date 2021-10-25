@@ -39,7 +39,7 @@ test.beforeAll(async ({ browser }) => {
     await page.fill('testId=edit-assignment-name', assignmentName)
     setDateTimeRelative(page, 'input[name="tasking_plans[0].opens_at"]', { day: -2 })
 
-    await page.click('testId=grading-templates')
+    await page.click('testId=grading-templates-btn')
     await page.click('.dropdown-menu >> text=NoFeedback')
 
     await page.click('text="Save & Continue"')
