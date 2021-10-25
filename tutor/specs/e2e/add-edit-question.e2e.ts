@@ -120,7 +120,7 @@ test.describe('Add/Edit Questions', () => {
         await clickEditExercise(page, ex);
         await replaceQuestionStemInForm(page, newValue, currentValue)
         await page.click('testId=publish-btn')
-        await page.waitForLoadState('networkidle')
+        await page.waitForSelector('testId=question-published-toast')
         await expect(page).not.toHaveSelector(ex)
         await expect(page).toMatchText(`${incrementExerciseIdVersion(ex)} .question-stem`, newValue)
     })
