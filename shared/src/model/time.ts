@@ -138,7 +138,7 @@ export default class Time {
     }
     get isInFuture() { return this.isAfter(Time.now) }
 
-    isSame(other: ComparableValue, unit: DurationUnit) { return this._value.hasSame(toLDT(other), unit) }
+    isSame(other: ComparableValue, unit: DurationUnit = 'millisecond') { return this._value.hasSame(toLDT(other), unit) }
     isSameOrBefore(other: ComparableValue, unit: DurationUnit = 'millisecond') { return this.isSame(other, unit) || this.diff(other, unit) <= 0 }
     isSameOrAfter(other: ComparableValue, unit: DurationUnit = 'seconds') { return this.isSame(other, unit) || this.diff(other, unit) >= 0 }
 
