@@ -90,7 +90,7 @@ test.describe('Add/Edit Questions', () => {
             const ex = await getFirstExerciseContainerWithEditButtonText(page, 'Copy & Edit');
             await clickEditExercise(page, ex);
             await page.waitForSelector('testId=terms-modal >> [data-is-loaded="true"]')
-            await expect(page).toMatchText('testId=terms-modal', 'i will edit only good things')
+            await expect(page).toMatchText('testId=terms-modal', /edit only good things/)
             await expect(page).toHaveSelector('button[data-test-id="agree-to-terms"][disabled]')
             await page.click('input.i-agree + label')
             await expect(page).toHaveSelector('button[data-test-id="agree-to-terms"]:not([disabled])')
@@ -99,13 +99,13 @@ test.describe('Add/Edit Questions', () => {
             const newValue = faker.lorem.sentences()
             await replaceQuestionStemInForm(page, newValue);
             await page.click('testId=publish-btn')
-            await expect(page).toMatchText(newValue)
+            await expect(page).toMatchText(new RegExp(newValue))
         });
 
         test('before creating an exercise', async ({ page }) => {
             await page.click('testId=create-question')
             await page.waitForSelector('testId=terms-modal >> [data-is-loaded="true"]')
-            await expect(page).toMatchText('testId=terms-modal', 'i will edit only good things')
+            await expect(page).toMatchText('testId=terms-modal', /edit only good things/)
             await page.click('input.i-agree + label')
             await page.click('testId=agree-to-terms')
             await expect(page).not.toHaveSelector('testId=terms-modal')
@@ -120,7 +120,7 @@ test.describe('Add/Edit Questions', () => {
         await clickEditExercise(page, ex);
         await replaceQuestionStemInForm(page, newValue, currentValue)
         await page.click('testId=publish-btn')
-        await page.waitForTimeout(1000)
+        await page.waitForLoadState('networkidle')
         await expect(page).not.toHaveSelector(ex)
         await expect(page).toMatchText(`${incrementExerciseIdVersion(ex)} .question-stem`, newValue)
     })
