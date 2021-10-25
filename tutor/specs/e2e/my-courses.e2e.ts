@@ -117,10 +117,9 @@ test.describe('multi course teacher', () => {
     })
 
     test('displays a preview course', async ({ page }) => {
-        await Promise.all([
-          page.waitForNavigation({ url: /course\/\d+/ }),
-          page.click('testId=preview-course-item-title')
-        ])
+        await page.click('testId=preview-course-item-title')
+        await page.waitForURL(/course\/\d+/)
+
         expect(
             await page.evaluate(() => window.location.pathname)
         ).toMatch(/course\/\d+/)
