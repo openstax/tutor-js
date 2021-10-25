@@ -14,8 +14,10 @@ const removeSelfFromCourse = async (page: Page, courseId: string) => {
     )
     await page.click(`tr[data-teacher-id="${userId}"] >> a.remove`)
     await expect(page).toMatchText('.popover-body >> .warning', /remove yourself/)
-    await page.click('testId=remove-confirm-btn')
-    await page.waitForNavigation({ url: /courses/ })
+    await Promise.all([
+        page.waitForNavigation({ url: /courses/ }),
+        page.click('testId=remove-confirm-btn')
+    ])
 }
 
 
@@ -59,9 +61,12 @@ test('creating a new then deletes it', async ({ page }) => {
     await page.fill('#number-sections', '3')
     await page.fill('#number-students', '10')
     await expect(page).toMatchText('testId=next-btn', /Finish/)
-    await page.click('testId=next-btn')
 
-    await page.waitForNavigation()
+    await Promise.all([
+      page.waitForNavigation({ url: /course\/\d+/ }),
+      page.click('testId=next-btn')
+    ])
+
     const courseId = await getCourseIdFromURL(page)
     expect(courseId).toBeTruthy()
     await removeSelfFromCourse(page, courseId!)
@@ -85,9 +90,11 @@ test('cloning a course', async ({ page }) => {
     await page.fill('#number-sections', '3')
     await page.fill('#number-students', '10')
     await expect(page).toMatchText('testId=next-btn', /Finish/)
-    await page.click('testId=next-btn')
 
-    await page.waitForNavigation()
+    await Promise.all([
+      page.waitForNavigation({ url: /course\/\d+/ }),
+      page.click('testId=next-btn')
+    ])
 
     disableTours(page)
     await openCalendarSideBar(page)
