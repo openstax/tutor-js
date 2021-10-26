@@ -13,7 +13,7 @@ import urlFor from '../api'
 export interface UserEventPayload {
     category: string
     code: string
-    data: any
+    data?: any
 }
 
 

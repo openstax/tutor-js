@@ -30,7 +30,7 @@ describe('User Model', () => {
         expect(User.metrics.course_subjects).toEqual('testing');
         expect(User.metrics.course_types).toEqual('real');
     })
-  
+
     it('calculates audience tags', () => {
         bootstrapCoursesList();
         expect(User.tourAudienceTags).toEqual(['teacher', 'teacher-not-previewed']);
@@ -105,6 +105,11 @@ describe('User Model', () => {
         expect(JSON.parse(body)).toMatchObject({
             some: 'data',
         })
+
+        // Some events do not contain data
+        fetchMock.mockResponseOnce(JSON.stringify({ ok: true }))
+        User.logEvent({ category: 'nodata', code: 'nodata' })
+        expect(fetchMock.mock.calls[1][1]?.body).toBeUndefined()
     }))
 
     it('checks for names then splits', action(() => {

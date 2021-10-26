@@ -9,16 +9,24 @@ import TourRegion from '../tours/region';
 import PendingVerification from './pending-verification';
 import NonAllowedTeacher from './non-allowed-teacher';
 import { MyCoursesPast, MyCoursesCurrent } from './listings';
+import { RouteComponentProps } from 'react-router-dom'
+
+interface MyCoursesProps {
+    history?: RouteComponentProps['history']
+}
 
 @observer
-export default
-class MyCourses extends React.Component {
-    constructor(props) {
+class MyCourses extends React.Component<MyCoursesProps> {
+    constructor(props: MyCoursesProps) {
         super(props);
         modelize(this);
     }
 
-    componentDidMount() {
+    async componentDidMount() {
+        const { history } = this.props;
+        if (history && history.action === 'POP') {
+            await currentCourses.fetch();
+        }
         currentUser.logEvent({ category: 'onboarding', code: 'arrived_my_courses' });
     }
 
@@ -27,7 +35,7 @@ class MyCourses extends React.Component {
     }
 
     @computed get shouldRedirect() {
-        if (currentCourses.size !== 1){
+        if (currentCourses.size !== 1) {
             return false;
         }
         return (
@@ -72,8 +80,10 @@ class MyCourses extends React.Component {
                 className="my-courses"
             >
                 <MyCoursesCurrent />
-                <MyCoursesPast    />
+                <MyCoursesPast />
             </TourRegion>
         );
     }
 }
+
+export default MyCourses
