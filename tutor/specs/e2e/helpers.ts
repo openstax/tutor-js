@@ -84,7 +84,7 @@ export const setDateTimeRelative = async (page: Page, selector: string, diff: Du
     await page.click(selector, { clickCount: 3 });
     await page.keyboard.press('Backspace')
     await page.type(selector, dte);
-    await page.click('.oxdt-footer >> text=Ok');
+    await page.click('.oxdt-dropdown:not(.oxdt-dropdown-hidden) .oxdt-footer >> text=Ok');
 }
 
 export const selectExeciseCard = async (page: Page, exId: string) => {
