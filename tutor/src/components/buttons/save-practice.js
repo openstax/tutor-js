@@ -77,18 +77,19 @@ const SavePracticeButton = observer(({
     };
 
     const getPracticeQuestion = () => {
-        const multiPartGroup = taskStep.multiPartGroup
+        if (!taskStep) return null;
+        const multiPartGroup = taskStep.multiPartGroup;
 
         if (multiPartGroup) {
-            for (const tasked_id of multiPartGroup.steps.map((step) => step.tasked_id)) {
-                const practiceQuestion = practiceQuestions.findByTaskedId(tasked_id)
+            for (const [exercise_id, tasked_id] of multiPartGroup.steps.map((step) => [step.exercise_id, step.tasked_id])) {
+                const practiceQuestion = practiceQuestions.findByExerciseOrTaskedId(exercise_id, tasked_id);
                 if (practiceQuestion) {
                     return practiceQuestion;
                 }
             }
         }
 
-        return practiceQuestions.findByTaskedId(taskStep.tasked_id);
+        return practiceQuestions.findByExerciseOrTaskedId(taskStep.exercise_id, taskStep.tasked_id);
     };
 
     const isSaved = () => {
@@ -109,7 +110,7 @@ const SavePracticeButton = observer(({
                     className={cn('save-practice-button', { 'is-saved': isSaved() })}
                     data-test-id="save-practice-button"
                 >
-                    {getIconAndLabel()}
+                    {getIconAndLabel(false, false, label)}
                 </StyledSavePracticeButton>
             );
         }
