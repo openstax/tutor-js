@@ -39,6 +39,18 @@ describe('My Courses Component', function() {
         expect.snapshot(<C><CourseListing /></C>).toMatchSnapshot();
     });
 
+    it('re-fetches courses if the back button is used', () => {
+        currentCourses.fetch = jest.fn(() => Promise.resolve());
+
+        let wrapper = mount(<C><CourseListing /></C>);
+        expect(currentCourses.fetch).not.toHaveBeenCalled();
+        wrapper.unmount();
+
+        wrapper = mount(<C><CourseListing history={{ action: 'POP' }} /></C>);
+        expect(currentCourses.fetch).toHaveBeenCalled();
+        wrapper.unmount();
+    });
+
     it('renders the listing sorted', function() {
         const wrapper = mount(<C><CourseListing /></C>);
         for (let i = 0; i < MASTER_COURSES_LIST.length; i++) {
