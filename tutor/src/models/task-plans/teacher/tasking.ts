@@ -138,7 +138,7 @@ export class TaskingPlan extends BaseModel {
 
     @computed get dueAtChanged() {
         if (this.originalDueAt === undefined) {
-          return !!this.due_at;
+            return !!this.due_at;
         }
 
         return !(new Time(this.originalDueAt)).isSame(new Time(this.due_at));
