@@ -1,8 +1,6 @@
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import React from 'react'
-import { Box } from 'boxible'
-import { Row, Col } from 'react-bootstrap'
 import ReactSelect, { components } from 'react-select'
 import { observer } from 'mobx-react'
 import { action, modelize, computed } from 'shared/model'
@@ -52,8 +50,7 @@ interface BookSectionsProps {
 }
 
 @observer
-export default
-class BookSections extends React.Component<BookSectionsProps> {
+export default class BookSections extends React.Component<BookSectionsProps> {
 
     static propTypes = {
         search: PropTypes.object.isRequired,

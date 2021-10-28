@@ -17,9 +17,7 @@ flex: 1;
 `
 
 @observer
-export default
-    class BookTag extends React.Component<BookTagProps> {
-
+export default class BookTag extends React.Component<BookTagProps> {
     constructor(props: BookTagProps) {
         super(props)
         modelize(this)

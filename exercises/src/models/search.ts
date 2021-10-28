@@ -57,8 +57,7 @@ class Clause extends BaseModel {
     }
 }
 
-export default
-class Search extends BaseModel {
+export default class Search extends BaseModel {
 
     @model(Clause) clauses = array<Clause>()
 
