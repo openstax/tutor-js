@@ -307,7 +307,7 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
                       </a>
                       <a
                         className="support-document-link dropdown-item"
-                        href="https://d3bxy9euw4e147.cloudfront.net/oscms-prodcms/media/documents/openstax_tutor_getting_started_guide_student.pdf"
+                        href="https://assets.openstax.org/oscms-prodcms/media/documents/openstax_tutor_getting_started_guide_student.pdf"
                         onClick={[Function]}
                         onKeyDown={[Function]}
                         target="_blank"
