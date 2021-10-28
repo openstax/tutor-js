@@ -94,7 +94,7 @@
     "core-decorators": "0.20.0",
     "core-js": "^3.2.1",
     "dateformat": "3.0.3",
-    "dayz": "^2.6.0",
+    "dayz": "2.9.1",
     "detect-browser": "^4.6.0",
     "enzyme-adapter-react-16": "^1.15.6",
     "es6-object-assign": "1.1.0",
