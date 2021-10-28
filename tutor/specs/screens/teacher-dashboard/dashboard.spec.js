@@ -21,8 +21,6 @@ describe('CourseCalendar Month display', () => {
     it('renders plans and hides when deleting', function() {
         const month = mount(<C><Dashboard {...props} /></C>);
         const plan = course.teacherTaskPlans.array[0];
-        // eslint-disable-next-line
-        console.log(month.find(`[data-plan-id]`).debug())
         expect(month).toHaveRendered(`[data-plan-id="${plan.id}"]`);
         runInAction( () => plan.is_deleting = true )
         expect(month).not.toHaveRendered(`[data-plan-id="${plan.id}"]`);
