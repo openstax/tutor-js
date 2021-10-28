@@ -87,6 +87,14 @@ const NO_ADDITIONAL_CONTENT = [
     'external_url',
 ];
 
+export enum GroupType { // TODO: Move this to heading? Might be confusing that we have #group in here
+    Unknown = 'unknown_group',
+    Fixed = 'fixed_group',
+    SpacedPractice = 'spaced_practice_group',
+    Personalized = 'personalized_group',
+    Recovery = 'recovery_group',
+}
+
 export class StudentTaskStep extends BaseModel {
 
     @field id = NEW_ID;
