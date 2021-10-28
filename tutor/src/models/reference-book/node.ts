@@ -22,6 +22,7 @@ const NON_ASSIGNABLE_TITLES = [
     'Short Answer',
     'Further Research',
     'References',
+    'Suggestions for Further Study',
 ];
 
 const UPDATEABLE_FIELDS = ['content_html', 'spy'];
