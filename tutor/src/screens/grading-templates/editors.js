@@ -10,6 +10,7 @@ import TimeInput from '../../components/time-input';
 import Select from '../../components/select';
 import TemplateModal from '../../components/course-modal';
 import InfoIcon from '../../components/icons/info';
+import SmallText from '../../components/small-text';
 
 const propTypes = {
     template: PropTypes.instanceOf(GradingTemplate).isRequired,
@@ -332,9 +333,9 @@ class TemplateForm extends React.Component {
         const iconText = (
             <>
                 <strong>Example:</strong>
-                <div>MCQ with 4 choices, students get 2 (4-2) attempts.</div>
-                <div>MCQ with 3 choices, students get 1 (3-2) attempt.</div>
-                <div>MCQ with 2 choices, students get 1 attempt only.</div>
+                <div>MCQ with 4 choices, students get 2 attempts.</div>
+                <div>MCQ with 2 choices, students get 1 attempt only.*</div>
+                <SmallText>*Exception</SmallText>
             </>
         );
 
