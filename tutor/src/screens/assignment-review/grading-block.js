@@ -1,6 +1,7 @@
 import { React, PropTypes, styled, observer, css, cn } from 'vendor';
 import { colors } from 'theme';
 import TutorLink from '../../components/link';
+import SmallText from '../../components/small-text';
 import { Header } from './details';
 import PublishScores from '../../components/buttons/publish-scores';
 
@@ -56,11 +57,6 @@ const Centered = styled.div`
   p:last-child {
     margin-bottom: 0;
   }
-`;
-
-const SmallText = styled.p`
-  font-size: 1.4rem;
-  color: ${colors.neutral.thin};
 `;
 
 const DarkBlue = css`
@@ -237,7 +233,7 @@ const BeforeDueWRQ = () => {
         <BlockWrapper header="Grading">
             <Centered>
                 <p>This assignment is not open for grading yet.</p>
-                <SmallText>(You can start grading after the due date)</SmallText>
+                <SmallText font-size="1.4rem">(You can start grading after the due date)</SmallText>
             </Centered>
         </BlockWrapper>
     );
