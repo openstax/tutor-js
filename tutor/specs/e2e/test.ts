@@ -61,6 +61,10 @@ const test = base.extend<TestFixtures>({
 
 })
 
+export const keyboardShortcuts = (page: Page) => ({
+    selectAll: (selector: string) => page.press(selector, process.platform === 'darwin' ? 'Meta+a' : 'Control+a'),
+})
+
 
 test.beforeAll(async () => {
     await selectors.register('testId', createTestIdEngine)
