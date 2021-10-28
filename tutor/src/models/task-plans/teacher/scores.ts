@@ -11,7 +11,7 @@ import type {
     TaskPlanType, TeacherTaskPlan,
 } from '../../../models'
 import {
-    DroppedQuestion, GradingTemplate, CoursePeriod, currentExercises, Exercise
+    DroppedQuestion, GradingTemplate, CoursePeriod, currentExercises, Exercise,
 } from '../../../models'
 import { GroupType } from '../../../models/student-tasks/step'
 
@@ -481,7 +481,7 @@ export class TaskPlanScoresTasking extends BaseModel {
         // add their stats once all the questions are gathered
         return sortBy(Object.values(info).map((qi: any) => {
             for (const answer of qi.question.answers) {
-                answer.selected_count = filter(qi.responses, r => r.selected_answer_id == answer.id).length,
+                answer.selected_count = filter(qi.responses, r => r.selected_answer_id == answer.id).length;
                 answer.answered_count = qi.responses.length;
             }
             return {
