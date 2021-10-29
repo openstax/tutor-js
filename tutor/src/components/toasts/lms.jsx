@@ -8,7 +8,6 @@ import { isEmpty } from 'lodash';
 import { Icon } from 'shared';
 import WarningModal from '../warning-modal';
 import NewTabLink from '../new-tab-link';
-import S from '../../helpers/string';
 import { downloadData, arrayToCSV } from '../../helpers/download-data';
 
 const Troubleshoot = () => (
@@ -43,16 +42,20 @@ class LMSErrors extends React.Component {
             [
                 e.student_identifier,
                 e.student_name,
-                S.numberWithTwoDecimalPlaces(e.score * 100),
+                isNaN(e.score) ? '---' : `${Math.round(e.score * 100)}%`,
                 e.message,
             ]);
     }
 
     @action.bound startDownload() {
         const rows = [
-            [ 'Student ID', 'Name', 'CourseAverage' ],
+            [ 'Student ID', 'Name', 'Course Average', 'Reason' ],
         ].concat(this.errorData);
-        downloadData(arrayToCSV(rows), 'failed-scores.csv', 'text/csv');
+        downloadData(
+            arrayToCSV(rows),
+            `course-${this.props.toast.info.data.course.id}-lms-score-errors.csv`,
+            'text/csv'
+        );
     }
 
     render() {
@@ -113,7 +116,7 @@ class LMSErrors extends React.Component {
                             <tr key={key}>
                                 <td>{id}</td>
                                 <td>{name}</td>
-                                <td>{isNaN(score) ? '---' : `${score}%`.replace(/\.\d+/, '')}</td>
+                                <td>{score}</td>
                                 <td>{message}</td>
                             </tr>
                         ))}

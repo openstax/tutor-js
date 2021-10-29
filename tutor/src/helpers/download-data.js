@@ -22,7 +22,9 @@ export function downloadData(content, fileName, mimeType) {
 export function arrayToCSV(array) {
     let csvContent = '';
     array.forEach(function(infoArray, index) {
-        const dataString = infoArray.join(';');
+        const dataString = infoArray.map(
+            elt => `"${elt ? elt.toString().replace('"', '\\"') : ''}"`
+        ).join(',');
         csvContent += index < array.length ? dataString + '\n' : dataString;
     });
     return csvContent;

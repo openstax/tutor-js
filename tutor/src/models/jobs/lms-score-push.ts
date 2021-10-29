@@ -43,9 +43,10 @@ export class LmsScorePushJob extends Job {
         UiSettings.set(LAST_PUSH, this.course.id, Time.now.toISOString());
         const succeeded = Boolean(
             !this.hasFailed &&
-        info.data.num_callbacks &&
-        isEmpty(info.errors)
+            info.data.num_callbacks &&
+            isEmpty(info.errors)
         );
+        info.data.course = this.course;
         currentToasts.add({
             info,
             type: 'lms',
