@@ -72,7 +72,7 @@ test.describe('with students', () => {
         await expect(page).toHaveSelector('.course-detail-settings-form')
         const timezoneDropdownTestId = '[data-test-id="timezone-dropdown"]'
         const currentTZ = await page.$eval(timezoneDropdownTestId, el => el.textContent) || ''
-        await page.click(`${timezoneDropdownTestId} .dropdown-toggle`, { force: true })
+        await page.click(`${timezoneDropdownTestId} .dropdown-toggle`)
         await page.click(`${timezoneDropdownTestId} .dropdown-menu.show a:nth-child(2)`)
         await expect(page).not.toMatchText(`${timezoneDropdownTestId} .dropdown-toggle div`, RegExp(currentTZ))
         await expect(page).toHaveSelector('.save-changes-button')
@@ -98,7 +98,7 @@ test.describe('with students', () => {
         await page.fill('#course-code', courseCode)
 
         const timezoneDropdownTestId = '[data-test-id="timezone-dropdown"]'
-        await page.click(`${timezoneDropdownTestId} .dropdown-toggle`, { force: true })
+        await page.click(`${timezoneDropdownTestId} .dropdown-toggle`)
         await page.click(`${timezoneDropdownTestId} .dropdown-menu.show a[value="${timezone}"]`)
 
         await expect(page).toHaveSelector('.save-changes-button')
@@ -108,7 +108,7 @@ test.describe('with students', () => {
         // IMPORTANT - restore original values so other tests are not confused
         await page.fill('#course-name', originalName)
         await page.fill('#course-code', '')
-        await page.click(`${timezoneDropdownTestId} .dropdown-toggle`, { force: true })
+        await page.click(`${timezoneDropdownTestId} .dropdown-toggle`)
         await page.click('text="US/Central"')
         await page.click('text="Save changes"')
     })

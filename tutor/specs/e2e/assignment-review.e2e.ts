@@ -43,9 +43,9 @@ test.describe('Assignment Review', () => {
 
         await page.fill('input[name="score"]', String(Math.round((Math.random() * 100))/100))
         await page.fill('textarea[name="comment"]', faker.company.bsBuzz())
-        const saveBtn = await page.$('testId=save-grade-btn')
-        await saveBtn!.click()
-        await saveBtn!.waitForElementState('disabled')
+        const saveBtn = await page.waitForSelector('testId=save-grade-btn')
+        await saveBtn.click()
+        await saveBtn.waitForElementState('disabled')
     });
 
     test('can drop questions', async ({ page }) => {
@@ -109,6 +109,10 @@ test.describe('Assignment Review', () => {
 
         await page.click('text="View assignment"')
         await page.click('testId=edit-assignment')
+
+        // Wait for the assignment editor opening animation
+        const assignmentEditFields = await page.waitForSelector('testId=assignment-edit-fields')
+        await assignmentEditFields.waitForElementState('stable')
 
         await page.click('.due-at')
         await page.click(openCalendarCellAfterSelectedCellCSS)
@@ -205,6 +209,10 @@ test.describe('Assignment Review', () => {
             await page.click('text="View assignment"')
             await page.click('testId=edit-assignment')
 
+            // Wait for the assignment editor opening animation
+            const assignmentEditFields = await page.waitForSelector('testId=assignment-edit-fields')
+            await assignmentEditFields.waitForElementState('stable')
+
             await page.click('.due-at')
             await page.click(openCalendarCellAfterSelectedCellCSS)
             await page.click(openCalendarButtonCSS)
@@ -285,8 +293,12 @@ test.describe('Assignment Review', () => {
     test('cannot deselect sections', async ({ page }) => {
         await visitPage(page, `/course/1/assignment/review/${HW}`)
         await page.click('testId=edit-assignment')
-        await page.waitForSelector('testId=assignment-edit-fields')
-        await page.click('testId=select-sections', { force: true })
+
+        // Wait for the assignment editor opening animation
+        const assignmentEditFields = await page.waitForSelector('testId=assignment-edit-fields')
+        await assignmentEditFields.waitForElementState('stable')
+
+        await page.click('testId=select-sections')
         await page.hover('testId=tasking >> css=[data-icon="check-square"]')
         await expect(page).toMatchText('css=[role=tooltip]', /cannot withdraw/)
     });

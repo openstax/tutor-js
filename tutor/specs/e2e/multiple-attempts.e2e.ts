@@ -26,7 +26,7 @@ test.beforeAll(async ({ browser }) => {
         await page.click('text="Add new template"')
         await page.click('.modal-content >> text="Homework"')
         await page.fill('.modal-content >>#template_name', 'MultipleAttempts')
-        await page.click('.modal-content >> [data-test-id=turn-on-multiple-attempts]', { force: true })
+        await page.click('.modal-content >> [data-test-id=turn-on-multiple-attempts]')
         await page.click('.modal-content >> .btn-primary')
     }
 
@@ -36,10 +36,12 @@ test.beforeAll(async ({ browser }) => {
 
     assignmentName  = faker.commerce.productName()
     await page.fill('testId=edit-assignment-name', assignmentName)
-    setDateTimeRelative(page, 'input[name="tasking_plans[0].opens_at"]', { day: -2 })
 
-    await page.click('testId=grading-templates')
-    await page.click('.dropdown-menu >> text=MultipleAttempts')
+    await page.click('testId=grading-templates-btn')
+    await page.click('[data-test-id="grading-templates"] .dropdown-menu >> text=MultipleAttempts')
+
+    await setDateTimeRelative(page, 'input[name="tasking_plans[0].opens_at"]', { day: -2 })
+    await setDateTimeRelative(page, 'input[name="tasking_plans[0].due_at"]', { day: 0 })
 
     await page.click('text="Save & Continue"')
 
@@ -68,8 +70,8 @@ test('can re-attempt answers', async ({ page }) => {
 
     await page.click('[data-step-index="2"]')
     await page.fill('testId=free-response-box', '')
-    let submitBtn = await page.$('testId=submit-answer-btn')
-    await submitBtn!.waitForElementState('disabled')
+    let submitBtn = await page.waitForSelector('testId=submit-answer-btn')
+    await submitBtn.waitForElementState('disabled')
     await page.type('testId=free-response-box', 'this is a answer answering and fully explaining my reasoning for the question')
     await page.click('testId=submit-answer-btn')
 

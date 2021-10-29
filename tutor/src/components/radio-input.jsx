@@ -1,5 +1,5 @@
 import { React, PropTypes, observer, styled } from 'vendor';
-import { uniqueId, isEmpty } from 'lodash';
+import { uniqueId, isEmpty, pick, omit } from 'lodash';
 import { useField } from 'formik';
 import { colors } from 'theme';
 
@@ -62,17 +62,19 @@ const StyledRadioInput = styled.input.attrs( () => ({
 `;
 
 const RadioInput = observer((props) => {
-    const [field] = props.standalone ? [] : useField({ type: 'text', ...props });
-    const id = props.id || uniqueId(props.name);
+    const wrapperProps = pick(props, 'data-test-id')
+    const innerProps = omit(props, 'data-test-id')
+    const [field] = innerProps.standalone ? [] : useField({ type: 'text', ...innerProps });
+    const id = innerProps.id || uniqueId(innerProps.name);
 
     return (
-        <StyledWrapper>
+        <StyledWrapper {...wrapperProps}>
             <StyledRadioInput
                 {...field}
-                {...props}
+                {...innerProps}
                 id={id}
             />
-            <label htmlFor={id}>{props.label}</label>
+            <label htmlFor={id}>{innerProps.label}</label>
         </StyledWrapper>
     );
 });

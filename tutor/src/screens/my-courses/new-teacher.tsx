@@ -505,7 +505,7 @@ const SubjectSelect: React.FC<SubjectSelectProps> = ({
                                 <h3>{key === 'undefined' ? 'Subjects' : key}</h3>
                                 <div className="offering-wrapper">
                                     {map(offerings[key], (book, i) => (
-                                        <OfferingLabel key={i} id={book.id}>
+                                        <OfferingLabel key={i} id={book.id} data-test-id={`offering-${i}`}>
                                             <input
                                                 type="radio"
                                                 name="offering"
@@ -514,7 +514,6 @@ const SubjectSelect: React.FC<SubjectSelectProps> = ({
                                                     setSelectedSubject(book.id)
                                                     onChangeSuggestion('')
                                                 }}
-                                                data-test-id={`offering-${i}`}
                                             />
                                             <div className="control">
                                                 <div className="image" data-appearance={book['appearance_code']}></div>
