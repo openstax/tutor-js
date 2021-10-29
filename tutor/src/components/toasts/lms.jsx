@@ -21,6 +21,7 @@ const Troubleshoot = () => (
 @observer
 class LMSErrors extends React.Component {
     static propTypes = {
+        title: PropTypes.string.isRequired,
         toast: PropTypes.object.isRequired,
         footer: PropTypes.node.isRequired,
         dismiss: PropTypes.any,
@@ -63,7 +64,7 @@ class LMSErrors extends React.Component {
             <WarningModal
                 className="lms-push-partial-failure"
                 backdrop={false}
-                title="Some scores not sent"
+                title={this.props.title}
             >
                 {this.displayInfo ? this.renderInfo() : this.renderMessage()}
             </WarningModal>
@@ -191,26 +192,24 @@ class Failure extends React.Component {
 
     render() {
         const { toast, dismiss } = this.props;
-
-        const { info: { errors, data: {
-            num_callbacks,
-        } } } = toast;
+        const { info: { errors, data: { num_scores, num_successes } } } = toast;
+        const title = num_successes > 0 ? 'Some scores not sent' : 'Scores not sent'
 
         if (this.showDetails) {
             const footer = <Button onClick={dismiss}>Close</Button>;
-            if (!isEmpty(errors)) {
-                return <LMSErrors {...{ toast, footer, dismiss }} />;
-            } else if (num_callbacks) {
-                return renderFailedToSend(footer);
-            } else {
+            if (num_scores === 0) {
                 return renderNoScores(footer);
+            } else if (!isEmpty(errors)) {
+                return <LMSErrors {...{ title, toast, footer, dismiss }} />;
+            } else { // There were scores and failures but we got no errors back - should not happen
+                return renderFailedToSend(footer);
             }
         }
 
         return (
             <div className="toast scores failure">
                 <div className="title">
-                    {num_callbacks ? 'Some scores not sent' : 'Scores not sent'}
+                    {title}
                     <Icon type="close" className="dismiss" onClick={this.props.dismiss} />
                 </div>
                 <div className="body">
