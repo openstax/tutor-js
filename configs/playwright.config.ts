@@ -10,6 +10,7 @@ const config: PlaywrightTestConfig = {
     forbidOnly: !!process.env.CI,
     globalSetup: '../tutor/specs/e2e/setup.ts',
     use: {
+        actionTimeout: 20000,
         screenshot: 'only-on-failure',
         trace: 'retain-on-failure',
     },

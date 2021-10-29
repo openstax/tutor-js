@@ -108,6 +108,7 @@ const TemplateField = observer(({ ux }) => {
                     toggleName={ux.gradingTemplate.name}
                     dropdownItems={dropdownItems}
                     dropdownTestId="grading-templates"
+                    toggleDataTestId="grading-templates-btn"
                     toggleClassname="selected-grading-template"/>
                 <PreviewTooltip template={ux.gradingTemplate} />
             </div>

@@ -1,6 +1,6 @@
 import { React, PropTypes, observer, styled } from 'vendor';
 import { colors } from 'theme';
-import { uniqueId, isEmpty } from 'lodash';
+import { uniqueId, isEmpty, pick, omit } from 'lodash';
 import { useField } from 'formik';
 import { Icon } from 'shared';
 
@@ -40,19 +40,21 @@ const StyledCheckboxInput = styled.input.attrs( () => ({
 `;
 
 const CheckboxInput = observer((props) => {
-    const [field] = props.standalone ? [] : useField({ type: 'checkbox', ...props });
-    const id = props.id || uniqueId(props.name);
+    const wrapperProps = pick(props, ['className', 'data-test-id'])
+    const innerProps = omit(props, 'data-test-id')
+    const [field] = innerProps.standalone ? [] : useField({ type: 'checkbox', ...innerProps });
+    const id = innerProps.id || uniqueId(innerProps.name);
 
     return (
-        <StyledWrapper className={props.className}>
+        <StyledWrapper {...wrapperProps}>
             <StyledCheckboxInput
                 {...field}
-                {...props}
+                {...innerProps}
                 id={id}
             />
             <label htmlFor={id}>
-                <Icon variant={props.checked ? 'checkedSquare' : 'checkSquare'} size="lg" />
-                {props.label}
+                <Icon variant={innerProps.checked ? 'checkedSquare' : 'checkSquare'} size="lg" />
+                {innerProps.label}
             </label>
         </StyledWrapper>
     );

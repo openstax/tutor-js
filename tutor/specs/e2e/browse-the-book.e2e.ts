@@ -16,8 +16,8 @@ test.describe('Browse the book', () => {
         await page.waitForSelector('testId=book-title')
         const currentTitle = await page.$eval('[data-test-id="book-title"]' , ex => ex.dataset.title) as string
         await page.click('testId=go-forward')
-        await expect(page).not.toHaveText('testId=book-title', currentTitle)
+        await expect(page).not.toMatchText('testId=book-title', currentTitle)
         await page.click('testId=go-backward')
-        await expect(page).toHaveText('testId=book-title', currentTitle)
+        await expect(page).toMatchText('testId=book-title', currentTitle)
     })
 })

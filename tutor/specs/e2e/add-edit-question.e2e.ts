@@ -13,9 +13,8 @@ const clickEditExercise = async (page: Page, baseSelector: string) => {
     // make page larger so it doesn't scroll when hovering card controls
     // scrolling will unfocus, making controls unclickable
     await page.setViewportSize({ width: 1280, height: 1600 })
-    //
-    // not sure why click with {force: true} doesn't work here
-    await page.$eval(`${baseSelector} >> .copyEdit` , (cped: HTMLElement) => cped.click())
+    await page.hover(baseSelector)
+    await page.click(`${baseSelector} >> .copyEdit`)
 }
 
 const getFirstExerciseContainerWithEditButtonText = async (page: Page, text: string) => {
@@ -43,7 +42,7 @@ const replaceQuestionStemInForm = async (page: Page, newValue: string, initialVa
     const stemSel = '[data-test-id=add-edit-question].modal-dialog >> .question-text >> .editor'
 
     if (initialValue) {
-        await expect(page).toHaveText(stemSel, initialValue)
+        await expect(page).toMatchText(stemSel, initialValue)
     }
     await page.click(stemSel)
     await expect(page).toHaveSelector(`${stemSel} >> .isEditing`)
@@ -91,7 +90,7 @@ test.describe('Add/Edit Questions', () => {
             const ex = await getFirstExerciseContainerWithEditButtonText(page, 'Copy & Edit');
             await clickEditExercise(page, ex);
             await page.waitForSelector('testId=terms-modal >> [data-is-loaded="true"]')
-            await expect(page).toHaveText('testId=terms-modal', 'edit only good things')
+            await expect(page).toMatchText('testId=terms-modal', /edit only good things/)
             await expect(page).toHaveSelector('button[data-test-id="agree-to-terms"][disabled]')
             await page.click('input.i-agree + label')
             await expect(page).toHaveSelector('button[data-test-id="agree-to-terms"]:not([disabled])')
@@ -100,13 +99,13 @@ test.describe('Add/Edit Questions', () => {
             const newValue = faker.lorem.sentences()
             await replaceQuestionStemInForm(page, newValue);
             await page.click('testId=publish-btn')
-            await expect(page).toHaveText(newValue)
+            await expect(page).toMatchText(new RegExp(newValue))
         });
 
         test('before creating an exercise', async ({ page }) => {
             await page.click('testId=create-question')
             await page.waitForSelector('testId=terms-modal >> [data-is-loaded="true"]')
-            await expect(page).toHaveText('testId=terms-modal', 'edit only good things')
+            await expect(page).toMatchText('testId=terms-modal', /edit only good things/)
             await page.click('input.i-agree + label')
             await page.click('testId=agree-to-terms')
             await expect(page).not.toHaveSelector('testId=terms-modal')
@@ -121,9 +120,9 @@ test.describe('Add/Edit Questions', () => {
         await clickEditExercise(page, ex);
         await replaceQuestionStemInForm(page, newValue, currentValue)
         await page.click('testId=publish-btn')
-        await page.waitForTimeout(1000)
+        await page.waitForSelector('testId=question-published-toast')
         await expect(page).not.toHaveSelector(ex)
-        await expect(page).toHaveText(`${incrementExerciseIdVersion(ex)} .question-stem`, newValue)
+        await expect(page).toMatchText(`${incrementExerciseIdVersion(ex)} .question-stem`, newValue)
     })
 
     test('autosaves', async({ page }) => {
@@ -134,7 +133,7 @@ test.describe('Add/Edit Questions', () => {
         await page.focus(editorSel)
         await page.type(editorSel, 'Hello World!')
         await page.click('testId=add-edit-question >> .detailed-solution')
-        await page.waitForTimeout(10) // Give the autosave time
+        await page.waitForTimeout(0) // Give the autosave time; There's no waitForLocalStorage()
         await page.reload()
         await disableTours(page)
         await page.waitForSelector('testId=create-question')
@@ -143,7 +142,9 @@ test.describe('Add/Edit Questions', () => {
             window._MODELS.feature_flags.set('tours', false)
         })
         await page.click('testId=create-question')
-        await expect(page).toHaveText('testId=add-edit-question >> .question-text', 'Hello World!')
+        await expect(page).toMatchText(
+            'testId=add-edit-question >> .question-text', 'QuestionHello World!'
+        )
         await page.click('.close')
     })
 
@@ -157,7 +158,7 @@ test.describe('Add/Edit Questions', () => {
         await page.press(editorSel, 'Control+a')
         await page.press(editorSel, 'Backspace')
         await page.click('.tag-form button:first-child') // trigger focus blur for validation
-        await expect(page).toHaveText('Question field cannot be empty')
+        await expect(page).toMatchText(/Question field cannot be empty/)
         await page.click('.close')
     })
 
@@ -176,7 +177,7 @@ test.describe('Add/Edit Questions', () => {
         await page.press(editorSel, 'Control+a')
         await page.press(editorSel, 'Backspace')
         await page.click('.tag-form button:first-child') // trigger focus blur for validation
-        await expect(page).toHaveText('Answer key field cannot be empty')
+        await expect(page).toMatchText(/Answer key field cannot be empty/)
         await page.click('.close')
     })
 })

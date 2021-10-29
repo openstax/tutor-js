@@ -23,7 +23,7 @@ export type { TestConfig }
 
 export const visitPage = async (page: Page, path: string) => {
     const url = `${TC.URL}${path}`
-    await page.goto(url, { waitUntil: 'networkidle' })
+    await page.goto(url)
     await loaderNotVisible(page)
     await disableTours(page)
 }
@@ -84,7 +84,7 @@ export const setDateTimeRelative = async (page: Page, selector: string, diff: Du
     await page.click(selector, { clickCount: 3 });
     await page.keyboard.press('Backspace')
     await page.type(selector, dte);
-    await page.click('.oxdt-footer >> text=Ok');
+    await page.click('.oxdt-dropdown:not(.oxdt-dropdown-hidden) .oxdt-footer >> text=Ok');
 }
 
 export const selectExeciseCard = async (page: Page, exId: string) => {
@@ -125,9 +125,7 @@ export const getCourseIdFromURL = async (page: Page) => {
 }
 
 export const loaderNotVisible = async (page: Page = (global as any).page) => {
-    while (await page.$('css=.loading-animation')) {
-        await page.waitForTimeout(100)
-    }
+    await page.waitForSelector('.loading-animation', { state: 'detached' })
 }
 
 export const loginAs = async (userName: string, page: Page = (global as any).page ) => {
@@ -137,8 +135,8 @@ export const loginAs = async (userName: string, page: Page = (global as any).pag
         if (currentUserName == userName) {
             return
         }
-        await userMenu.click({ force: true })
-        await page.click('.logout [type=submit]', { force: true })
+        await userMenu.click()
+        await page.click('.logout [type=submit]')
     }
     await page.goto(`${TC.URL}/accounts/dev/accounts`)
     await page.click(`text="${userName}"`)

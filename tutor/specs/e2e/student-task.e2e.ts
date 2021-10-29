@@ -27,7 +27,7 @@ test.beforeAll(async ({ browser }) => {
         await page.click('text="Add new template"')
         await page.click('.modal-content >> text="Homework"')
         await page.fill('.modal-content >>#template_name', 'NoFeedback')
-        await page.click('.modal-content >> text="After the due date"', { force: true })
+        await page.click('.modal-content >> text="After the due date"')
         await page.click('.modal-content >> .btn-primary')
     }
 
@@ -37,10 +37,12 @@ test.beforeAll(async ({ browser }) => {
 
     assignmentName  = faker.commerce.productName()
     await page.fill('testId=edit-assignment-name', assignmentName)
-    setDateTimeRelative(page, 'input[name="tasking_plans[0].opens_at"]', { day: -2 })
 
-    await page.click('testId=grading-templates')
-    await page.click('.dropdown-menu >> text=NoFeedback')
+    await page.click('testId=grading-templates-btn')
+    await page.click('[data-test-id="grading-templates"] .dropdown-menu >> text=NoFeedback')
+
+    await setDateTimeRelative(page, 'input[name="tasking_plans[0].opens_at"]', { day: -2 })
+    await setDateTimeRelative(page, 'input[name="tasking_plans[0].due_at"]', { day: 0 })
 
     await page.click('text="Save & Continue"')
 
@@ -69,10 +71,10 @@ test('advances after answering a free-response only question', async ({ page }) 
 
     await page.click('[data-step-index="2"]')
     await page.fill('testId=free-response-box', '')
-    const submitBtn = await page.$('testId=submit-answer-btn')
-    await submitBtn!.waitForElementState('disabled')
+    const submitBtn = await page.waitForSelector('testId=submit-answer-btn')
+    await submitBtn.waitForElementState('disabled')
     await page.type('testId=free-response-box', 'this is a answer answering and fully explaining my reasoning for the question')
-    await submitBtn!.waitForElementState('enabled')
+    await submitBtn.waitForElementState('enabled')
 })
 
 test('can change and re-submit answers to questions', async ({ page }) => {
@@ -106,7 +108,7 @@ test('should show word limit error message and disable submit button if response
 test('should be able to save question to my practice', async ({ page }) => {
     await page.click('.sticky-table [data-step-index="1"]')
     const saveBtn = await page.waitForSelector('testId=save-practice-button')
-    const wasSaved = (await saveBtn!.textContent())?.match(/Remove/)
+    const wasSaved = (await saveBtn.textContent())?.match(/Remove/)
     await saveBtn.click()
     await saveBtn.waitForElementState('enabled')
     expect(await saveBtn.textContent()).toMatch(wasSaved ? 'Save to practice' : 'Remove from practice')
