@@ -2,7 +2,6 @@ import { BaseModel, field, action, observable, computed, NEW_ID, getParentOf, ID
 import type { GradingTemplate, Course, CoursePeriod, TeacherTaskPlan } from '../../../models'
 import { currentToasts } from '../../../models'
 import { pick, get, extend, find, omit } from 'lodash';
-import moment from 'moment';
 import Time from 'shared/model/time';
 import urlFor from '../../../api'
 
@@ -138,7 +137,11 @@ export class TaskingPlan extends BaseModel {
     }
 
     @computed get dueAtChanged() {
-        return !moment(this.originalDueAt).isSame(this.due_at);
+        if (this.originalDueAt === undefined) {
+            return !!this.due_at;
+        }
+
+        return !(new Time(this.originalDueAt)).isSame(new Time(this.due_at));
     }
 
     @action async persistTime(type: 'opens' | 'due') {
