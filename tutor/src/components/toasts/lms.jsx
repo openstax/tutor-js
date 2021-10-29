@@ -44,6 +44,7 @@ class LMSErrors extends React.Component {
                 e.student_identifier,
                 e.student_name,
                 S.numberWithTwoDecimalPlaces(e.score * 100),
+                e.message,
             ]);
     }
 
@@ -74,7 +75,7 @@ class LMSErrors extends React.Component {
                 <p>
             Course averages
             for {pluralize('student', toast.info.errors.length, true)} could not be
-            sent successfully to your LMS.  There may be an issue with
+            sent successfully to your LMS. There may be an issue with
             your LMS, or you may need to update your weights calculation in Student Scores.
                 </p>
                 <Troubleshoot />
@@ -102,18 +103,18 @@ class LMSErrors extends React.Component {
                         <tr>
                             <th>Student ID</th>
                             <th>Name</th>
-                            <th className="average">
-                  Course Average
-                                <Icon type="download" onClick={this.startDownload}/>
-                            </th>
+                            <th>Course Average</th>
+                            <th>Reason</th>
+                            <th><Icon type="download" onClick={this.startDownload}/></th>
                         </tr>
                     </thead>
                     <tbody>
-                        {this.errorData.map(([id, name, score], key) => (
+                        {this.errorData.map(([id, name, score, message], key) => (
                             <tr key={key}>
                                 <td>{id}</td>
                                 <td>{name}</td>
-                                <td>{`${score}`.replace(/\.\d+/,'')}%</td>
+                                <td>{isNaN(score) ? '---' : `${score}%`.replace(/\.\d+/, '')}</td>
+                                <td>{message}</td>
                             </tr>
                         ))}
                     </tbody>

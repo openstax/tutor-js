@@ -32,14 +32,6 @@
     }
     table th {
       vertical-align: bottom;
-      &.average {
-        display: flex;
-        justify-content: space-between;
-        .ox-icon {
-          border: 1px solid $tutor-neutral;
-          padding: 4px;
-        }
-      }
     }
     .panel {
       border: 0;
