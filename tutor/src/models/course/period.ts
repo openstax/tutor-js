@@ -1,10 +1,6 @@
 import { find, pick, last } from 'lodash';
 import { CourseTeacherStudent as TeacherStudent } from '../../models'
-import type {
-    CoursePeriodData, RoleData,
-    Course,
-    CourseRole as Role,
-} from '../../models'
+import type { CoursePeriodData, Course, CourseRole as Role } from '../../models'
 
 import Time from 'shared/model/time'
 import urlFor from '../../api'
@@ -87,18 +83,18 @@ export class CoursePeriod extends BaseModel {
 
     @action async getTeacherStudent() {
         let teacherStudent = this.course.teacher_student_records.find(
-          (r) => (r.period_id == this.id)
+            (r) => (r.period_id == this.id)
         )
         if (!teacherStudent) {
             const returnedTS = await this.createTeacherStudent();
             this.course.teacher_student_records.push(returnedTS)
             this.course.roles.push(
-              {
-                id: returnedTS.role_id,
-                type: 'teacher-student',
-                period_id: this.id,
-                joined_at: Time.now,
-              } as Role
+                {
+                    id: returnedTS.role_id,
+                    type: 'teacher-student',
+                    period_id: this.id,
+                    joined_at: Time.now,
+                } as Role
             )
             teacherStudent = last(this.course.teacher_student_records)
         }
@@ -109,6 +105,8 @@ export class CoursePeriod extends BaseModel {
     }
 
     createTeacherStudent() {
-        return this.api.request<TeacherStudent>(urlFor('createTeacherStudent', { periodId: this.id }))
+        return this.api.request<TeacherStudent>(
+            urlFor('createTeacherStudent', { periodId: this.id })
+        )
     }
 }
