@@ -1,6 +1,5 @@
 import {
-    BaseModel, ID, NEW_ID, field, model, modelize,
-    computed, action, readonly, getParentOf,
+    BaseModel, ID, NEW_ID, field, model, modelize, computed, action, getParentOf,
 } from 'shared/model';
 import type { StudentData, CoursePeriod, Course } from '../../models'
 import { FeatureFlags, PaymentCode } from '../../models'
@@ -11,7 +10,6 @@ import { pick } from 'lodash';
 
 export class CourseStudent extends BaseModel {
 
-    @readonly static TEACHER_AS_STUDENT_ID = -9;
     @field id: ID = NEW_ID
     @field name = '';
     @field uuid = '';

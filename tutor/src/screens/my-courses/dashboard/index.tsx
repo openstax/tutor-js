@@ -132,7 +132,7 @@ export const MyCoursesDashboard = observer(() => {
         const offering = currentOfferings.get(deleteOfferingIdModal)
         if (!offering) return
         Promise.all(courses.forOffering(offering).array.map(c => {
-            return c.teachers.current?.drop() || Promise.resolve()
+            return c.teacher_record?.drop() || Promise.resolve()
         })).then(() => {
             setDisplayedOfferingIds(displayedOfferingIds.filter(id => id != offering.id))
             setDeleteOfferingIdModal(null)

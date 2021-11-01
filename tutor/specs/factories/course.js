@@ -79,12 +79,10 @@ Factory.define('Course')
             parent: object, type: is_teacher ? 'teacher' : 'student',
         }),
     ])
-    .students(({ object, is_teacher }) => [
-        Factory.create('Student', {
-            parent: object,
-            role_id: is_teacher ? 1 : object.roles[0].id,
-        }),
-    ])
+    .student_record(({ object, is_teacher }) => is_teacher ? null : Factory.create('Student', {
+        parent: object,
+        role_id: is_teacher ? 1 : object.roles[0].id,
+    }))
     .teacher_profiles([
         { id: 1, name: 'Review Teacher 1' },
         { id: 2, name: 'Review Teacher 2' },

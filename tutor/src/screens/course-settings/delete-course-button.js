@@ -32,7 +32,7 @@ class DeleteCourseModal extends React.Component {
 
     @action.bound deleteCourse() {
         const { course } = this.props;
-        const courseTeacherMembership = course.teachers.current;
+        const courseTeacherMembership = course.teacher_record;
         if (courseTeacherMembership.isTeacherOfCourse) {
             courseTeacherMembership.drop().then(
                 window.location = '/courses'

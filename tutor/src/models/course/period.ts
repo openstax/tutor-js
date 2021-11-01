@@ -1,5 +1,5 @@
 import { find, pick, last } from 'lodash';
-import { CourseStudent as Student } from '../../models'
+import { CourseTeacherStudent as TeacherStudent } from '../../models'
 import type {
     CoursePeriodData, RoleData,
     Course,
@@ -97,21 +97,17 @@ export class CoursePeriod extends BaseModel {
         runInAction(() => {
             if (!role) throw 'failed to find role for becoming teacher-student'
             role.joined_at = Time.now; // adjust the date so it always appears new
-            let student = find(this.course.students, { id: Student.TEACHER_AS_STUDENT_ID });
-            if (!student) {
-                this.course.students.push({ id: Student.TEACHER_AS_STUDENT_ID } as Student);
-                student = last(this.course.students) as Student;
+            let teacher_student = find(
+                this.course.teacher_student_records, { role_id: role.id }
+            );
+            if (teacher_student) {
+                teacher_student.update({ period_id: this.id })
+            } else {
+                this.course.teacher_student_records.push(
+                    { role_id: role.id, period_id: this.id } as TeacherStudent
+                );
+                teacher_student = last(this.course.teacher_student_records) as TeacherStudent;
             }
-            student.update({
-                role_id: role.id,
-                student_identifier: '',
-                first_name: 'Instructor',
-                is_comped: true,
-                last_name: 'Review',
-                name: 'Instructor Review',
-                period_id: this.id,
-                prompt_student_to_pay: false,
-            });
         });
         return role;
     }

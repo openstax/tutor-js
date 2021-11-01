@@ -103,9 +103,9 @@ export default class AddEditQuestionUX {
             this.isMCQ = true;
         }
         // get author
-        this.author = this.course.teachers.current;
+        this.author = this.course.teacher_record;
 
-        // on create user can select from all current co-teachers as the author 
+        // on create user can select from all current co-teachers as the author
         if (!props.exercise) {
             this.course.allTeachers.fetch();
         }
@@ -320,13 +320,13 @@ export default class AddEditQuestionUX {
     @computed get authors() {
         // creating
         if (!this.from_exercise_id) {
-            // course.teachers is actually only the current user, allTeachers is lazy loaded
+            // course.teacher_record is actually only the current user, allTeachers is lazy loaded
             // so this will populate the other options when they come in
-            return [this.course.teachers.current, ...this.course.allTeachers.notCurrent.values()];
+            return [this.course.teacher_record, ...this.course.allTeachers.notCurrent.values()];
         }
         // editing any question, including copy & edit from another author
         else {
-            return [this.course.teachers.current];
+            return [this.course.teacher_record];
         }
     }
 

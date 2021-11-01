@@ -36,10 +36,6 @@ export class CoursesMap extends Map<ID, Course> {
         return this.where(c => c.currentRole.isStudent);
     }
 
-    @computed get withoutStudents() {
-        return this.where(c => 0 === c.students.length);
-    }
-
     @computed get teaching() {
         return this.where(c => c.currentRole.isTeacher);
     }
