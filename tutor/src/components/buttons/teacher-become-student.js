@@ -89,8 +89,8 @@ export default class TeacherBecomesStudent extends React.Component {
     async becomeStudentInPeriod(period) {
         const { course } = this.props;
         this.isCreating = true;
-        const role = await period.getTeacherStudentRole();
-        this.props.history.push(`/course/${course.id}/become/${role.id}`);
+        const teacherStudent = await period.getTeacherStudent();
+        this.props.history.push(`/course/${course.id}/become/${teacherStudent.role_id}`);
     }
 
     @action.bound onPeriodMenuToggle(isOpen) {

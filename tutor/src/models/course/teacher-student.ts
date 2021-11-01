@@ -1,15 +1,13 @@
-import { modelize } from 'shared/model';
 import { CourseStudent } from '../../models'
 
 
 export class CourseTeacherStudent extends CourseStudent {
-    name = 'Instructor Review';
-    first_name = 'Instructor';
-    last_name = 'Review';
-    is_comped = true;
-
     constructor() {
         super()
-        modelize(this)
+        // Override certain properties of CourseStudent
+        this.name = 'Instructor Review';
+        this.first_name = 'Instructor';
+        this.last_name = 'Review';
+        this.is_comped = true;
     }
 }

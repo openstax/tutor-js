@@ -85,34 +85,30 @@ export class CoursePeriod extends BaseModel {
         this.update(periodData)
     }
 
-    @action async getTeacherStudentRole() {
-        let role = this.course.roles.find((r) => (
-            r.isTeacherStudent && r.period_id == this.id
-        ));
-        if (!role) {
-            const returnedRole = await this.createTeacherStudent();
-            this.course.roles.push(returnedRole as any as Role)
-            role = last(this.course.roles)
+    @action async getTeacherStudent() {
+        let teacherStudent = this.course.teacher_student_records.find(
+          (r) => (r.period_id == this.id)
+        )
+        if (!teacherStudent) {
+            const returnedTS = await this.createTeacherStudent();
+            this.course.teacher_student_records.push(returnedTS)
+            this.course.roles.push(
+              {
+                id: returnedTS.role_id,
+                type: 'teacher-student',
+                period_id: this.id,
+                joined_at: Time.now,
+              } as Role
+            )
+            teacherStudent = last(this.course.teacher_student_records)
         }
         runInAction(() => {
-            if (!role) throw 'failed to find role for becoming teacher-student'
-            role.joined_at = Time.now; // adjust the date so it always appears new
-            let teacher_student = find(
-                this.course.teacher_student_records, { role_id: role.id }
-            );
-            if (teacher_student) {
-                teacher_student.update({ period_id: this.id })
-            } else {
-                this.course.teacher_student_records.push(
-                    { role_id: role.id, period_id: this.id } as TeacherStudent
-                );
-                teacher_student = last(this.course.teacher_student_records) as TeacherStudent;
-            }
+            if (!teacherStudent) throw 'failed to find role for becoming teacher-student'
         });
-        return role;
+        return teacherStudent;
     }
 
     createTeacherStudent() {
-        return this.api.request<RoleData>(urlFor('createTeacherStudent', { periodId: this.id }))
+        return this.api.request<TeacherStudent>(urlFor('createTeacherStudent', { periodId: this.id }))
     }
 }
