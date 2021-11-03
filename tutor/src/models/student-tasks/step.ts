@@ -87,7 +87,7 @@ const NO_ADDITIONAL_CONTENT = [
     'external_url',
 ];
 
-export enum GroupType { // TODO: Move this to heading? Might be confusing that we have #group in here
+export enum GroupType {
     Unknown = 'unknown_group',
     Fixed = 'fixed_group',
     SpacedPractice = 'spaced_practice_group',

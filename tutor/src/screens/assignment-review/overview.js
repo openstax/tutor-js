@@ -14,7 +14,6 @@ import Loading from 'shared/components/loading-animation';
 import SectionLink from './section-link';
 import { DropQuestionModal } from './drop-question-modal';
 import TourRegion from '../../components/tours/region';
-import AssignmentReviewUX from './ux'
 
 // https://projects.invisionapp.com/d/main#/console/18937568/403651098/preview
 
@@ -511,7 +510,7 @@ HomeworkQuestionsWrapper.propTypes = {
     questionsInfo: PropTypes.any.isRequired,
 };
 
-const QuestionList = observer(({ ux }: { ux: AssignmentReviewUX }) => {
+const QuestionList = observer(({ ux }) => {
     const { scores } = ux
 
     if (!ux.isExercisesReady) { return <Loading message="Loading Questions…" />; }
@@ -636,7 +635,7 @@ const HomeWorkInfo = observer(({ ux }) => (
     </>
 ));
 
-const Overview = observer(({ ux }: { ux: AssignmentReviewUX }) => {
+const Overview = observer(({ ux }) => {
 
     return (
         <Wrapper data-test-id="overview">
