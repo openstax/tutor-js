@@ -140,7 +140,7 @@ export class Course extends BaseModel {
             return this.student_record
         }
 
-        return this.teacher_student_records.find((r) => r.role_id = this.currentRole.id) || null
+        return this.teacher_student_records.find((r) => r.role_id == this.currentRole.id) || null
     }
 
     @computed get currentRole() {
