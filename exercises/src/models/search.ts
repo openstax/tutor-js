@@ -57,8 +57,7 @@ class Clause extends BaseModel {
     }
 }
 
-export default
-class Search extends BaseModel {
+export default class Search extends BaseModel {
 
     @model(Clause) clauses = array<Clause>()
 
@@ -68,6 +67,7 @@ class Search extends BaseModel {
     @observable currentPage = 1
     @observable bookUuid = ''
     @observable sectionUuid = ''
+    @observable bookTag = ''
     @observable isPending = false
 
     constructor() {
@@ -88,6 +88,12 @@ class Search extends BaseModel {
         this.perform();
     }
 
+    @action.bound reset() {
+        this.bookTag = ''
+        this.bookUuid = ''
+        this.sectionUuid = ''
+    }
+
     @computed get title() {
         if (!this.exercises.length) {
             return 'Exercise Search';
@@ -106,7 +112,7 @@ class Search extends BaseModel {
         }
 
         return {
-            currentPage: this.currentPage ,
+            currentPage: this.currentPage,
             totalPages: this.exercises.length == this.total_count ? 1 : Math.floor(this.total_count / this.perPageSize) + 1,
             onChange: this.onPageChange,
         };
@@ -135,6 +141,12 @@ class Search extends BaseModel {
         if (this.sectionUuid) {
             clauses.push(hydrateModel(
                 Clause, { filter: 'tag', value: `context-cnxmod:${this.sectionUuid}` }, this
+            ))
+        }
+
+        if (this.bookTag) {
+            clauses.push(hydrateModel(
+                Clause, { filter: 'tag', value: `book:${this.bookTag}` }, this
             ))
         }
 
