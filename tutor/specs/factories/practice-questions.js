@@ -1,5 +1,5 @@
 const {
-    Factory, sequence, uuid
+    Factory, sequence, uuid,
 } = require('./helpers');
 
 Factory.define('PracticeQuestion')
