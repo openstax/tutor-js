@@ -5,9 +5,10 @@ import type { PracticeQuestionData, PracticeQuestions as Map } from '../../model
 
 export class PracticeQuestion extends BaseModel {
 
-    @field id:ID = NEW_ID;
-    @field tasked_exercise_id:ID = NEW_ID;
-    @field exercise_id:ID = NEW_ID;
+    @field id: ID = NEW_ID;
+    @field tasked_exercise_id: ID = NEW_ID;
+    @field exercise_id: ID = NEW_ID;
+    @field exercise_uuid: string = '';
     @field available = false;
 
     get map() {
@@ -28,8 +29,9 @@ export class PracticeQuestion extends BaseModel {
             urlFor(
                 'createPracticeQuestion',
                 { courseId: this.course.id },
-                { role_id: this.course.currentRole.id  },
-            ), {
+                { role_id: this.course.currentRole.id },
+            ),
+            {
                 data: { tasked_exercise_id: this.tasked_exercise_id },
             }
         )
@@ -51,7 +53,8 @@ export class PracticeQuestion extends BaseModel {
                 'deletePracticeQuestion',
                 { courseId: this.course.id, practiceQuestionId: this.id },
                 { role_id: this.course.currentRole.id },
-            ), {
+            ),
+            {
                 data: { tasked_exercise_id: this.tasked_exercise_id },
             }
         )

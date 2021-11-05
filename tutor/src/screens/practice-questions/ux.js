@@ -24,8 +24,8 @@ export default class PracticeQuestionsUX {
             await currentExercises.fetch(
                 {
                     course: this.course,
-                    exercise_ids: this.practiceQuestions.getAllExerciseIds(),
-                    action: 'practice_exercises', limit: false,
+                    action: 'practice_exercises',
+                    limit: false,
                 });
         }
         runInAction(() => {
@@ -35,12 +35,12 @@ export default class PracticeQuestionsUX {
 
     async checkExistingPractice(history) {
         await this.practiceQuestions.checkExisting();
-    
+
         if(this.practiceQuestions.current_task_id) {
             history.push(
                 Router.makePathname(
                     'viewTask',
-                    { courseId: this.course.id, 
+                    { courseId: this.course.id,
                         id: this.practiceQuestions.current_task_id,
                     }
                 ));

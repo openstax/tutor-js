@@ -1,5 +1,4 @@
 import { action, computed } from 'mobx';
-import { map } from 'lodash';
 import { Map, ID, getParentOf, field, modelize, hydrateModel } from 'shared/model';
 import { PracticeQuestion } from './practice-questions/practice-question';
 import urlFor from '../api'
@@ -47,12 +46,8 @@ export class PracticeQuestions extends Map<ID, PracticeQuestion> {
         return this.array.find(prc => prc.exercise_id == exerciseId);
     }
 
-    findByTaskedId(taskedExerciseId: ID) {
-        return this.array.find(prc => prc.tasked_exercise_id == taskedExerciseId);
-    }
-
-    getAllExerciseIds() {
-        return map(this.array, a => a.exercise_id);
+    findByUuid(exerciseUuid: ID) {
+        return this.array.find(prc => prc.exercise_uuid == exerciseUuid);
     }
 
     async create(tasked_exercise_id: ID) {

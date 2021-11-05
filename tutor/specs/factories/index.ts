@@ -13,6 +13,7 @@ import {
     ResearchSurvey,
     StudentDashboardTask,
     GradingTemplate,
+    PracticeQuestion,
 }  from '../../src/models'
 
 //import  from '../../src/models/task-plans/teacher/stats';
@@ -62,6 +63,7 @@ const Factories = {
     teacherTaskPlan: factoryFactory('TeacherTaskPlan', TeacherTaskPlan),
     gradingTemplate: factoryFactory('GradingTemplate', GradingTemplate),
     studentDashboardTask: factoryFactory('StudentDashboardTask', StudentDashboardTask),
+    practiceQuestion: factoryFactory('PracticeQuestion', PracticeQuestion),
 
     coursesMap: ({ count = 2, ...attrs }:any = {}) => {
         const map = new CoursesMap();
@@ -158,6 +160,14 @@ const Factories = {
         return map;
     },
 
+    practiceQuestions: ({ course, count = 2 }: { course: Course, count?: number }) => {
+        const map = course.practiceQuestions;
+        range(count).map(() => {
+            const o = hydrateModel(PracticeQuestion, FactoryBot.create('PracticeQuestion', { course }))
+            map.set(o.id, o)
+        })
+        return map;
+    },
 }
 
 // const n = Factories.note()
