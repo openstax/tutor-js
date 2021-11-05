@@ -11,12 +11,13 @@ import type {
     TaskPlanType, TeacherTaskPlan,
 } from '../../../models'
 import {
-    DroppedQuestion, GradingTemplate, CoursePeriod, currentExercises,
+    DroppedQuestion, GradingTemplate, CoursePeriod, currentExercises, Exercise,
 } from '../../../models'
+import { GroupType } from '../../../models/student-tasks/step'
 
 export class TaskPlanScoreStudentQuestion extends BaseModel {
-    @field question_id?:ID;
-    @field exercise_id?:ID;
+    @field question_id?: ID;
+    @field exercise_id?: ID;
     @field is_completed = false;
     @field points?: number;
     @field comments = ''
@@ -141,7 +142,7 @@ export class TaskPlanScoreStudent extends BaseModel {
     @field late_work_point_penalty = 0
     @field grades_need_publishing = false
 
-    @model(TaskPlanScoreStudentQuestion) questions:TaskPlanScoreStudentQuestion[] = [];
+    @model(TaskPlanScoreStudentQuestion) questions: TaskPlanScoreStudentQuestion[] = [];
 
     get tasking() { return getParentOf<TaskPlanScoresTasking>(this) }
 
@@ -156,12 +157,12 @@ export class TaskPlanScoreStudent extends BaseModel {
     * except that repeats are not allowed
     */
     @computed get questionHeadings() {
-        const usedHeadings:TaskPlanScoreHeading[] = [];
+        const usedHeadings: TaskPlanScoreHeading[] = [];
 
         return this.questions.map((question, questionIdx) => {
             const heading = this.tasking.question_headings.slice(questionIdx).find(
                 heading => heading.question_ids.includes(question.question_id || 0) &&
-                           !usedHeadings.includes(heading)
+                    !usedHeadings.includes(heading)
             )
 
             if (!heading) { return null; }
@@ -199,7 +200,7 @@ export class TaskPlanScoreStudent extends BaseModel {
     }
 
     @computed get extension() {
-        if(isEmpty(this.tasking.scores.taskPlan.extensions)) return null;
+        if (isEmpty(this.tasking.scores.taskPlan.extensions)) return null;
         return this.tasking.scores.taskPlan.extensions.find(ex => ex.role_id == this.role_id);
     }
 
@@ -225,6 +226,7 @@ export class TaskPlanScoreHeading extends BaseModel {
     @field points = 0;
     @field points_without_dropping = 0;
     @field ecosystem_id = NEW_ID;
+    @field group_type: GroupType = GroupType.Unknown;
 
     exercises = currentExercises
 
@@ -237,6 +239,14 @@ export class TaskPlanScoreHeading extends BaseModel {
 
     @computed get isCore() {
         return 'Tutor' !== this.type;
+    }
+
+    @computed get isPersonalized() {
+        return this.group_type === GroupType.Personalized
+    }
+
+    @computed get isSpacedPractice() {
+        return this.group_type === GroupType.SpacedPractice
     }
 
     @computed get index() {
@@ -261,7 +271,7 @@ export class TaskPlanScoreHeading extends BaseModel {
         if (this.question_ids.length != 1) { return null; }
 
         return this.exercise &&
-               this.exercise.content.questions.find(q => q.id == this.question_ids[0]);
+            this.exercise.content.questions.find(q => q.id == this.question_ids[0]);
     }
 
     @computed get questionIdsSet() {
@@ -374,6 +384,26 @@ export class TaskPlanScoreHeading extends BaseModel {
     }
 }
 
+type QuestionInfo = {
+    availablePoints: number,
+    averagePoints: number,
+    completed: number,
+    droppedQuestion: DroppedQuestion,
+    exercise: Exercise,
+    hasFreeResponse: boolean,
+    heading: TaskPlanScoreHeading,
+    id: ID,
+    index: number,
+    isCore: boolean,
+    isSpacedPractice: boolean,
+    key: number,
+    points: number,
+    question: TaskPlanScoreStudentQuestion,
+    remaining: number,
+    responses: TaskPlanScoreStudentQuestion[],
+    totalPoints: number,
+}
+
 export class TaskPlanScoresTasking extends BaseModel {
     @field id = NEW_ID;
     @field period_id: ID = NEW_ID;
@@ -436,6 +466,7 @@ export class TaskPlanScoresTasking extends BaseModel {
                         remaining: heading ? heading.gradedStats.remaining : 0,
                         index: studentQuestion.index,
                         isCore: heading?.isCore,
+                        isSpacedPractice: heading?.isSpacedPractice,
                         droppedQuestion: droppedQuestion,
                         heading,
                         exercise,
@@ -450,7 +481,7 @@ export class TaskPlanScoresTasking extends BaseModel {
         // add their stats once all the questions are gathered
         return sortBy(Object.values(info).map((qi: any) => {
             for (const answer of qi.question.answers) {
-                answer.selected_count = filter(qi.responses, r => r.selected_answer_id == answer.id).length,
+                answer.selected_count = filter(qi.responses, r => r.selected_answer_id == answer.id).length;
                 answer.answered_count = qi.responses.length;
             }
             return {
@@ -459,7 +490,7 @@ export class TaskPlanScoresTasking extends BaseModel {
                 completed: filter(qi.responses, 'is_completed').length,
                 points: sumBy(qi.responses, 'points'),
                 totalPoints: qi.points * qi.responses.length,
-            };
+            } as QuestionInfo;
         }), 'index');
     }
 
@@ -509,7 +540,7 @@ export class TaskPlanScoresTasking extends BaseModel {
 
     @computed get hasFinishedGrading() {
         const completedWrmQuestions = filter(this.wrmQuestions, s => s.is_completed);
-        if(completedWrmQuestions.length <= 0) { return false; }
+        if (completedWrmQuestions.length <= 0) { return false; }
         return every(completedWrmQuestions, q => !q.needs_grading);
     }
 
@@ -518,13 +549,19 @@ export class TaskPlanScoresTasking extends BaseModel {
         return some(wrmQuestions, q => q.is_completed);
     }
 
-    @computed get groupQuestionsByPageTopic() {
-        const questions = this.questionsInfo;
+    @computed get questionsGroupedByPageTopic() {
+        // Filter out spaced practice so they can be shown at the end of the QuestionList
+        const questions = this.questionsInfo.filter(i => !i.heading.isSpacedPractice);
+
         //order the questions by the exercise page's chapter_section so that the first chapters are shown first
         const sortedQuestions = orderBy(questions, ['exercise.page.chapter_section.asNumber'], ['asc']);
         return groupBy(sortedQuestions, q => {
             return q.exercise.page.title;
         });
+    }
+
+    @computed get spacedPracticeQuestions() {
+        return this.questionsInfo.filter(i => i.heading.isSpacedPractice)
     }
 }
 
@@ -545,7 +582,7 @@ export class TaskPlanScores extends BaseModel {
         modelize(this);
     }
 
-    @model(DroppedQuestion) dropped_questions:DroppedQuestion[] = []
+    @model(DroppedQuestion) dropped_questions: DroppedQuestion[] = []
 
     @model(TaskPlanScoresTasking) tasking_plans = array((taskings: TaskPlanScoresTasking[]) => ({
         forPeriod(period: CoursePeriod) { return find(taskings, { period_id: period.id }); },
