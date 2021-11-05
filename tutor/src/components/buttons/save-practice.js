@@ -77,7 +77,7 @@ const SavePracticeButton = observer(({
     };
 
     const getPracticeQuestion = () => {
-        if (!practiceQuestions) { return null; }
+        if (!practiceQuestions || !taskStep) { return null; }
         return practiceQuestions.findByUuid(taskStep.exercise_uuid);
     };
 
