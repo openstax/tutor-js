@@ -29,9 +29,15 @@ test.describe('without any students', () => {
         await page.click('testId=course-details-tab')
         await expect(page).toHaveSelector('.course-detail-settings-form')
         await page.click('testId=delete-course-btn')
+
         await expect(page).toMatchText('testId=delete-course-message', /delete/)
         await expect(page).not.toHaveSelector('testId=disabled-delete-course-message-warning')
-        await page.click('testId=confirm-delete-btn')
+
+        // The delete course dialog has an opening animation that we must wait for before clicking
+        const confirmDeleteBtn = await page.waitForSelector('testId=confirm-delete-btn')
+        await confirmDeleteBtn.waitForElementState('stable')
+        await confirmDeleteBtn.click()
+
         await expect(page).toHaveSelector('testId=existing-teacher-screen')
         expect(
             await page.evaluate(() => document.location.pathname)

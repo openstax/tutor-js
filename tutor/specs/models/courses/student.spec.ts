@@ -1,4 +1,4 @@
-import { TimeMock, Factory, ld, Time } from '../../helpers';
+import { TimeMock, Factory, Time } from '../../helpers';
 import { FeatureFlagsApi, Course, CourseStudent } from '../../../src/models'
 
 // jest.mock('../../../src/models/payments');
@@ -14,8 +14,8 @@ describe('Course Student', () => {
     });
 
     test('#needsPayment', () => {
-        course.students.push(Factory.bot.create('Student') as CourseStudent)
-        const student = ld.last(course.students)!
+        course.student_record = Factory.bot.create('Student') as CourseStudent
+        const student = course.student_record
         expect(student.isUnPaid).toBe(true)
         expect(student.needsPayment).toBe(false);
         FeatureFlagsApi.set('is_payments_enabled', true)
@@ -30,8 +30,10 @@ describe('Course Student', () => {
     test('#mustPayImmediately', () => {
         FeatureFlagsApi.set('is_payments_enabled', true)
         //Payments.config.is_enabled = true;
-        course.students.push(Factory.bot.create('Student', { payment_due_at: '1999-12-30' }) as CourseStudent)
-        const student = ld.last(course.students)!
+        course.student_record = Factory.bot.create(
+            'Student', { payment_due_at: '1999-12-30' }
+        ) as CourseStudent
+        const student = course.student_record
         expect(student.needsPayment).toBe(true);
         expect(student.mustPayImmediately).toBe(true);
         student.payment_due_at = new Time('2000-01-02');

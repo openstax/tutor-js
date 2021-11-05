@@ -10,8 +10,10 @@ import type { CoursesMap } from './courses-map'
 import UiSettings from 'shared/model/ui-settings';
 import {
     Time, Interval, Notes, CourseData, currentOfferings, Offering,
-    CourseScores as Scores, CoursePeriod as Period, CourseRole as Role, CourseStudent as Student, CourseRoster as Roster,
-    TeacherProfile, CourseTeacher, CourseTeachers, StudentTasks, PastTaskPlans, CourseLMS as LMS, TeacherTaskPlans, StudentTaskPlans, GradingTemplates,
+    CourseScores as Scores, CoursePeriod as Period, CourseRole as Role, CourseTeachers,
+    CourseTeacher, CourseStudent, CourseTeacherStudent, CourseRoster as Roster,
+    TeacherProfile, StudentTasks, PastTaskPlans, CourseLMS as LMS,
+    TeacherTaskPlans, StudentTaskPlans, GradingTemplates,
     PracticeQuestions, ReferenceBook, FeatureFlags, Exercise, CourseInformation, CoursePerformance,
 } from '../models'
 import PH from '../helpers/period';
@@ -25,47 +27,50 @@ const SAVEABLE_ATTRS = [
 
 export class Course extends BaseModel {
 
-    @field id = NEW_ID;
+    @field id = NEW_ID
 
-    @field name = '';
-    @field code = '';
-    @field is_lms_enabled = false;
+    @field name = ''
+    @field code = ''
+    @field is_lms_enabled = false
 
-    @field appearance_code = '';
-    @field uuid = '';
-    @field does_cost = false;
-    @field book_pdf_url = '';
+    @field appearance_code = ''
+    @field uuid = ''
+    @field does_cost = false
+    @field book_pdf_url = ''
     @field cloned_from_id: null| ID = null
-    @field default_due_time = '';
-    @field default_open_time = '';
-    @field ecosystem_book_uuid = '';
-    @field ecosystem_id = NEW_ID;
-    @field is_active = false;
-    @field is_college = false;
-    @field is_concept_coach = false;
-    @field is_preview = false;
-    @field timezone = 'US/Central';
-    @field offering_id = NEW_ID;
-    @field is_lms_enabling_allowed = false;
-    @field is_access_switchable = true;
-    @field salesforce_book_name = '';
-    @field current_role_id = NEW_ID;
-    @model(Time) starts_at = Time.unknown;
-    @model(Time) ends_at = Time.unknown;
+    @field default_due_time = ''
+    @field default_open_time = ''
+    @field ecosystem_book_uuid = ''
+    @field ecosystem_id = NEW_ID
+    @field is_active = false
+    @field is_college = false
+    @field is_concept_coach = false
+    @field is_preview = false
+    @field timezone = 'US/Central'
+    @field offering_id = NEW_ID
+    @field is_lms_enabling_allowed = false
+    @field is_access_switchable = true
+    @field salesforce_book_name = ''
+    @field current_role_id = NEW_ID
+    @model(Time) starts_at = Time.unknown
+    @model(Time) ends_at = Time.unknown
+    @model(CourseTeacher) teacher_record: CourseTeacher|null = null
+    @model(CourseStudent) student_record: CourseStudent|null = null
+    @model(CourseTeacherStudent) teacher_student_records: CourseTeacherStudent[] = []
 
-    @field term = '';
-    @field webview_url = '';
-    @field year = 0;
+    @field term = ''
+    @field webview_url = ''
+    @field year = 0
 
-    @field homework_score_weight = 0;
-    @field homework_progress_weight = 0;
-    @field reading_score_weight = 0;
-    @field reading_progress_weight = 0;
-    @field reading_weight = 0;
-    @field homework_weight = 0;
-    @field just_created = false;
-    @field uses_pre_wrm_scores = false;
-    @field should_reuse_preview = false;
+    @field homework_score_weight = 0
+    @field homework_progress_weight = 0
+    @field reading_score_weight = 0
+    @field reading_progress_weight = 0
+    @field reading_weight = 0
+    @field homework_weight = 0
+    @field just_created = false
+    @field uses_pre_wrm_scores = false
+    @field should_reuse_preview = false
 
     @lazyGetter get lms() { return hydrateModel(LMS, {}, this) }
     @lazyGetter get notes() { return hydrateModel(Notes, {}, this) }
@@ -85,9 +90,6 @@ export class Course extends BaseModel {
         get sorted() { return sortBy(profiles, 'name') },
         get current() { return find(profiles, tp => tp.isCurrentUser); },
     }))
-    @model(CourseTeacher) teachers = array((teachers: CourseTeacher[]) => ({
-        get current() { return teachers.find(t => t.isTeacherOfCourse) },
-    }))
     @model(Period) periods = array((a: Period[]) => ({
         get sorted() { return PH.sort(a) },
         get archived() { return filter(this.sorted, period => !period.is_archived) },
@@ -98,8 +100,6 @@ export class Course extends BaseModel {
         get teacher() { return find(roles, { isTeacher: true }); },
         get teacherStudent() { return find(roles, { isTeacherStudent: true }); },
     }))
-
-    @model(Student) students: Student[] = [];
 
     get otherCourses():CoursesMap { return getParentOf(this) }
 
@@ -136,8 +136,11 @@ export class Course extends BaseModel {
         this.studentTasks.reset();
     }
     @computed get userStudentRecord() {
-        const role = this.roles.student || this.roles.teacherStudent;
-        return role ? find(this.students, { role_id: role.id }) : null;
+        if (this.student_record && this.student_record.role_id == this.currentRole.id) {
+            return this.student_record
+        }
+
+        return this.teacher_student_records.find((r) => r.role_id == this.currentRole.id) || null
     }
 
     @computed get currentRole() {
