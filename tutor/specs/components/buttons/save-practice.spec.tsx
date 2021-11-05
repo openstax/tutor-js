@@ -38,7 +38,7 @@ describe('SavePracticeButton', () => {
     it('finds existing practice question by exercise uuid', () => {
         const { exercise_uuid } = practiceQuestions.array[0]
         props.taskStep = {
-            exercise_uuid: exercise_uuid
+            exercise_uuid: exercise_uuid,
         }
         const button = mount(<SavePracticeButton {...props} />)
         expect(button.text()).toContain('Remove from practice')

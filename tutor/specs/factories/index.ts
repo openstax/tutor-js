@@ -161,13 +161,13 @@ const Factories = {
     },
 
     practiceQuestions: ({ course, count = 2 }: { course: Course, count?: number }) => {
-         const map = course.practiceQuestions;
-         range(count).map(() => {
-             const o = hydrateModel(PracticeQuestion, FactoryBot.create('PracticeQuestion', { course }))
-             map.set(o.id, o)
-         })
-         return map;
-     },
+        const map = course.practiceQuestions;
+        range(count).map(() => {
+            const o = hydrateModel(PracticeQuestion, FactoryBot.create('PracticeQuestion', { course }))
+            map.set(o.id, o)
+        })
+        return map;
+    },
 }
 
 // const n = Factories.note()
