@@ -25,11 +25,10 @@ const STUDENT_COURSE_ONE_MODEL = {
         type: 'student',
         joined_at: moment().subtract(1, 'week').format(),
     }],
-
-    students: [{
+    student_record: {
         role_id: '1', student_identifier: '1234', uuid: '06fc16fc-70f5-4db1-a61d-b0f496cf3cd4',
         is_paid: false, is_comped: false, is_active: true, first_name: 'Test', last_name: 'Tester',
-    }],
+    },
 };
 
 const TEACHER_COURSE_TWO_MODEL = {
@@ -62,12 +61,17 @@ const TEACHER_COURSE_TWO_MODEL = {
         default_due_time: '12:00',
         is_archived: false,
     }],
-
     roles: [{
         id: '1',
         type: 'teacher',
         joined_at: moment().subtract(2, 'week').format(),
     }],
+    teacher_record: {
+        role_id: '1',
+        is_active: true,
+        first_name: 'Test',
+        last_name: 'Tester',
+    },
 };
 
 const TEACHER_AND_STUDENT_COURSE_THREE_MODEL = {
@@ -94,11 +98,16 @@ const TEACHER_AND_STUDENT_COURSE_THREE_MODEL = {
         type: 'teacher',
         joined_at: moment().subtract(1, 'week').format(),
     }],
-
-    students: [{
+    student_record: {
         role_id: '1', student_identifier: '1234', uuid: '06fc16fc-70f5-4db1-a61d-b0f496cf3cd4',
         is_paid: false, is_comped: false, is_active: true, first_name: 'Test', last_name: 'Tester',
-    }],
+    },
+    teacher_record: {
+        role_id: '2',
+        is_active: true,
+        first_name: 'Test',
+        last_name: 'Tester',
+    },
 };
 
 const STUDENT_ARCHIVED_COURSE = {
@@ -121,6 +130,10 @@ const STUDENT_ARCHIVED_COURSE = {
         type: 'student',
         joined_at: moment().subtract(1, 'week').format(),
     }],
+    student_record: {
+        role_id: '1', student_identifier: '1234', uuid: '06fc16fc-70f5-4db1-a61d-b0f496cf3cd4',
+        is_paid: false, is_comped: false, is_active: false, first_name: 'Test', last_name: 'Tester',
+    },
 };
 
 const TEACHER_PAST_COURSE = {
@@ -143,6 +156,12 @@ const TEACHER_PAST_COURSE = {
         type: 'teacher',
         joined_at: moment().subtract(1, 'week').format(),
     }],
+    teacher_record: {
+        role_id: '1',
+        is_active: true,
+        first_name: 'Test',
+        last_name: 'Tester',
+    },
 };
 
 const STUDENT_PAST_COURSE = {
@@ -165,6 +184,10 @@ const STUDENT_PAST_COURSE = {
         type: 'student',
         joined_at: moment().subtract(1, 'week').format(),
     }],
+    student_record: {
+        role_id: '1', student_identifier: '1234', uuid: '06fc16fc-70f5-4db1-a61d-b0f496cf3cd4',
+        is_paid: false, is_comped: false, is_active: true, first_name: 'Test', last_name: 'Tester',
+    },
 };
 
 const MASTER_COURSES_LIST = [

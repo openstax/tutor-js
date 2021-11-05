@@ -3,7 +3,7 @@ import {
     hydrateModel, array,
 } from 'shared/model';
 import Time from 'shared/model/time';
-import { find, startsWith, map, uniq, max, remove, omit, flatMap, compact } from 'lodash';
+import { find, startsWith, map, uniq, max, remove, omit, compact } from 'lodash';
 import UiSettings from 'shared/model/ui-settings';
 import { FeatureFlags, currentCourses, Tour, Course, UserTermsMap, UserTerm } from '../models'
 import ViewedTourStat from './user/viewed-tour-stat';
@@ -205,9 +205,7 @@ export class User extends BaseModel {
     }
 
     @computed get paymentCodePurchases() {
-        return compact(flatMap(this.courses.array, (c) => (
-            flatMap(c.students, 'paymentCodeAsPurchase')
-        )))
+        return compact(map(this.courses.array, (c) => c.student_record?.paymentCodeAsPurchase))
     }
 
     async fetch() {

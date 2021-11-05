@@ -1,10 +1,6 @@
 import { find, pick, last } from 'lodash';
-import { CourseStudent as Student } from '../../models'
-import type {
-    CoursePeriodData, RoleData,
-    Course,
-    CourseRole as Role,
-} from '../../models'
+import { CourseTeacherStudent as TeacherStudent } from '../../models'
+import type { CoursePeriodData, Course, CourseRole as Role } from '../../models'
 
 import Time from 'shared/model/time'
 import urlFor from '../../api'
@@ -85,38 +81,32 @@ export class CoursePeriod extends BaseModel {
         this.update(periodData)
     }
 
-    @action async getTeacherStudentRole() {
-        let role = this.course.roles.find((r) => (
-            r.isTeacherStudent && r.period_id == this.id
-        ));
-        if (!role) {
-            const returnedRole = await this.createTeacherStudent();
-            this.course.roles.push(returnedRole as any as Role)
-            role = last(this.course.roles)
+    @action async getTeacherStudent() {
+        let teacherStudent = this.course.teacher_student_records.find(
+            (r) => (r.period_id == this.id)
+        )
+        if (!teacherStudent) {
+            const returnedTS = await this.createTeacherStudent();
+            this.course.teacher_student_records.push(returnedTS)
+            this.course.roles.push(
+                {
+                    id: returnedTS.role_id,
+                    type: 'teacher-student',
+                    period_id: this.id,
+                    joined_at: Time.now,
+                } as Role
+            )
+            teacherStudent = last(this.course.teacher_student_records)
         }
         runInAction(() => {
-            if (!role) throw 'failed to find role for becoming teacher-student'
-            role.joined_at = Time.now; // adjust the date so it always appears new
-            let student = find(this.course.students, { id: Student.TEACHER_AS_STUDENT_ID });
-            if (!student) {
-                this.course.students.push({ id: Student.TEACHER_AS_STUDENT_ID } as Student);
-                student = last(this.course.students) as Student;
-            }
-            student.update({
-                role_id: role.id,
-                student_identifier: '',
-                first_name: 'Instructor',
-                is_comped: true,
-                last_name: 'Review',
-                name: 'Instructor Review',
-                period_id: this.id,
-                prompt_student_to_pay: false,
-            });
+            if (!teacherStudent) throw 'failed to find role for becoming teacher-student'
         });
-        return role;
+        return teacherStudent;
     }
 
     createTeacherStudent() {
-        return this.api.request<RoleData>(urlFor('createTeacherStudent', { periodId: this.id }))
+        return this.api.request<TeacherStudent>(
+            urlFor('createTeacherStudent', { periodId: this.id })
+        )
     }
 }
