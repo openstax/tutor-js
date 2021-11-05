@@ -82,7 +82,7 @@ const QuestionHeader = observer(({ ux, styleVariant, label, info }) => (
 QuestionHeader.propTypes = {
     styleVariant: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
-    info:  PropTypes.object.isRequired,
+    info: PropTypes.object.isRequired,
 };
 
 const QuestionFooter = observer(({ ux, info }) => {
@@ -94,33 +94,33 @@ const QuestionFooter = observer(({ ux, info }) => {
             Average score: {info.averagePoints ? ScoresHelper.formatPoints(info.averagePoints) : 'n/a'}
         </strong>
         {ux.canDisplayGradingButton &&
-      <GradeButton
-          className={cn('btn btn-new-flag',
-              {
-                  'btn-primary': !ux.scores.hasFinishedGrading,
-                  'btn-standard': !ux.scores.hasFinishedGrading,
-                  'btn-new-flag': !ux.scores.hasFinishedGrading,
-                  'btn-link': ux.scores.hasFinishedGrading,
-              })}
-          to="gradeAssignmentQuestion"
-          params={{
-              courseId: ux.course.id,
-              id: ux.planId,
-              periodId: ux.selectedPeriod.id,
-              questionId: `${info.id}`,
-          }}
-          displayingFlag={displayingFlag}
-      >
-          {displayingFlag && <span className="flag">{info.remaining} NEW</span>}
-          <span>{ux.scores.hasFinishedGrading ? 'Regrade' : 'Grade Answers' }</span>
-      </GradeButton>
+            <GradeButton
+                className={cn('btn btn-new-flag',
+                    {
+                        'btn-primary': !ux.scores.hasFinishedGrading,
+                        'btn-standard': !ux.scores.hasFinishedGrading,
+                        'btn-new-flag': !ux.scores.hasFinishedGrading,
+                        'btn-link': ux.scores.hasFinishedGrading,
+                    })}
+                to="gradeAssignmentQuestion"
+                params={{
+                    courseId: ux.course.id,
+                    id: ux.planId,
+                    periodId: ux.selectedPeriod.id,
+                    questionId: `${info.id}`,
+                }}
+                displayingFlag={displayingFlag}
+            >
+                {displayingFlag && <span className="flag">{info.remaining} NEW</span>}
+                <span>{ux.scores.hasFinishedGrading ? 'Regrade' : 'Grade Answers'}</span>
+            </GradeButton>
         }
     </Footer>);
 });
 QuestionHeader.propTypes = {
     styleVariant: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
-    info:  PropTypes.object.isRequired,
+    info: PropTypes.object.isRequired,
 };
 
 const StyledQuestionFreeResponse = styled.div`
@@ -281,10 +281,10 @@ const WRQFreeResponse = observer(({ ux, info }) => {
                     <div className="grade">
                         {response.needs_grading && 'Not graded'}
                         {!isNaN(response.grader_points) &&
-              <div>
-                  <h3>{ScoresHelper.formatPoints(response.grader_points)}</h3>
-                  {response.grader_comments}
-              </div>}
+                            <div>
+                                <h3>{ScoresHelper.formatPoints(response.grader_points)}</h3>
+                                {response.grader_comments}
+                            </div>}
                     </div>
                 </StyledQuestionFreeResponse>
             </ResponseWrapper>
@@ -422,7 +422,7 @@ const GradingBlock = observer(({ ux }) => {
                 }}
             >
                 {ux.gradeableQuestionCount > 0 &&
-          <span className="flag">{ux.gradeableQuestionCount} NEW</span>}
+                    <span className="flag">{ux.gradeableQuestionCount} NEW</span>}
                 <span>Grade answers</span>
             </GradeButton>
             <p>This assignment is now open for grading.</p>
@@ -510,8 +510,11 @@ HomeworkQuestionsWrapper.propTypes = {
     questionsInfo: PropTypes.any.isRequired,
 };
 
-const QuestionList = observer(({ ux, scores }) => {
-    if (!ux.isExercisesReady) { return <Loading message="Loading Questions…"/>; }
+const QuestionList = observer(({ ux }) => {
+    const { scores } = ux
+
+    if (!ux.isExercisesReady) { return <Loading message="Loading Questions…" />; }
+    if (!scores) { return null }
 
     if (scores.questionsInfo && scores.questionsInfo.length === 0) {
         return (
@@ -522,32 +525,51 @@ const QuestionList = observer(({ ux, scores }) => {
         );
     }
 
-    if(ux.planScores.isReading) {
-        return Object.keys(scores.groupQuestionsByPageTopic).map((key, index) => (
+    if (ux.planScores.isReading) {
+        const personalizedQuestions = Object.keys(scores.questionsGroupedByPageTopic).map((key, index) => (
             <div key={index}>
                 <StyledTopicHeader>
                     <h3>
-                        <ArbitraryHtmlAndMath
-                            html={key} />
+                        <ArbitraryHtmlAndMath html={key} />
                     </h3>
                     {/** Only the show the button at the top with the very first header */}
                     {
                         index === 0 &&
-            <NamesToogleButton ux={ux}/>
+                        <NamesToogleButton ux={ux} />
                     }
                 </StyledTopicHeader>
                 <HomeworkQuestionsWrapper
-                    questionsInfo={scores.groupQuestionsByPageTopic[key]}
+                    questionsInfo={scores.questionsGroupedByPageTopic[key]}
                     ux={ux}
                 />
             </div>
-        ));
+        ))
+
+
+        const spacedPracticeQuestions = (
+            <div key="spaced-practice">
+                <StyledTopicHeader>
+                    <h3>Spaced Practice</h3>
+                </StyledTopicHeader>
+                <HomeworkQuestionsWrapper
+                    questionsInfo={scores.spacedPracticeQuestions}
+                    ux={ux}
+                />
+            </div>
+        )
+
+        return (
+            <>
+                {personalizedQuestions}
+                {scores.spacedPracticeQuestions.length > 0 && spacedPracticeQuestions}
+            </>
+        );
     }
 
     return (
         <>
             <StyledNamesToogleButtonWrapper>
-                <NamesToogleButton ux={ux}/>
+                <NamesToogleButton ux={ux} />
             </StyledNamesToogleButtonWrapper>
             <HomeworkQuestionsWrapper
                 questionsInfo={scores.questionsInfo}
@@ -565,7 +587,7 @@ QuestionList.propTypes = {
 
 const HomeWorkInfo = observer(({ ux }) => (
     <>
-        <GradingBlock ux={ux}/>
+        <GradingBlock ux={ux} />
         <StyledStickyTable>
             <Row>
                 <Header>Question Number</Header>
@@ -574,8 +596,8 @@ const HomeWorkInfo = observer(({ ux }) => (
                         <DroppedQuestionHeadingIndicator heading={h} preventOverflow={false} />
                         {h.isCore ?
                             <StyledButton variant="link" onClick={() => ux.scrollToQuestion(h.question_id, i)}>
-                                {i+1}
-                            </StyledButton> : i+1}
+                                {i + 1}
+                            </StyledButton> : i + 1}
                     </Header>)}
             </Row>
             <Row>
@@ -618,7 +640,7 @@ const Overview = observer(({ ux }) => {
     return (
         <Wrapper data-test-id="overview">
             {ux.planScores.isHomework && <HomeWorkInfo ux={ux} />}
-            <QuestionList ux={ux} scores={ux.scores} />
+            <QuestionList ux={ux} />
             <DropQuestionModal ux={ux} />
         </Wrapper>
     );

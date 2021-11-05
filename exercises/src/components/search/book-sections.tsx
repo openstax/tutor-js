@@ -1,13 +1,11 @@
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import React from 'react'
-import { Box } from 'boxible'
-import { Row, Col } from 'react-bootstrap'
 import ReactSelect, { components } from 'react-select'
 import { observer } from 'mobx-react'
 import { action, modelize, computed } from 'shared/model'
 import Books from '../../models/books'
-import { BookPart } from  '../../models/book'
+import { BookPart } from '../../models/book'
 import Search from '../../models/search'
 
 interface OptionType {
@@ -52,8 +50,7 @@ interface BookSectionsProps {
 }
 
 @observer
-export default
-class BookSections extends React.Component<BookSectionsProps> {
+export default class BookSections extends React.Component<BookSectionsProps> {
 
     static propTypes = {
         search: PropTypes.object.isRequired,
@@ -71,7 +68,7 @@ class BookSections extends React.Component<BookSectionsProps> {
         if (!parts) return []
 
         return parts.flatMap(part => {
-            const option:OptionType = { label: part.title }
+            const option: OptionType = { label: part.title }
 
             if (part.contents) {
                 // Chapter or Unit
@@ -143,35 +140,31 @@ class BookSections extends React.Component<BookSectionsProps> {
     }
 
     @action.bound handleSectionChange(option?: OptionType) {
+        this.props.search.bookTag = ''
         this.props.search.sectionUuid = option?.value || ''
     }
 
     render() {
         return (
-            <Row className="book-limit">
-                <Col xs={8}>
-                    <Box align="center" gap margin="bottom">
-                        <b>Limit results to book section:</b>
-                        <Select
-                            isClearable
-                            value={this.selectedBook}
-                            options={this.books}
-                            onChange={this.handleBookChange}
-                        />
-                        <Select
-                            isClearable
-                            value={this.selectedBookChapterSection}
-                            options={this.sections}
-                            components={{
-                                SingleValue: SelectedBookSection,
-                                GroupHeading: BookChapter,
-                                Option: BookSection,
-                            }}
-                            onChange={this.handleSectionChange}
-                        />
-                    </Box>
-                </Col>
-            </Row>
+            <>
+                <Select
+                    isClearable
+                    value={this.selectedBook}
+                    options={this.books}
+                    onChange={this.handleBookChange}
+                />
+                <Select
+                    isClearable
+                    value={this.selectedBookChapterSection}
+                    options={this.sections}
+                    components={{
+                        SingleValue: SelectedBookSection,
+                        GroupHeading: BookChapter,
+                        Option: BookSection,
+                    }}
+                    onChange={this.handleSectionChange}
+                />
+            </>
         )
     }
 
