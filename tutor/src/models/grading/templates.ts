@@ -8,12 +8,11 @@ import {
 import S from '../../helpers/string';
 import urlFor from '../../api'
 import type { Course } from '../../models'
+import { FormikValues } from 'formik'
 
 class GradingTemplate extends BaseModel {
 
-    // returns a formik errors object as described:
-    // https://jaredpalmer.com/formik/docs/guides/validation
-    static validate(_tmpl: GradingTemplate, _form: any) { // eslint-disable-line no-unused-vars
+    static validate(_values: FormikValues) { // eslint-disable-line no-unused-vars
         return {};
     }
 

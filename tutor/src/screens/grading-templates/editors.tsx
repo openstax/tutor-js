@@ -3,7 +3,7 @@ import { Button, Modal, Alert } from 'react-bootstrap';
 import { isEmpty, range, map } from 'lodash';
 import { GradingTemplate } from '../../models';
 import { colors, fonts } from '../../theme';
-import { Formik, Form, ErrorMessage, Field } from 'formik';
+import { Formik, Form, ErrorMessage, Field, FormikValues, FormikProps } from 'formik';
 import NumberInput from '../../components/number-input';
 import RadioInput from '../../components/radio-input';
 import TimeInput from '../../components/time-input';
@@ -12,12 +12,7 @@ import TemplateModal from '../../components/course-modal';
 import InfoIcon from '../../components/icons/info';
 import SmallText from '../../components/small-text';
 
-const propTypes = {
-    template: PropTypes.instanceOf(GradingTemplate).isRequired,
-};
-
-
-const isValidPercentNumber = (v) => (v < 0 || v > 100) && 'must be between 0 & 100';
+const isValidPercentNumber = (v: number) => (v < 0 || v > 100) && 'must be between 0 & 100';
 
 const StyledTemplateModal = styled(TemplateModal)`
   .modal-dialog {
@@ -65,6 +60,7 @@ const Row = styled.div`
 const SplitRow = styled.div`
   display: flex;
   margin-bottom: 2.4rem;
+  gap: 112px;
   > *:first-child {
     flex-basis: 40%;
   }
@@ -167,7 +163,16 @@ const StyledTextInput = styled(Field).withConfig({
   }
 `;
 
-const TextInput = (props) => (
+interface TextInputProps {
+    id: string
+    name: string
+    validate: (name: string) => string | null
+    placeholder: string
+    innerRef: (ref: HTMLInputElement) => void
+    hasError: boolean
+}
+
+const TextInput = (props: TextInputProps) => (
     <TextInputWrapper>
         <StyledTextInput {...props} />
         <ErrorMessage name={props.name} render={msg => <TextInputError>{msg}</TextInputError>} />
@@ -189,21 +194,29 @@ const Error = styled(Alert).attrs({
 `;
 
 const wholePercent = {
-    fromNumber(v) {
+    fromNumber(v: number) {
         return Math.round(v * 100);
     },
-    toNumber(v) {
+    toNumber(v: number) {
         return (v / 100).toFixed(2);
     },
 };
 
-const enforceNumberInput = (ev) => {
+const enforceNumberInput = (ev: KeyboardEvent) => {
     if (ev.key.length === 1 && /\D/.test(ev.key)) {
         ev.preventDefault();
     }
 };
 
-const FieldsetRow = observer(({ legend, legendHint, hint, children, ...fieldsetProps }) => {
+interface FieldsetRow {
+    legend: string,
+    legendHint?: string | React.ReactNode
+    hint?: string
+    children?: React.ReactNode
+    "data-test-id"?: string
+}
+
+const FieldsetRow = observer(({ legend, legendHint, hint, children, ...fieldsetProps }: FieldsetRow) => {
     return (
         <fieldset {...fieldsetProps}>
             <legend className="sr-only">{legend} {hint}</legend>
@@ -220,28 +233,24 @@ const FieldsetRow = observer(({ legend, legendHint, hint, children, ...fieldsetP
     );
 });
 
-FieldsetRow.propTypes = {
-    legend: PropTypes.string.isRequired,
-    legendHint: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.node,
-    ]),
-};
+interface TemplateFormProps {
+    onComplete: () => void
+    onCreateTypeSelection: (name: string) => void
+    body: ({ form }: { form: FormikProps<GradingTemplate> }) => {}
+    template: GradingTemplate
+}
 
 @observer
-class TemplateForm extends React.Component {
-    static propTypes = {
-        onComplete: PropTypes.func.isRequired,
-        body: PropTypes.func.isRequired,
-        ...propTypes,
-    }
+class TemplateForm extends React.Component<TemplateFormProps> {
 
-    constructor(props) {
+    templateName?: HTMLInputElement
+
+    constructor(props: TemplateFormProps) {
         super(props);
         modelize(this);
     }
 
-    @action.bound async onSubmit(values) {
+    @action.bound async onSubmit(values: FormikValues) {
         this.props.template.update(values);
         await this.props.template.save();
 
@@ -250,11 +259,11 @@ class TemplateForm extends React.Component {
 
     componentDidMount() {
         //Focus on the template name when modal is opened
-        this.templateName.focus();
+        this.templateName?.focus();
     }
 
-    renderLateWorkFields(form) {
-        const applied = form.values.late_work_penalty_applied;
+    renderLateWorkFields(form: FormikProps<GradingTemplate>) {
+        const applied = form.values.late_work_penalty_applied
 
         return (
             <FieldsetRow
@@ -310,14 +319,14 @@ class TemplateForm extends React.Component {
                         id="late_assignment_deduction_label"
                         htmlFor="late_assignment_deduction"
                     >
-                        % for each late assignment
+                        % for late assignment
                     </SettingLabel>
                 </Setting>
             </FieldsetRow>
         );
     }
 
-    renderMultipleAttemptsFields(form, template) {
+    renderMultipleAttemptsFields(form: FormikProps<GradingTemplate>, template: GradingTemplate) {
         const header = (
             <>
                 <Line />
@@ -373,8 +382,8 @@ class TemplateForm extends React.Component {
                 </FieldsetRow>
                 <Row>
                     {form.values.allow_auto_graded_multiple_attempts &&
-                    <div className="warning">
-                        <strong>Note:</strong> The correct solution may sometimes be included in the choice-level feedback. You can review and edit choice-level feedback for questions in the Question Library.
+                        <div className="warning">
+                            <strong>Note:</strong> The correct solution may sometimes be included in the choice-level feedback. You can review and edit choice-level feedback for questions in the Question Library.
                     </div>
                     }
                     <HintText>
@@ -392,7 +401,7 @@ class TemplateForm extends React.Component {
         );
     }
 
-    renderForm = (form) => {
+    renderForm = (form: FormikProps<GradingTemplate>) => {
         const { body, template } = this.props;
         const namePlaceholder = template.task_plan_type == 'reading' ?
             'Pre-class reading, Reading-Thursday, etc.' : 'Homework, Short-essay, etc.';
@@ -423,10 +432,51 @@ class TemplateForm extends React.Component {
 
                 {body({ form })}
 
-                {map(form.errors.common, (value, key) =>
+                {map((form.errors as any).common, (value, key) =>
                     <Error key={key}>{value}</Error>)}
 
                 {template.task_plan_type == 'homework' && this.renderMultipleAttemptsFields(form, template)}
+
+
+                <Line />
+                <Row>
+                    Set randomization and display for assignments
+                </Row>
+
+                <FieldsetRow
+                    legend="Shuffle answer choices?"
+                    legendHint={
+                        <>
+                            Answer choices on a question will be randomized
+                            <InfoIcon tooltip={
+                                'Students may get the same questions but in ' +
+                                'different order of answer choices. This feature is' +
+                                'only available for Multiple Choice. Questions with' +
+                                'locked choice order and True/ False questions will ' +
+                                'not be shuffled. Learn more<TODO>'
+                            } />
+                        </>
+                    }
+                >
+                    <Setting>
+                        <RadioInput
+                            name="shuffle_answer_choices"
+                            label="Yes"
+                            onChange={() => form.setFieldValue('shuffle_answer_choices', true)}
+                            checked={form.values.shuffle_answer_choices}
+                            data-test-id="turn-on-shuffle-answer-choices"
+                        />
+                    </Setting>
+                    <Setting>
+                        <RadioInput
+                            name="shuffle_answer_choices"
+                            label="No"
+                            onChange={() => form.setFieldValue('shuffle_answer_choices', false)}
+                            checked={!form.values.shuffle_answer_choices}
+                            data-test-id="turn-off-shuffle-answer-choices"
+                        />
+                    </Setting>
+                </FieldsetRow>
 
                 <Line />
                 <Row>Set the late work policy</Row>
@@ -489,7 +539,7 @@ class TemplateForm extends React.Component {
                         (You can manage this template in <a>Grading Templates</a> under the 'Add assignment' menu)
                     </HintText>
                     <Controls>
-                        <Button variant="default" onClick={this.props.onComplete} size="lg">
+                        <Button variant={"default" as any} onClick={this.props.onComplete} size="lg">
                             Cancel
                         </Button>
                         <Button type="submit" size="lg" disabled={!form.isValid}>
@@ -531,7 +581,7 @@ class TemplateForm extends React.Component {
 }
 
 
-const reading = observer((props) => {
+const reading = observer((props: TemplateFormProps) => {
 
     return (
         <TemplateForm
@@ -553,7 +603,7 @@ const reading = observer((props) => {
                                 min={0} max={100}
                                 translate={wholePercent}
                                 validate={isValidPercentNumber}
-                                onChange={(ev) => form.setFieldValue('completion_weight', (1 - ev.target.value).toFixed(2))}
+                                onChange={(ev: React.ChangeEvent<HTMLInputElement>) => form.setFieldValue('completion_weight', (1 - ((ev.target.value as unknown) as number)).toFixed(2))}
                                 onKeyDown={enforceNumberInput}
                             />
                             <SettingLabel>% of questions point value</SettingLabel>
@@ -566,7 +616,7 @@ const reading = observer((props) => {
                                 name="completion_weight"
                                 min={0} max={100}
                                 translate={wholePercent}
-                                onChange={(ev) => form.setFieldValue('correctness_weight', (1 - ev.target.value).toFixed(2))}
+                                onChange={(ev: React.ChangeEvent<HTMLInputElement>) => { form.setFieldValue('correctness_weight', (1 - ((ev.target.value as unknown) as number)).toFixed(2)) }}
                                 onKeyDown={enforceNumberInput}
                                 validate={isValidPercentNumber}
                             />
@@ -584,10 +634,9 @@ const reading = observer((props) => {
     );
 });
 
-reading.displayName = 'ReadingTemplateEditForm';
-reading.propTypes = propTypes;
+(reading as any).displayName = 'ReadingTemplateEditForm';
 
-const homework = observer((props) => {
+const homework = observer((props: TemplateFormProps) => {
     const { template } = props;
 
     return (
@@ -656,7 +705,7 @@ const homework = observer((props) => {
                         <HintText>
                             For assignments with both auto and manually graded questions, students
                             will see a <strong>provisional score</strong> until scores for <strong>
-                                                                                                      ALL</strong> the manually-graded questions are published.
+                                ALL</strong> the manually-graded questions are published.
                         </HintText>
                     </Row>
                 </>
@@ -664,11 +713,10 @@ const homework = observer((props) => {
         />
     );
 });
-homework.displayName = 'HomeworkTemplateEditForm';
-homework.propTypes = propTypes;
+(homework as any).displayName = 'HomeworkTemplateEditForm';
 
 
-const create = observer((props) => {
+const create = observer((props: TemplateFormProps) => {
     const { onComplete, onCreateTypeSelection: onSelection } = props;
 
     return (
@@ -691,10 +739,10 @@ const create = observer((props) => {
                 </CenteredRow>
                 <CenteredRow>
                     <Row>
-                        <Button variant="default" onClick={() => onSelection('homework')} size="lg">
+                        <Button variant={"default" as any} onClick={() => onSelection('homework')} size="lg">
                             Homework
                         </Button>
-                        <Button variant="default" onClick={() => onSelection('reading')} size="lg">
+                        <Button variant={"default" as any} onClick={() => onSelection('reading')} size="lg">
                             Reading
                         </Button>
                     </Row>
@@ -704,7 +752,6 @@ const create = observer((props) => {
     );
 
 });
-homework.displayName = 'HomeworkTemplateCreate';
-homework.propTypes = propTypes;
+(homework as any).displayName = 'HomeworkTemplateCreate';
 
 export { reading, homework, create };
