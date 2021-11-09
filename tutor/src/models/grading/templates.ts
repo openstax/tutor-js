@@ -33,6 +33,7 @@ class GradingTemplate extends BaseModel {
     @field default_close_date_offset_days = 7;
     @field has_open_task_plans = false;
     @field allow_auto_graded_multiple_attempts = false;
+    @field shuffle_answer_choices = true;
 
     get map() { return getParentOf<GradingTemplates>(this) }
 
@@ -185,7 +186,7 @@ class GradingTemplates extends Map<ID, GradingTemplate> {
         this.onLoaded(templates.items)
     }
 
-    @action onLoaded(templates: GradingTemplateData[] ) {
+    @action onLoaded(templates: GradingTemplateData[]) {
         this.mergeModelData(templates)
     }
 
