@@ -208,15 +208,15 @@ const enforceNumberInput = (ev: KeyboardEvent) => {
     }
 };
 
-interface FieldsetRow {
+interface FieldsetRowProps {
     legend: string,
     legendHint?: string | React.ReactNode
     hint?: string
     children?: React.ReactNode
-    "data-test-id"?: string
+    'data-test-id'?: string
 }
 
-const FieldsetRow = observer(({ legend, legendHint, hint, children, ...fieldsetProps }: FieldsetRow) => {
+const FieldsetRow = observer(({ legend, legendHint, hint, children, ...fieldsetProps }: FieldsetRowProps) => {
     return (
         <fieldset {...fieldsetProps}>
             <legend className="sr-only">{legend} {hint}</legend>
@@ -384,7 +384,7 @@ class TemplateForm extends React.Component<TemplateFormProps> {
                     {form.values.allow_auto_graded_multiple_attempts &&
                         <div className="warning">
                             <strong>Note:</strong> The correct solution may sometimes be included in the choice-level feedback. You can review and edit choice-level feedback for questions in the Question Library.
-                    </div>
+                        </div>
                     }
                     <HintText>
                         Students can make <strong>unlimited attempts on a written-response question</strong> until that question is graded by the teacher or the assignment close date passes. <strong>No penalty</strong> on multiple attempts.
@@ -450,8 +450,8 @@ class TemplateForm extends React.Component<TemplateFormProps> {
                             Answer choices on a question will be randomized
                             <InfoIcon tooltip={
                                 'Students may get the same questions but in ' +
-                                'different order of answer choices. This feature is' +
-                                'only available for Multiple Choice. Questions with' +
+                                'different order of answer choices. This feature is ' +
+                                'only available for Multiple Choice. Questions with ' +
                                 'locked choice order and True/ False questions will ' +
                                 'not be shuffled. Learn more<TODO>'
                             } />
@@ -539,7 +539,7 @@ class TemplateForm extends React.Component<TemplateFormProps> {
                         (You can manage this template in <a>Grading Templates</a> under the 'Add assignment' menu)
                     </HintText>
                     <Controls>
-                        <Button variant={"default" as any} onClick={this.props.onComplete} size="lg">
+                        <Button variant={'default' as any} onClick={this.props.onComplete} size="lg">
                             Cancel
                         </Button>
                         <Button type="submit" size="lg" disabled={!form.isValid}>
@@ -739,10 +739,10 @@ const create = observer((props: TemplateFormProps) => {
                 </CenteredRow>
                 <CenteredRow>
                     <Row>
-                        <Button variant={"default" as any} onClick={() => onSelection('homework')} size="lg">
+                        <Button variant={'default' as any} onClick={() => onSelection('homework')} size="lg">
                             Homework
                         </Button>
-                        <Button variant={"default" as any} onClick={() => onSelection('reading')} size="lg">
+                        <Button variant={'default' as any} onClick={() => onSelection('reading')} size="lg">
                             Reading
                         </Button>
                     </Row>
