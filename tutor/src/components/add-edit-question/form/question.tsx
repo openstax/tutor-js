@@ -1,4 +1,4 @@
-import { React, PropTypes, styled, css, observer, cn } from 'vendor';
+import { React, styled, css, observer, cn } from 'vendor';
 import { map, partial } from 'lodash';
 import { Button } from 'react-bootstrap';
 import {
@@ -72,7 +72,10 @@ const StyledQuestionForm = styled.div`
     .question-answer-key {
       margin-top: 3.2rem;
     }
-    .two-step-wrapper {
+    .check-option-wrapper {
+      & + .detailed-solution {
+        margin-top: 1.2rem;
+      }
       .right-side {
         margin-top: 1rem;
         .two-step-label {
@@ -176,26 +179,47 @@ const StyledQuestionForm = styled.div`
   }
 `;
 
-const Form = observer(({ ux }) => {
-    const twoStepLabel =
-    <>
-        <span className="two-step-label">Make this Two-step question </span>
-        <QuestionInfo
-            placement="right"
-            popoverInfo={
-                <>
-                    <p>
-              A two-step question requires students to recall an answer from memory
-              before viewing the multiple-choice options.
-              Our research shows that retrieval practice helps to improve knowledge retention.
+const Form = observer(({ ux }: { ux: AddEditQuestionUX }) => {
+    const twoStepLabel = (
+        <>
+            <span className="two-step-label">Make this Two-step question </span>
+            <QuestionInfo
+                placement="right"
+                popoverInfo={
+                    <>
+                        <p>
+                            A two-step question requires students to recall an answer from memory
+                            before viewing the multiple-choice options.
+                            Our research shows that retrieval practice helps to improve knowledge retention.
                     </p>
-                    <p>
-              Students will be graded only on the multiple-choice step.
-              You can view student reponses in the ‘Submission overview’ tab.
-                    </p>
-                </>
-            }/>
-    </>;
+                        <p>
+                            Students will be graded only on the multiple-choice step.
+                            You can view student reponses in the ‘Submission overview’ tab.
+                        </p>
+                    </>
+                } />
+        </>
+    )
+
+    const lockOrderLabel = (
+        <>
+            <span className="two-step-label">Lock answer choices order</span>
+            <QuestionInfo
+                placement="right"
+                popoverInfo={
+                    <>
+                        <p>
+                            Answer choices on a question may be shuffled (students get the same questions but different order of choices).
+                        </p>
+                        <p>
+                            Select Lock answer choices order when the order is critical and should NOT be shuffled.
+                            Example: questions with ‘All/None of the above’ or ‘both a and b’ as answer choices.
+                        </p>
+                    </>
+                }
+            />
+        </>
+    )
 
     const renderOptions = () => map(ux.options, (o, index) =>
         <div className="options-feedback" key={index}>
@@ -204,41 +228,47 @@ const Form = observer(({ ux }) => {
                     type="check-circle"
                     className={cn({ 'is-correct': o.isCorrect, 'check-correct-empty': ux.isEmpty.correctOption })}
                     onClick={() => ux.checkCorrectOption(index)}
-                    buttonProps={{ disabled: o.isCorrect }}/>
+                    buttonProps={{ disabled: o.isCorrect }} />
             </div>
             <div className="right-side">
                 <AddEditFormTextInput
-                    onChange={(value) => ux.changeOptions(value, index)}
+                    onChange={(value: React.ChangeEvent<HTMLInputElement>) => ux.changeOptions(value, index)}
                     value={o.text}
                     className={`question-option-${index + 1}`}
                     errorInfo={index <= 1 && ux.isEmpty.options[index] ? 'Add at least two options' : ''}
+                    placeholder={undefined}
+                    label={undefined}
+                    plainText={undefined}
                 />
                 <AddEditFormTextInput
-                    onChange={(value) => ux.changeFeedback(value, index)}
+                    onChange={(value: React.ChangeEvent<HTMLInputElement>) => ux.changeFeedback(value, index)}
                     value={o.feedback}
                     placeholder='Add Feedback'
                     className={`question-feedback-${index + 1}`}
+                    label={undefined}
+                    plainText={undefined}
+                    errorInfo={undefined}
                 />
             </div>
             <div className="option-icons">
                 <Icon
                     type="arrow-up"
                     onClick={() => ux.moveUpOption(index)}
-                    buttonProps={{ disabled: index === 0 }}/>
+                    buttonProps={{ disabled: index === 0 }} />
                 <Icon
                     type="arrow-down"
                     onClick={() => ux.moveDownOption(index)}
-                    buttonProps={{ disabled: index === ux.options.length - 1 }}/>
+                    buttonProps={{ disabled: index === ux.options.length - 1 }} />
                 <Icon
                     type="trash"
                     onClick={() => ux.deleteOption(index)}
-                    buttonProps={{ disabled: ux.options.length <= 2 }}/>
+                    buttonProps={{ disabled: ux.options.length <= 2 }} />
             </div>
         </div>
     );
 
     const renderAddOptionButton = () => {
-        if(ux.options.length >= 6) return null;
+        if (ux.options.length >= 6) return null;
         return (
             <div className="add-option-wrapper">
                 <div className="left-side"></div>
@@ -246,7 +276,7 @@ const Form = observer(({ ux }) => {
                     variant="link"
                     className="add-option"
                     onClick={ux.addOption}>
-             Add option
+                    Add option
                 </Button>
             </div>
         );
@@ -269,7 +299,7 @@ const Form = observer(({ ux }) => {
         }
         return (
             <>
-                <div className="two-step-wrapper">
+                <div className="check-option-wrapper">
                     <div className="left-side"></div>
                     <div className="right-side">
                         <CheckboxInput
@@ -288,6 +318,21 @@ const Form = observer(({ ux }) => {
                     {renderOptions()}
                     {renderAddOptionButton()}
                 </div>
+                <div className="check-option-wrapper">
+                    <div className="left-side"></div>
+                    <div className="right-side">
+                        <CheckboxInput
+                            onChange={ux.onChangeIsAnswerOrderImportant}
+                            label={lockOrderLabel}
+                            checked={ux.isAnswerOrderImportant}
+                            disabled={!ux.canChangeIsAnswerOrderImportant}
+                            standalone
+                        />
+                        <p className="two-step-info">
+                            Select if the answer choices on this question should not be shuffled
+                    </p>
+                    </div>
+                </div>
                 <AnswerHTMLEditor
                     onImageUpload={ux.onImageUpload}
                     onChange={ux.changeDetailedSolution}
@@ -295,13 +340,14 @@ const Form = observer(({ ux }) => {
                     label='Detailed solution'
                     className="detailed-solution"
                     placeholder="Provide additional information on the correct choice."
+                    errorInfo={undefined}
                 />
             </>
         );
     };
 
     const contextInfo = () => {
-        if(!ux.fromExercise || !ux.fromExercise.context) {
+        if (!ux.fromExercise || !ux.fromExercise.context) {
             return null;
         }
 
@@ -310,7 +356,7 @@ const Form = observer(({ ux }) => {
                 <div className="left-side">Context</div>
                 <div className="right-side">
                     This question comes with media.
-                    <Button variant="link" onClick={() => ux.showPreviewQuestionModal(true)}>Preview</Button>
+                    <Button variant="link" onClick={() => ux.setShowPreviewQuestionModal(true)}>Preview</Button>
                     to see it.
                 </div>
             </div>
@@ -319,7 +365,7 @@ const Form = observer(({ ux }) => {
 
     return (
         <>
-            { ux.isMCQ && <p className="mcq-info">Add question, multiple distractors, and check the correct answer.</p> }
+            { ux.isMCQ && <p className="mcq-info">Add question, multiple distractors, and check the correct answer.</p>}
             {contextInfo()}
             <AnswerHTMLEditor
                 onImageUpload={ux.onImageUpload}
@@ -334,40 +380,37 @@ const Form = observer(({ ux }) => {
         </>
     );
 });
-Form.propTypes = {
-    ux: PropTypes.instanceOf(AddEditQuestionUX).isRequired,
-};
 
-const QuestionForm = observer(({ ux }) => {
+const QuestionForm = observer(({ ux }: { ux: AddEditQuestionUX }) => {
     // if editing, only show the button type only.
     const renderButtonsPanel = () => {
         let buttons;
         const isEditing = ux.from_exercise_id;
-        if(!isEditing || ux.isMCQ) {
+        if (!isEditing || ux.isMCQ) {
             buttons =
-        <Button
-            variant="light"
-            className={cn({ 'selected': ux.isMCQ })}
-            onClick={() => ux.isMCQ = true}
-            disabled={ux.isMCQ}
-            data-test-id="switch-mcq"
-        >
-            Multiple-choice question
+                <Button
+                    variant="light"
+                    className={cn({ 'selected': ux.isMCQ })}
+                    onClick={() => ux.isMCQ = true}
+                    disabled={ux.isMCQ}
+                    data-test-id="switch-mcq"
+                >
+                    Multiple-choice question
         </Button>;
         }
-        if(!isEditing || !ux.isMCQ) buttons =
-      <>
-          {buttons}
-          <Button
-              variant="light"
-              className={cn({ 'selected': !ux.isMCQ })}
-              onClick={() => ux.isMCQ = false}
-              disabled={!ux.isMCQ}
-              data-test-id="switch-wrm"
-          >
-              Written-response question
+        if (!isEditing || !ux.isMCQ) buttons =
+            <>
+                {buttons}
+                <Button
+                    variant="light"
+                    className={cn({ 'selected': !ux.isMCQ })}
+                    onClick={() => ux.isMCQ = false}
+                    disabled={!ux.isMCQ}
+                    data-test-id="switch-wrm"
+                >
+                    Written-response question
           </Button>
-      </>;
+            </>;
         return buttons;
     };
     return (
@@ -381,23 +424,17 @@ const QuestionForm = observer(({ ux }) => {
         </StyledQuestionForm>
     );
 });
-QuestionForm.propTypes = {
-    ux: PropTypes.instanceOf(AddEditQuestionUX).isRequired,
-};
 
-const Question = observer(({ ux }) => {
+const Question = observer(({ ux }: { ux: AddEditQuestionUX }) => {
     return (
         <AddEditQuestionFormBlock
             label="Question"
             showGrayBackground={true}
             addPadding={false}
             onFocus={partial(ux.checkValidityOfFields, ['selectedChapter', 'selectedChapterSection'])}
-            formContentRenderer={() => <QuestionForm ux={ux}/>}
+            formContentRenderer={() => <QuestionForm ux={ux} />}
         />
     );
 });
-Question.propTypes = {
-    ux: PropTypes.instanceOf(AddEditQuestionUX).isRequired,
-};
 
 export default Question;
