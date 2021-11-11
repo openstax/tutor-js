@@ -92,7 +92,7 @@ export class ExercisesMap extends Map<ID, Exercise | ExerciseVersions> {
         } else {
             url = urlFor('saveExistingDraft', { number: exercise.number })
         }
-        const data = merge(exercise.toJSON(), { "tags": exercise.tags.all.toJSON() })
+        const data = merge(exercise.toJSON(), { 'tags': exercise.tags.all.toJSON() })
         this.onSaved(
             await this.api.request(url, { data: data }),
             exercise
