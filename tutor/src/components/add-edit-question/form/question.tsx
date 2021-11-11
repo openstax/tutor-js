@@ -191,7 +191,7 @@ const Form = observer(({ ux }: { ux: AddEditQuestionUX }) => {
                             A two-step question requires students to recall an answer from memory
                             before viewing the multiple-choice options.
                             Our research shows that retrieval practice helps to improve knowledge retention.
-                    </p>
+                        </p>
                         <p>
                             Students will be graded only on the multiple-choice step.
                             You can view student reponses in the ‘Submission overview’ tab.
@@ -330,7 +330,7 @@ const Form = observer(({ ux }: { ux: AddEditQuestionUX }) => {
                         />
                         <p className="two-step-info">
                             Select if the answer choices on this question should not be shuffled
-                    </p>
+                        </p>
                     </div>
                 </div>
                 <AnswerHTMLEditor
@@ -396,7 +396,7 @@ const QuestionForm = observer(({ ux }: { ux: AddEditQuestionUX }) => {
                     data-test-id="switch-mcq"
                 >
                     Multiple-choice question
-        </Button>;
+                </Button>;
         }
         if (!isEditing || !ux.isMCQ) buttons =
             <>
@@ -409,7 +409,7 @@ const QuestionForm = observer(({ ux }: { ux: AddEditQuestionUX }) => {
                     data-test-id="switch-wrm"
                 >
                     Written-response question
-          </Button>
+                </Button>
             </>;
         return buttons;
     };
