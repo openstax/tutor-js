@@ -383,26 +383,35 @@ const StyledTopicHeader = styled.div`
   }
 `;
 
-const StyledNamesToogleButtonWrapper = styled.div`
+const QuestionsHeader = styled.div`
     padding-top: 20px;
     margin-top: 20px;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     border-top: 1px solid ${colors.neutral.pale};
 `;
 
 const StyledNamesToogleButton = styled(Button)`
   &&& {
+    margin-left: auto;
     border: 1px solid ${colors.neutral.pale};
     background: transparent;
     color: ${colors.neutral.grayblue};
-    font-weight: 100;
     padding: 10px 20px 10px 10px;
 
     span {
       margin-left: 5px;
     }
   }
+`;
+
+const ShuffleAnswerChoicesNote = styled.div`
+  color: ${Theme.colors.neutral.grayblue};
+  background: ${Theme.colors.neutral.bright};
+  border: 1px solid ${Theme.colors.neutral.pale};
+  display: flex;
+  align-items: center;
+  padding: 8px;
 `;
 
 const GradingBlock = observer(({ ux }) => {
@@ -510,6 +519,18 @@ HomeworkQuestionsWrapper.propTypes = {
     questionsInfo: PropTypes.any.isRequired,
 };
 
+const ShuffleAnswerChoicesEnabled = observer(({ ux }) => {
+    if (!ux.planScores.grading_template.shuffle_answer_choices) { return null; }
+    return (
+        <ShuffleAnswerChoicesNote>
+            <strong>Note:</strong>&nbsp;Assignment display may differ for students.
+            <InfoIcon
+                tooltip="This page shows questions and answers in the same order as when the assignment was built. Answer choice order may have been randomized for students. Responses are summarized by student answer choice."
+            />
+        </ShuffleAnswerChoicesNote>
+    );
+});
+
 const QuestionList = observer(({ ux }) => {
     const { scores } = ux
 
@@ -568,9 +589,10 @@ const QuestionList = observer(({ ux }) => {
 
     return (
         <>
-            <StyledNamesToogleButtonWrapper>
+            <QuestionsHeader>
+                <ShuffleAnswerChoicesEnabled ux={ux} />
                 <NamesToogleButton ux={ux} />
-            </StyledNamesToogleButtonWrapper>
+            </QuestionsHeader>
             <HomeworkQuestionsWrapper
                 questionsInfo={scores.questionsInfo}
                 ux={ux}
