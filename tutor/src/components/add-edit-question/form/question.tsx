@@ -6,7 +6,7 @@ import {
 } from './shared';
 import AddEditQuestionUX from '../ux';
 import CheckboxInput from '../../../components/checkbox-input';
-import { colors, breakpoint } from 'theme';
+import { colors, breakpoint } from '../../../theme';
 import { Icon } from 'shared';
 
 const fullWidthTablet = css`
