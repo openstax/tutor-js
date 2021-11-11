@@ -1,6 +1,6 @@
 import Map from 'shared/model/map';
 import { action, ID, hydrateModel, hydrateInstance } from 'shared/model';
-import { sortBy, last, get } from 'lodash';
+import { sortBy, last, get, merge } from 'lodash';
 import Exercise from './exercises/exercise';
 import urlFor  from '../api'
 
@@ -92,8 +92,9 @@ export class ExercisesMap extends Map<ID, Exercise | ExerciseVersions> {
         } else {
             url = urlFor('saveExistingDraft', { number: exercise.number })
         }
+        const data = merge(exercise.toJSON(), { "tags": exercise.tags.all.toJSON() })
         this.onSaved(
-            await this.api.request(url, { data: exercise.toJSON() }),
+            await this.api.request(url, { data: data }),
             exercise
         )
     }
