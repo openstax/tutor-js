@@ -24,6 +24,7 @@ const StyledExerciseQuestion = styled.div`
     padding: 10px 0;
   }
 `;
+StyledExerciseQuestion.displayName = 'StyledExerciseQuestion';
 
 @observer
 export default class ExerciseQuestion extends React.Component {
@@ -92,24 +93,9 @@ export default class ExerciseQuestion extends React.Component {
         ux.onAnswerContinue(step);
     }
 
-    @action.bound async addOrRemovePracticeQuestion() {
-        if (this.practiceQuestion) {
-            this.practiceQuestion.destroy();
-        }
-        else {
-            const { ux, step } = this.props;
-            ux.course.practiceQuestions.create({ tasked_exercise_id: step.tasked_id });
-        }
-    }
-
     @computed get answerId() {
         return this.selectedAnswer ?
             this.selectedAnswer.id : this.props.step.answer_id;
-    }
-
-    @computed get practiceQuestion() {
-        const { ux, step } = this.props;
-        return ux.course.practiceQuestions.findByExerciseId(step.exercise_id);
     }
 
     renderSaveButton() {
@@ -183,7 +169,7 @@ export default class ExerciseQuestion extends React.Component {
             <StyledExerciseQuestion data-test-id="student-exercise-question">
                 <Question
                     task={ux.task}
-                    question={question}
+                    question={ux.shuffleQuestionAnswers(question)}
                     choicesEnabled={!ux.isReadOnly && step.canAnswer}
                     answer_id={this.answerId}
                     focus={!step.multiPartGroup}

@@ -433,4 +433,39 @@ export default class TaskUX {
         }
     }
 
+    @action shuffleQuestionAnswers(question) {
+        if (!this.task.shuffle_answer_choices ||
+            question.is_answer_order_important ||
+            question.answers.length < 3 ||
+            question.hasBeenShuffled) {
+            return question;
+        }
+
+        const originalOrder = question.answers.map(a => a.id);
+
+        if (this.currentStep.attempt_number == 0) {
+            const { answers } = question;
+            let newOrder = question.answers.map(a => a.id);
+            let iterations = 0;
+
+            while (originalOrder.join() === newOrder.join() && iterations < 10) {
+                // https://en.wikipedia.org/wiki/Fisher–Yates_shuffle#The_modern_algorithm
+                for (let i = answers.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [answers[i], answers[j]] = [answers[j], answers[i]];
+                }
+                newOrder = question.answers.map(a => a.id);
+                iterations++;
+            }
+
+            this.currentStep.answer_id_order = newOrder;
+            question.hasBeenShuffled = true;
+        } else {
+            const order = this.currentStep.answer_id_order;
+            question.answers = question.answers.sort((a, b) =>
+                order.indexOf(a.id) - order.indexOf(b.id));
+        }
+
+        return question;
+    }
 }

@@ -104,6 +104,7 @@ export class StudentTaskStep extends BaseModel {
     @field type = '';
     @field is_completed = false
     @field answer_id?:ID;
+    @field answer_id_order: string[];
     @field free_response = '';
     @field feedback_html = '';
     @field correct_answer_id = NEW_ID;
@@ -294,7 +295,7 @@ export class StudentTaskStep extends BaseModel {
 
         const data = await this.api.request(
             urlFor('saveStudentTaskStep', { stepId: this.id }),
-            { data: pick(this, 'is_completed', 'answer_id', 'free_response', 'response_validation', 'attempt_number') }
+            { data: pick(this, 'is_completed', 'answer_id', 'free_response', 'response_validation', 'attempt_number', 'answer_id_order') }
         )
         this.onLoaded(data)
     }
