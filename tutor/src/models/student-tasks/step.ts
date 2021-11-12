@@ -103,8 +103,8 @@ export class StudentTaskStep extends BaseModel {
     @field available_points?: number;
     @field type = '';
     @field is_completed = false
-    @field answer_id?:ID;
-    @field answer_id_order: string[];
+    @field answer_id?: ID;
+    @field answer_id_order: ID[] = [];
     @field free_response = '';
     @field feedback_html = '';
     @field correct_answer_id = NEW_ID;
@@ -123,8 +123,8 @@ export class StudentTaskStep extends BaseModel {
     @field published_comments = ''
     @field published_points_without_lateness?: number
     @field published_late_work_point_penalty?: number
-    @field tasked_id:ID = NEW_ID
-    @field exercise_id:ID = NEW_ID
+    @field tasked_id: ID = NEW_ID
+    @field exercise_id: ID = NEW_ID
     @field attempts_remaining = 0;
     @field attempt_number = 0;
     @field solution?: Solution;
@@ -134,7 +134,7 @@ export class StudentTaskStep extends BaseModel {
 
     @observable multiPartGroup?: StudentTaskStepGroup
 
-    @observable incorrectAnswerId:ID = NEW_ID;
+    @observable incorrectAnswerId: ID = NEW_ID;
 
     constructor() {
         super()
