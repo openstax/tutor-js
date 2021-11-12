@@ -1,5 +1,5 @@
 import UX from '../../../src/screens/task/ux';
-import { ApiMock, Factory, TimeMock, TestRouter, ld, deferred, runInAction } from '../../helpers';
+import { ApiMock, Factory, TimeMock, TestRouter, ld, deferred, runInAction, FactoryBot } from '../../helpers';
 import UiSettings from 'shared/model/ui-settings';
 jest.mock('shared/model/ui-settings', () => ({
     set: jest.fn(),
@@ -255,6 +255,61 @@ describe('Task UX Model', () => {
                     expect(ux.canGoForward).toEqual(true);
                 });
             });
+        });
+    });
+
+    describe('shuffle question answers', () => {
+        let question, originalOrder;
+        const getIdOrder = () => question.answers.map(a => a.id);
+
+        beforeEach(() => {
+            question = FactoryBot.create('ExerciseQuestion');
+            const answer = FactoryBot.create('ExerciseAnswer', {
+                siblings: question.answers,
+                parent: { object: question },
+            });
+
+            question.answers.push(answer);
+            originalOrder = getIdOrder();
+
+            runInAction(() => {
+                ux.currentStep.type = 'exercise';
+                ux.task.shuffle_answer_choices = true;
+            });
+        });
+
+        it('shuffles answers into a new order', () => {
+            ux.shuffleQuestionAnswers(question);
+            expect(getIdOrder()).not.toEqual(originalOrder);
+            expect(ux.currentStep.answer_id_order).toEqual(getIdOrder());
+        });
+
+        it('does not shuffle if shuffle is disabled', () => {
+            ux.task.shuffle_answer_choices = false;
+            ux.shuffleQuestionAnswers(question);
+            expect(getIdOrder()).toEqual(originalOrder);
+        });
+
+        it('does not shuffle if answer order is important', () => {
+            question.is_answer_order_important = true;
+            ux.shuffleQuestionAnswers(question);
+            expect(getIdOrder()).toEqual(originalOrder);
+        });
+
+        it('does not shuffle if there are only 2 answers', () => {
+            question.is_answer_order_important = false;
+            question.answers = question.answers.slice(0, 2);
+            originalOrder = getIdOrder();
+            ux.shuffleQuestionAnswers(question);
+            expect(getIdOrder()).toEqual(originalOrder);
+        });
+
+        it('does not shuffle twice', () => {
+            ux.shuffleQuestionAnswers(question);
+            const firstOrder = getIdOrder();
+            expect(question.hasBeenShuffled).toBe(true);
+            ux.shuffleQuestionAnswers(question);
+            expect(getIdOrder()).toEqual(firstOrder);
         });
     });
 });
