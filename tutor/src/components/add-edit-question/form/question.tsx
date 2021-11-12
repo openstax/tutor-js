@@ -243,7 +243,7 @@ const Form = observer(({ ux }: { ux: AddEditQuestionUX }) => {
                 <AddEditFormTextInput
                     onChange={(value: React.ChangeEvent<HTMLInputElement>) => ux.changeFeedback(value, index)}
                     value={o.feedback}
-                    placeholder='Add Feedback'
+                    placeholder='Add Feedback. Why is this choice correct/incorrect?'
                     className={`question-feedback-${index + 1}`}
                     label={undefined}
                     plainText={undefined}
