@@ -381,6 +381,10 @@ const StyledTopicHeader = styled.div`
     padding-top: 8px;
     color: ${colors.dark_blue};
   }
+
+  & + & {
+    margin-top: 8px;
+  }
 `;
 
 const QuestionsHeader = styled.div`
@@ -547,18 +551,36 @@ const QuestionList = observer(({ ux }) => {
     }
 
     if (ux.planScores.isReading) {
+        const header = (key, index) => {
+            const toolbar = (
+                <>
+                    <ShuffleAnswerChoicesEnabled ux={ux} />
+                    <NamesToogleButton ux={ux} />
+                </>
+            )
+            const title = (
+                <h3>
+                    <ArbitraryHtmlAndMath html={key} />
+                </h3>
+            )
+
+            const { shuffle_answer_choices } = ux.planScores.grading_template;
+
+            return (
+                <>
+                    <StyledTopicHeader>
+                        {!shuffle_answer_choices && title}
+                        {/** Only the show the button at the top with the very first header */}
+                        {index === 0 && toolbar}
+                    </StyledTopicHeader>
+                    {shuffle_answer_choices && <StyledTopicHeader>{title}</StyledTopicHeader>}
+                </>
+            )
+        };
+
         const personalizedQuestions = Object.keys(scores.questionsGroupedByPageTopic).map((key, index) => (
             <div key={index}>
-                <StyledTopicHeader>
-                    <h3>
-                        <ArbitraryHtmlAndMath html={key} />
-                    </h3>
-                    {/** Only the show the button at the top with the very first header */}
-                    {
-                        index === 0 &&
-                        <NamesToogleButton ux={ux} />
-                    }
-                </StyledTopicHeader>
+                {header(key, index)}
                 <HomeworkQuestionsWrapper
                     questionsInfo={scores.questionsGroupedByPageTopic[key]}
                     ux={ux}

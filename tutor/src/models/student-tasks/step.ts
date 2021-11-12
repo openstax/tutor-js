@@ -58,8 +58,7 @@ class StudentTaskReadingStep extends TaskStepContent {
     }
 }
 
-export
-class StudentTaskExerciseStep extends Exercise {
+export class StudentTaskExerciseStep extends Exercise {
     constructor() {
         super()
         modelize(this)
@@ -205,7 +204,7 @@ export class StudentTaskStep extends BaseModel {
     }
 
     @computed get pointsScored() {
-        if(!isNil(this.published_points)) return this.published_points;
+        if (!isNil(this.published_points)) return this.published_points;
         if (this.correct_answer_id) {
             return this.answer_id === this.correct_answer_id
                 ? this.available_points
@@ -225,18 +224,18 @@ export class StudentTaskStep extends BaseModel {
     }
 
     @computed get isPersonalized() {
-        return 'personalized' == this.group ;
+        return 'personalized' == this.group;
     }
 
     @computed get isSpacedPractice() {
-        return 'spaced practice' == this.group ;
+        return 'spaced practice' == this.group;
     }
 
     @computed get canEditFreeResponse() {
         return Boolean(
             this.can_be_updated && !this.answer_id &&
-                this.formats?.includes('free-response') &&
-                (this.readContentProperty('isOpenEnded') || S.isEmpty(this.free_response))
+            this.formats?.includes('free-response') &&
+            (this.readContentProperty('isOpenEnded') || S.isEmpty(this.free_response))
         );
     }
 
