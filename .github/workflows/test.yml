@@ -7,24 +7,37 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     strategy:
       matrix:
-        project: ['lint', 'tutor', 'shared', 'exercises', 'typecheck']
+        project:
+          - lint
+          - typecheck
+          - shared
+          - tutor
+          - exercises
+
     steps:
       - uses: actions/checkout@v2
+
       - name: Read .nvmrc
         run: echo ::set-output name=NVMRC::$(cat .nvmrc)
         id: nvm
+
       - name: Setup node
         uses: actions/setup-node@v1
         with:
           node-version: '${{ steps.nvm.outputs.NVMRC }}'
+
       - uses: bahmutov/npm-install@v1
         env:
             PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
+        with:
+          install-command: yarn --frozen-lockfile --ignore-optional
+
       - name: Run tests
         run: yarn run ci ${{ matrix.project }}
+
       - name: Save screenshots of failures
         uses: actions/upload-artifact@v2
         if: failure()

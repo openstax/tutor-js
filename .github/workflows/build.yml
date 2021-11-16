@@ -7,13 +7,15 @@ on:
 
 jobs:
   tutor:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
       - name: Checkout release tag
         uses: actions/checkout@v2
 
       - name: Install npm
         uses: bahmutov/npm-install@v1
+        with:
+          install-command: yarn --frozen-lockfile --ignore-optional
 
       - name: Build tutor-js assets
         run: yarn run build tutor
@@ -21,13 +23,15 @@ jobs:
           RELEASE_VERSION: ${{ github.event.release.tag_name }}
 
   exercises:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
       - name: Checkout release tag
         uses: actions/checkout@v2
 
       - name: Install npm
         uses: bahmutov/npm-install@v1
+        with:
+          install-command: yarn --frozen-lockfile --ignore-optional
 
       - name: Build exercises-js assets
         run: yarn run build exercises
