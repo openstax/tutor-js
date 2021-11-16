@@ -1,0 +1,167 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`QuestionsOverview renders the correct Tutor question numbers after a selected multipart question 1`] = `
+.c0 {
+  margin: 2rem 3.8rem;
+}
+
+.c0 table {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  border-collapse: collapse;
+}
+
+.c0 thead {
+  background: #5e5e5e;
+  color: #fff;
+  font-size: 1.8rem;
+}
+
+.c0 thead th {
+  height: 40px;
+}
+
+.c0 tbody tr td {
+  border: 1px solid #e4e4e4;
+  font-size: 1.2rem;
+}
+
+.c0 tbody tr td:first-child {
+  border-left: 0px;
+}
+
+.c0 tbody tr td:last-child {
+  border-right: 0px;
+}
+
+.c0 tbody tr:nth-child(even) {
+  background: white;
+}
+
+.c0 tbody tr:nth-child(odd) {
+  background: #fafafa;
+}
+
+.c0 td.exercise-number {
+  font-size: 1.8rem;
+  text-align: center;
+}
+
+.c0 td.ellipses {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 250px;
+}
+
+.c0 td.ellipses *:first-child {
+  margin: 0;
+}
+
+.c0 td.ellipses * + * {
+  display: none;
+}
+
+.c0 td.ellipses img {
+  display: none;
+}
+
+.c0 td.ellipses span p:first-child {
+  display: inline;
+}
+
+.c0 td {
+  padding: 5px;
+}
+
+<div
+  className="c0"
+  data-test-id="questions-overview-table"
+>
+  <table>
+    <thead>
+      <tr>
+        <td>
+          Question No.
+        </td>
+        <td>
+          Type
+        </td>
+        <td>
+          Section
+        </td>
+        <td>
+          Learning Objective
+        </td>
+        <td>
+          DoK level
+        </td>
+        <td>
+          Bloom‘s Level
+        </td>
+        <td>
+          Points
+        </td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td
+          className="exercise-number"
+        >
+          1
+        </td>
+        <td />
+        <td />
+        <td />
+        <td />
+        <td />
+        <td>
+          0.0
+        </td>
+      </tr>
+      <tr>
+        <td
+          className="exercise-number"
+        >
+          2
+        </td>
+        <td />
+        <td />
+        <td />
+        <td />
+        <td />
+        <td>
+          0.0
+        </td>
+      </tr>
+      <tr>
+        <td
+          className="exercise-number"
+        >
+          3
+        </td>
+        <td>
+          Tutor
+        </td>
+        <td>
+          NA
+        </td>
+        <td>
+          Personalized question assigned by Tutor based on student performance
+        </td>
+        <td>
+          NA
+        </td>
+        <td>
+          NA
+        </td>
+        <td>
+          1.0
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
