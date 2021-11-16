@@ -3,18 +3,9 @@ import QuestionsOverview from '../../../src/screens/assignment-edit/questions-ov
 describe('QuestionsOverview', function() {
     const props = {
         ux: {
-            plan: {
-              settings: {
-                exercises: [],
-              },
-            },
+            plan: { settings: { exercises: [] } },
             selectedExercises: [
-              {
-                content: {
-                  questions: [ {}, {} ]
-                },
-                tags: { important: {} },
-              },
+                { content: { questions: [ {}, {} ] }, tags: { important: {} } },
             ],
             numTutorSelections: 1,
         },
