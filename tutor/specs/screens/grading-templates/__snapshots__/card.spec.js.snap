@@ -140,7 +140,7 @@ exports[`Grading Templates Card matches snapshot for homework 1`] = `
         <h4
           className="c2"
         >
-          ASSIGNMENT RANDOMIZATION AND DISPLAY
+          RANDOMIZATION AND DISPLAY
         </h4>
         <div
           className="c3"
@@ -403,7 +403,7 @@ exports[`Grading Templates Card matches snapshot for reading 1`] = `
         <h4
           className="c3"
         >
-          ASSIGNMENT RANDOMIZATION AND DISPLAY
+          RANDOMIZATION AND DISPLAY
         </h4>
         <div
           className="c4"

@@ -6,6 +6,7 @@ exports[`Exercise Tasks Screen matches snapshot 1`] = `
     step={
       Object {
         "answer_id": undefined,
+        "answer_id_order": Array [],
         "attempt_number": 0,
         "attempts_remaining": 2,
         "available_points": 1,
@@ -150,6 +151,7 @@ exports[`Exercise Tasks Screen matches snapshot 1`] = `
         },
         "currentStep": Object {
           "answer_id": undefined,
+          "answer_id_order": Array [],
           "attempt_number": 0,
           "attempts_remaining": 2,
           "available_points": 1,
@@ -201,6 +203,8 @@ exports[`Exercise Tasks Screen matches snapshot 1`] = `
         "refetchTask": [MockFunction],
         "scrollToCurrentStep": [MockFunction],
         "setCurrentMultiPartStep": [MockFunction],
+        "shuffleArray": [MockFunction],
+        "shuffleQuestionAnswers": [MockFunction],
         "toggleTaskProgressTable": [MockFunction],
         "toggleTaskToolbar": [MockFunction],
         "unLock": [MockFunction],
