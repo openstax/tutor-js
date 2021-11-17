@@ -125,7 +125,7 @@ test.describe('Add/Edit Questions', () => {
         await expect(page).toMatchText(`${incrementExerciseIdVersion(ex)} .question-stem`, newValue)
     })
 
-    test('autosaves', async({ page }) => {
+    test('autosaves', async ({ page }) => {
         await page.click('testId=create-question')
         const stemSel = 'testId=add-edit-question >> .question-text >> .editor'
         await page.click(stemSel)
@@ -181,7 +181,7 @@ test.describe('Add/Edit Questions', () => {
         await page.click('.close')
     })
 
-    test('automatically toggles shuffle answer choice lock', async ({ page }) => {
+    test('C641278: automatically toggles shuffle answer choice lock', async ({ page }) => {
         const selector = 'testId=toggle-answer-choice-important >> input'
         await page.click('testId=create-question')
         expect(await page.isChecked(selector)).toEqual(false)
