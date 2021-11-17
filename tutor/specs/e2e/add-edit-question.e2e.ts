@@ -180,4 +180,15 @@ test.describe('Add/Edit Questions', () => {
         await expect(page).toMatchText(/Answer key field cannot be empty/)
         await page.click('.close')
     })
+
+    test('automatically toggles shuffle answer choice lock', async ({ page }) => {
+        const selector = 'testId=toggle-answer-choice-important >> input'
+        await page.click('testId=create-question')
+        expect(await page.isChecked(selector)).toEqual(false)
+        expect(await page.isDisabled(selector)).toEqual(false)
+        await page.click('.ox-icon-trash')
+        await page.click('.ox-icon-trash')
+        expect(await page.isChecked(selector)).toEqual(true)
+        expect(await page.isDisabled(selector)).toEqual(true)
+    })
 })

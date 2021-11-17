@@ -180,7 +180,7 @@ const StyledQuestionForm = styled.div`
 `;
 
 const Form = observer(({ ux }: { ux: AddEditQuestionUX }) => {
-    const twoStepLabel = (
+    const twoStepLabel =
         <>
             <span className="two-step-label">Make this Two-step question </span>
             <QuestionInfo
@@ -198,12 +198,11 @@ const Form = observer(({ ux }: { ux: AddEditQuestionUX }) => {
                         </p>
                     </>
                 } />
-        </>
-    )
+        </>;
 
-    const lockOrderLabel = (
+    const lockOrderLabel =
         <>
-            <span className="two-step-label">Lock answer choices order</span>
+            <span className="lock-choices-label">Lock answer choices order</span>
             <QuestionInfo
                 placement="right"
                 popoverInfo={
@@ -218,8 +217,8 @@ const Form = observer(({ ux }: { ux: AddEditQuestionUX }) => {
                     </>
                 }
             />
-        </>
-    )
+        </>;
+
 
     const renderOptions = () => map(ux.options, (o, index) =>
         <div className="options-feedback" key={index}>
@@ -232,22 +231,16 @@ const Form = observer(({ ux }: { ux: AddEditQuestionUX }) => {
             </div>
             <div className="right-side">
                 <AddEditFormTextInput
-                    onChange={(value: React.ChangeEvent<HTMLInputElement>) => ux.changeOptions(value, index)}
+                    onChange={(value: any) => ux.changeOptions(value, index)}
                     value={o.text}
                     className={`question-option-${index + 1}`}
                     errorInfo={index <= 1 && ux.isEmpty.options[index] ? 'Add at least two options' : ''}
-                    placeholder={undefined}
-                    label={undefined}
-                    plainText={undefined}
                 />
                 <AddEditFormTextInput
                     onChange={(value: React.ChangeEvent<HTMLInputElement>) => ux.changeFeedback(value, index)}
                     value={o.feedback}
                     placeholder='Add Feedback. Why is this choice correct/incorrect?'
                     className={`question-feedback-${index + 1}`}
-                    label={undefined}
-                    plainText={undefined}
-                    errorInfo={undefined}
                 />
             </div>
             <div className="option-icons">
@@ -326,9 +319,10 @@ const Form = observer(({ ux }: { ux: AddEditQuestionUX }) => {
                             label={lockOrderLabel}
                             checked={ux.isAnswerOrderImportant}
                             disabled={!ux.canChangeIsAnswerOrderImportant}
+                            data-test-id="toggle-answer-choice-important"
                             standalone
                         />
-                        <p className="two-step-info">
+                        <p className="lock-order-info">
                             Select if the answer choices on this question should not be shuffled
                         </p>
                     </div>

@@ -433,6 +433,14 @@ export default class TaskUX {
         }
     }
 
+    shuffleArray(arry) {
+        // https://en.wikipedia.org/wiki/Fisher–Yates_shuffle#The_modern_algorithm
+        for (let i = arry.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arry[i], arry[j]] = [arry[j], arry[i]];
+        }
+    }
+
     @action shuffleQuestionAnswers(question) {
         if (!this.task.shuffle_answer_choices ||
             question.is_answer_order_important ||
@@ -441,24 +449,12 @@ export default class TaskUX {
             return question;
         }
 
-        const originalOrder = question.answers.map(a => a.id);
-
         if (this.currentStep.attempt_number == 0) {
             const { answers } = question;
-            let newOrder = question.answers.map(a => a.id);
-            let iterations = 0;
 
-            while (originalOrder.join() === newOrder.join() && iterations < 10) {
-                // https://en.wikipedia.org/wiki/Fisher–Yates_shuffle#The_modern_algorithm
-                for (let i = answers.length - 1; i > 0; i--) {
-                    const j = Math.floor(Math.random() * (i + 1));
-                    [answers[i], answers[j]] = [answers[j], answers[i]];
-                }
-                newOrder = question.answers.map(a => a.id);
-                iterations++;
-            }
+            (window.shuffleImpl || this.shuffleArray)(answers);
 
-            this.currentStep.answer_id_order = newOrder;
+            this.currentStep.answer_id_order = question.answers.map(a => a.id);
             question.hasBeenShuffled = true;
         } else {
             const order = this.currentStep.answer_id_order;
