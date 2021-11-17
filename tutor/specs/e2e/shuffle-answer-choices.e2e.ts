@@ -4,7 +4,7 @@ import faker from 'faker'
 import {
     visitPage, expect, test, setDateTimeRelative,
     selectCalendarSidebarOption, selectExeciseCard,
-    withUser, signTerm,
+    withUser,
 } from './test'
 
 const COURSE_ID = 2
@@ -32,7 +32,7 @@ const createGradingTemplate = async (page: Page) => {
 test.describe('a teacher', () => {
     withUser('teacher01')
 
-    test('C641277: can create a grading template with shuffle', async({ browser }) => {
+    test('C641277: can create a grading template with shuffle', async ({ browser }) => {
         const context = await browser.newContext({ storageState: 'temp/teacher02-state.json' })
         const page = await context.newPage()
         await createGradingTemplate(page)
@@ -55,7 +55,7 @@ test.describe('a student', () => {
 
         await selectCalendarSidebarOption(page, 'Add homework')
 
-        assignmentName  = faker.commerce.productName()
+        assignmentName = faker.commerce.productName()
         await page.fill('testId=edit-assignment-name', assignmentName)
 
         await page.click('testId=grading-templates-btn')
@@ -89,7 +89,7 @@ test.describe('a student', () => {
     });
 
     test('can shuffle answers', async ({ page }) => {
-        const getOrder = async () => await page.$$eval(`.answer-answer`, (n: HTMLElement[]) => n.map(s => s.innerText))
+        const getOrder = async () => await page.$$eval('.answer-answer', (n: HTMLElement[]) => n.map(s => s.innerText))
         await page.click('[data-step-index="1"]')
         await page.fill('testId=free-response-box', '')
         let submitBtn = await page.waitForSelector('testId=submit-answer-btn')

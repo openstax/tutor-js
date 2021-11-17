@@ -11,6 +11,7 @@ import Select from '../../components/select';
 import TemplateModal from '../../components/course-modal';
 import InfoIcon from '../../components/icons/info';
 import SmallText from '../../components/small-text';
+import InfoIconPopover from '../../components/info-icon-popover'
 
 const isValidPercentNumber = (v: number) => (v < 0 || v > 100) && 'must be between 0 & 100';
 
@@ -39,6 +40,10 @@ const StyledTemplateModal = styled(TemplateModal)`
       color: ${colors.strong_red};
       padding: 8px;
       margin: -18px 0 16px;
+  }
+
+  button.question-info-icon {
+      margin: 0 0.5rem;
   }
 `;
 
@@ -448,13 +453,20 @@ class TemplateForm extends React.Component<TemplateFormProps> {
                     legendHint={
                         <>
                             Answer choices on a question will be randomized
-                            <InfoIcon tooltip={
-                                'Students may get the same questions but in ' +
-                                'different order of answer choices. This feature is ' +
-                                'only available for Multiple Choice. Questions with ' +
-                                'locked choice order and True/ False questions will ' +
-                                'not be shuffled. Learn more<TODO>'
-                            } />
+                            <InfoIconPopover
+                                popoverInfo={
+                                    <>
+                                        <p>
+                                            Students may get the same questions but in
+                                            different order of answer choices. This feature is
+                                            only available for Multiple Choice. Questions with
+                                            locked choice order and True/ False questions will
+                                            not be shuffled.&nbsp;
+                                        </p>
+                                        <a href="https://openstax.secure.force.com/help/articles/FAQ/How-to-Shuffle-Answer-Choices-in-OpenStax-Tutor" target="_blank">Learn more</a>
+                                    </>
+                                }
+                            />
                         </>
                     }
                 >

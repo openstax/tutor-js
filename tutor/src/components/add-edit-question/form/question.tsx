@@ -1,13 +1,14 @@
-import { React, styled, css, observer, cn } from 'vendor';
-import { map, partial } from 'lodash';
-import { Button } from 'react-bootstrap';
+import { React, styled, css, observer, cn } from 'vendor'
+import { map, partial } from 'lodash'
+import { Button } from 'react-bootstrap'
 import {
-    AddEditQuestionFormBlock, AddEditFormTextInput, AnswerHTMLEditor, QuestionInfo,
-} from './shared';
-import AddEditQuestionUX from '../ux';
-import CheckboxInput from '../../../components/checkbox-input';
-import { colors, breakpoint } from '../../../theme';
-import { Icon } from 'shared';
+    AddEditQuestionFormBlock, AddEditFormTextInput, AnswerHTMLEditor,
+} from './shared'
+import AddEditQuestionUX from '../ux'
+import CheckboxInput from '../../../components/checkbox-input'
+import { colors, breakpoint } from '../../../theme'
+import { Icon } from 'shared'
+import InfoIconPopover from '../../info-icon-popover'
 
 const fullWidthTablet = css`
   ${breakpoint.tablet`
@@ -183,7 +184,7 @@ const Form = observer(({ ux }: { ux: AddEditQuestionUX }) => {
     const twoStepLabel =
         <>
             <span className="two-step-label">Make this Two-step question </span>
-            <QuestionInfo
+            <InfoIconPopover
                 placement="right"
                 popoverInfo={
                     <>
@@ -203,7 +204,7 @@ const Form = observer(({ ux }: { ux: AddEditQuestionUX }) => {
     const lockOrderLabel =
         <>
             <span className="lock-choices-label">Lock answer choices order</span>
-            <QuestionInfo
+            <InfoIconPopover
                 placement="right"
                 popoverInfo={
                     <>
@@ -334,7 +335,6 @@ const Form = observer(({ ux }: { ux: AddEditQuestionUX }) => {
                     label='Detailed solution'
                     className="detailed-solution"
                     placeholder="Provide additional information on the correct choice."
-                    errorInfo={undefined}
                 />
             </>
         );
