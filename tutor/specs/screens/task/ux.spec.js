@@ -297,7 +297,6 @@ describe('Task UX Model', () => {
             for (var i = 0; i < 1000; i++) {
                 ux.shuffleQuestionAnswers(question);
                 runs.push(getIdOrder());
-                question.hasBeenShuffled = false;
             }
 
             // Distribution count by permutation
@@ -326,12 +325,6 @@ describe('Task UX Model', () => {
         it('does not shuffle if there are only 2 answers', () => {
             question.is_answer_order_important = false;
             question.answers = question.answers.slice(0, 2);
-            expect(ux.canShuffleQuestionAnswers(question)).toEqual(false);
-        });
-
-        it('does not shuffle twice', () => {
-            ux.shuffleQuestionAnswers(question);
-            expect(question.hasBeenShuffled).toBe(true);
             expect(ux.canShuffleQuestionAnswers(question)).toEqual(false);
         });
 
