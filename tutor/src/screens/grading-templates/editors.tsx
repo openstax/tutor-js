@@ -9,7 +9,6 @@ import RadioInput from '../../components/radio-input';
 import TimeInput from '../../components/time-input';
 import Select from '../../components/select';
 import TemplateModal from '../../components/course-modal';
-import InfoIcon from '../../components/icons/info';
 import SmallText from '../../components/small-text';
 import InfoIconPopover from '../../components/info-icon-popover'
 
@@ -344,7 +343,7 @@ class TemplateForm extends React.Component<TemplateFormProps> {
             </>
         );
 
-        const iconText = (
+        const multiAttemptsIconText = (
             <>
                 <strong>Example:</strong>
                 <div>MCQ with 4 choices, students get 2 attempts.</div>
@@ -360,7 +359,9 @@ class TemplateForm extends React.Component<TemplateFormProps> {
                     legendHint={
                         <>
                             Attempts allowed is equal to no. of choices ‘minus’ 2
-                            <InfoIcon tooltip={iconText} />
+                            <InfoIconPopover
+                                popoverInfo={multiAttemptsIconText}
+                            />
                         </>
                     }
                 >

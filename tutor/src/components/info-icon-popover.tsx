@@ -7,6 +7,8 @@ import { Placement } from 'react-bootstrap/Overlay';
 const StyledPopover = styled(Popover)`
   padding: 1.5rem;
   font-size: 1.4rem;
+  line-height: 2.0rem;
+
   p {
     color: ${colors.neutral.darker};
   }
@@ -26,14 +28,11 @@ const StyledQuestionInfoIcon = styled(Icon)`
 const InfoIconPopover = ({ popoverInfo, placement = 'top' }: { popoverInfo: React.ReactNode, placement?: Placement }) => {
     const [show, setShow] = useState(false);
     const [target, setTarget] = useState<HTMLElement | null>(null);
-    React
-    const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+
+    const handleEvent = (event: React.MouseEvent<HTMLElement>) => {
         setShow(!show);
         if (!show) {
             setTarget(event.target as HTMLElement);
-        }
-        else {
-            setTarget(null);
         }
     };
     const popover = <StyledPopover id="">
@@ -45,7 +44,8 @@ const InfoIconPopover = ({ popoverInfo, placement = 'top' }: { popoverInfo: Reac
             <StyledQuestionInfoIcon
                 type="question-circle"
                 className="question-info-icon"
-                onClick={handleClick}
+                onClick={handleEvent}
+                onMouseEnter={handleEvent}
             />
             <Overlay
                 rootClose
