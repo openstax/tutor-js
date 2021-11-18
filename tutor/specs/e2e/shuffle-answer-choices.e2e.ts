@@ -109,6 +109,12 @@ test.describe('a student', () => {
         await page.click('testId=submit-answer-btn')
         const newOrder = await getOrder()
 
+        const testOrder = await page.evaluate(() => (window as any).shuffleImpl([1, 2, 3]))
+        expect(testOrder).toEqual([3, 2, 1])
+
+        console.log(originalOrder)
+        console.log(newOrder)
+
         expect(newOrder.length).toEqual(4)
         expect(newOrder).not.toEqual(originalOrder)
 
