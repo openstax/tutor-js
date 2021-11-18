@@ -92,10 +92,9 @@ export class ExercisesMap extends Map<ID, Exercise | ExerciseVersions> {
         } else {
             url = urlFor('saveExistingDraft', { number: exercise.number })
         }
-        // Prevent method 'all' from TagsAssociation being serialized into tags array
-        const data = merge(exercise.toJSON(), { 'tags': exercise.tags.all.toJSON() })
+
         this.onSaved(
-            await this.api.request(url, { data: data }),
+            await this.api.request(url, { data: exercise.toJSON() }),
             exercise
         )
     }
