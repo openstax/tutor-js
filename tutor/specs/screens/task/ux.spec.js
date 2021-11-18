@@ -309,30 +309,25 @@ describe('Task UX Model', () => {
 
         it('does not shuffle if shuffle is disabled', () => {
             ux.task.shuffle_answer_choices = false;
-            ux.shuffleQuestionAnswers(question);
-            expect(getIdOrder()).toEqual(originalOrder);
+            expect(ux.canShuffleQuestionAnswers(question)).toEqual(false);
         });
 
         it('does not shuffle if answer order is important', () => {
             question.is_answer_order_important = true;
-            ux.shuffleQuestionAnswers(question);
-            expect(getIdOrder()).toEqual(originalOrder);
+            expect(ux.canShuffleQuestionAnswers(question)).toEqual(false);
         });
 
         it('does not shuffle if there are only 2 answers', () => {
             question.is_answer_order_important = false;
             question.answers = question.answers.slice(0, 2);
-            originalOrder = getIdOrder();
-            ux.shuffleQuestionAnswers(question);
-            expect(getIdOrder()).toEqual(originalOrder);
+            expect(ux.canShuffleQuestionAnswers(question)).toEqual(false);
         });
 
         it('does not shuffle twice', () => {
             ux.shuffleQuestionAnswers(question);
             const firstOrder = getIdOrder();
             expect(question.hasBeenShuffled).toBe(true);
-            ux.shuffleQuestionAnswers(question);
-            expect(getIdOrder()).toEqual(firstOrder);
+            expect(ux.canShuffleQuestionAnswers(question)).toEqual(false);
         });
     });
 });

@@ -40,11 +40,15 @@ export default class ExerciseQuestion extends React.Component {
         super(props);
         modelize(this);
 
-        const { ux, step } = this.props;
+        const { ux, step, question } = this.props;
 
         // Make sure the submit button gets reset to a disabled "re-submit" state
         if (ux.hasMultipleAttempts && step.attempts_remaining > 0) {
             ux.markIncorrectAttempt();
+        }
+
+        if (ux.canShuffleQuestionAnswers(question)) {
+            ux.shuffleQuestionAnswers(question);
         }
     }
 
@@ -169,7 +173,7 @@ export default class ExerciseQuestion extends React.Component {
             <StyledExerciseQuestion data-test-id="student-exercise-question">
                 <Question
                     task={ux.task}
-                    question={ux.shuffleQuestionAnswers(question)}
+                    question={question}
                     choicesEnabled={!ux.isReadOnly && step.canAnswer}
                     answer_id={this.answerId}
                     focus={!step.multiPartGroup}

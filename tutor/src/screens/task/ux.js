@@ -441,14 +441,14 @@ export default class TaskUX {
         }
     }
 
-    @action shuffleQuestionAnswers(question) {
-        if (!this.task.shuffle_answer_choices ||
-            question.is_answer_order_important ||
-            question.answers.length < 3 ||
-            question.hasBeenShuffled) {
-            return question;
-        }
+    @action canShuffleQuestionAnswers(question) {
+        return this.task.shuffle_answer_choices &&
+               question.answers.length > 2 &&
+               !question.is_answer_order_important &&
+               !question.hasBeenShuffled
+    }
 
+    @action shuffleQuestionAnswers(question) {
         if (this.currentStep.attempt_number == 0) {
             const { answers } = question;
 
