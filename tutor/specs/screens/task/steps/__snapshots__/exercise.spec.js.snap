@@ -44,6 +44,7 @@ exports[`Exercise Tasks Screen matches snapshot 1`] = `
     ux={
       TaskUX {
         "becomeStudentIfNeeded": [MockFunction],
+        "canShuffleQuestionAnswers": [MockFunction],
         "canUpdateCurrentStep": true,
         "course": Object {
           "appearance_code": "college_physics",
