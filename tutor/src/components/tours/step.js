@@ -19,9 +19,8 @@ export default class TourStep extends React.Component {
 
         const tip = (
             <TutorTooltip
-                open={true}
+                open={step.tooltipOpen}
                 debug={ride.context.emitDebugInfo}
-                autoOpen={true}
                 key={step.anchor_id}
                 target={step.target}
                 variant={step.variant}

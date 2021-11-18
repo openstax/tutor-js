@@ -31,6 +31,7 @@ export class TourStep extends BaseModel {
     @field action?: any;
     @field className?: string;
     @field disabledBreakpoints?: any[];
+    @field tooltipOpen = true;
 
     windowSize = new WindowSize();
 
