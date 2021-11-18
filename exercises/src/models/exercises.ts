@@ -1,6 +1,6 @@
 import Map from 'shared/model/map';
 import { action, ID, hydrateModel, hydrateInstance } from 'shared/model';
-import { sortBy, last, get, merge } from 'lodash';
+import { sortBy, last, get } from 'lodash';
 import Exercise from './exercises/exercise';
 import urlFor  from '../api'
 
