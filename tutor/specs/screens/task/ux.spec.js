@@ -263,6 +263,7 @@ describe('Task UX Model', () => {
         const getIdOrder = () => question.answers.map(a => a.id);
 
         beforeEach(() => {
+            jest.restoreAllMocks();
             question = FactoryBot.create('ExerciseQuestion');
 
             const answer = FactoryBot.create('ExerciseAnswer', {
@@ -270,6 +271,7 @@ describe('Task UX Model', () => {
                 parent: { object: question },
             });
 
+            question.answers = question.answers.slice(0, 2);
             question.answers.push(answer);
             originalOrder = getIdOrder();
 
@@ -280,8 +282,12 @@ describe('Task UX Model', () => {
         });
 
         it('shuffles answers into a new order', () => {
-            ux.shuffleArray = (arr) => arr.reverse()
+            const reverseOrder = [0.25, 0.75, 0];
+            const randomSpy = jest.spyOn(Math, 'random');
+            randomSpy.mockImplementation(() => reverseOrder.pop());
+
             ux.shuffleQuestionAnswers(question);
+
             expect(getIdOrder()).toEqual(originalOrder.reverse());
             expect(ux.currentStep.answer_id_order).toEqual(getIdOrder());
         });
@@ -290,7 +296,7 @@ describe('Task UX Model', () => {
             const runs = [];
             for (var i = 0; i < 1000; i++) {
                 ux.shuffleQuestionAnswers(question);
-                runs.push(question.answers.map(a => a.id));
+                runs.push(getIdOrder());
                 question.hasBeenShuffled = false;
             }
 

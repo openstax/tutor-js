@@ -84,12 +84,15 @@ test.describe('a student', () => {
     })
 
     test.beforeEach(async ({ page }) => {
+        // Guarantee initial order
+        await page.addInitScript(() => Math.random = () => 0)
         await visitPage(page, `/course/${COURSE_ID}`)
         await page.click(`text="${assignmentName}"`)
     });
 
     test('can shuffle answers', async ({ page }) => {
         const getOrder = async () => await page.$$eval('.answer-answer', (n: HTMLElement[]) => n.map(s => s.innerText))
+
         await page.click('[data-step-index="1"]')
         await page.fill('testId=free-response-box', '')
         let submitBtn = await page.waitForSelector('testId=submit-answer-btn')
@@ -98,8 +101,8 @@ test.describe('a student', () => {
         await page.click('testId=submit-answer-btn')
         const originalOrder = await getOrder()
 
-        // Override random implementation with guaranteed change
-        await page.addInitScript(() => (window as any).shuffleImpl = (arr: []) => arr.reverse())
+        // Guarantee next order is different
+        await page.addInitScript(() => Math.random = () => 0.5)
         await page.reload()
 
         await page.fill('testId=free-response-box', '')
@@ -108,12 +111,6 @@ test.describe('a student', () => {
         await page.type('testId=free-response-box', 'answer')
         await page.click('testId=submit-answer-btn')
         const newOrder = await getOrder()
-
-        const testOrder = await page.evaluate(() => (window as any).shuffleImpl([1, 2, 3]))
-        expect(testOrder).toEqual([3, 2, 1])
-
-        console.log(originalOrder)
-        console.log(newOrder)
 
         expect(newOrder.length).toEqual(4)
         expect(newOrder).not.toEqual(originalOrder)

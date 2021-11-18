@@ -433,15 +433,7 @@ export default class TaskUX {
         }
     }
 
-    shuffleArray(arry) {
-        // https://en.wikipedia.org/wiki/Fisher–Yates_shuffle#The_modern_algorithm
-        for (let i = arry.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [arry[i], arry[j]] = [arry[j], arry[i]];
-        }
-    }
-
-    @action canShuffleQuestionAnswers(question) {
+    canShuffleQuestionAnswers(question) {
         return this.task.shuffle_answer_choices &&
                question.answers.length > 2 &&
                !question.is_answer_order_important &&
@@ -452,9 +444,13 @@ export default class TaskUX {
         if (this.currentStep.attempt_number == 0) {
             const { answers } = question;
 
-            (window.shuffleImpl || this.shuffleArray)(answers);
+            // https://en.wikipedia.org/wiki/Fisher–Yates_shuffle#The_modern_algorithm
+            for (let i = answers.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [answers[i], answers[j]] = [answers[j], answers[i]];
+            }
 
-            this.currentStep.answer_id_order = question.answers.map(a => a.id);
+            this.currentStep.answer_id_order = answers.map(a => a.id);
             question.hasBeenShuffled = true;
         } else {
             const order = this.currentStep.answer_id_order;
