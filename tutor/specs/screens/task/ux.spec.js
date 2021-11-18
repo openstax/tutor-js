@@ -325,7 +325,6 @@ describe('Task UX Model', () => {
 
         it('does not shuffle twice', () => {
             ux.shuffleQuestionAnswers(question);
-            const firstOrder = getIdOrder();
             expect(question.hasBeenShuffled).toBe(true);
             expect(ux.canShuffleQuestionAnswers(question)).toEqual(false);
         });
