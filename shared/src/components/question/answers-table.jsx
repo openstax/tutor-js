@@ -41,6 +41,7 @@ class AnswersTable extends React.Component {
         answer_id: idType,
         correct_answer_id: idType,
         incorrectAnswerId: idType,
+        answerIdOrder: PropTypes.array,
         feedback_html: PropTypes.string,
         correct_answer_feedback_html: PropTypes.string,
         answered_count: PropTypes.number,
@@ -146,8 +147,7 @@ class AnswersTable extends React.Component {
         if (hideAnswers) { return null; }
 
         const { id } = question;
-        const answers = !question.is_answer_order_important && answerIdOrder ?
-                        question.sortedAnswersByIdOrder(answerIdOrder) : question.answers
+        const answers = answerIdOrder ? question.sortedAnswersByIdOrder(answerIdOrder) : question.answers
 
         const chosenAnswer = [answer_id, this.state.answer_id];
 

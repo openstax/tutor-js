@@ -204,11 +204,11 @@ exports[`Exercise Tasks Screen matches snapshot 1`] = `
         "refetchTask": [MockFunction],
         "scrollToCurrentStep": [MockFunction],
         "setCurrentMultiPartStep": [MockFunction],
-        "shuffleArray": [MockFunction],
         "shuffleQuestionAnswers": [MockFunction],
         "toggleTaskProgressTable": [MockFunction],
         "toggleTaskToolbar": [MockFunction],
         "unLock": [MockFunction],
+        "useAnswerIdOrder": [MockFunction],
       }
     }
     windowImpl={

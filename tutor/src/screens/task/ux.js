@@ -437,8 +437,7 @@ export default class TaskUX {
         return this.task.shuffle_answer_choices &&
                this.currentStep.attempt_number == 0 &&
                question.answers.length > 2 &&
-               !question.is_answer_order_important &&
-               !question.hasBeenShuffled
+              !question.is_answer_order_important
     }
 
     @action shuffleQuestionAnswers(question) {
@@ -451,8 +450,13 @@ export default class TaskUX {
         }
 
         this.currentStep.answer_id_order = answers.map(a => a.id);
-        question.hasBeenShuffled = true;
 
         return question;
+    }
+
+    useAnswerIdOrder(question) {
+        // Only use the answer_id_order if the order isn't important and
+        // was previously submitted & saved with the first attempt
+        return !question.is_answer_order_important && this.currentStep.attempt_number > 0;
     }
 }

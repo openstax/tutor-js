@@ -334,5 +334,12 @@ describe('Task UX Model', () => {
             expect(question.hasBeenShuffled).toBe(true);
             expect(ux.canShuffleQuestionAnswers(question)).toEqual(false);
         });
+
+        it('decides when to useAnswerIdOrder', () => {
+            expect(ux.useAnswerIdOrder(question)).toBe(false);
+            question.is_answer_order_important = false;
+            ux.currentStep.attempt_number = 1;
+            expect(ux.useAnswerIdOrder(question)).toBe(true);
+        });
     });
 });

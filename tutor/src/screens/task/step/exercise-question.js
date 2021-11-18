@@ -174,7 +174,7 @@ export default class ExerciseQuestion extends React.Component {
                 <Question
                     task={ux.task}
                     question={question}
-                    answerIdOrder={step.attempt_number > 0 && step.answer_id_order}
+                    answerIdOrder={ux.useAnswerIdOrder(question) && step.answer_id_order}
                     choicesEnabled={!ux.isReadOnly && step.canAnswer}
                     answer_id={this.answerId}
                     focus={!step.multiPartGroup}
