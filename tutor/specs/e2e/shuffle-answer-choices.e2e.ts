@@ -29,6 +29,8 @@ const createGradingTemplate = async (page: Page) => {
     }
 }
 
+const getOrder = async (page: Page) => await page.$$eval('.answer-answer', (n: HTMLElement[]) => n.map(s => s.innerText))
+
 test.describe('a teacher', () => {
     withUser('teacher01')
 
@@ -91,15 +93,13 @@ test.describe('a student', () => {
     });
 
     test('C641279: can shuffle answers', async ({ page }) => {
-        const getOrder = async () => await page.$$eval('.answer-answer', (n: HTMLElement[]) => n.map(s => s.innerText))
-
         await page.click('[data-step-index="1"]')
         await page.fill('testId=free-response-box', '')
         let submitBtn = await page.waitForSelector('testId=submit-answer-btn')
         await submitBtn.waitForElementState('disabled')
         await page.type('testId=free-response-box', 'answer')
         await page.click('testId=submit-answer-btn')
-        const originalOrder = await getOrder()
+        const originalOrder = await getOrder(page)
 
         // Guarantee next order is different
         await page.addInitScript(() => Math.random = () => 0.5)
@@ -110,7 +110,7 @@ test.describe('a student', () => {
         await submitBtn.waitForElementState('disabled')
         await page.type('testId=free-response-box', 'answer')
         await page.click('testId=submit-answer-btn')
-        const newOrder = await getOrder()
+        const newOrder = await getOrder(page)
 
         expect(newOrder.length).toEqual(4)
         expect(newOrder).not.toEqual(originalOrder)
@@ -119,8 +119,31 @@ test.describe('a student', () => {
         await page.click('testId=submit-answer-btn')
 
         // Make sure submitted order continues to be used
+        await page.waitForSelector('.answer-correct')
+        expect(await getOrder(page)).toEqual(newOrder)
         await page.reload()
         await page.waitForSelector('.answer-answer')
-        expect(await getOrder()).toEqual(newOrder)
+        expect(await getOrder(page)).toEqual(newOrder)
+    })
+
+    test('can not shuffle important order answers', async ({ page }) => {
+        await page.click('[data-step-index="3"]')
+        await page.fill('testId=free-response-box', '')
+        let submitBtn = await page.waitForSelector('testId=submit-answer-btn')
+        await submitBtn.waitForElementState('disabled')
+        await page.type('testId=free-response-box', 'initial')
+        await page.click('testId=submit-answer-btn')
+        const originalOrder = await getOrder(page)
+
+        await page.addInitScript(() => Math.random = () => 0.5)
+        await page.reload()
+
+        await page.fill('testId=free-response-box', '')
+        submitBtn = await page.waitForSelector('testId=submit-answer-btn')
+        await submitBtn.waitForElementState('disabled')
+        await page.type('testId=free-response-box', 'reload')
+        await page.click('testId=submit-answer-btn')
+
+        expect(await getOrder(page)).toEqual(originalOrder)
     })
 })
