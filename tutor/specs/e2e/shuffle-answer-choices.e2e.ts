@@ -90,7 +90,7 @@ test.describe('a student', () => {
         await page.click(`text="${assignmentName}"`)
     });
 
-    test('can shuffle answers', async ({ page }) => {
+    test('C641279: can shuffle answers', async ({ page }) => {
         const getOrder = async () => await page.$$eval('.answer-answer', (n: HTMLElement[]) => n.map(s => s.innerText))
 
         await page.click('[data-step-index="1"]')
