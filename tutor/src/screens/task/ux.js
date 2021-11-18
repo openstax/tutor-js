@@ -435,28 +435,23 @@ export default class TaskUX {
 
     canShuffleQuestionAnswers(question) {
         return this.task.shuffle_answer_choices &&
+               this.currentStep.attempt_number == 0 &&
                question.answers.length > 2 &&
                !question.is_answer_order_important &&
                !question.hasBeenShuffled
     }
 
     @action shuffleQuestionAnswers(question) {
-        if (this.currentStep.attempt_number == 0) {
-            const { answers } = question;
+        const { answers } = question;
 
-            // https://en.wikipedia.org/wiki/Fisher–Yates_shuffle#The_modern_algorithm
-            for (let i = answers.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [answers[i], answers[j]] = [answers[j], answers[i]];
-            }
-
-            this.currentStep.answer_id_order = answers.map(a => a.id);
-            question.hasBeenShuffled = true;
-        } else {
-            const order = this.currentStep.answer_id_order;
-            question.answers = question.answers.sort((a, b) =>
-                order.indexOf(a.id) - order.indexOf(b.id));
+        // https://en.wikipedia.org/wiki/Fisher–Yates_shuffle#The_modern_algorithm
+        for (let i = answers.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [answers[i], answers[j]] = [answers[j], answers[i]];
         }
+
+        this.currentStep.answer_id_order = answers.map(a => a.id);
+        question.hasBeenShuffled = true;
 
         return question;
     }

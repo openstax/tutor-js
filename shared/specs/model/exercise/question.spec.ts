@@ -86,4 +86,10 @@ describe('Exercise Question', () => {
         question.answers.clear()
         expect(question.isMultipleChoice).toBe(false);
     });
+
+    it('can sort answers by given id order', () => {
+        const idOrder = question.answers.reverse().map(q => q.id)
+        const sortedAnswerIds = question.sortedAnswersByIdOrder(idOrder).map(q => q.id)
+        expect(sortedAnswerIds).toEqual(idOrder)
+    })
 });
