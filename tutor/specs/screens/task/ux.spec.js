@@ -264,6 +264,7 @@ describe('Task UX Model', () => {
 
         beforeEach(() => {
             question = FactoryBot.create('ExerciseQuestion');
+
             const answer = FactoryBot.create('ExerciseAnswer', {
                 siblings: question.answers,
                 parent: { object: question },
@@ -279,9 +280,31 @@ describe('Task UX Model', () => {
         });
 
         it('shuffles answers into a new order', () => {
+            ux.shuffleArray = (arr) => arr.reverse()
             ux.shuffleQuestionAnswers(question);
-            expect(getIdOrder()).not.toEqual(originalOrder);
+            expect(getIdOrder()).toEqual(originalOrder.reverse());
             expect(ux.currentStep.answer_id_order).toEqual(getIdOrder());
+        });
+
+        it('shuffles with expected distribution bounds', () => {
+            const runs = [];
+            for (var i = 0; i < 1000; i++) {
+                ux.shuffleQuestionAnswers(question);
+                runs.push(question.answers.map(a => a.id));
+                question.hasBeenShuffled = false;
+            }
+
+            // Distribution count by permutation
+            const distributions = {};
+            runs.forEach((r) => distributions[r] = (distributions[r] || 0) + 1);
+
+            const values = Object.values(distributions);
+            expect(values.length).toEqual(6);
+            values.forEach((d) => {
+                // Distributions should be within 10-20%
+                expect(d).toBeGreaterThan(100);
+                expect(d).toBeLessThan(200);
+            });
         });
 
         it('does not shuffle if shuffle is disabled', () => {
