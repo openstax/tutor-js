@@ -1,11 +1,12 @@
 import { React, PropTypes, styled, css, observer, cn } from 'vendor';
 import { map, startCase, partial } from 'lodash';
 import { Dropdown, ButtonGroup, Button } from 'react-bootstrap';
-import { AddEditQuestionFormBlock, QuestionInfo } from '../shared';
+import { AddEditQuestionFormBlock } from '../shared';
 import TutorDropdown from '../../../dropdown';
 import AddEditQuestionUX from '../../ux';
 import { TAG_TIMES, TAG_DIFFICULTIES, TAG_BLOOMS, TAG_DOKS } from './constants';
 import { colors, breakpoint } from 'theme';
+import InfoIconPopover from '../../../info-icon-popover';
 
 const fullWidthTablet = css`
     ${breakpoint.tablet`
@@ -134,7 +135,7 @@ const TagForm = observer(({ ux }) => {
                 <div className="tag-bloom">
                     <div className="label-info">
                         <label>Bloom's taxonomy</label>
-                        <QuestionInfo
+                        <InfoIconPopover
                             popoverInfo={
                                 <>
                                     <p>
@@ -154,7 +155,7 @@ const TagForm = observer(({ ux }) => {
                 <div className="tag-dok">
                     <div className="label-info">
                         <label>Depth of knowledge</label>
-                        <QuestionInfo
+                        <InfoIconPopover
                             placement="bottom"
                             popoverInfo={
                                 <>

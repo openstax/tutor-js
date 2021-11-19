@@ -68,6 +68,7 @@ export default class AddEditQuestionUX {
     @observable anonymize = false;
     @observable excludeOriginal = false;
     @observable changed = false;
+    @observable isAnswerOrderImportant = false;
     autosaveDisposer;
 
     constructor(props = {}) {
@@ -95,7 +96,7 @@ export default class AddEditQuestionUX {
             // auto selected if there is only one chapter or selected pre-selected
             this.selectDefaultSectionAndChapter()
             // show 4 options by default
-            for(let i = 1; i <= 4; i++) {
+            for (let i = 1; i <= 4; i++) {
                 this.options.push({
                     id: i, text: '', feedback: '', isCorrect: false,
                 });
@@ -104,6 +105,9 @@ export default class AddEditQuestionUX {
         }
         // get author
         this.author = this.course.teacher_record;
+
+        // calculate if it's forced to true
+        this.updateIsAnswerOrderImportant();
 
         // on create user can select from all current co-teachers as the author
         if (!props.exercise) {
@@ -123,9 +127,9 @@ export default class AddEditQuestionUX {
     }
 
     @action selectDefaultSectionAndChapter() {
-        if(this.preSelectedChapters.length === 1) {
+        if (this.preSelectedChapters.length === 1) {
             this.selectedChapter = this.preSelectedChapters[0];
-            if(this.preSelectedChapterSections.length === 1) {
+            if (this.preSelectedChapterSections.length === 1) {
                 this.selectedChapterSection = this.preSelectedChapterSections[0];
             }
         }
@@ -160,7 +164,7 @@ export default class AddEditQuestionUX {
         this.detailedSolution = detailedSolution ? detailedSolution.content_html : '';
 
         // tags
-        if(exercise.content.tags && exercise.tags.length > 0) {
+        if (exercise.content.tags && exercise.tags.length > 0) {
             const exerciseTags = exercise.content.tags.all;
             const time = find(exerciseTags, t => t.type === 'time');
             const difficulty = find(exerciseTags, t => t.type === 'difficulty');
@@ -172,6 +176,7 @@ export default class AddEditQuestionUX {
 
         //general
         this.questionName = question.title;
+        this.isAnswerOrderImportant = question.is_answer_order_important;
     }
 
     populateExerciseTagLevel(exerciseTags, tags, tagType) {
@@ -198,6 +203,7 @@ export default class AddEditQuestionUX {
             allowOthersCopyEdit: this.allowOthersCopyEdit,
             anonymize: this.anonymize,
             excludeOriginal: this.excludeOriginal,
+            isAnswerOrderImportant: this.isAnswerOrderImportant,
         };
     }
 
@@ -252,6 +258,7 @@ export default class AddEditQuestionUX {
                 anonymize: this.anonymize,
                 copyable: this.allowOthersCopyEdit,
                 images: this.images.map(img => img.signed_id),
+                isAnswerOrderImportant: this.isAnswerOrderImportant,
             },
             page_ids: this.selectedChapterSection ? [this.selectedChapterSection.id] : null,
             book: this.course.referenceBook,
@@ -282,6 +289,7 @@ export default class AddEditQuestionUX {
             tagDifficulty: this.tagDifficulty,
             tagBloom: this.tagBloom,
             tagDok: this.tagDok,
+            isAnswerOrderImportant: this.isAnswerOrderImportant,
         };
 
         return data;
@@ -397,9 +405,9 @@ export default class AddEditQuestionUX {
 
     // actions for topic form section
     @action.bound setSelectedChapterByUUID(uuid) {
-        if(this.selectedChapter && this.selectedChapter.uuid === uuid) return;
+        if (this.selectedChapter && this.selectedChapter.uuid === uuid) return;
         this.selectedChapter = find(this.preSelectedChapters, psc => psc.uuid === uuid);
-        if(this.preSelectedChapterSections.length === 1) {
+        if (this.preSelectedChapterSections.length === 1) {
             this.selectedChapterSection = this.preSelectedChapterSections[0];
         }
         else {
@@ -431,13 +439,15 @@ export default class AddEditQuestionUX {
     @action changeOptions(answer, index) {
         this.options[index].text = answer;
         // if two or more options are filled, then take out the errors
-        if(this.filledOptions.length >= 2 && some(this.isEmpty.options, o => o)) {
+        if (this.filledOptions.length >= 2 && some(this.isEmpty.options, o => o)) {
             this.isEmpty.options[0] = false;
             this.isEmpty.options[1] = false;
         }
         else if (index <= 1 && this.isEmpty.options[index]) {
             this.isEmpty.options[index] = false;
         }
+
+        this.updateIsAnswerOrderImportant();
     }
 
     @action changeFeedback(feedback, index) {
@@ -446,7 +456,7 @@ export default class AddEditQuestionUX {
 
     @action checkCorrectOption(index) {
         forEach(this.options, (o, optionIndex) => {
-            if(optionIndex === index) {
+            if (optionIndex === index) {
                 o.isCorrect = true;
             } else {
                 o.isCorrect = false;
@@ -455,16 +465,30 @@ export default class AddEditQuestionUX {
         this.isEmpty.correctOption = false;
     }
 
+    @action.bound onChangeIsAnswerOrderImportant({ target: { checked } }) {
+        this.updateIsAnswerOrderImportant(checked);
+    }
+
+    @action.bound updateIsAnswerOrderImportant(value = this.isAnswerOrderImportant) {
+        this.isAnswerOrderImportant = this.canChangeIsAnswerOrderImportant ? value : true;
+    }
+
+    @computed get canChangeIsAnswerOrderImportant() {
+        return this.options.length > 2
+    }
+
     @action.bound addOption() {
         // up to 6 options only
-        if(this.options.length === 6) return;
+        if (this.options.length === 6) return;
         this.options.push({
             id: this.options.length, text: '', feedback: '', isCorrect: false,
         });
+        this.updateIsAnswerOrderImportant();
     }
 
     @action deleteOption(index) {
         this.options.splice(index, 1);
+        this.updateIsAnswerOrderImportant();
     }
 
     @action moveUpOption(index) {
@@ -528,7 +552,7 @@ export default class AddEditQuestionUX {
 
     @action async publish(shouldExit) {
         // only show feedback tip modal if form is MCQ
-        if(this.shouldShowFeedbackTipModal) {
+        if (this.shouldShowFeedbackTipModal) {
             this.feedbackTipModal = {
                 show: true,
                 didShow: true,
@@ -557,14 +581,14 @@ export default class AddEditQuestionUX {
         if (this.excludeOriginal && exercise) {
             this.course.saveExerciseExclusion({ exercise, is_excluded: true });
         }
-        if(shouldExit) {
+        if (shouldExit) {
             this.onDisplayModal(false);
         }
         else {
             this.resetForm();
         }
 
-        if(this.feedbackTipModal.show) {
+        if (this.feedbackTipModal.show) {
             this.feedbackTipModal = {
                 show: false,
                 shouldExitOnPublish: false,
@@ -577,7 +601,7 @@ export default class AddEditQuestionUX {
         const tagkeys = ['tagTime', 'tagDifficulty', 'tagBloom', 'tagDok'];
         let tags = {};
         forEach(tagkeys, key => {
-            if(this[key]) {
+            if (this[key]) {
                 tags[key] = { value: this[key].value || this[key] };
             }
         });
@@ -614,11 +638,12 @@ export default class AddEditQuestionUX {
         this.allowOthersCopyEdit = true;
         this.anonymize = false;
         this.excludeOriginal = false;
+        this.isAnswerOrderImportant = false;
         this.images.clear();
     }
 
     @action.bound doExitForm() {
-        if(this.canExit){
+        if (this.canExit) {
             this.showExitWarningModal = true;
         }
         else {
@@ -635,7 +660,7 @@ export default class AddEditQuestionUX {
     @action.bound checkValidityOfFields(fields = []) {
         let filterIsEmptyFields;
         // if `fields` is empty, then check all of the `this.isEmpty` fields
-        if(fields.length > 0) {
+        if (fields.length > 0) {
             filterIsEmptyFields = pickBy(this.isEmpty, (ie, key) => {
                 return some(fields, f => f === key);
             });
@@ -651,7 +676,7 @@ export default class AddEditQuestionUX {
             }
             else if (key === 'options' && this.filledOptions.length <= 1) {
                 // if there are no filled options, show the inline error in the first two option editors
-                if(this.filledOptions.length === 0) {
+                if (this.filledOptions.length === 0) {
                     this.isEmpty[key][0] = true;
                     this.isEmpty[key][1] = true;
                 }

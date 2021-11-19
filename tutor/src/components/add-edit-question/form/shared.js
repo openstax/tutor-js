@@ -1,7 +1,6 @@
-import { React, PropTypes, styled, cn, observer, useState } from 'vendor';
-import { Form, Overlay, Popover } from 'react-bootstrap';
+import { React, PropTypes, styled, cn, observer } from 'vendor';
+import { Form } from 'react-bootstrap';
 import { colors } from 'theme';
-import { Icon } from 'shared';
 import { EditableHTML } from '../../editor';
 
 const StyledRowContent = styled.div`
@@ -57,7 +56,7 @@ const StyledRowContent = styled.div`
             font-size: 1.6rem;
           }
         }
-      } 
+      }
       // overriding the inline style
       .perry-white {
         border: 1px solid ${colors.neutral.pale};
@@ -84,68 +83,6 @@ const StyledAddEditFormTextInput = styled(Form.Group)`
     }
 `;
 
-const StyledPopover = styled(Popover)`
-  padding: 1.5rem;
-  font-size: 1.4rem;
-  p {
-    color: ${colors.neutral.darker};
-  }
-  a {
-    font-weight: 500;
-  }
-`;
-
-const StyledQuestionInfoIcon = styled(Icon)`
-  &.question-info-icon {
-    margin-left: 1rem;
-    color:${colors.bright_blue};
-    margin: 0;
-  }
-`;
-
-export const QuestionInfo = ({ popoverInfo, placement = 'top' }) => {
-    const [show, setShow] = useState(false);
-    const [target, setTarget] = useState(null);
-
-    const handleClick = (event) => {
-        setShow(!show);
-        if(!show) {
-            setTarget(event.target);
-        }
-        else {
-            setTarget(null);
-        }
-    };
-    const popover = <StyledPopover>
-        {popoverInfo}
-    </StyledPopover>;
-
-    return (
-        <>
-            <StyledQuestionInfoIcon
-                type="question-circle"
-                className="question-info-icon"
-                onClick={handleClick}
-            />
-            <Overlay
-                rootClose
-                show={show}
-                target={target}
-                placement={placement}
-                onHide={() => setShow(false)}
-            >
-                {popover}
-            </Overlay>
-        </>
-  
-    );
-};
-QuestionInfo.propTypes = {
-    popoverInfo: PropTypes.node.isRequired,
-    placement: PropTypes.string,
-};
-
-
 const EditableHTMLPanel = styled(EditableHTML)({
     flex: 1,
     '.ProseMirror.pw-prosemirror-editor': {
@@ -170,7 +107,7 @@ TextInputHTMLEditor.propTypes = {
     errorInfo: PropTypes.string,
 };
 
-export const AnswerHTMLEditor = ({ className, label, errorInfo, html, ...props }) => (
+export const AnswerHTMLEditor = ({ className, label = '', errorInfo = '', html, ...props }) => (
     <StyledRowContent className={cn('editor-wrapper', className, { 'isEmpty': errorInfo })}>
         {label && <Form.Label>{label}</Form.Label>}
         <div className="editor">
@@ -186,7 +123,7 @@ AnswerHTMLEditor.propTypes = {
     errorInfo: PropTypes.string,
 };
 
-export const AddEditFormTextInput = observer(({ onChange, plainText, value, label, placeholder, className, errorInfo }) => {
+export const AddEditFormTextInput = observer(({ onChange, plainText = false, value, label = '', placeholder = '', className, errorInfo = '' }) => {
     const input = plainText ?
         <Form.Control type="text" onChange={({ target: { value } }) => onChange(value)} value={value} placeholder={placeholder} /> :
         <TextInputHTMLEditor onChange={onChange} html={value} placeholder={placeholder} errorInfo={errorInfo} />;

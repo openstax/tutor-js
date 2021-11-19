@@ -24,6 +24,7 @@ const StyledExerciseQuestion = styled.div`
     padding: 10px 0;
   }
 `;
+StyledExerciseQuestion.displayName = 'StyledExerciseQuestion';
 
 @observer
 export default class ExerciseQuestion extends React.Component {
@@ -39,11 +40,15 @@ export default class ExerciseQuestion extends React.Component {
         super(props);
         modelize(this);
 
-        const { ux, step } = this.props;
+        const { ux, step, question } = this.props;
 
         // Make sure the submit button gets reset to a disabled "re-submit" state
         if (ux.hasMultipleAttempts && step.attempts_remaining > 0) {
             ux.markIncorrectAttempt();
+        }
+
+        if (ux.canShuffleQuestionAnswers(question)) {
+            ux.shuffleQuestionAnswers(question);
         }
     }
 
@@ -92,24 +97,9 @@ export default class ExerciseQuestion extends React.Component {
         ux.onAnswerContinue(step);
     }
 
-    @action.bound async addOrRemovePracticeQuestion() {
-        if (this.practiceQuestion) {
-            this.practiceQuestion.destroy();
-        }
-        else {
-            const { ux, step } = this.props;
-            ux.course.practiceQuestions.create({ tasked_exercise_id: step.tasked_id });
-        }
-    }
-
     @computed get answerId() {
         return this.selectedAnswer ?
             this.selectedAnswer.id : this.props.step.answer_id;
-    }
-
-    @computed get practiceQuestion() {
-        const { ux, step } = this.props;
-        return ux.course.practiceQuestions.findByExerciseId(step.exercise_id);
     }
 
     renderSaveButton() {
@@ -184,6 +174,7 @@ export default class ExerciseQuestion extends React.Component {
                 <Question
                     task={ux.task}
                     question={question}
+                    answerIdOrder={ux.useAnswerIdOrder(question) && step.answer_id_order}
                     choicesEnabled={!ux.isReadOnly && step.canAnswer}
                     answer_id={this.answerId}
                     focus={!step.multiPartGroup}
