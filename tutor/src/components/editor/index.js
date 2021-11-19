@@ -36,7 +36,7 @@ const Wrapper = styled.div({
                 margin: 'auto',
             },
         },
-  
+
     },
 });
 

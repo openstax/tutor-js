@@ -1,5 +1,5 @@
 import UX from '../../../src/screens/task/ux';
-import { ApiMock, Factory, TimeMock, TestRouter, ld, deferred, runInAction } from '../../helpers';
+import { ApiMock, Factory, TimeMock, TestRouter, ld, deferred, runInAction, FactoryBot } from '../../helpers';
 import UiSettings from 'shared/model/ui-settings';
 jest.mock('shared/model/ui-settings', () => ({
     set: jest.fn(),
@@ -255,6 +255,84 @@ describe('Task UX Model', () => {
                     expect(ux.canGoForward).toEqual(true);
                 });
             });
+        });
+    });
+
+    describe('shuffle question answers', () => {
+        let question, originalOrder;
+        const getIdOrder = () => question.answers.map(a => a.id);
+
+        beforeEach(() => {
+            jest.restoreAllMocks();
+            question = FactoryBot.create('ExerciseQuestion');
+
+            const answer = FactoryBot.create('ExerciseAnswer', {
+                siblings: question.answers,
+                parent: { object: question },
+            });
+
+            question.answers = question.answers.slice(0, 2);
+            question.answers.push(answer);
+            originalOrder = getIdOrder();
+
+            runInAction(() => {
+                ux.currentStep.type = 'exercise';
+                ux.task.shuffle_answer_choices = true;
+            });
+        });
+
+        it('shuffles answers into a new order', () => {
+            const reverseOrder = [0.25, 0.75, 0];
+            const randomSpy = jest.spyOn(Math, 'random');
+            randomSpy.mockImplementation(() => reverseOrder.pop());
+
+            ux.shuffleQuestionAnswers(question);
+
+            expect(getIdOrder()).toEqual(originalOrder.reverse());
+            expect(ux.currentStep.answer_id_order).toEqual(getIdOrder());
+        });
+
+        xit('shuffles with expected distribution bounds', () => {
+            const runs = [];
+            for (var i = 0; i < 1000; i++) {
+                ux.shuffleQuestionAnswers(question);
+                runs.push(getIdOrder());
+            }
+
+            // Distribution count by permutation
+            const distributions = {};
+            runs.forEach((r) => distributions[r] = (distributions[r] || 0) + 1);
+
+            const values = Object.values(distributions);
+            expect(values.length).toEqual(6);
+            values.forEach((d) => {
+                // Distributions should be within 10-20%
+                expect(d).toBeGreaterThan(100);
+                expect(d).toBeLessThan(200);
+            });
+        });
+
+        it('does not shuffle if shuffle is disabled', () => {
+            ux.task.shuffle_answer_choices = false;
+            expect(ux.canShuffleQuestionAnswers(question)).toEqual(false);
+        });
+
+        it('does not shuffle if answer order is important', () => {
+            question.is_answer_order_important = true;
+            expect(ux.canShuffleQuestionAnswers(question)).toEqual(false);
+        });
+
+        it('does not shuffle if there are only 2 answers', () => {
+            question.is_answer_order_important = false;
+            question.answers = question.answers.slice(0, 2);
+            expect(ux.canShuffleQuestionAnswers(question)).toEqual(false);
+        });
+
+        it('decides when to useAnswerIdOrder', () => {
+            expect(ux.useAnswerIdOrder(question)).toBe(false);
+            question.is_answer_order_important = false;
+            ux.currentStep.attempt_number = 1;
+            expect(ux.useAnswerIdOrder(question)).toBe(true);
         });
     });
 });

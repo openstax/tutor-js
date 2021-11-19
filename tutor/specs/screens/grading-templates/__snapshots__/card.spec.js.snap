@@ -140,6 +140,24 @@ exports[`Grading Templates Card matches snapshot for homework 1`] = `
         <h4
           className="c2"
         >
+          RANDOMIZATION AND DISPLAY
+        </h4>
+        <div
+          className="c3"
+        >
+          Shuffle answer choices?
+        </div>
+        <div
+          className="c4"
+        >
+          Yes
+        </div>
+        <div
+          className="c5"
+        />
+        <h4
+          className="c2"
+        >
           LATE WORK POLICY
         </h4>
         <div
@@ -378,6 +396,24 @@ exports[`Grading Templates Card matches snapshot for reading 1`] = `
           className="c5"
         >
           No
+        </div>
+        <div
+          className="c6"
+        />
+        <h4
+          className="c3"
+        >
+          RANDOMIZATION AND DISPLAY
+        </h4>
+        <div
+          className="c4"
+        >
+          Shuffle answer choices?
+        </div>
+        <div
+          className="c5"
+        >
+          Yes
         </div>
         <div
           className="c6"

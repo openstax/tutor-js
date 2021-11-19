@@ -187,6 +187,8 @@ export interface GradingTemplateData {
     manual_grading_feedback_on: string
     name: string
     task_plan_type: 'reading' | 'homework'
+    allow_auto_graded_multiple_attempts: boolean
+    shuffle_answer_choices: boolean
 }
 
 export interface HighlightedPageData {

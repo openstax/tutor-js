@@ -433,4 +433,30 @@ export default class TaskUX {
         }
     }
 
+    canShuffleQuestionAnswers(question) {
+        return this.task.shuffle_answer_choices &&
+               this.currentStep.attempt_number == 0 &&
+               question.answers.length > 2 &&
+              !question.is_answer_order_important
+    }
+
+    @action shuffleQuestionAnswers(question) {
+        const { answers } = question;
+
+        // https://en.wikipedia.org/wiki/Fisher–Yates_shuffle#The_modern_algorithm
+        for (let i = answers.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [answers[i], answers[j]] = [answers[j], answers[i]];
+        }
+
+        this.currentStep.answer_id_order = answers.map(a => a.id);
+
+        return question;
+    }
+
+    useAnswerIdOrder(question) {
+        // Only use the answer_id_order if the order isn't important and
+        // was previously submitted & saved with the first attempt
+        return !question.is_answer_order_important && this.currentStep.attempt_number > 0;
+    }
 }
