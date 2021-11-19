@@ -49,6 +49,10 @@ export default class TagsAssociation {
     hydrate(tags: any[]) {
         this.all.splice(0, this.all.length, ...tags.map(t => hydrateModel(Tag, t)))
     }
+
+    serialize() {
+        return this.all.map(i => i.serialize())
+    }
 }
 
 export { Tag }
