@@ -11,18 +11,26 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
+
       - uses: bahmutov/npm-install@v1
+        with:
+          install-command: yarn --frozen-lockfile --ignore-optional
+
       - uses: actions/checkout@v2
         with:
           repository: openstax/tutor-server
           ref: main
           path: tutor-server
+
       - name: increase FS watchers
         run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
+
       - name: Run Tutor server process
         uses: ./tutor-server/
+
       - name: Run tests
         run: yarn run ci e2e
+
       - name: Save screenshots of failures
         uses: actions/upload-artifact@v2
         if: failure()
