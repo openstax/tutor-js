@@ -1,5 +1,6 @@
 import { action, observe, modelize } from 'shared/model'
 import { invoke } from 'lodash';
+import { runInAction } from 'mobx';
 
 class Actions {
     constructor(ux) {
@@ -26,7 +27,7 @@ class Actions {
     @action chapters() {
         this.needsBook();
     }
-  
+
     @action reorder() {
         this.needsBook();
     }
@@ -46,10 +47,12 @@ class Actions {
             page_ids: this.ux.selectedPageIds,
             limit: this.ux.plan.isHomework ? 'homework_core' : false,
         });
-        this.ux.selectedPageIds.forEach(pgId => {
-            this.ux.exercises.forPageId(pgId).forEach(
-                e => e.isSelected = this.ux.plan.includesExercise(e)
-            );
+        runInAction(() => {
+            this.ux.selectedPageIds.forEach(pgId => {
+                this.ux.exercises.forPageId(pgId).forEach(
+                    e => e.isSelected = this.ux.plan.includesExercise(e)
+                );
+            });
         });
     }
 

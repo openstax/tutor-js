@@ -21,6 +21,7 @@ exports[`Delete Modal matches snapshot 1`] = `
       "late_work_penalty_applied": "immediately",
       "manual_grading_feedback_on": "publish",
       "name": "Default Reading",
+      "shuffle_answer_choices": true,
       "task_plan_type": "reading",
     }
   }
