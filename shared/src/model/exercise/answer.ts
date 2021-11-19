@@ -1,12 +1,13 @@
 import Question from './question'
 import { isEmpty } from 'lodash';
 import {
-    BaseModel, modelize, field, computed, getParentOf,
+    BaseModel, modelize, field, computed, getParentOf, ID, NEW_ID,
 } from '../../model';
 
 
 export default
 class ExerciseAnswer extends BaseModel {
+    @field id: ID = NEW_ID
     @field content_html?: string
     @field correctness?: string
     @field feedback_html?: string

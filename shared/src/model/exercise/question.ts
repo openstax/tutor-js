@@ -183,4 +183,7 @@ class ExerciseQuestion extends BaseModel {
         this.answers.splice(index+offset, 0, this.answers.splice(index, 1)[0]);
     }
 
+    sortedAnswersByIdOrder(idOrder: ID[]) {
+        return this.answers.slice().sort((a, b) => idOrder.indexOf(a.id) - idOrder.indexOf(b.id))
+    }
 }

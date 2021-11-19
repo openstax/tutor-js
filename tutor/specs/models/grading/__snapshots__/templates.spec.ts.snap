@@ -17,6 +17,7 @@ Object {
   "late_work_penalty_applied": "daily",
   "manual_grading_feedback_on": "grade",
   "name": "Default Homework",
+  "shuffle_answer_choices": true,
   "task_plan_type": "homework",
 }
 `;

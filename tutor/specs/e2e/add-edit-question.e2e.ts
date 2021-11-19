@@ -125,7 +125,7 @@ test.describe('Add/Edit Questions', () => {
         await expect(page).toMatchText(`${incrementExerciseIdVersion(ex)} .question-stem`, newValue)
     })
 
-    test('autosaves', async({ page }) => {
+    test('autosaves', async ({ page }) => {
         await page.click('testId=create-question')
         const stemSel = 'testId=add-edit-question >> .question-text >> .editor'
         await page.click(stemSel)
@@ -179,5 +179,16 @@ test.describe('Add/Edit Questions', () => {
         await page.click('.tag-form button:first-child') // trigger focus blur for validation
         await expect(page).toMatchText(/Answer key field cannot be empty/)
         await page.click('.close')
+    })
+
+    test('C641278: automatically toggles shuffle answer choice lock', async ({ page }) => {
+        const selector = 'testId=toggle-answer-choice-important >> input'
+        await page.click('testId=create-question')
+        expect(await page.isChecked(selector)).toEqual(false)
+        expect(await page.isDisabled(selector)).toEqual(false)
+        await page.click('.ox-icon-trash')
+        await page.click('.ox-icon-trash')
+        expect(await page.isChecked(selector)).toEqual(true)
+        expect(await page.isDisabled(selector)).toEqual(true)
     })
 })

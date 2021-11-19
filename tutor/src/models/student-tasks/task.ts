@@ -22,6 +22,7 @@ export class StudentTask extends BaseModel {
     @field published_late_work_point_penalty?: number; // point penalty that is visible to the student
     @field published_points?: number; // points that are visible to the student
     @field allow_auto_graded_multiple_attempts = false;
+    @field shuffle_answer_choices = false;
     @field spy?: any;
     @model(Time) due_at = Time.unknown;
     @model(Time) closes_at = Time.unknown;

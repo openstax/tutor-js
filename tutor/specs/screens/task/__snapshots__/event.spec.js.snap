@@ -20,6 +20,7 @@ exports[`Tasks External URL Screen matches snapshot 1`] = `
           "late_work_penalty_per_period": 1,
           "published_late_work_point_penalty": 0,
           "published_points": 6,
+          "shuffle_answer_choices": false,
           "spy": Object {},
           "steps": Array [],
           "students": Array [],
