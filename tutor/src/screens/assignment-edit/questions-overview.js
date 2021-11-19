@@ -102,7 +102,7 @@ class QuestionsOverview extends React.Component {
     renderExerciseQuestion = ({ exercise, number, questionIndex }) => {
         const { chapterSection, dok, blooms, lo } = exercise.tags.important;
         const exSettings = this.props.ux.plan.settings.exercises.find(ex => ex.id == exercise.id);
-    
+
         const points = get(exSettings, `points[${questionIndex}]`, 0);
 
         return (
@@ -132,11 +132,11 @@ class QuestionsOverview extends React.Component {
         );
     };
 
-    renderTutorRow(exercises, index) {
+    renderTutorRow(numSelectedQuestions, index) {
         return (
             <tr key={`exercise-row-tutor-${index}`}>
                 <td className="exercise-number">
-                    {exercises.length + index + 1}
+                    {numSelectedQuestions + index + 1}
                 </td>
                 <td>
           Tutor
@@ -162,6 +162,9 @@ class QuestionsOverview extends React.Component {
 
     render() {
         const { ux: { selectedExercises, numTutorSelections } } = this.props;
+        const numSelectedQuestions = selectedExercises.map(
+            ex => ex.content.questions.length
+        ).reduce((prev, cur) => prev + cur, 0)
 
         return (
             <StyledOverview
@@ -196,7 +199,7 @@ class QuestionsOverview extends React.Component {
                     <tbody>
                         {selectedExercises.reduce(this.renderExercise, [])}
                         {times(numTutorSelections, index =>
-                            this.renderTutorRow(selectedExercises, index))}
+                            this.renderTutorRow(numSelectedQuestions, index))}
                     </tbody>
                 </table>
             </StyledOverview>
