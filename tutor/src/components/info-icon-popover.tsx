@@ -22,6 +22,7 @@ const StyledQuestionInfoIcon = styled(Icon)`
     margin-left: 1rem;
     color:${colors.bright_blue};
     margin: 0;
+    line-height: inherit;
   }
 `;
 
@@ -45,7 +46,6 @@ const InfoIconPopover = ({ popoverInfo, placement = 'top' }: { popoverInfo: Reac
                 type="question-circle"
                 className="question-info-icon"
                 onClick={handleEvent}
-                onMouseEnter={handleEvent}
             />
             <Overlay
                 rootClose
