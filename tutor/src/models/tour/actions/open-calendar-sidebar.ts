@@ -3,8 +3,8 @@ import { delay } from 'lodash';
 import { action, computed, modelize } from 'shared/model'
 
 export default class OpenCalendarSidebar extends BaseAction {
-    constructor() {
-        super();
+    constructor(options: any = {}) {
+        super(options);
         modelize(this);
     }
 
