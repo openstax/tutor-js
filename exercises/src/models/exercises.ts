@@ -92,6 +92,7 @@ export class ExercisesMap extends Map<ID, Exercise | ExerciseVersions> {
         } else {
             url = urlFor('saveExistingDraft', { number: exercise.number })
         }
+
         this.onSaved(
             await this.api.request(url, { data: exercise.toJSON() }),
             exercise

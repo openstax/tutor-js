@@ -6,6 +6,7 @@ exports[`Exercise Tasks Screen matches snapshot 1`] = `
     step={
       Object {
         "answer_id": undefined,
+        "answer_id_order": Array [],
         "attempt_number": 0,
         "attempts_remaining": 2,
         "available_points": 1,
@@ -43,6 +44,7 @@ exports[`Exercise Tasks Screen matches snapshot 1`] = `
     ux={
       TaskUX {
         "becomeStudentIfNeeded": [MockFunction],
+        "canShuffleQuestionAnswers": [MockFunction],
         "canUpdateCurrentStep": true,
         "course": Object {
           "appearance_code": "college_physics",
@@ -150,6 +152,7 @@ exports[`Exercise Tasks Screen matches snapshot 1`] = `
         },
         "currentStep": Object {
           "answer_id": undefined,
+          "answer_id_order": Array [],
           "attempt_number": 0,
           "attempts_remaining": 2,
           "available_points": 1,
@@ -201,9 +204,11 @@ exports[`Exercise Tasks Screen matches snapshot 1`] = `
         "refetchTask": [MockFunction],
         "scrollToCurrentStep": [MockFunction],
         "setCurrentMultiPartStep": [MockFunction],
+        "shuffleQuestionAnswers": [MockFunction],
         "toggleTaskProgressTable": [MockFunction],
         "toggleTaskToolbar": [MockFunction],
         "unLock": [MockFunction],
+        "useAnswerIdOrder": [MockFunction],
       }
     }
     windowImpl={

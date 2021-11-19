@@ -8,12 +8,11 @@ import {
 import S from '../../helpers/string';
 import urlFor from '../../api'
 import type { Course } from '../../models'
+import { FormikValues } from 'formik'
 
 class GradingTemplate extends BaseModel {
 
-    // returns a formik errors object as described:
-    // https://jaredpalmer.com/formik/docs/guides/validation
-    static validate(_tmpl: GradingTemplate, _form: any) { // eslint-disable-line no-unused-vars
+    static validate(_values: FormikValues) { // eslint-disable-line no-unused-vars
         return {};
     }
 
@@ -33,6 +32,7 @@ class GradingTemplate extends BaseModel {
     @field default_close_date_offset_days = 7;
     @field has_open_task_plans = false;
     @field allow_auto_graded_multiple_attempts = false;
+    @field shuffle_answer_choices = true;
 
     get map() { return getParentOf<GradingTemplates>(this) }
 
@@ -185,7 +185,7 @@ class GradingTemplates extends Map<ID, GradingTemplate> {
         this.onLoaded(templates.items)
     }
 
-    @action onLoaded(templates: GradingTemplateData[] ) {
+    @action onLoaded(templates: GradingTemplateData[]) {
         this.mergeModelData(templates)
     }
 

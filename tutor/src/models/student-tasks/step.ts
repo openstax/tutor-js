@@ -58,8 +58,7 @@ class StudentTaskReadingStep extends TaskStepContent {
     }
 }
 
-export
-class StudentTaskExerciseStep extends Exercise {
+export class StudentTaskExerciseStep extends Exercise {
     constructor() {
         super()
         modelize(this)
@@ -103,7 +102,8 @@ export class StudentTaskStep extends BaseModel {
     @field available_points?: number;
     @field type = '';
     @field is_completed = false
-    @field answer_id?:ID;
+    @field answer_id?: ID;
+    @field answer_id_order: ID[] = [];
     @field free_response = '';
     @field feedback_html = '';
     @field correct_answer_id = NEW_ID;
@@ -122,8 +122,8 @@ export class StudentTaskStep extends BaseModel {
     @field published_comments = ''
     @field published_points_without_lateness?: number
     @field published_late_work_point_penalty?: number
-    @field tasked_id:ID = NEW_ID
-    @field exercise_id:ID = NEW_ID
+    @field tasked_id: ID = NEW_ID
+    @field exercise_id: ID = NEW_ID
     @field attempts_remaining = 0;
     @field attempt_number = 0;
     @field solution?: Solution;
@@ -133,7 +133,7 @@ export class StudentTaskStep extends BaseModel {
 
     @observable multiPartGroup?: StudentTaskStepGroup
 
-    @observable incorrectAnswerId:ID = NEW_ID;
+    @observable incorrectAnswerId: ID = NEW_ID;
 
     constructor() {
         super()
@@ -204,7 +204,7 @@ export class StudentTaskStep extends BaseModel {
     }
 
     @computed get pointsScored() {
-        if(!isNil(this.published_points)) return this.published_points;
+        if (!isNil(this.published_points)) return this.published_points;
         if (this.correct_answer_id) {
             return this.answer_id === this.correct_answer_id
                 ? this.available_points
@@ -224,18 +224,18 @@ export class StudentTaskStep extends BaseModel {
     }
 
     @computed get isPersonalized() {
-        return 'personalized' == this.group ;
+        return 'personalized' == this.group;
     }
 
     @computed get isSpacedPractice() {
-        return 'spaced practice' == this.group ;
+        return 'spaced practice' == this.group;
     }
 
     @computed get canEditFreeResponse() {
         return Boolean(
             this.can_be_updated && !this.answer_id &&
-                this.formats?.includes('free-response') &&
-                (this.readContentProperty('isOpenEnded') || S.isEmpty(this.free_response))
+            this.formats?.includes('free-response') &&
+            (this.readContentProperty('isOpenEnded') || S.isEmpty(this.free_response))
         );
     }
 
@@ -294,7 +294,7 @@ export class StudentTaskStep extends BaseModel {
 
         const data = await this.api.request(
             urlFor('saveStudentTaskStep', { stepId: this.id }),
-            { data: pick(this, 'is_completed', 'answer_id', 'free_response', 'response_validation', 'attempt_number') }
+            { data: pick(this, 'is_completed', 'answer_id', 'free_response', 'response_validation', 'attempt_number', 'answer_id_order') }
         )
         this.onLoaded(data)
     }

@@ -120,6 +120,13 @@ const CardInfo = observer(({ template, header, children }) => {
 
                     <Line />
 
+                    <SectionTitle>RANDOMIZATION AND DISPLAY</SectionTitle>
+
+                    <SettingName>Shuffle answer choices?</SettingName>
+                    <SettingValue>{template.shuffle_answer_choices ? 'Yes' : 'No'}</SettingValue>
+
+                    <Line />
+
                     <SectionTitle>LATE WORK POLICY</SectionTitle>
 
                     <SettingName>Accept late work?</SettingName>
