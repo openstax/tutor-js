@@ -292,7 +292,7 @@ describe('Task UX Model', () => {
             expect(ux.currentStep.answer_id_order).toEqual(getIdOrder());
         });
 
-        it('shuffles with expected distribution bounds', () => {
+        xit('shuffles with expected distribution bounds', () => {
             const runs = [];
             for (var i = 0; i < 1000; i++) {
                 ux.shuffleQuestionAnswers(question);
