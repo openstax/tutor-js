@@ -55,10 +55,10 @@ const startMathJax = function() {
     window.MathJax = {
         tex: {
             displayMath: [[MATH_MARKER_BLOCK, MATH_MARKER_BLOCK]],
-            inlineMath: [[MATH_MARKER_INLINE, MATH_MARKER_INLINE]]
+            inlineMath: [[MATH_MARKER_INLINE, MATH_MARKER_INLINE]],
         },
         svg: {
-            fontCache: 'global'
+            fontCache: 'global',
         },
         startup: {
             // There's a bug in MathJax that causes subsequent renders to typeset the assistiveMML <math>
@@ -84,8 +84,8 @@ const startMathJax = function() {
                 combineDefaults(window.MathJax.config, 'mml', { FindMathML: new myFindMathML() })
 
                 window.MathJax.startup.defaultReady()
-            }
-        }
+            },
+        },
     };
 
     (function() {

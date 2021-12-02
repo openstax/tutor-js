@@ -17,7 +17,7 @@ describe('Mathjax Helper', () => {
         dom = document.createElement('div')
         window = new FakeWindow
         window.MathJax = {
-            typesetPromise: jest.fn(() => Promise.resolve()),
+            typesetPromise: jest.fn(() => Promise.resolve())
         }
         window.document = dom
     })
