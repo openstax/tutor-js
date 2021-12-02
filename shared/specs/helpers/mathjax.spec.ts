@@ -1,4 +1,4 @@
-import { typesetMath, } from '../../src/helpers/mathjax'
+import { typesetMath } from '../../src/helpers/mathjax'
 import FakeWindow from './fake-window'
 import { delay } from 'lodash'
 
@@ -17,7 +17,7 @@ describe('Mathjax Helper', () => {
         dom = document.createElement('div')
         window = new FakeWindow
         window.MathJax = {
-            typesetPromise: jest.fn(() => Promise.resolve())
+            typesetPromise: jest.fn(() => Promise.resolve()),
         }
         window.document = dom
     })
