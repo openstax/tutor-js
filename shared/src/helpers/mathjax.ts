@@ -19,19 +19,19 @@ const typesetMath = debounce((windowImpl: Window = window) => {
 
     const { document } = windowImpl
     const mathjax = windowImpl.MathJax
-    if (!mathjax) { return; }
+    if (!mathjax) { return }
 
-    let nodes: Element[] = [];
+    let nodes: Element[] = []
 
     document.querySelectorAll(MATH_DATA_SELECTOR).forEach((node) => {
-        const formula = node.getAttribute('data-math');
+        const formula = node.getAttribute('data-math')
         // divs should be rendered as a block, others inline
         if (node.tagName.toLowerCase() === 'div') {
             node.textContent = MATH_MARKER_BLOCK + formula + MATH_MARKER_BLOCK
         } else {
             node.textContent = MATH_MARKER_INLINE + formula + MATH_MARKER_INLINE
         }
-        nodes.push(node);
+        nodes.push(node)
     })
 
     mathjax.typesetPromise([document, nodes]).then(() => {
@@ -43,9 +43,9 @@ const typesetMath = debounce((windowImpl: Window = window) => {
         for (const node of nodes) {
             node.className += ` ${MATH_RENDERED_CLASS}`
         }
-    }).catch((err: any) => console.log(err.message));
+    })
 
-}, 100);
+}, 100)
 
 // typesetMath is the main exported function.
 // It's called by components like HTML after they're rendered
