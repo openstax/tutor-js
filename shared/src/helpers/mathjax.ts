@@ -15,7 +15,7 @@ declare global {
 }
 
 const typesetMath = ((windowImpl: Window = window) => {
-    if (!windowImpl.MathJax.typesetPromise) { return }
+    if (!windowImpl.MathJax || !windowImpl.MathJax['typesetPromise']) { return }
     _typesetMath(windowImpl)
 })
 
