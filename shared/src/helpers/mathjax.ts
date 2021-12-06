@@ -6,6 +6,7 @@ const MATH_MARKER_INLINE = '\u200b\u200b\u200b' // zero-width space
 const MATH_RENDERED_CLASS = 'math-rendered'
 const MATH_DATA_SELECTOR = `[data-math]:not(.${MATH_RENDERED_CLASS})`
 const MATH_ML_SELECTOR = `math:not(.${MATH_RENDERED_CLASS})`
+const COMBINED_MATH_SELECTOR = `${MATH_DATA_SELECTOR}, ${MATH_ML_SELECTOR}`
 
 declare global {
     interface Window {
@@ -13,12 +14,16 @@ declare global {
     }
 }
 
-const typesetMath = debounce((windowImpl: Window = window) => {
+const typesetMath = ((windowImpl: Window = window) => {
+    if (!windowImpl.MathJax.typesetPromise) { return }
+    _typesetMath(windowImpl)
+})
+
+const _typesetMath = debounce((windowImpl: Window = window) => {
     // Search document for math and [data-math] elements and then typeset them
 
     const { document } = windowImpl
     const mathjax = windowImpl.MathJax
-    if (!mathjax.typesetPromise) { return }
 
     let nodes: Element[] = []
 
@@ -83,7 +88,11 @@ const startMathJax = function() {
                 combineDefaults(window.MathJax.config, 'mml', { FindMathML: new myFindMathML() })
 
                 window.MathJax.startup.defaultReady()
-                typesetMath(window)
+
+                // If the script took too long to load, typeset when it's ready
+                if (document.querySelectorAll(COMBINED_MATH_SELECTOR).length > 0) {
+                    typesetMath(window)
+                }
             },
         },
     };
