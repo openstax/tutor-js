@@ -1,6 +1,5 @@
 import { debounce, toArray } from 'lodash'
 
-
 const MATH_MARKER_BLOCK = '\u200c\u200c\u200c' // zero-width non-joiner
 const MATH_MARKER_INLINE = '\u200b\u200b\u200b' // zero-width space
 
@@ -19,7 +18,7 @@ const typesetMath = debounce((windowImpl: Window = window) => {
 
     const { document } = windowImpl
     const mathjax = windowImpl.MathJax
-    if (!mathjax) { return }
+    if (!mathjax.typesetPromise) { return }
 
     let nodes: Element[] = []
 
@@ -84,6 +83,7 @@ const startMathJax = function() {
                 combineDefaults(window.MathJax.config, 'mml', { FindMathML: new myFindMathML() })
 
                 window.MathJax.startup.defaultReady()
+                typesetMath(window)
             },
         },
     };
