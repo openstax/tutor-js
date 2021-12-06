@@ -30,8 +30,7 @@ describe('Mathjax Helper', () => {
         })
     })
 
-    // virtual dom doesn't seem to match mathjax processor's :not(.math-rendered)
-    it('typesets document with mathml is present', async () => {
+    it('typesets document with mathml', async () => {
         dom.innerHTML = `\
 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline">
   <mrow>
