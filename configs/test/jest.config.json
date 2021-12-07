@@ -7,7 +7,7 @@
   "coverageReporters": ["json", "lcov", "text-summary"],
   "testRegex": "specs\/((?!integration).)*\/.*\\.spec\\.(ts|tsx|js|jsx|json)$",
   "transform": {
-    "^.+\\.jsx?$": "babel7-jest",
+      "^.+\\.jsx?$": "babel-jest",
     "^.+\\.tsx?$": "ts-jest"
   },
   "moduleFileExtensions": [ "ts", "tsx", "js", "jsx", "json" ],
