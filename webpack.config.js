@@ -99,32 +99,28 @@ const config = {
         ignored: /node_modules/,
     },
     devServer: {
-        contentBase: project,
+        static: {
+            directory: project,
+        },
         headers: {
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
             'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization',
         },
         port,
-        publicPath,
+        devMiddleware: {
+            publicPath,
+            stats: 'errors-only',
+        },
         historyApiFallback: true,
-        inline: !isCI,
-        quiet: false,
-        noInfo: false,
-        clientLogLevel: 'warning',
+        client: {
+            logging: 'warn',
+        },
         host: 'localhost',
-        filename: '[name].js',
         hot: !isCI,
         liveReload: !isCI,
-        stats: 'errors-only',
     },
 };
-
-if (!isProduction) {
-    config.plugins.push(
-        new webpack.HotModuleReplacementPlugin(),
-    );
-}
 
 if (process.env.ANALYZE) {
     config.plugins.push(
