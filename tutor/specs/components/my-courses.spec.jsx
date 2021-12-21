@@ -51,6 +51,18 @@ describe('My Courses Component', function() {
         wrapper.unmount();
     });
 
+    it('re-reloads if the back button is used after logging out', () => {
+        delete window.location;
+        window.location = { reload: jest.fn() };
+
+        currentCourses.fetch = jest.fn(() => { throw('Logged out')} );
+
+        let wrapper = mount(<C><CourseListing history={{ action: 'POP' }} /></C>);
+        expect(currentCourses.fetch).toHaveBeenCalled();
+        expect(window.location.reload).toHaveBeenCalled();
+        wrapper.unmount();
+    });
+
     it('renders the listing sorted', function() {
         const wrapper = mount(<C><CourseListing /></C>);
         for (let i = 0; i < MASTER_COURSES_LIST.length; i++) {

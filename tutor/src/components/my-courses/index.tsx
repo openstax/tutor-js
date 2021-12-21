@@ -24,8 +24,19 @@ class MyCourses extends React.Component<MyCoursesProps> {
 
     async componentDidMount() {
         const { history } = this.props;
+
+        // Fix some issues when the back button is used in some scenarios
         if (history && history.action === 'POP') {
-            await currentCourses.fetch();
+            try {
+                // If the student joined a course and then hit back, the old
+                // course page will be cached, so refetch to grab it
+                await currentCourses.fetch();
+            } catch {
+                // If the course fetch errors, it's probably because the user
+                // logged out and then hit the back button. Send them back to
+                // the login screen.
+                location.reload();
+            }
         }
         currentUser.logEvent({ category: 'onboarding', code: 'arrived_my_courses' });
     }
