@@ -107,7 +107,7 @@ export default class BookSections extends React.Component<BookSectionsProps> {
     }
 
     @computed get selectedBook() {
-        return Books.all.find(book => book.slug == this.props.search.bookSlug)
+        return Books.all.find(book => book.slug === this.props.search.bookSlug)
     }
 
     @computed get bookOptions() {
@@ -132,7 +132,8 @@ export default class BookSections extends React.Component<BookSectionsProps> {
         this.props.search.bookSlug = option?.value || ''
 
         if (this.props.search.bookSlug) {
-            Books.all.find(book => book.slug == this.props.search.bookSlug)?.ensureLoaded()
+            // this.selectedBook() cannot be used as it is not updated yet
+            Books.all.find(book => book.slug === this.props.search.bookSlug)?.ensureLoaded()
         }
     }
 
