@@ -3,18 +3,16 @@ import React from 'react';
 import styled from 'styled-components';
 import Preview from './exercise/preview';
 import BookSections from './search/book-sections';
-import BookTag from './search/book-tag';
 import { Pagination } from './search/pagination'
 import Clause from './search/clause';
 import Controls from './search/controls';
 import { inject } from 'mobx-react';
 import { IReactionDisposer } from 'mobx';
 import Loading from 'shared/components/loading-animation';
-import { action, autorun, modelize, observable, observer } from 'shared/model';
+import { action, autorun, modelize, observer } from 'shared/model';
 import UX from '../ux';
 import { Box } from 'boxible'
 import { Row, Col } from 'react-bootstrap'
-import ReactSelect from 'react-select'
 
 
 interface SearchProps {
@@ -27,11 +25,6 @@ const SearchWrapper = styled.div`
     .input-group-append .btn {
         z-index: 0;
     }
-`
-
-const Select = styled(ReactSelect)`
-    flex: 1;
-    z-index: 4;
 `
 
 @inject('ux')
