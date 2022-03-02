@@ -7,10 +7,10 @@ import BookTag from './search/book-tag';
 import { Pagination } from './search/pagination'
 import Clause from './search/clause';
 import Controls from './search/controls';
-import { observer, inject } from 'mobx-react';
-import { IReactionDisposer, observable } from 'mobx';
+import { inject } from 'mobx-react';
+import { IReactionDisposer } from 'mobx';
 import Loading from 'shared/components/loading-animation';
-import { modelize, action, autorun } from 'shared/model';
+import { action, autorun, modelize, observable, observer } from 'shared/model';
 import UX from '../ux';
 import { Box } from 'boxible'
 import { Row, Col } from 'react-bootstrap'
@@ -38,12 +38,6 @@ const Select = styled(ReactSelect)`
 @observer
 class Search extends React.Component<SearchProps> {
     static Controls = Controls;
-
-    @observable selectedOption = 'section'
-    options = [
-        { value: 'section', label: 'section' },
-        { value: 'tag', label: 'tag' },
-    ]
 
     static propTypes = {
         ux: PropTypes.instanceOf(UX).isRequired,
@@ -77,11 +71,6 @@ class Search extends React.Component<SearchProps> {
         this.props.history.push(ev.currentTarget.pathname);
     }
 
-    @action.bound onChangeOption(ev: { value: string, label: string }) {
-        this.selectedOption = ev.value
-        this.search.reset()
-    }
-
     get body() {
         if (this.search.isPending) {
             return <Loading message="Searching…" />
@@ -93,26 +82,14 @@ class Search extends React.Component<SearchProps> {
         return this.search.exercises.map((e) => <Preview key={e.uuid} exercise={e} showEdit />);
     }
 
-    searchOption() {
-        return this.selectedOption == 'tag' ?
-            <BookTag search={this.search} /> :
-            <BookSections search={this.search} />
-    }
-
     render() {
         return (
             <SearchWrapper className="panel search">
                 <Row className="book-limit">
                     <Col xs={8}>
                         <Box align="center" gap margin="bottom">
-                            <b>Limit results to book</b>
-                            <Select
-                                value={this.options.find(o => o.value === this.selectedOption)}
-                                defaultValue={this.options[0]}
-                                options={this.options}
-                                onChange={this.onChangeOption}
-                            />
-                            {this.searchOption()}
+                            <b>Limit results to (approved books)</b>
+                            <BookSections search={this.search} />
                         </Box>
                     </Col>
                 </Row>

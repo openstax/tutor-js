@@ -14,7 +14,11 @@ export class Books extends BaseModel {
     async fetch(): Promise<any> {
         const books = await this.api.request<Book[]>(urlFor('books'))
         runInAction(() => {
-            this.all.replace(books.map((book:Book) => hydrateModel(Book, book, this)))
+            this.all.replace(
+                books.sort((a, b) => a.title == b.title ? 0 : a.title < b.title ? -1 : 1).map(
+                    (book:Book) => hydrateModel(Book, book, this)
+                )
+            )
         })
     }
 

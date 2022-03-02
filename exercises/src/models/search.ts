@@ -65,9 +65,8 @@ export default class Search extends BaseModel {
     @observable total_count = 0
     @observable perPageSize = 25
     @observable currentPage = 1
-    @observable bookUuid = ''
-    @observable sectionUuid = ''
-    @observable bookTag = ''
+    @observable bookSlug = ''
+    @observable sectionSlug = ''
     @observable isPending = false
 
     constructor() {
@@ -89,9 +88,8 @@ export default class Search extends BaseModel {
     }
 
     @action.bound reset() {
-        this.bookTag = ''
-        this.bookUuid = ''
-        this.sectionUuid = ''
+        this.bookSlug = ''
+        this.sectionSlug = ''
     }
 
     @computed get title() {
@@ -138,16 +136,18 @@ export default class Search extends BaseModel {
 
     async fetchPage(page: number) {
         const clauses = this.clauses.filter(c => c.value)
-        if (this.sectionUuid) {
-            clauses.push(hydrateModel(
-                Clause, { filter: 'tag', value: `context-cnxmod:${this.sectionUuid}` }, this
-            ))
-        }
-
-        if (this.bookTag) {
-            clauses.push(hydrateModel(
-                Clause, { filter: 'tag', value: `book:${this.bookTag}` }, this
-            ))
+        if (this.bookSlug) {
+            if (this.sectionSlug) {
+                clauses.push(hydrateModel(
+                    Clause,
+                    { filter: 'tag', value: `module-slug:${this.bookSlug}:${this.sectionSlug}` },
+                    this
+                ))
+            } else {
+                clauses.push(hydrateModel(
+                    Clause, { filter: 'tag', value: `book-slug:${this.bookSlug}` }, this
+                ))
+            }
         }
 
         return await this.api.request<SearchResponse>(

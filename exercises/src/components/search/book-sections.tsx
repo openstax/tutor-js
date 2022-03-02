@@ -2,8 +2,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import React from 'react'
 import ReactSelect, { components } from 'react-select'
-import { observer } from 'mobx-react'
-import { action, modelize, computed } from 'shared/model'
+import { action, computed, modelize, observer } from 'shared/model'
 import Books from '../../models/books'
 import { BookPart } from '../../models/book'
 import Search from '../../models/search'
@@ -85,15 +84,15 @@ export default class BookSections extends React.Component<BookSectionsProps> {
             }
             else {
                 // Page
-                option.value = part.id.split('@', 1)[0]
+                option.value = part.slug
             }
 
             return [option]
         })
     }
 
-    findInOptions(value: string, options?: OptionType[]): OptionType | undefined {
-        if (!options) return undefined
+    findInOptions(value: string, options?: OptionType[]): OptionType | null {
+        if (!options) return null
 
         for (const option of options) {
             if (option.options) {
@@ -104,59 +103,58 @@ export default class BookSections extends React.Component<BookSectionsProps> {
             }
         }
 
-        return undefined
+        return null
     }
 
-    @computed get selectedBook(): OptionType | undefined {
-        if (this.book) {
-            return { label: this.book.title, value: this.book.uuid }
-        }
-        return undefined
+    @computed get selectedBook() {
+        return Books.all.find(book => book.slug == this.props.search.bookSlug)
     }
 
-    @computed get selectedBookChapterSection(): OptionType | undefined {
-        return this.findInOptions(this.props.search.sectionUuid, this.sections)
+    @computed get bookOptions() {
+        return Books.all.map(book => { return { label: book.title, value: book.slug }})
     }
 
-    @computed get books() {
-        return Books.all.map(b => { return { label: b.title, value: b.uuid }})
+    @computed get selectedBookOption(): OptionType | null {
+        return this.findInOptions(this.props.search.bookSlug, this.bookOptions)
     }
 
-    @computed get book() {
-        return Books.all.find(b => b.uuid == this.props.search.bookUuid)
+    @computed get sectionOptions() {
+        if (!this.selectedBook || !this.selectedBook.contents) return []
+        return this.partsToOptions(this.selectedBook.contents)
     }
 
-    @computed get sections() {
-        if (!this.book || !this.book.contents) return []
-        return this.partsToOptions(this.book.contents)
+    @computed get selectedSectionOption(): OptionType | null {
+        return this.findInOptions(this.props.search.sectionSlug, this.sectionOptions)
     }
 
     @action.bound handleBookChange(option?: OptionType) {
-        this.props.search.bookUuid = option?.value || ''
-        this.props.search.sectionUuid = ''
-        if (this.props.search.bookUuid) {
-            Books.all.find(b => b.uuid == this.props.search.bookUuid)?.ensureLoaded()
+        this.props.search.sectionSlug = ''
+        this.props.search.bookSlug = option?.value || ''
+
+        if (this.props.search.bookSlug) {
+            Books.all.find(book => book.slug == this.props.search.bookSlug)?.ensureLoaded()
         }
     }
 
     @action.bound handleSectionChange(option?: OptionType) {
-        this.props.search.bookTag = ''
-        this.props.search.sectionUuid = option?.value || ''
+        this.props.search.sectionSlug = option?.value || ''
     }
 
     render() {
         return (
             <>
+                <span>Book:</span>
                 <Select
                     isClearable
-                    value={this.selectedBook}
-                    options={this.books}
+                    value={this.selectedBookOption}
+                    options={this.bookOptions}
                     onChange={this.handleBookChange}
                 />
+                <span>Section:</span>
                 <Select
                     isClearable
-                    value={this.selectedBookChapterSection}
-                    options={this.sections}
+                    value={this.selectedSectionOption}
+                    options={this.sectionOptions}
                     components={{
                         SingleValue: SelectedBookSection,
                         GroupHeading: BookChapter,
