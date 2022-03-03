@@ -15,9 +15,10 @@ interface Query {
 export default
 class Book extends BaseModel {
     @field contents?: BookPart[]
-    @field title = ''
-    @field version = ''
     @field uuid = ''
+    @field version = ''
+    @field slug = ''
+    @field title = ''
 
     constructor() {
         super()
