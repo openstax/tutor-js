@@ -5,6 +5,7 @@ const BOOK_UID_XREF = {
     'bf96bfc5-e723-46c2-9fa2-5a4c9294fa26': 'Concepts of Biology',
     '08df2bee-3db4-4243-bd76-ee032da173e8': 'Principles of Microeconomics',
     '02040312-72c8-441e-a685-20e9333f3e1d': 'Introduction to Sociology 2e',
+    '746f171e-0d6a-4ef2-b69d-367880872f4a': 'Introduction to Sociology 3e',
     'd2fbadca-e4f3-4432-a074-2438c216b62a': 'Principles of Economics',
     '99e127f8-f722-4907-a6b3-2d62fca135d6': 'Anatomy and Physiology',
     '3402dc53-113d-45f3-954e-8d2ad1e73659': 'Concept of Biology', // Mini CC test version
