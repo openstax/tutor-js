@@ -290,7 +290,7 @@ exports[`Homework ExerciseTaskHeader Component matches snapshot 1`] = `
         "default_due_time": "07:00",
         "default_open_time": "00:32",
         "does_cost": false,
-        "ecosystem_book_uuid": "8d50a0af-948b-4204-a71d-4826cba765b8",
+        "ecosystem_book_uuid": "185cbf87-c72e-48f5-b51e-f14f21b5eabd",
         "ecosystem_id": 1,
         "ends_at": "2017-11-14T13:00:00.000Z",
         "homework_progress_weight": 0.1,
