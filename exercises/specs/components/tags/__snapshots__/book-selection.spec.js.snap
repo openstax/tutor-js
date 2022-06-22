@@ -75,6 +75,11 @@ exports[`Book Selection tags component renders and matches snapshot 1`] = `
     Contemporary Math
   </option>
   <option
+    value="stax-devpsy"
+  >
+    Developmental Psychology
+  </option>
+  <option
     value="stax-econ"
   >
     Economics
@@ -100,6 +105,11 @@ exports[`Book Selection tags component renders and matches snapshot 1`] = `
     HS Physics
   </option>
   <option
+    value="stax-infosys"
+  >
+    Information Systems
+  </option>
+  <option
     value="stax-macro"
   >
     Macro Economics
@@ -110,6 +120,11 @@ exports[`Book Selection tags component renders and matches snapshot 1`] = `
     Micro Economics
   </option>
   <option
+    value="stax-orgchem"
+  >
+    Organic Chemistry
+  </option>
+  <option
     value="stax-phi"
   >
     Philosophy
@@ -118,6 +133,11 @@ exports[`Book Selection tags component renders and matches snapshot 1`] = `
     value="stax-polisci"
   >
     Political Science
+  </option>
+  <option
+    value="stax-mktg"
+  >
+    Principles of Marketing
   </option>
   <option
     value="stax-psy"
