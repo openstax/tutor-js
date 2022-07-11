@@ -139,13 +139,6 @@ class Answer extends React.Component {
         const isCorrect = isAnswerCorrect(answer, correctAnswerId);
         const isIncorrect = isAnswerIncorrect(answer, incorrectAnswerId);
 
-        const classes = cn('answers-answer', {
-            'disabled': disabled,
-            'answer-checked': isChecked,
-            'answer-correct': isCorrect && type !== 'student-mpp',
-            'answer-incorrect': isAnswerIncorrect(answer, incorrectAnswerId),
-        });
-
         if (!hasCorrectAnswer
             && (type !== 'teacher-review')
             && (type !== 'teacher-preview')
@@ -205,15 +198,14 @@ class Answer extends React.Component {
                 disabled={disabled}
                 onKeyPress={this.onKeyPress}
                 qid={qid}
-                migratingProps={{
-                    correctIncorrectIcon,
-                    selectedCount,
-                    radioBox,
-                    feedback,
-                    isCorrect,
-                    isIncorrect,
-                    classes,
-                }}
+                correctIncorrectIcon={correctIncorrectIcon}
+                selectedCount={selectedCount}
+                radioBox={radioBox}
+                feedback={feedback}
+                isCorrect={isCorrect}
+                isIncorrect={isIncorrect}
+                incorrectAnswerId={incorrectAnswerId}
+                hasCorrectAnswer={hasCorrectAnswer}
             >
                 <ArbitraryHtmlAndMath
                     {...htmlAndMathProps}

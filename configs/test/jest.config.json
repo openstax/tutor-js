@@ -26,8 +26,7 @@
     "^shared/specs/(.*)$": "<rootDir>/../shared/specs/$1",
     "^shared/(.*)$": "<rootDir>/../shared/src/$1",
     "^shared$": "<rootDir>/../shared/src/index.js",
-    "\\.(css|less|scss)$": "<rootDir>/../configs/test/jest.style-mock.js",
-    "^@openstax/assignment-components": "@openstax/assignment-components/dist/index.cjs"
+    "\\.(css|less|scss)$": "<rootDir>/../configs/test/jest.style-mock.js"
   },
   "testPathIgnorePatterns": [
     "node_modules"

@@ -153,7 +153,7 @@
     "react-dnd": "9.3.4",
     "react-dnd-html5-backend": "9.3.4",
     "react-dnd-test-utils": "^9.3.4",
-    "react-dom": "^16.9.0",
+    "react-dom": "^16.14.0",
     "react-floater": "^0.6.5",
     "react-is": "^16.13.1",
     "react-maskedinput": "4.0.1",
