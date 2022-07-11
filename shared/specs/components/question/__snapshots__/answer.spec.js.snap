@@ -82,17 +82,20 @@ exports[`Answer Component renders answer 1`] = `
       >
         <div
           className="answer-content"
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "<ol>
+        >
+          <div
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<ol>
   <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
   <li>objects are too small to be seen with the naked eye, and</li>
   <li>there is the involvement of only a weak gravitational field</li>
 </ol>
 ",
+              }
             }
-          }
-        />
+          />
+        </div>
       </div>
     </label>
   </section>
@@ -139,12 +142,15 @@ exports[`Answer Component renders answer feedback based on props 1`] = `
       >
         <div
           className="answer-content"
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "Physics helps in predicting how burning fossil fuel releases pollutants.",
+        >
+          <div
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "Physics helps in predicting how burning fossil fuel releases pollutants.",
+              }
             }
-          }
-        />
+          />
+        </div>
         <aside>
           <div
             className="question-feedback-content has-html"
