@@ -1984,6 +1984,13 @@
     "@nodelib/fs.scandir" "2.1.4"
     fastq "^1.6.0"
 
+"@openstax/assignment-components@https://github.com/openstax/assignment-components#v0.0.0-dev":
+  version "0.0.0"
+  resolved "https://github.com/openstax/assignment-components#06f08387b5ff5b77a716a1d13a71238262b3cb04"
+  dependencies:
+    classnames "^2.3.1"
+    lodash "^4.17.21"
+
 "@openstax/highlighter@1.3.2":
   version "1.3.2"
   resolved "https://registry.yarnpkg.com/@openstax/highlighter/-/highlighter-1.3.2.tgz#4b5e621bb96cbf1c6bec1792a3d9a623e0e1645d"
@@ -12032,16 +12039,7 @@ react-ultimate-pagination@^1.2.0:
     prop-types "^15.0.0"
     ultimate-pagination "1.0.0"
 
-react@16.9.0:
-  version "16.9.0"
-  resolved "https://registry.yarnpkg.com/react/-/react-16.9.0.tgz#40ba2f9af13bc1a38d75dbf2f4359a5185c4f7aa"
-  integrity sha512-+7LQnFBwkiw+BobzOF6N//BdoNw0ouwmSJTEm9cglOOmsg/TMiFHZLe2sEoN5M7LgJTj9oHH0gxklfnQe66S1w==
-  dependencies:
-    loose-envify "^1.1.0"
-    object-assign "^4.1.1"
-    prop-types "^15.6.2"
-
-react@^16.7.0:
+react@16.14.0, react@^16.7.0:
   version "16.14.0"
   resolved "https://registry.yarnpkg.com/react/-/react-16.14.0.tgz#94d776ddd0aaa37da3eda8fc5b6b18a4c9a3114d"
   integrity sha512-0X2CImDkJGApiAlcf0ODKIneSwBPhqJawOa5wCtKbu7ZECrmS26NvtSILynQ66cgkT/RJ4LidJOc3bUESwmU8g==

@@ -10,6 +10,7 @@ import keysHelper from '../../helpers/keys';
 import ArbitraryHtmlAndMath from '../html';
 import { SimpleFeedback } from './feedback';
 import cn from 'classnames';
+import { Answer as OSAnswer } from '@openstax/assignment-components';
 
 const ALPHABET = 'abcdefghijklmnopqrstuvwxyz';
 
@@ -194,73 +195,32 @@ class Answer extends React.Component {
             );
         }
 
-        let ariaLabel = `${isChecked ? 'Selected ' : ''}Choice ${ALPHABET[iter]}`;
-        // somewhat misleading - this means that there is a correct answer,
-        // not necessarily that this answer is correct
-        if (this.props.hasCorrectAnswer) {
-            ariaLabel += `(${isCorrect ? 'Correct' : 'Incorrect'} Answer)`;
-        }
-        ariaLabel += ':';
-        const htmlAndMathProps = pick(this.context, ['processHtmlAndMath']);
+      const htmlAndMathProps = pick(this.context, ['processHtmlAndMath']);
 
-        let body = '';
-        if (type === 'teacher-review') {
-            body = (
-                <div className="review-wrapper">
-                    <div className={cn('review-count', { 'green': isCorrect, 'red': !isCorrect })}>
-                        {selectedCount}
-                        <span className={cn('letter', { 'green': isCorrect, 'red': !isCorrect })}>
-                            {ALPHABET[iter]}
-                        </span>
-                    </div>
-                    <div className="answer-answer">
-                        <ArbitraryHtmlAndMath
-                            {...htmlAndMathProps}
-                            className="answer-content"
-                            html={answer.content_html} />
-                        {feedback}
-                    </div>
-                </div>
-            );
-        } else {
-            body = (
-                <>
-                    {correctIncorrectIcon}
-                    {selectedCount}
-                    {radioBox}
-                    <label
-                        onKeyPress={this.onKeyPress}
-                        htmlFor={`${qid}-option-${iter}`}
-                        className="answer-label">
-                        <span className="answer-letter-wrapper">
-                            <button
-                                onClick={onChange}
-                                aria-label={ariaLabel}
-                                className="answer-letter"
-                                disabled={disabled || isIncorrect}
-                                data-test-id={`answer-choice-${ALPHABET[iter]}`}
-                            >
-                                {ALPHABET[iter]}
-                            </button>
-                        </span>
-                        <div className="answer-answer">
-                            <ArbitraryHtmlAndMath
-                                {...htmlAndMathProps}
-                                className="answer-content"
-                                html={answer.content_html} />
-                            {feedback}
-                        </div>
-                    </label>
-                </>
-            );
-        }
-
-        return (
-            <div className="openstax-answer">
-                <section role="region" className={classes}>
-                    {body}
-                </section>
-            </div>
-        );
+      return (
+        <OSAnswer
+          type={type}
+          iter={iter}
+          answer={answer}
+          chosenAnswer={chosenAnswer}
+          onChangeAnswer={onChange}
+          disabled={disabled}
+          onKeyPress={this.onKeyPress}
+          qid={qid}
+          migratingProps={{
+            correctIncorrectIcon,
+            selectedCount,
+            radioBox,
+            feedback,
+            isCorrect,
+            isIncorrect,
+            classes
+          }}
+        >
+          <ArbitraryHtmlAndMath
+            {...htmlAndMathProps}
+            html={answer.content_html} />
+        </OSAnswer>
+      )
     }
 }
