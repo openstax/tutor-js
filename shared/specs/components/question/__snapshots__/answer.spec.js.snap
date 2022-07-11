@@ -30,12 +30,15 @@ exports[`Answer Component marks an answer as incorrect 1`] = `
       >
         <div
           className="answer-content"
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "It describes how different parts of the universe are far apart and do not affect each other",
+        >
+          <div
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "It describes how different parts of the universe are far apart and do not affect each other",
+              }
             }
-          }
-        />
+          />
+        </div>
       </div>
     </label>
   </section>

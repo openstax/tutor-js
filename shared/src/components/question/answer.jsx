@@ -14,24 +14,6 @@ import { Answer as OSAnswer } from '@openstax/assignment-components';
 
 let idCounter = 0;
 
-const isAnswerCorrect = function(answer, correctAnswerId) {
-    // if answer does not have an id, check the isCorrect property.
-    if (!(answer.id || correctAnswerId)) {
-        return answer.isCorrect;
-    }
-    let isCorrect = answer.id === correctAnswerId;
-    if (answer.correctness != null) { isCorrect = (answer.correctness === '1.0'); }
-
-    return isCorrect;
-};
-
-const isAnswerIncorrect = function(answer, incorrectAnswerId) {
-    // Allow multiple attempts to show incorrectness without the correct_answer_id
-    return answer.id === incorrectAnswerId;
-}
-
-const isAnswerChecked = (answer, chosenAnswer) => Boolean((chosenAnswer || []).find( a => a == answer.id));
-
 @observer
 export default
 class Answer extends React.Component {
@@ -128,37 +110,13 @@ class Answer extends React.Component {
     }
 
     render() {
-        let feedback, onChange, radioBox, selectedCount, correctIncorrectIcon;
+        let feedback, radioBox, selectedCount, correctIncorrectIcon;
         let {
             answer, iter, qid, type, correctAnswerId, incorrectAnswerId,
             answered_count, hasCorrectAnswer, chosenAnswer, disabled,
         } = this.props;
         if (qid == null) { qid = `auto-${idCounter++}`; }
 
-        const isChecked = isAnswerChecked(answer, chosenAnswer);
-        const isCorrect = isAnswerCorrect(answer, correctAnswerId);
-        const isIncorrect = isAnswerIncorrect(answer, incorrectAnswerId);
-
-        if (!hasCorrectAnswer
-            && (type !== 'teacher-review')
-            && (type !== 'teacher-preview')
-            && (type !== 'student-mpp')) {
-            ({ onChange } = this);
-        }
-
-        if (onChange) {
-            radioBox = (
-                <input
-                    type="radio"
-                    className="answer-input-box"
-                    checked={isChecked}
-                    id={`${qid}-option-${iter}`}
-                    name={`${qid}-options`}
-                    onChange={onChange}
-                    disabled={disabled}
-                />
-            );
-        }
         if (type === 'teacher-review') {
             const percent = Math.round((answer.selected_count / answered_count) * 100) || 0;
             selectedCount = (
@@ -168,13 +126,6 @@ class Answer extends React.Component {
                 >
                     {answer.selected_count}
                 </span>
-            );
-        }
-        if (type === 'teacher-preview') {
-            correctIncorrectIcon = (
-                <div className="correct-incorrect">
-                    {isCorrect && <Icon type="check" color="green" />}
-                </div>
             );
         }
 
@@ -194,16 +145,14 @@ class Answer extends React.Component {
                 iter={iter}
                 answer={answer}
                 chosenAnswer={chosenAnswer}
-                onChangeAnswer={onChange}
+                onChangeAnswer={this.onChange}
                 disabled={disabled}
                 onKeyPress={this.onKeyPress}
                 qid={qid}
-                correctIncorrectIcon={correctIncorrectIcon}
+                correctIncorrectIcon={<Icon type="check" color="green" />}
                 selectedCount={selectedCount}
-                radioBox={radioBox}
                 feedback={feedback}
-                isCorrect={isCorrect}
-                isIncorrect={isIncorrect}
+                correctAnswerId={correctAnswerId}
                 incorrectAnswerId={incorrectAnswerId}
                 hasCorrectAnswer={hasCorrectAnswer}
             >
