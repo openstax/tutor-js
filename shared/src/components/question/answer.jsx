@@ -12,8 +12,6 @@ import { SimpleFeedback } from './feedback';
 import cn from 'classnames';
 import { Answer as OSAnswer } from '@openstax/assignment-components';
 
-const ALPHABET = 'abcdefghijklmnopqrstuvwxyz';
-
 let idCounter = 0;
 
 const isAnswerCorrect = function(answer, correctAnswerId) {
@@ -195,32 +193,32 @@ class Answer extends React.Component {
             );
         }
 
-      const htmlAndMathProps = pick(this.context, ['processHtmlAndMath']);
+        const htmlAndMathProps = pick(this.context, ['processHtmlAndMath']);
 
-      return (
-        <OSAnswer
-          type={type}
-          iter={iter}
-          answer={answer}
-          chosenAnswer={chosenAnswer}
-          onChangeAnswer={onChange}
-          disabled={disabled}
-          onKeyPress={this.onKeyPress}
-          qid={qid}
-          migratingProps={{
-            correctIncorrectIcon,
-            selectedCount,
-            radioBox,
-            feedback,
-            isCorrect,
-            isIncorrect,
-            classes
-          }}
-        >
-          <ArbitraryHtmlAndMath
-            {...htmlAndMathProps}
-            html={answer.content_html} />
-        </OSAnswer>
-      )
+        return (
+            <OSAnswer
+                type={type}
+                iter={iter}
+                answer={answer}
+                chosenAnswer={chosenAnswer}
+                onChangeAnswer={onChange}
+                disabled={disabled}
+                onKeyPress={this.onKeyPress}
+                qid={qid}
+                migratingProps={{
+                    correctIncorrectIcon,
+                    selectedCount,
+                    radioBox,
+                    feedback,
+                    isCorrect,
+                    isIncorrect,
+                    classes,
+                }}
+            >
+                <ArbitraryHtmlAndMath
+                    {...htmlAndMathProps}
+                    html={answer.content_html} />
+            </OSAnswer>
+        )
     }
 }
