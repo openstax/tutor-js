@@ -7135,7 +7135,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                             <AnswersTable hideAnswers={[undefined]} className=\\"openstax-question-preview\\" question={{...}} choicesEnabled={false} hidePreambles={false} displayFormats={true} show_all_feedback={true} type=\\"teacher-preview\\" displaySolution={true} hasCorrectAnswer={false} keySet=\\"multiple-choice\\">
                                               <div className=\\"answers-table\\">
                                                 <Answer answer={{...}} iter={0} qid={16} correctAnswerId={[undefined]} incorrectAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: onChangeAnswer] { isMobxAction: true }} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={true}>
-                                                  <OSAnswer type=\\"teacher-preview\\" iter={0} answer={{...}} chosenAnswer={{...}} onChangeAnswer={[undefined]} disabled={true} onKeyPress={[Function (anonymous)]} qid={16} migratingProps={{...}}>
+                                                  <OSAnswer type=\\"teacher-preview\\" iter={0} answer={{...}} chosenAnswer={{...}} onChangeAnswer={[Function: onChange] { isMobxAction: true }} disabled={true} onKeyPress={[Function (anonymous)]} qid={16} correctIncorrectIcon={{...}} selectedCount={[undefined]} feedback={{...}} correctAnswerId={[undefined]} incorrectAnswerId={[undefined]} hasCorrectAnswer={false}>
                                                     <div className=\\"openstax-answer\\">
                                                       <section role=\\"region\\" className=\\"answers-answer disabled\\">
                                                         <div className=\\"correct-incorrect\\" />
@@ -7165,7 +7165,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                   </OSAnswer>
                                                 </Answer>
                                                 <Answer answer={{...}} iter={1} qid={16} correctAnswerId={[undefined]} incorrectAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: onChangeAnswer] { isMobxAction: true }} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={true}>
-                                                  <OSAnswer type=\\"teacher-preview\\" iter={1} answer={{...}} chosenAnswer={{...}} onChangeAnswer={[undefined]} disabled={true} onKeyPress={[Function (anonymous)]} qid={16} migratingProps={{...}}>
+                                                  <OSAnswer type=\\"teacher-preview\\" iter={1} answer={{...}} chosenAnswer={{...}} onChangeAnswer={[Function: onChange] { isMobxAction: true }} disabled={true} onKeyPress={[Function (anonymous)]} qid={16} correctIncorrectIcon={{...}} selectedCount={[undefined]} feedback={{...}} correctAnswerId={[undefined]} incorrectAnswerId={[undefined]} hasCorrectAnswer={false}>
                                                     <div className=\\"openstax-answer\\">
                                                       <section role=\\"region\\" className=\\"answers-answer disabled\\">
                                                         <div className=\\"correct-incorrect\\" />
@@ -7195,7 +7195,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                   </OSAnswer>
                                                 </Answer>
                                                 <Answer answer={{...}} iter={2} qid={16} correctAnswerId={[undefined]} incorrectAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: onChangeAnswer] { isMobxAction: true }} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={true}>
-                                                  <OSAnswer type=\\"teacher-preview\\" iter={2} answer={{...}} chosenAnswer={{...}} onChangeAnswer={[undefined]} disabled={true} onKeyPress={[Function (anonymous)]} qid={16} migratingProps={{...}}>
+                                                  <OSAnswer type=\\"teacher-preview\\" iter={2} answer={{...}} chosenAnswer={{...}} onChangeAnswer={[Function: onChange] { isMobxAction: true }} disabled={true} onKeyPress={[Function (anonymous)]} qid={16} correctIncorrectIcon={{...}} selectedCount={[undefined]} feedback={{...}} correctAnswerId={[undefined]} incorrectAnswerId={[undefined]} hasCorrectAnswer={false}>
                                                     <div className=\\"openstax-answer\\">
                                                       <section role=\\"region\\" className=\\"answers-answer disabled\\">
                                                         <div className=\\"correct-incorrect\\" />
@@ -7225,7 +7225,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                   </OSAnswer>
                                                 </Answer>
                                                 <Answer answer={{...}} iter={3} qid={16} correctAnswerId={[undefined]} incorrectAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: onChangeAnswer] { isMobxAction: true }} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={true}>
-                                                  <OSAnswer type=\\"teacher-preview\\" iter={3} answer={{...}} chosenAnswer={{...}} onChangeAnswer={[undefined]} disabled={true} onKeyPress={[Function (anonymous)]} qid={16} migratingProps={{...}}>
+                                                  <OSAnswer type=\\"teacher-preview\\" iter={3} answer={{...}} chosenAnswer={{...}} onChangeAnswer={[Function: onChange] { isMobxAction: true }} disabled={true} onKeyPress={[Function (anonymous)]} qid={16} correctIncorrectIcon={{...}} selectedCount={[undefined]} feedback={{...}} correctAnswerId={[undefined]} incorrectAnswerId={[undefined]} hasCorrectAnswer={false}>
                                                     <div className=\\"openstax-answer\\">
                                                       <section role=\\"region\\" className=\\"answers-answer disabled\\">
                                                         <div className=\\"correct-incorrect\\" />
@@ -7255,7 +7255,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                   </OSAnswer>
                                                 </Answer>
                                                 <Answer answer={{...}} iter={4} qid={16} correctAnswerId={[undefined]} incorrectAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: onChangeAnswer] { isMobxAction: true }} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={true}>
-                                                  <OSAnswer type=\\"teacher-preview\\" iter={4} answer={{...}} chosenAnswer={{...}} onChangeAnswer={[undefined]} disabled={true} onKeyPress={[Function (anonymous)]} qid={16} migratingProps={{...}}>
+                                                  <OSAnswer type=\\"teacher-preview\\" iter={4} answer={{...}} chosenAnswer={{...}} onChangeAnswer={[Function: onChange] { isMobxAction: true }} disabled={true} onKeyPress={[Function (anonymous)]} qid={16} correctIncorrectIcon={{...}} selectedCount={[undefined]} feedback={{...}} correctAnswerId={[undefined]} incorrectAnswerId={[undefined]} hasCorrectAnswer={false}>
                                                     <div className=\\"openstax-answer\\">
                                                       <section role=\\"region\\" className=\\"answers-answer disabled\\">
                                                         <div className=\\"correct-incorrect\\" />
