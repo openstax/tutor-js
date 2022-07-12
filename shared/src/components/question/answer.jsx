@@ -9,7 +9,6 @@ import { idType } from '../../helpers/react';
 import keysHelper from '../../helpers/keys';
 import ArbitraryHtmlAndMath from '../html';
 import { SimpleFeedback } from './feedback';
-import cn from 'classnames';
 import { Answer as OSAnswer } from '@openstax/assignment-components';
 
 let idCounter = 0;
@@ -110,7 +109,7 @@ class Answer extends React.Component {
     }
 
     render() {
-        let feedback, radioBox, selectedCount, correctIncorrectIcon;
+        let feedback, selectedCount;
         let {
             answer, iter, qid, type, correctAnswerId, incorrectAnswerId,
             answered_count, hasCorrectAnswer, chosenAnswer, disabled,
