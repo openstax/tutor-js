@@ -1986,7 +1986,7 @@
 
 "@openstax/assignment-components@https://github.com/openstax/assignment-components#v0.0.0-dev":
   version "0.0.0"
-  resolved "https://github.com/openstax/assignment-components#06f08387b5ff5b77a716a1d13a71238262b3cb04"
+  resolved "https://github.com/openstax/assignment-components#b2ce23829fc446499651830a4564d6b89f4da10e"
   dependencies:
     classnames "^2.3.1"
     lodash "^4.17.21"
