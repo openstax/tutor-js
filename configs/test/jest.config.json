@@ -26,7 +26,9 @@
     "^shared/specs/(.*)$": "<rootDir>/../shared/specs/$1",
     "^shared/(.*)$": "<rootDir>/../shared/src/$1",
     "^shared$": "<rootDir>/../shared/src/index.js",
-    "\\.(css|less|scss)$": "<rootDir>/../configs/test/jest.style-mock.js"
+    "\\.(css|less|scss)$": "<rootDir>/../configs/test/jest.style-mock.js",
+
+    "^styled-components$": "<rootDir>/../node_modules/styled-components/dist/styled-components.cjs.js"
   },
   "testPathIgnorePatterns": [
     "node_modules"

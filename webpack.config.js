@@ -60,6 +60,7 @@ const config = {
         ],
         alias: {
             shared: path.resolve(__dirname, 'shared', 'src'),
+            'styled-components': path.resolve('./node_modules/styled-components')
         },
         extensions: ['.tsx', '.ts', '.js', '.jsx', '.json'],
     },
