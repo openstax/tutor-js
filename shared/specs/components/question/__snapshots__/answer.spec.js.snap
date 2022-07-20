@@ -30,15 +30,12 @@ exports[`Answer Component marks an answer as incorrect 1`] = `
       >
         <div
           className="answer-content"
-        >
-          <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "It describes how different parts of the universe are far apart and do not affect each other",
-              }
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "It describes how different parts of the universe are far apart and do not affect each other",
             }
-          />
-        </div>
+          }
+        />
       </div>
     </label>
   </section>
@@ -85,20 +82,17 @@ exports[`Answer Component renders answer 1`] = `
       >
         <div
           className="answer-content"
-        >
-          <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<ol>
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<ol>
   <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
   <li>objects are too small to be seen with the naked eye, and</li>
   <li>there is the involvement of only a weak gravitational field</li>
 </ol>
 ",
-              }
             }
-          />
-        </div>
+          }
+        />
       </div>
     </label>
   </section>
@@ -145,15 +139,12 @@ exports[`Answer Component renders answer feedback based on props 1`] = `
       >
         <div
           className="answer-content"
-        >
-          <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "Physics helps in predicting how burning fossil fuel releases pollutants.",
-              }
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "Physics helps in predicting how burning fossil fuel releases pollutants.",
             }
-          />
-        </div>
+          }
+        />
         <aside>
           <div
             className="question-feedback-content has-html"

@@ -154,11 +154,8 @@ class Answer extends React.Component {
                 correctAnswerId={correctAnswerId}
                 incorrectAnswerId={incorrectAnswerId}
                 hasCorrectAnswer={hasCorrectAnswer}
-            >
-                <ArbitraryHtmlAndMath
-                    {...htmlAndMathProps}
-                    html={answer.content_html} />
-            </OSAnswer>
+            contentRenderer={<ArbitraryHtmlAndMath className="answer-content" {...htmlAndMathProps} />}
+            />
         )
     }
 }

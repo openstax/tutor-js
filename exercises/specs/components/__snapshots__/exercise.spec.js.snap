@@ -1816,21 +1816,17 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                             className="answer-answer"
                           >
                             <div
-                              className="answer-content"
-                            >
-                              <div
-                                dangerouslySetInnerHTML={
-                                  Object {
-                                    "__html": "<ol>
+                              dangerouslySetInnerHTML={
+                                Object {
+                                  "__html": "<ol>
   <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
   <li>objects are too small to be seen with the naked eye, and</li>
   <li>there is the involvement of only a weak gravitational field</li>
 </ol>
 ",
-                                  }
                                 }
-                              />
-                            </div>
+                              }
+                            />
                             <aside>
                               <div
                                 dangerouslySetInnerHTML={
@@ -1875,21 +1871,17 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                             className="answer-answer"
                           >
                             <div
-                              className="answer-content"
-                            >
-                              <div
-                                dangerouslySetInnerHTML={
-                                  Object {
-                                    "__html": "<ol>
+                              dangerouslySetInnerHTML={
+                                Object {
+                                  "__html": "<ol>
   <li>matter is moving at speeds greater than roughly 1% the speed of light,</li>
   <li>objects are large enough to be seen with the naked eye, and</li>
   <li>there is the involvement of a strong gravitational field</li>
 </ol>
 ",
-                                  }
                                 }
-                              />
-                            </div>
+                              }
+                            />
                             <aside>
                               <div
                                 dangerouslySetInnerHTML={
@@ -5161,16 +5153,12 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                             className="answer-answer"
                           >
                             <div
-                              className="answer-content"
-                            >
-                              <div
-                                dangerouslySetInnerHTML={
-                                  Object {
-                                    "__html": "Yes, because the satellite is moving at a speed much smaller than the speed of the light and is in a strong gravitational field.",
-                                  }
+                              dangerouslySetInnerHTML={
+                                Object {
+                                  "__html": "Yes, because the satellite is moving at a speed much smaller than the speed of the light and is in a strong gravitational field.",
                                 }
-                              />
-                            </div>
+                              }
+                            />
                             <aside>
                               <div
                                 dangerouslySetInnerHTML={
@@ -5215,16 +5203,12 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                             className="answer-answer"
                           >
                             <div
-                              className="answer-content"
-                            >
-                              <div
-                                dangerouslySetInnerHTML={
-                                  Object {
-                                    "__html": "Yes, because the satellite is moving at a speed much smaller than the speed of the light and it is not in a strong gravitational field.",
-                                  }
+                              dangerouslySetInnerHTML={
+                                Object {
+                                  "__html": "Yes, because the satellite is moving at a speed much smaller than the speed of the light and it is not in a strong gravitational field.",
                                 }
-                              />
-                            </div>
+                              }
+                            />
                             <aside>
                               <div
                                 dangerouslySetInnerHTML={
@@ -5317,16 +5301,12 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                             className="answer-answer"
                           >
                             <div
-                              className="answer-content"
-                            >
-                              <div
-                                dangerouslySetInnerHTML={
-                                  Object {
-                                    "__html": "Natural philosophy included all aspects of nature excluding physics.",
-                                  }
+                              dangerouslySetInnerHTML={
+                                Object {
+                                  "__html": "Natural philosophy included all aspects of nature excluding physics.",
                                 }
-                              />
-                            </div>
+                              }
+                            />
                             <aside>
                               <div
                                 dangerouslySetInnerHTML={
@@ -5371,16 +5351,12 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                             className="answer-answer"
                           >
                             <div
-                              className="answer-content"
-                            >
-                              <div
-                                dangerouslySetInnerHTML={
-                                  Object {
-                                    "__html": "Natural philosophy included all aspects of nature including physics.",
-                                  }
+                              dangerouslySetInnerHTML={
+                                Object {
+                                  "__html": "Natural philosophy included all aspects of nature including physics.",
                                 }
-                              />
-                            </div>
+                              }
+                            />
                             <aside>
                               <div
                                 dangerouslySetInnerHTML={
@@ -5425,16 +5401,12 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                             className="answer-answer"
                           >
                             <div
-                              className="answer-content"
-                            >
-                              <div
-                                dangerouslySetInnerHTML={
-                                  Object {
-                                    "__html": "Natural philosophy and physics are essentially the same thing.",
-                                  }
+                              dangerouslySetInnerHTML={
+                                Object {
+                                  "__html": "Natural philosophy and physics are essentially the same thing.",
                                 }
-                              />
-                            </div>
+                              }
+                            />
                             <aside>
                               <div
                                 dangerouslySetInnerHTML={
@@ -5479,16 +5451,12 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                             className="answer-answer"
                           >
                             <div
-                              className="answer-content"
-                            >
-                              <div
-                                dangerouslySetInnerHTML={
-                                  Object {
-                                    "__html": "Natural philosophy and physics are different.",
-                                  }
+                              dangerouslySetInnerHTML={
+                                Object {
+                                  "__html": "Natural philosophy and physics are different.",
                                 }
-                              />
-                            </div>
+                              }
+                            />
                             <aside>
                               <div
                                 dangerouslySetInnerHTML={
@@ -5533,16 +5501,12 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                             className="answer-answer"
                           >
                             <div
-                              className="answer-content"
-                            >
-                              <div
-                                dangerouslySetInnerHTML={
-                                  Object {
-                                    "__html": "Natural philosophy included all aspects of nature excluding physics.",
-                                  }
+                              dangerouslySetInnerHTML={
+                                Object {
+                                  "__html": "Natural philosophy included all aspects of nature excluding physics.",
                                 }
-                              />
-                            </div>
+                              }
+                            />
                             <aside>
                               <div
                                 dangerouslySetInnerHTML={
@@ -5635,21 +5599,17 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                             className="answer-answer"
                           >
                             <div
-                              className="answer-content"
-                            >
-                              <div
-                                dangerouslySetInnerHTML={
-                                  Object {
-                                    "__html": "<ol>
+                              dangerouslySetInnerHTML={
+                                Object {
+                                  "__html": "<ol>
   <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
   <li>objects are large enough to be seen with the naked eye, and</li>
   <li>there is the involvement of a strong gravitational field</li>
 </ol>
 ",
-                                  }
                                 }
-                              />
-                            </div>
+                              }
+                            />
                             <aside>
                               <div
                                 dangerouslySetInnerHTML={
@@ -5694,21 +5654,17 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                             className="answer-answer"
                           >
                             <div
-                              className="answer-content"
-                            >
-                              <div
-                                dangerouslySetInnerHTML={
-                                  Object {
-                                    "__html": "<ol>
+                              dangerouslySetInnerHTML={
+                                Object {
+                                  "__html": "<ol>
   <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
   <li>objects are large enough to be seen with the naked eye, and</li>
   <li>there is the involvement of a weak gravitational field</li>
 </ol>
 ",
-                                  }
                                 }
-                              />
-                            </div>
+                              }
+                            />
                             <aside>
                               <div
                                 dangerouslySetInnerHTML={
@@ -7135,7 +7091,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                             <AnswersTable hideAnswers={[undefined]} className=\\"openstax-question-preview\\" question={{...}} choicesEnabled={false} hidePreambles={false} displayFormats={true} show_all_feedback={true} type=\\"teacher-preview\\" displaySolution={true} hasCorrectAnswer={false} keySet=\\"multiple-choice\\">
                                               <div className=\\"answers-table\\">
                                                 <Answer answer={{...}} iter={0} qid={16} correctAnswerId={[undefined]} incorrectAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: onChangeAnswer] { isMobxAction: true }} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={true}>
-                                                  <OSAnswer type=\\"teacher-preview\\" iter={0} answer={{...}} chosenAnswer={{...}} onChangeAnswer={[Function: onChange] { isMobxAction: true }} disabled={true} onKeyPress={[Function (anonymous)]} qid={16} correctIncorrectIcon={{...}} selectedCount={[undefined]} feedback={{...}} correctAnswerId={[undefined]} incorrectAnswerId={[undefined]} hasCorrectAnswer={false}>
+                                                  <OSAnswer type=\\"teacher-preview\\" iter={0} answer={{...}} chosenAnswer={{...}} onChangeAnswer={[Function: onChange] { isMobxAction: true }} disabled={true} onKeyPress={[Function (anonymous)]} qid={16} correctIncorrectIcon={{...}} selectedCount={[undefined]} feedback={{...}} correctAnswerId={[undefined]} incorrectAnswerId={[undefined]} hasCorrectAnswer={false} contentRenderer={{...}}>
                                                     <div className=\\"openstax-answer\\">
                                                       <section role=\\"region\\" className=\\"answers-answer disabled\\">
                                                         <div className=\\"correct-incorrect\\" />
@@ -7146,11 +7102,11 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                             </button>
                                                           </span>
                                                           <div className=\\"answer-answer\\">
-                                                            <div className=\\"answer-content\\">
-                                                              <Component processHtmlAndMath={[undefined]} html=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are large enough to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of a strong gravitational field</li>\\\\n</ol>\\\\n\\">
+                                                            <d className=\\"answer-content\\" component={{...}} html=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are large enough to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of a strong gravitational field</li>\\\\n</ol>\\\\n\\">
+                                                              <Component className=\\"answer-content\\" processHtmlAndMath={[undefined]} html=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are large enough to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of a strong gravitational field</li>\\\\n</ol>\\\\n\\">
                                                                 <div dangerouslySetInnerHTML={{...}} />
                                                               </Component>
-                                                            </div>
+                                                            </d>
                                                             <Memo(wrappedComponent)>
                                                               <aside>
                                                                 <Component className=\\"question-feedback-content has-html\\" html=\\"A high gravitational field distorts space-time and leads to phenomena that classical physics fails to explain.\\" block={true}>
@@ -7165,7 +7121,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                   </OSAnswer>
                                                 </Answer>
                                                 <Answer answer={{...}} iter={1} qid={16} correctAnswerId={[undefined]} incorrectAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: onChangeAnswer] { isMobxAction: true }} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={true}>
-                                                  <OSAnswer type=\\"teacher-preview\\" iter={1} answer={{...}} chosenAnswer={{...}} onChangeAnswer={[Function: onChange] { isMobxAction: true }} disabled={true} onKeyPress={[Function (anonymous)]} qid={16} correctIncorrectIcon={{...}} selectedCount={[undefined]} feedback={{...}} correctAnswerId={[undefined]} incorrectAnswerId={[undefined]} hasCorrectAnswer={false}>
+                                                  <OSAnswer type=\\"teacher-preview\\" iter={1} answer={{...}} chosenAnswer={{...}} onChangeAnswer={[Function: onChange] { isMobxAction: true }} disabled={true} onKeyPress={[Function (anonymous)]} qid={16} correctIncorrectIcon={{...}} selectedCount={[undefined]} feedback={{...}} correctAnswerId={[undefined]} incorrectAnswerId={[undefined]} hasCorrectAnswer={false} contentRenderer={{...}}>
                                                     <div className=\\"openstax-answer\\">
                                                       <section role=\\"region\\" className=\\"answers-answer disabled\\">
                                                         <div className=\\"correct-incorrect\\" />
@@ -7176,11 +7132,11 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                             </button>
                                                           </span>
                                                           <div className=\\"answer-answer\\">
-                                                            <div className=\\"answer-content\\">
-                                                              <Component processHtmlAndMath={[undefined]} html=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are large enough to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of a weak gravitational field</li>\\\\n</ol>\\\\n\\">
+                                                            <d className=\\"answer-content\\" component={{...}} html=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are large enough to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of a weak gravitational field</li>\\\\n</ol>\\\\n\\">
+                                                              <Component className=\\"answer-content\\" processHtmlAndMath={[undefined]} html=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are large enough to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of a weak gravitational field</li>\\\\n</ol>\\\\n\\">
                                                                 <div dangerouslySetInnerHTML={{...}} />
                                                               </Component>
-                                                            </div>
+                                                            </d>
                                                             <Memo(wrappedComponent)>
                                                               <aside>
                                                                 <Component className=\\"question-feedback-content has-html\\" html=\\"Classical physics involves weak gravitational fields and objects big enough to be seen with the naked eye with their motional speed much less than the speed of light. Also, it is a subset of the Einstein’s theory of relativity where not only weak gravitational field but also strong gravity influences are studied.\\" block={true}>
@@ -7195,7 +7151,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                   </OSAnswer>
                                                 </Answer>
                                                 <Answer answer={{...}} iter={2} qid={16} correctAnswerId={[undefined]} incorrectAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: onChangeAnswer] { isMobxAction: true }} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={true}>
-                                                  <OSAnswer type=\\"teacher-preview\\" iter={2} answer={{...}} chosenAnswer={{...}} onChangeAnswer={[Function: onChange] { isMobxAction: true }} disabled={true} onKeyPress={[Function (anonymous)]} qid={16} correctIncorrectIcon={{...}} selectedCount={[undefined]} feedback={{...}} correctAnswerId={[undefined]} incorrectAnswerId={[undefined]} hasCorrectAnswer={false}>
+                                                  <OSAnswer type=\\"teacher-preview\\" iter={2} answer={{...}} chosenAnswer={{...}} onChangeAnswer={[Function: onChange] { isMobxAction: true }} disabled={true} onKeyPress={[Function (anonymous)]} qid={16} correctIncorrectIcon={{...}} selectedCount={[undefined]} feedback={{...}} correctAnswerId={[undefined]} incorrectAnswerId={[undefined]} hasCorrectAnswer={false} contentRenderer={{...}}>
                                                     <div className=\\"openstax-answer\\">
                                                       <section role=\\"region\\" className=\\"answers-answer disabled\\">
                                                         <div className=\\"correct-incorrect\\" />
@@ -7206,11 +7162,11 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                             </button>
                                                           </span>
                                                           <div className=\\"answer-answer\\">
-                                                            <div className=\\"answer-content\\">
-                                                              <Component processHtmlAndMath={[undefined]} html=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are too small to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of only a weak gravitational field</li>\\\\n</ol>\\\\n\\">
+                                                            <d className=\\"answer-content\\" component={{...}} html=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are too small to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of only a weak gravitational field</li>\\\\n</ol>\\\\n\\">
+                                                              <Component className=\\"answer-content\\" processHtmlAndMath={[undefined]} html=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are too small to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of only a weak gravitational field</li>\\\\n</ol>\\\\n\\">
                                                                 <div dangerouslySetInnerHTML={{...}} />
                                                               </Component>
-                                                            </div>
+                                                            </d>
                                                             <Memo(wrappedComponent)>
                                                               <aside>
                                                                 <Component className=\\"question-feedback-content has-html\\" html=\\"Objects far smaller than what is visible may require quantum mechanics.\\" block={true}>
@@ -7225,7 +7181,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                   </OSAnswer>
                                                 </Answer>
                                                 <Answer answer={{...}} iter={3} qid={16} correctAnswerId={[undefined]} incorrectAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: onChangeAnswer] { isMobxAction: true }} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={true}>
-                                                  <OSAnswer type=\\"teacher-preview\\" iter={3} answer={{...}} chosenAnswer={{...}} onChangeAnswer={[Function: onChange] { isMobxAction: true }} disabled={true} onKeyPress={[Function (anonymous)]} qid={16} correctIncorrectIcon={{...}} selectedCount={[undefined]} feedback={{...}} correctAnswerId={[undefined]} incorrectAnswerId={[undefined]} hasCorrectAnswer={false}>
+                                                  <OSAnswer type=\\"teacher-preview\\" iter={3} answer={{...}} chosenAnswer={{...}} onChangeAnswer={[Function: onChange] { isMobxAction: true }} disabled={true} onKeyPress={[Function (anonymous)]} qid={16} correctIncorrectIcon={{...}} selectedCount={[undefined]} feedback={{...}} correctAnswerId={[undefined]} incorrectAnswerId={[undefined]} hasCorrectAnswer={false} contentRenderer={{...}}>
                                                     <div className=\\"openstax-answer\\">
                                                       <section role=\\"region\\" className=\\"answers-answer disabled\\">
                                                         <div className=\\"correct-incorrect\\" />
@@ -7236,11 +7192,11 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                             </button>
                                                           </span>
                                                           <div className=\\"answer-answer\\">
-                                                            <div className=\\"answer-content\\">
-                                                              <Component processHtmlAndMath={[undefined]} html=\\"<ol>\\\\n  <li>matter is moving at speeds greater than roughly 1% the speed of light,</li>\\\\n  <li>objects are large enough to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of a strong gravitational field</li>\\\\n</ol>\\\\n\\">
+                                                            <d className=\\"answer-content\\" component={{...}} html=\\"<ol>\\\\n  <li>matter is moving at speeds greater than roughly 1% the speed of light,</li>\\\\n  <li>objects are large enough to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of a strong gravitational field</li>\\\\n</ol>\\\\n\\">
+                                                              <Component className=\\"answer-content\\" processHtmlAndMath={[undefined]} html=\\"<ol>\\\\n  <li>matter is moving at speeds greater than roughly 1% the speed of light,</li>\\\\n  <li>objects are large enough to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of a strong gravitational field</li>\\\\n</ol>\\\\n\\">
                                                                 <div dangerouslySetInnerHTML={{...}} />
                                                               </Component>
-                                                            </div>
+                                                            </d>
                                                             <Memo(wrappedComponent)>
                                                               <aside>
                                                                 <Component className=\\"question-feedback-content has-html\\" html=\\"Speeds greater than roughly 1% pf the speed of light start to involve significant effects from relativity.\\" block={true}>
@@ -7255,7 +7211,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                   </OSAnswer>
                                                 </Answer>
                                                 <Answer answer={{...}} iter={4} qid={16} correctAnswerId={[undefined]} incorrectAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: onChangeAnswer] { isMobxAction: true }} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={true}>
-                                                  <OSAnswer type=\\"teacher-preview\\" iter={4} answer={{...}} chosenAnswer={{...}} onChangeAnswer={[Function: onChange] { isMobxAction: true }} disabled={true} onKeyPress={[Function (anonymous)]} qid={16} correctIncorrectIcon={{...}} selectedCount={[undefined]} feedback={{...}} correctAnswerId={[undefined]} incorrectAnswerId={[undefined]} hasCorrectAnswer={false}>
+                                                  <OSAnswer type=\\"teacher-preview\\" iter={4} answer={{...}} chosenAnswer={{...}} onChangeAnswer={[Function: onChange] { isMobxAction: true }} disabled={true} onKeyPress={[Function (anonymous)]} qid={16} correctIncorrectIcon={{...}} selectedCount={[undefined]} feedback={{...}} correctAnswerId={[undefined]} incorrectAnswerId={[undefined]} hasCorrectAnswer={false} contentRenderer={{...}}>
                                                     <div className=\\"openstax-answer\\">
                                                       <section role=\\"region\\" className=\\"answers-answer disabled\\">
                                                         <div className=\\"correct-incorrect\\" />
@@ -7266,11 +7222,11 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                             </button>
                                                           </span>
                                                           <div className=\\"answer-answer\\">
-                                                            <div className=\\"answer-content\\">
-                                                              <Component processHtmlAndMath={[undefined]} html=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are large enough to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of a strong gravitational field</li>\\\\n</ol>\\\\n\\">
+                                                            <d className=\\"answer-content\\" component={{...}} html=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are large enough to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of a strong gravitational field</li>\\\\n</ol>\\\\n\\">
+                                                              <Component className=\\"answer-content\\" processHtmlAndMath={[undefined]} html=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are large enough to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of a strong gravitational field</li>\\\\n</ol>\\\\n\\">
                                                                 <div dangerouslySetInnerHTML={{...}} />
                                                               </Component>
-                                                            </div>
+                                                            </d>
                                                             <Memo(wrappedComponent)>
                                                               <aside>
                                                                 <Component className=\\"question-feedback-content has-html\\" html=\\"A high gravitational field distorts space-time and leads to phenomena that classical physics fails to explain.\\" block={true}>

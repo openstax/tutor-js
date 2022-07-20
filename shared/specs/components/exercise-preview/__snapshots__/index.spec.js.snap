@@ -108,16 +108,12 @@ exports[`Exercise Preview Component callbacks are called when overlay and action
                     className="answer-answer"
                   >
                     <div
-                      className="answer-content"
-                    >
-                      <div
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "It describes how a frame of reference is necessary to describe position or motion.",
-                          }
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "It describes how a frame of reference is necessary to describe position or motion.",
                         }
-                      />
-                    </div>
+                      }
+                    />
                   </div>
                 </label>
               </section>
@@ -153,16 +149,12 @@ exports[`Exercise Preview Component callbacks are called when overlay and action
                     className="answer-answer"
                   >
                     <div
-                      className="answer-content"
-                    >
-                      <div
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "It describes how people think of other people’s views from their own frame of reference.",
-                          }
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "It describes how people think of other people’s views from their own frame of reference.",
                         }
-                      />
-                    </div>
+                      }
+                    />
                   </div>
                 </label>
               </section>
@@ -198,16 +190,12 @@ exports[`Exercise Preview Component callbacks are called when overlay and action
                     className="answer-answer"
                   >
                     <div
-                      className="answer-content"
-                    >
-                      <div
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "It describes how different parts of the universe are far apart and do not affect each other",
-                          }
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "It describes how different parts of the universe are far apart and do not affect each other",
                         }
-                      />
-                    </div>
+                      }
+                    />
                   </div>
                 </label>
               </section>
@@ -243,16 +231,12 @@ exports[`Exercise Preview Component callbacks are called when overlay and action
                     className="answer-answer"
                   >
                     <div
-                      className="answer-content"
-                    >
-                      <div
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "It describes how speed affects different observers’ measurements of time and space.",
-                          }
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "It describes how speed affects different observers’ measurements of time and space.",
                         }
-                      />
-                    </div>
+                      }
+                    />
                   </div>
                 </label>
               </section>
@@ -466,16 +450,12 @@ exports[`Exercise Preview Component can render question formats 1`] = `
                     className="answer-answer"
                   >
                     <div
-                      className="answer-content"
-                    >
-                      <div
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "Natural philosophy included all aspects of nature including physics.",
-                          }
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "Natural philosophy included all aspects of nature including physics.",
                         }
-                      />
-                    </div>
+                      }
+                    />
                   </div>
                 </label>
               </section>
@@ -511,16 +491,12 @@ exports[`Exercise Preview Component can render question formats 1`] = `
                     className="answer-answer"
                   >
                     <div
-                      className="answer-content"
-                    >
-                      <div
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "Natural philosophy and physics are essentially the same thing.",
-                          }
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "Natural philosophy and physics are essentially the same thing.",
                         }
-                      />
-                    </div>
+                      }
+                    />
                   </div>
                 </label>
               </section>
@@ -556,16 +532,12 @@ exports[`Exercise Preview Component can render question formats 1`] = `
                     className="answer-answer"
                   >
                     <div
-                      className="answer-content"
-                    >
-                      <div
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "Natural philosophy and physics are different.",
-                          }
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "Natural philosophy and physics are different.",
                         }
-                      />
-                    </div>
+                      }
+                    />
                   </div>
                 </label>
               </section>
@@ -601,16 +573,12 @@ exports[`Exercise Preview Component can render question formats 1`] = `
                     className="answer-answer"
                   >
                     <div
-                      className="answer-content"
-                    >
-                      <div
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "Natural philosophy included all aspects of nature excluding physics.",
-                          }
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "Natural philosophy included all aspects of nature excluding physics.",
                         }
-                      />
-                    </div>
+                      }
+                    />
                   </div>
                 </label>
               </section>
@@ -752,16 +720,12 @@ exports[`Exercise Preview Component displays "solution is public" for exercises 
                     className="answer-answer"
                   >
                     <div
-                      className="answer-content"
-                    >
-                      <div
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "Physics helps in predicting how burning fossil fuel releases pollutants.",
-                          }
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "Physics helps in predicting how burning fossil fuel releases pollutants.",
                         }
-                      />
-                    </div>
+                      }
+                    />
                   </div>
                 </label>
               </section>
@@ -797,16 +761,12 @@ exports[`Exercise Preview Component displays "solution is public" for exercises 
                     className="answer-answer"
                   >
                     <div
-                      className="answer-content"
-                    >
-                      <div
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "Physics helps in predicting how the flowing water affects Earth’s surface.",
-                          }
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "Physics helps in predicting how the flowing water affects Earth’s surface.",
                         }
-                      />
-                    </div>
+                      }
+                    />
                   </div>
                 </label>
               </section>
@@ -842,16 +802,12 @@ exports[`Exercise Preview Component displays "solution is public" for exercises 
                     className="answer-answer"
                   >
                     <div
-                      className="answer-content"
-                    >
-                      <div
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "Physics helps in predicting the motion of tectonic plates.",
-                          }
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "Physics helps in predicting the motion of tectonic plates.",
                         }
-                      />
-                    </div>
+                      }
+                    />
                   </div>
                 </label>
               </section>
@@ -984,16 +940,12 @@ exports[`Exercise Preview Component hides context if missing 1`] = `
                     className="answer-answer"
                   >
                     <div
-                      className="answer-content"
-                    >
-                      <div
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "Yes, because the satellite is moving at a speed much smaller than the speed of the light and is in a strong gravitational field.",
-                          }
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "Yes, because the satellite is moving at a speed much smaller than the speed of the light and is in a strong gravitational field.",
                         }
-                      />
-                    </div>
+                      }
+                    />
                   </div>
                 </label>
               </section>
@@ -1029,16 +981,12 @@ exports[`Exercise Preview Component hides context if missing 1`] = `
                     className="answer-answer"
                   >
                     <div
-                      className="answer-content"
-                    >
-                      <div
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "Yes, because the satellite is moving at a speed much smaller than the speed of the light and it is not in a strong gravitational field.",
-                          }
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "Yes, because the satellite is moving at a speed much smaller than the speed of the light and it is not in a strong gravitational field.",
                         }
-                      />
-                    </div>
+                      }
+                    />
                   </div>
                 </label>
               </section>
@@ -1165,16 +1113,12 @@ exports[`Exercise Preview Component limits tags 1`] = `
                     className="answer-answer"
                   >
                     <div
-                      className="answer-content"
-                    >
-                      <div
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "Natural philosophy included all aspects of nature excluding physics.",
-                          }
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "Natural philosophy included all aspects of nature excluding physics.",
                         }
-                      />
-                    </div>
+                      }
+                    />
                   </div>
                 </label>
               </section>
@@ -1210,16 +1154,12 @@ exports[`Exercise Preview Component limits tags 1`] = `
                     className="answer-answer"
                   >
                     <div
-                      className="answer-content"
-                    >
-                      <div
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "Natural philosophy included all aspects of nature including physics.",
-                          }
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "Natural philosophy included all aspects of nature including physics.",
                         }
-                      />
-                    </div>
+                      }
+                    />
                   </div>
                 </label>
               </section>
@@ -1388,21 +1328,17 @@ exports[`Exercise Preview Component renders and matches snapshot 1`] = `
                     className="answer-answer"
                   >
                     <div
-                      className="answer-content"
-                    >
-                      <div
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "<ol>
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "<ol>
   <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
   <li>objects are too small to be seen with the naked eye, and</li>
   <li>there is the involvement of only a weak gravitational field</li>
 </ol>
 ",
-                          }
                         }
-                      />
-                    </div>
+                      }
+                    />
                   </div>
                 </label>
               </section>
@@ -1438,21 +1374,17 @@ exports[`Exercise Preview Component renders and matches snapshot 1`] = `
                     className="answer-answer"
                   >
                     <div
-                      className="answer-content"
-                    >
-                      <div
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "<ol>
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "<ol>
   <li>matter is moving at speeds greater than roughly 1% the speed of light,</li>
   <li>objects are large enough to be seen with the naked eye, and</li>
   <li>there is the involvement of a strong gravitational field</li>
 </ol>
 ",
-                          }
                         }
-                      />
-                    </div>
+                      }
+                    />
                   </div>
                 </label>
               </section>
@@ -1586,16 +1518,12 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
                     className="answer-answer"
                   >
                     <div
-                      className="answer-content"
-                    >
-                      <div
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "It describes how different parts of the universe are far apart and do not affect each other",
-                          }
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "It describes how different parts of the universe are far apart and do not affect each other",
                         }
-                      />
-                    </div>
+                      }
+                    />
                   </div>
                 </label>
               </section>
@@ -1631,16 +1559,12 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
                     className="answer-answer"
                   >
                     <div
-                      className="answer-content"
-                    >
-                      <div
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "It describes how speed affects different observers’ measurements of time and space.",
-                          }
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "It describes how speed affects different observers’ measurements of time and space.",
                         }
-                      />
-                    </div>
+                      }
+                    />
                   </div>
                 </label>
               </section>
@@ -1676,16 +1600,12 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
                     className="answer-answer"
                   >
                     <div
-                      className="answer-content"
-                    >
-                      <div
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "It describes how a frame of reference is necessary to describe position or motion.",
-                          }
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "It describes how a frame of reference is necessary to describe position or motion.",
                         }
-                      />
-                    </div>
+                      }
+                    />
                   </div>
                 </label>
               </section>
