@@ -13,58 +13,13 @@ import { ResponseValidationUX } from '../response-validation-ux';
 import { NudgeMessages, NudgeMessage } from './nudge-message';
 import { StepCardFooter } from './card';
 import ScoresHelper from '../../../helpers/scores';
+import { FreeResponseInput as OSFreeResponse } from '@openstax/assignment-components';
+import { pick } from 'lodash';
 
 const StyledFreeResponse = styled.div`
   display: flex;
   flex-direction: column;
 `;
-
-const TextAreaErrorStyle = css`
-  background-color: #f5e9ea;
-`;
-
-const InfoRow = styled.div`
-  margin: 8px 0;
-  display: flex;
-  justify-content: space-between;
-  line-height: 1.6rem;
-
-  .word-limit-error-info {
-    color: ${colors.danger};
-  }
-  
-  div > span {
-    font-size: 12px;
-    line-height: 16px;
-
-    + span {
-      margin-left: 1rem;
-    }
-  }
-
-  .last-submitted + * {
-    margin-top: 0.8rem;
-  }
-
-  color: ${colors.neutral.thin};
-`;
-
-const TextArea = styled.textarea`
-  display: block;
-  width: 100%;
-  min-height: 10.5em;
-  line-height: 1.5em;
-  margin: 2.5rem 0 0 0;
-  padding: 0.5em;
-  border: 1px solid ${colors.neutral.std};
-  color: ${colors.neutral.dark};
-  ${props => props.isErrored && TextAreaErrorStyle};
-  ${props => props.showWarning && css`
-    border: 2px solid ${colors.danger};
-  `}
-  background-color: ${props => props.readOnly && colors.neutral.cool};
-`;
-TextArea.displayName = 'TextArea';
 
 const RevertButton = observer(({ ux }) => {
     if (!ux.textHasChanged || !ux.canRevert) {
@@ -133,6 +88,16 @@ class FreeResponseInput extends React.Component {
     render() {
         const { ux, props: { questionNumber, course, step, question } } = this;
 
+        const inputProps = {
+            ...pick(ux, 'lastSubmitted', 'wordLimit', 'isDisplayingNudge'),
+            leftInfoComponent: ( (ux.lastSubmitted || ux.isDisplayingNudge) &&
+                <div>
+                    {ux.lastSubmitted && <span className="last-submitted">Last submitted on {ux.lastSubmitted.format('MMM DD [at] hh:mm A')}</span>}
+                    {ux.isDisplayingNudge && <NudgeMessage course={course} step={step} ux={ux} />}
+                </div>
+                )
+        }
+
         return (
             <StyledFreeResponse
                 data-test-id="student-free-response"
@@ -142,27 +107,12 @@ class FreeResponseInput extends React.Component {
                         questionNumber={questionNumber}
                         question={question}
                     />
-                    <TextArea
-                        value={ux.response}
+                    <OSFreeResponse
+                        {...inputProps}
+                        defaultValue={ux.response}
                         onChange={ux.setResponse}
-                        data-test-id="free-response-box"
-                        placeholder="Enter your response..."
-                        isErrored={ux.displayNudgeError}
-                        showWarning={ux.isOverWordLimit}
-                        aria-label="question response text box"
                         readOnly={ux.taskUX.isReadOnly}
                     />
-                    <InfoRow hasSubmitted={!!ux.lastSubmitted}>
-                        <div>
-                            {ux.lastSubmitted && <span className="last-submitted">Last submitted on {ux.lastSubmitted.format('MMM DD [at] hh:mm A')}</span>}
-                            {ux.isDisplayingNudge && <NudgeMessage course={course} step={step} ux={ux} />}
-                        </div>
-
-                        <div>
-                            <span>{ux.responseWords} words</span>
-                            {ux.isOverWordLimit && <span className="word-limit-error-info">Maximum {ux.wordLimit} words</span>}
-                        </div>
-                    </InfoRow>
                 </div>
                 <StepCardFooter isDisplayingNudge={ux.isDisplayingNudge}>
                     <div className="points">
