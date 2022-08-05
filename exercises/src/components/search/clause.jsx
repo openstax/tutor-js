@@ -10,6 +10,17 @@ import { computed, observer } from 'shared/model';
 export default
 class Clause extends React.Component {
 
+    static formatFilters = {
+        'multiple-choice': 'Multiple Choice',
+        'free-response': 'Free Response',
+        'true-false': 'True or False',
+    };
+
+    static tfFilters = {
+        'true': 'True',
+        'false': 'False',
+    };
+
     static propTypes = {
         clause: PropTypes.object.isRequired,
     };
@@ -19,30 +30,30 @@ class Clause extends React.Component {
 
         if (clause.filter === 'format') {
             const formatOptions = [];
-            for (const eventKey in clause.formatFilters) {
+            for (const eventKey in Clause.formatFilters) {
                 formatOptions.push(
-                    <Dropdown.Item eventKey={eventKey}>{clause.formatFilters[eventKey]}</Dropdown.Item>
+                    <Dropdown.Item eventKey={eventKey}>{Clause.formatFilters[eventKey]}</Dropdown.Item>
                 );
             }
             return (
                 <DropdownButton
                     variant="outline-primary"
-                    title={clause.formatFilters[clause.value]}
+                    title={Clause.formatFilters[clause.value]}
                     onSelect={clause.setValue}
                     id="input-dropdown"
                 >{formatOptions}</DropdownButton>
             );
         } else if (clause.filter === 'solutions_are_public') {
             const tfOptions = [];
-            for (const eventKey in clause.tfFilters) {
+            for (const eventKey in Clause.tfFilters) {
                 tfOptions.push(
-                    <Dropdown.Item eventKey={eventKey}>{clause.tfFilters[eventKey]}</Dropdown.Item>
+                    <Dropdown.Item eventKey={eventKey}>{Clause.tfFilters[eventKey]}</Dropdown.Item>
                 );
             }
             return (
                 <DropdownButton
                     variant="outline-primary"
-                    title={clause.tfFilters[clause.value]}
+                    title={Clause.tfFilters[clause.value]}
                     onSelect={clause.setValue}
                     id="input-dropdown"
                 >{tfOptions}</DropdownButton>

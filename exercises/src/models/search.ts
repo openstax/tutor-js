@@ -13,18 +13,7 @@ interface SearchResponse {
     items: Exercise[]
 }
 
-class Clause extends BaseModel {
-
-    const formatFilters = {
-        'multiple-choice': 'Multiple Choice',
-        'free-response': 'Free Response',
-        'true-false': 'True or False',
-    };
-
-    const tfFilters = {
-        'true': 'True',
-        'false': 'False',
-    }
+export class Clause extends BaseModel {
 
     @observable filter = 'uid';
     @observable value = '';
@@ -47,9 +36,9 @@ class Clause extends BaseModel {
     @action.bound setFilter(filter: string) {
         // Make sure to set or clear the value when switching to or from a dropdown input
         if (filter === 'format') {
-            this.setValue(Object.keys(this.formatFilters)[0]);
+            this.setValue('multiple-choice');
         } else if (filter === 'solutions_are_public') {
-            this.setValue(Object.keys(this.tfFilters)[0]);
+            this.setValue('true');
         } else if (this.filter === 'format' || this.filter === 'solutions_are_public') {
             this.setValue('');
         }
