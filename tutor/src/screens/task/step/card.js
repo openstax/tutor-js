@@ -5,6 +5,7 @@ import { Icon } from 'shared';
 import { StepLockIcon } from '../../../components/icons/lock'
 import { StudentTaskStep } from '../../../models';
 import ScoresHelper from '../../../helpers/scores';
+import { StepCard as OSStepCard } from '@openstax/assignment-components';
 
 export
 const InnerStepCard = styled.div`
@@ -358,28 +359,30 @@ const TaskStepCard = observer(({
     canGoBackward,
     goForward,
     canGoForward,
-    ...otherProps }) =>
-    (
-        <StepCard
+    typeBadge,
+    ...otherProps }) => (
+        <OSStepCard
             {...otherProps}
             questionNumber={questionNumber}
             numberOfQuestions={numberOfQuestions}
-            goBackward={goBackward}
-            canGoBackward={canGoBackward}
-            goForward={goForward}
-            canGoForward={canGoForward}
             stepType={step.type}
             isHomework={step.task.type}
-            wasGraded={step.was_manually_graded}
-            isClosed={step.task.isAssignmentClosed}
             data-task-step-id={step.id}
             availablePoints={step.available_points}
             className={cn(`${step.type}-step`, className)}
             exerciseId={step.uid}
+            leftHeaderChildren={canGoBackward && goBackward && <Icon size="lg" type="angle-left" onClick={goBackward} />}
+            rightHeaderChildren={
+                <>
+                    {typeBadge}
+                    {canGoForward && goForward && <Icon size="lg" type="angle-right" onClick={goForward} />}
+                </>
+            }
+            headerTitleChildren={<StepLockIcon wasGraded={step.was_manually_graded} isClosed={step.task.isAssignmentClosed}/>}
         >
             {children}
             <SpyInfo model={step} />
-        </StepCard>
+        </OSStepCard>
     ));
 TaskStepCard.displayName = 'TaskStepCard';
 TaskStepCard.propTypes = {
