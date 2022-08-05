@@ -16,14 +16,14 @@ interface SearchResponse {
 class Clause extends BaseModel {
 
     const formatFilters = {
-      'multiple-choice': 'Multiple Choice',
-      'free-response': 'Free Response',
-      'true-false': 'True or False'
+        'multiple-choice': 'Multiple Choice',
+        'free-response': 'Free Response',
+        'true-false': 'True or False',
     };
 
     const tfFilters = {
-      'true': 'True',
-      'false': 'False'
+        'true': 'True',
+        'false': 'False',
     }
 
     @observable filter = 'uid';
@@ -45,18 +45,16 @@ class Clause extends BaseModel {
     }
 
     @action.bound setFilter(filter: string) {
-        this.filter = filter;
-        this.search.currentPage = 1;
-        switch(filter) {
-          case 'format':
+        // Make sure to set or clear the value when switching to or from a dropdown input
+        if (filter === 'format') {
             this.setValue(Object.keys(this.formatFilters)[0]);
-            break;
-          case 'solutions_are_public':
+        } else if (filter === 'solutions_are_public') {
             this.setValue(Object.keys(this.tfFilters)[0]);
-            break;
-          default:
+        } else if (this.filter === 'format' || this.filter === 'solutions_are_public') {
             this.setValue('');
         }
+        this.filter = filter;
+        this.search.currentPage = 1;
     }
 
     @action.bound onKey(e: any){
