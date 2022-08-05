@@ -16,29 +16,6 @@ import ScoresHelper from '../../../helpers/scores';
 import { FreeResponseInput as OSFreeResponse } from '@openstax/assignment-components';
 import { pick } from 'lodash';
 
-const StyledFreeResponse = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const RevertButton = observer(({ ux }) => {
-    if (!ux.textHasChanged || !ux.canRevert) {
-        return null;
-    }
-
-    return (
-        <Button
-            variant="secondary"
-            disabled={!ux.textHasChanged}
-            onClick={ux.cancelWRQResubmit}
-        >
-            Cancel
-        </Button>
-    );
-
-});
-
-
 @observer
 class FreeResponseReview extends React.Component {
     static propTypes = {
@@ -86,53 +63,28 @@ class FreeResponseInput extends React.Component {
     }
 
     render() {
-        const { ux, props: { questionNumber, course, step, question } } = this;
+        const { ux, props: { questionNumber, course, step, question, onSave } } = this;
 
-        const inputProps = {
-            ...pick(ux, 'lastSubmitted', 'wordLimit', 'isDisplayingNudge'),
-            leftInfoComponent: ( (ux.lastSubmitted || ux.isDisplayingNudge) &&
+        const freeResponseProps = {
+            ...pick(ux, 'lastSubmitted', 'wordLimit', 'isDisplayingNudge', 'isSubmitDisabled', 'submitBtnLabel', 'textHasChanged'),
+            availablePoints: ScoresHelper.formatPoints(step.available_points),
+            cancelHandler: ux.cancelWRQResubmit,
+            defaultValue: ux.response,
+            infoRowChildren: ( (ux.lastSubmitted || ux.isDisplayingNudge) &&
                 <div>
                     {ux.lastSubmitted && <span className="last-submitted">Last submitted on {ux.lastSubmitted.format('MMM DD [at] hh:mm A')}</span>}
                     {ux.isDisplayingNudge && <NudgeMessage course={course} step={step} ux={ux} />}
                 </div>
-                )
+                ),
+            onChange: ux.setResponse,
+            saveHandler: onSave,
+            question,
+            questionNumber,
+            readOnly: ux.taskUX.isReadOnly,
+            pointsChildren: <WRQStatus step={step} />,
         }
 
-        return (
-            <StyledFreeResponse
-                data-test-id="student-free-response"
-            >
-                <div className="step-card-body">
-                    <QuestionStem
-                        questionNumber={questionNumber}
-                        question={question}
-                    />
-                    <OSFreeResponse
-                        {...inputProps}
-                        defaultValue={ux.response}
-                        onChange={ux.setResponse}
-                        readOnly={ux.taskUX.isReadOnly}
-                    />
-                </div>
-                <StepCardFooter isDisplayingNudge={ux.isDisplayingNudge}>
-                    <div className="points">
-                        <strong>Points: {ScoresHelper.formatPoints(step.available_points)}</strong>
-                        <WRQStatus step={step} />
-                    </div>
-                    <div className="controls">
-                        <RevertButton size="lg" ux={ux} />
-                        <Button
-                            size="lg"
-                            data-test-id="submit-answer-btn"
-                            disabled={ux.isSubmitDisabled}
-                            onClick={this.onSave}
-                        >
-                            {ux.submitBtnLabel}
-                        </Button>
-                    </div>
-                </StepCardFooter>
-            </StyledFreeResponse>
-        );
+        return <OSFreeResponse {...freeResponseProps} />;
     }
 
 }
