@@ -1,6 +1,5 @@
 import { hydrateModel } from 'modeled-mobx'
 import Renderer from 'react-test-renderer';
-import { MemoryRouter } from 'react-router-dom';
 import ClauseComponent from '../../../src/components/search/clause';
 import { Clause } from '../../../src/models/search';
 
