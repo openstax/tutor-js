@@ -15,6 +15,17 @@ interface SearchResponse {
 
 class Clause extends BaseModel {
 
+    const formatFilters = {
+      'multiple-choice': 'Multiple Choice',
+      'free-response': 'Free Response',
+      'true-false': 'True or False'
+    };
+
+    const tfFilters = {
+      'true': 'True',
+      'false': 'False'
+    }
+
     @observable filter = 'uid';
     @observable value = '';
 
@@ -36,6 +47,16 @@ class Clause extends BaseModel {
     @action.bound setFilter(filter: string) {
         this.filter = filter;
         this.search.currentPage = 1;
+        switch(filter) {
+          case 'format':
+            this.setValue(Object.keys(this.formatFilters)[0]);
+            break;
+          case 'solutions_are_public':
+            this.setValue(Object.keys(this.tfFilters)[0]);
+            break;
+          default:
+            this.setValue('');
+        }
     }
 
     @action.bound onKey(e: any){
@@ -48,8 +69,12 @@ class Clause extends BaseModel {
         this.filter = evKey;
     }
 
-    @action.bound setValue({ target: { value } }: any) {
+    @action.bound setValue(value: string) {
         this.value = value;
+    }
+
+    @action.bound onChange({ target: { value } }: any) {
+        this.setValue(value);
     }
 
     get asQuery() {

@@ -16,6 +16,51 @@ class Clause extends React.Component {
 
     render() {
         const { clause } = this.props;
+        let input;
+        switch(clause.filter) {
+          case 'format':
+            const formatOptions = [];
+            for (const eventKey in clause.formatFilters) {
+              formatOptions.push(
+                <Dropdown.Item eventKey={eventKey}>{clause.formatFilters[eventKey]}</Dropdown.Item>
+              );
+            }
+            input = (
+              <DropdownButton
+                  variant="outline-primary"
+                  title={clause.formatFilters[clause.value]}
+                  onSelect={clause.setValue}
+                  id="input-dropdown"
+              >{formatOptions}</DropdownButton>
+            );
+            break;
+          case 'solutions_are_public':
+            const tfOptions = [];
+            for (const eventKey in clause.tfFilters) {
+              tfOptions.push(
+                <Dropdown.Item eventKey={eventKey}>{clause.tfFilters[eventKey]}</Dropdown.Item>
+              );
+            }
+            input = (
+              <DropdownButton
+                  variant="outline-primary"
+                  title={clause.tfFilters[clause.value]}
+                  onSelect={clause.setValue}
+                  id="input-dropdown"
+              >{tfOptions}</DropdownButton>
+            );
+            break;
+          default:
+            input = (
+              <FormControl
+                  type="text"
+                  autoFocus
+                  onKeyDown={clause.onKey}
+                  onChange={clause.onChange}
+                  value={clause.value}
+              />
+            );
+        }
 
         return (
             <Row className="search-filter">
@@ -35,14 +80,10 @@ class Clause extends React.Component {
                             <Dropdown.Item eventKey="author">Author</Dropdown.Item>
                             <Dropdown.Item eventKey="copyright_holder">Copyright Holder</Dropdown.Item>
                             <Dropdown.Item eventKey="collaborator">Any Collaborator</Dropdown.Item>
+                            <Dropdown.Item eventKey="format">Format</Dropdown.Item>
+                            <Dropdown.Item eventKey="solutions_are_public">Solutions are public?</Dropdown.Item>
                         </DropdownButton>
-                        <FormControl
-                            type="text"
-                            autoFocus
-                            onKeyDown={clause.onKey}
-                            onChange={clause.setValue}
-                            value={clause.value}
-                        />
+                        {input}
                         <DropdownButton
                             as={InputGroup.Append}
                             variant="outline-secondary"
