@@ -66,7 +66,7 @@ class FreeResponseInput extends React.Component {
         const { ux, props: { questionNumber, course, step, question, onSave } } = this;
 
         const freeResponseProps = {
-            ...pick(ux, 'lastSubmitted', 'wordLimit', 'isDisplayingNudge', 'isSubmitDisabled', 'submitBtnLabel', 'textHasChanged'),
+            ...pick(ux, 'wordLimit', 'isSubmitDisabled', 'submitBtnLabel', 'textHasChanged'),
             availablePoints: ScoresHelper.formatPoints(step.available_points),
             cancelHandler: ux.cancelWRQResubmit,
             defaultValue: ux.response,
