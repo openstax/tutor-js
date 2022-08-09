@@ -149,8 +149,6 @@ class Answer extends React.Component {
                 onKeyPress={this.onKeyPress}
                 qid={qid}
                 correctIncorrectIcon={<Icon type="check" color="green" />}
-                selectedCount={selectedCount}
-                feedback={feedback}
                 correctAnswerId={correctAnswerId}
                 incorrectAnswerId={incorrectAnswerId}
                 hasCorrectAnswer={hasCorrectAnswer}
