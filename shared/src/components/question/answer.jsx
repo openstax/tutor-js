@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { partial, pick, debounce } from 'lodash';
+import { partial, debounce } from 'lodash';
 import { observer } from 'mobx-react';
 import { action, modelize } from '../../model'
 import keymaster from 'keymaster';
@@ -8,7 +8,6 @@ import Icon from '../icon';
 import { idType } from '../../helpers/react';
 import keysHelper from '../../helpers/keys';
 import ArbitraryHtmlAndMath from '../html';
-import { SimpleFeedback } from './feedback';
 import { Answer as OSAnswer } from '@openstax/assignment-components';
 
 let idCounter = 0;
