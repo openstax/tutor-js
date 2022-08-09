@@ -109,40 +109,18 @@ class Answer extends React.Component {
     }
 
     render() {
-        let feedback, selectedCount;
         let {
             answer, iter, qid, type, correctAnswerId, incorrectAnswerId,
             answered_count, hasCorrectAnswer, chosenAnswer, disabled,
         } = this.props;
         if (qid == null) { qid = `auto-${idCounter++}`; }
 
-        if (type === 'teacher-review') {
-            const percent = Math.round((answer.selected_count / answered_count) * 100) || 0;
-            selectedCount = (
-                <span
-                    className="selected-count"
-                    data-percent={`${percent}`}
-                >
-                    {answer.selected_count}
-                </span>
-            );
-        }
-
-        if (this.props.show_all_feedback && answer.feedback_html) {
-            feedback = (
-                <SimpleFeedback key="question-mc-feedback">
-                    {answer.feedback_html}
-                </SimpleFeedback>
-            );
-        }
-
-        const htmlAndMathProps = pick(this.context, ['processHtmlAndMath']);
-
         return (
             <OSAnswer
                 type={type}
                 iter={iter}
                 answer={answer}
+                answered_count={answered_count}
                 chosenAnswer={chosenAnswer}
                 onChangeAnswer={this.onChange}
                 disabled={disabled}
@@ -152,7 +130,7 @@ class Answer extends React.Component {
                 correctAnswerId={correctAnswerId}
                 incorrectAnswerId={incorrectAnswerId}
                 hasCorrectAnswer={hasCorrectAnswer}
-                contentRenderer={<ArbitraryHtmlAndMath className="answer-content" {...htmlAndMathProps} />}
+                contentRenderer={<ArbitraryHtmlAndMath className="answer-content" />}
             />
         )
     }
