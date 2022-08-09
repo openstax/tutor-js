@@ -4,15 +4,72 @@ import {
     Row, Col, InputGroup, DropdownButton, FormControl, Dropdown,
 } from 'react-bootstrap';
 import AsyncButton from 'shared/components/buttons/async-button';
-import { observer } from 'mobx-react';
+import { computed, observer } from 'shared/model';
 
 @observer
 export default
 class Clause extends React.Component {
 
+    static formatFilters = {
+        'multiple-choice': 'Multiple Choice',
+        'free-response': 'Free Response',
+        'true-false': 'True or False',
+    };
+
+    static tfFilters = {
+        'true': 'True',
+        'false': 'False',
+    };
+
     static propTypes = {
         clause: PropTypes.object.isRequired,
     };
+
+    @computed get input() {
+        const { clause } = this.props;
+
+        if (clause.filter === 'format') {
+            const formatOptions = [];
+            for (const eventKey in Clause.formatFilters) {
+                formatOptions.push(
+                    <Dropdown.Item eventKey={eventKey}>{Clause.formatFilters[eventKey]}</Dropdown.Item>
+                );
+            }
+            return (
+                <DropdownButton
+                    variant="outline-primary"
+                    title={Clause.formatFilters[clause.value]}
+                    onSelect={clause.setValue}
+                    id="input-dropdown"
+                >{formatOptions}</DropdownButton>
+            );
+        } else if (clause.filter === 'solutions_are_public') {
+            const tfOptions = [];
+            for (const eventKey in Clause.tfFilters) {
+                tfOptions.push(
+                    <Dropdown.Item eventKey={eventKey}>{Clause.tfFilters[eventKey]}</Dropdown.Item>
+                );
+            }
+            return (
+                <DropdownButton
+                    variant="outline-primary"
+                    title={Clause.tfFilters[clause.value]}
+                    onSelect={clause.setValue}
+                    id="input-dropdown"
+                >{tfOptions}</DropdownButton>
+            );
+        } else {
+            return (
+                <FormControl
+                    type="text"
+                    autoFocus
+                    onKeyDown={clause.onKey}
+                    onChange={clause.onChange}
+                    value={clause.value}
+                />
+            );
+        }
+    }
 
     render() {
         const { clause } = this.props;
@@ -35,14 +92,10 @@ class Clause extends React.Component {
                             <Dropdown.Item eventKey="author">Author</Dropdown.Item>
                             <Dropdown.Item eventKey="copyright_holder">Copyright Holder</Dropdown.Item>
                             <Dropdown.Item eventKey="collaborator">Any Collaborator</Dropdown.Item>
+                            <Dropdown.Item eventKey="format">Format</Dropdown.Item>
+                            <Dropdown.Item eventKey="solutions_are_public">Solutions are public?</Dropdown.Item>
                         </DropdownButton>
-                        <FormControl
-                            type="text"
-                            autoFocus
-                            onKeyDown={clause.onKey}
-                            onChange={clause.setValue}
-                            value={clause.value}
-                        />
+                        {this.input}
                         <DropdownButton
                             as={InputGroup.Append}
                             variant="outline-secondary"

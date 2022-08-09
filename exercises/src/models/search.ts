@@ -13,7 +13,7 @@ interface SearchResponse {
     items: Exercise[]
 }
 
-class Clause extends BaseModel {
+export class Clause extends BaseModel {
 
     @observable filter = 'uid';
     @observable value = '';
@@ -34,6 +34,14 @@ class Clause extends BaseModel {
     }
 
     @action.bound setFilter(filter: string) {
+        // Make sure to set or clear the value when switching to or from a dropdown input
+        if (filter === 'format') {
+            this.setValue('multiple-choice');
+        } else if (filter === 'solutions_are_public') {
+            this.setValue('true');
+        } else if (this.filter === 'format' || this.filter === 'solutions_are_public') {
+            this.setValue('');
+        }
         this.filter = filter;
         this.search.currentPage = 1;
     }
@@ -48,8 +56,12 @@ class Clause extends BaseModel {
         this.filter = evKey;
     }
 
-    @action.bound setValue({ target: { value } }: any) {
+    @action.bound setValue(value: string) {
         this.value = value;
+    }
+
+    @action.bound onChange({ target: { value } }: any) {
+        this.setValue(value);
     }
 
     get asQuery() {
