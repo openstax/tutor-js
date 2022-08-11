@@ -13,8 +13,56 @@ import { ResponseValidationUX } from '../response-validation-ux';
 import { NudgeMessages, NudgeMessage } from './nudge-message';
 import { StepCardFooter } from './card';
 import ScoresHelper from '../../../helpers/scores';
-import { FreeResponseInput as OSFreeResponse } from '@openstax/assignment-components';
+import { FreeResponseTextArea } from '@openstax/assignment-components';
 import { pick } from 'lodash';
+
+const StyledFreeResponse = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const InfoRow = styled.div`
+  margin: 8px 0;
+  display: flex;
+  justify-content: space-between;
+  line-height: 1.6rem;
+
+  .word-limit-error-info {
+    color: ${colors.danger};
+  }
+
+  div > span {
+    font-size: 12px;
+    line-height: 16px;
+
+    + span {
+      margin-left: 1rem;
+    }
+  }
+
+  .last-submitted + * {
+    margin-top: 0.8rem;
+  }
+
+  color: ${colors.neutral.thin};
+`;
+
+const RevertButton = observer(({ ux }) => {
+    if (!ux.textHasChanged || !ux.canRevert) {
+        return null;
+    }
+
+    return (
+        <Button
+            variant="secondary"
+            disabled={!ux.textHasChanged}
+            onClick={ux.cancelWRQResubmit}
+        >
+            Cancel
+        </Button>
+    );
+
+});
 
 @observer
 class FreeResponseReview extends React.Component {
@@ -84,7 +132,56 @@ class FreeResponseInput extends React.Component {
             pointsChildren: <WRQStatus step={step} />,
         }
 
-        return <OSFreeResponse {...freeResponseProps} />;
+        return (
+            <StyledFreeResponse
+                data-test-id="student-free-response"
+            >
+                <div className="step-card-body">
+                    <QuestionStem
+                        questionNumber={questionNumber}
+                        question={question}
+                    />
+                <FreeResponseTextArea
+                        value={ux.response}
+                        onChange={ux.setResponse}
+                        data-test-id="free-response-box"
+                        placeholder="Enter your response..."
+                        isErrored={ux.displayNudgeError}
+                        showWarning={ux.isOverWordLimit}
+                        aria-label="question response text box"
+                        readOnly={ux.taskUX.isReadOnly}
+                    />
+                    <InfoRow hasSubmitted={!!ux.lastSubmitted}>
+                        <div>
+                            {ux.lastSubmitted && <span className="last-submitted">Last submitted on {ux.lastSubmitted.format('MMM DD [at] hh:mm A')}</span>}
+                            {ux.isDisplayingNudge && <NudgeMessage course={course} step={step} ux={ux} />}
+                        </div>
+
+                        <div>
+                            <span>{ux.responseWords} words</span>
+                            {ux.isOverWordLimit && <span className="word-limit-error-info">Maximum {ux.wordLimit} words</span>}
+                        </div>
+                    </InfoRow>
+                </div>
+                <StepCardFooter isDisplayingNudge={ux.isDisplayingNudge}>
+                    <div className="points">
+                        <strong>Points: {ScoresHelper.formatPoints(step.available_points)}</strong>
+                        <WRQStatus step={step} />
+                    </div>
+                    <div className="controls">
+                        <RevertButton size="lg" ux={ux} />
+                        <Button
+                            size="lg"
+                            data-test-id="submit-answer-btn"
+                            disabled={ux.isSubmitDisabled}
+                            onClick={this.onSave}
+                        >
+                            {ux.submitBtnLabel}
+                        </Button>
+                    </div>
+                </StepCardFooter>
+         </StyledFreeResponse>
+        )
     }
 
 }

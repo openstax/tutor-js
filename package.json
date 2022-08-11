@@ -52,7 +52,7 @@
     "@fortawesome/free-regular-svg-icons": "^5.10.2",
     "@fortawesome/free-solid-svg-icons": "^5.10.2",
     "@fortawesome/react-fontawesome": "^0.1.4",
-    "@openstax/assignment-components": "https://github.com/openstax/assignment-components#v0.0.0-dev",
+    "@openstax/assignment-components": "https://github.com/openstax/assignment-components#v0.0.1",
     "@openstax/highlighter": "1.3.2",
     "@playwright/test": "^1.16.0",
     "@rails/activestorage": "^6.0.3-4",

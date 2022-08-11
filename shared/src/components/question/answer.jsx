@@ -110,7 +110,7 @@ class Answer extends React.Component {
     render() {
         let {
             answer, iter, qid, type, correctAnswerId, incorrectAnswerId,
-            answered_count, hasCorrectAnswer, chosenAnswer, disabled,
+            answered_count, hasCorrectAnswer, chosenAnswer, disabled, show_all_feedback
         } = this.props;
         if (qid == null) { qid = `auto-${idCounter++}`; }
 
@@ -130,6 +130,7 @@ class Answer extends React.Component {
                 incorrectAnswerId={incorrectAnswerId}
                 hasCorrectAnswer={hasCorrectAnswer}
                 contentRenderer={<ArbitraryHtmlAndMath className="answer-content" />}
+                show_all_feedback={show_all_feedback}
             />
         )
     }
