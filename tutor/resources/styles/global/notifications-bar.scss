@@ -13,6 +13,8 @@
     }
   }
 
+  .body a { text-decoration: underline; }
+
   .notification {
     @media (max-width: $tablet-collapse-breakpoint), (max-width: $mobile-collapse-breakpoint) {
       font-size: 1.4rem;

@@ -37,7 +37,7 @@ class SystemNotification extends React.Component {
                 )}>
                 <span className="body">
                     <Icon type={this.getIcon()} />
-                    {this.props.notice.message}
+                    <div dangerouslySetInnerHTML={{ __html: this.props.notice.message}} />;
                 </span>
                 <Icon type="close" className="dismiss" onClick={this.props.onDismiss} />
             </div>
