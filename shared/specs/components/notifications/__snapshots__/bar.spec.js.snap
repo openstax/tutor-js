@@ -34,7 +34,14 @@ exports[`Notifications Bar renders and matches snapshot 1`] = `
           style={Object {}}
         />
       </svg>
-      A test
+      <div
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "A test",
+          }
+        }
+      />
+      ;
     </span>
     <button
       className="ox-icon-close dismiss btn btn-plain"
