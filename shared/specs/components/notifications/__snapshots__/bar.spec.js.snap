@@ -41,7 +41,6 @@ exports[`Notifications Bar renders and matches snapshot 1`] = `
           }
         }
       />
-      ;
     </span>
     <button
       className="ox-icon-close dismiss btn btn-plain"
