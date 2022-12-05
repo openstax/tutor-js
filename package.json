@@ -120,7 +120,7 @@
     "markdown-it": "12.3.2",
     "markdown-it-regexp": "0.4.0",
     "mime-types": "2.1.24",
-    "minimatch": "3.0.4",
+    "minimatch": "3.0.5",
     "mobx": "^6.1.8",
     "mobx-react": "^7.1.0",
     "mobx-utils": "^6.0.3",
