@@ -99,8 +99,8 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                                                                   <div x-placement=\\"bottom-start\\" aria-labelledby=\\"support-menu\\" style={{...}} className=\\" hide dropdown-menu show\\">
                                                                     <Memo(wrappedComponent) onPlayClick={[Function: onPlayTourClick] { isMobxAction: true }} course={[undefined]} history={{...}} location={{...}} match={{...}} staticContext={[undefined]} tourContext={{...}} />
                                                                     <DropdownItem className=\\"-help-link\\" target=\\"_blank\\" onSelect={[Function: onSelect] { isMobxAction: true }} href=\\"https://openstax.secure.force.com/help?search=tutor\\" as={{...}} disabled={false}>
-                                                                      <SafeAnchor target=\\"_blank\\" href=\\"https://openstax.secure.force.com/help?search=tutor\\" disabled={false} className=\\"-help-link dropdown-item\\" onClick={[Function (anonymous)]}>
-                                                                        <a target=\\"_blank\\" href=\\"https://openstax.secure.force.com/help?search=tutor\\" className=\\"-help-link dropdown-item\\" onClick={[Function: handleClick]} onKeyDown={[Function: handleKeyDown]}>
+                                                                      <SafeAnchor target=\\"_blank\\" href=\\"https://help.openstax.org/s/global-search/tutor\\" disabled={false} className=\\"-help-link dropdown-item\\" onClick={[Function (anonymous)]}>
+                                                                        <a target=\\"_blank\\" href=\\"https://help.openstax.org/s/global-search/tutor\\" className=\\"-help-link dropdown-item\\" onClick={[Function: handleClick]} onKeyDown={[Function: handleKeyDown]}>
                                                                           <span>
                                                                             Help Articles
                                                                           </span>

@@ -13,7 +13,7 @@ import { downloadData, arrayToCSV } from '../../helpers/download-data';
 
 const Troubleshoot = () => (
     <NewTabLink
-        href="https://openstax.secure.force.com/help/articles/FAQ/How-do-I-send-student-scores-from-OpenStax-Tutor-to-my-learning-management-system?search=troubleshoot%20sending%20scores"
+        href="https://help.openstax.org/s/article/How-do-I-send-student-scores-from-OpenStax-Tutor-to-my-learning-management-system"
     >
     Troubleshoot sending scores to your LMS
     </NewTabLink>

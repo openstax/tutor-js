@@ -16,7 +16,7 @@ export default function EmptyCourses() {
             We cannot find an OpenStax course associated with your account.
                     </p>
                     <Card.Text>
-                        <a target="_blank" href="https://openstax.secure.force.com/help">
+                        <a target="_blank" href="https://help.openstax.org/s/">
               Get help &gt;
                         </a>
                     </Card.Text>

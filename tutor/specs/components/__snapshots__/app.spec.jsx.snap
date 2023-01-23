@@ -296,7 +296,7 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
                     >
                       <a
                         className="-help-link dropdown-item"
-                        href="https://openstax.secure.force.com/help?search=tutor"
+                        href="https://help.openstax.org/s/global-search/tutor"
                         onClick={[Function]}
                         onKeyDown={[Function]}
                         target="_blank"

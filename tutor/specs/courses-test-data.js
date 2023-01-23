@@ -196,8 +196,8 @@ const MASTER_COURSES_LIST = [
     TEACHER_AND_STUDENT_COURSE_THREE_MODEL,
 ];
 
-const TUTOR_HELP = 'http://openstax.force.com/support?l=en_US&c=Products%3ATutor';
-const CONCEPT_COACH_HELP = 'http://openstax.force.com/support?l=en_US&c=Products%3AConcept_Coach';
+const TUTOR_HELP = 'https://help.openstax.org/s/global-search/tutor';
+const CONCEPT_COACH_HELP = 'https://help.openstax.org/s/global-search/concept%20coach';
 
 const bootstrapCoursesList = () => currentCourses.bootstrap(MASTER_COURSES_LIST);
 
