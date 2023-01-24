@@ -464,7 +464,7 @@ class TemplateForm extends React.Component<TemplateFormProps> {
                                             locked choice order and True/ False questions will
                                             not be shuffled.&nbsp;
                                         </p>
-                                        <a href="https://openstax.secure.force.com/help/articles/FAQ/How-to-Shuffle-Answer-Choices-in-OpenStax-Tutor" target="_blank">Learn more</a>
+                                        <a href="https://help.openstax.org/s/article/Two-step-questions-and-response-validation-in-OpenStax-Tutor-Beta" target="_blank">Learn more</a>
                                     </>
                                 }
                             />

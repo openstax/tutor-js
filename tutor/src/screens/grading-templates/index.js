@@ -171,7 +171,7 @@ export default class GradingTemplatesScreen extends React.Component {
                                 <Instructions>
                                     Manage pre-set submission and grading policy templates here. These
                                     templates can be applied to multiple assignments. Template applied
-                                    to open assignments cannot be edited or deleted. <a href="https://openstax.secure.force.com/help/articles/FAQ/What-are-Grading-templates" target="__blank">Learn more</a>
+                                    to open assignments cannot be edited or deleted. <a href="https://help.openstax.org/s/article/What-are-Grading-templates" target="__blank">Learn more</a>
                                 </Instructions>
                             </Col>
                         </Row>

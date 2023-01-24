@@ -12,7 +12,7 @@ import { Icon } from 'shared';
 
 const blackboard = ({ lms }) => (
     <div className="blackboard">
-        <Link href="https://openstax.secure.force.com/help/articles/FAQ/Blackboard-LMS-integration-for-OpenStax-Tutor-Beta">
+        <Link href="https://help.openstax.org/s/article/Blackboard-LMS-integration-for-OpenStax-Tutor-Beta">
             <Icon type="info-circle" /> How do I integrate with Blackboard?
         </Link>
         <CopyOnFocusInput label="URL" value={lms.launch_url} />
@@ -23,7 +23,7 @@ const blackboard = ({ lms }) => (
 
 const canvas = ({ lms }) => (
     <div className="canvas">
-        <Link href="https://openstax.secure.force.com/help/articles/FAQ/Canvas-LMS-integration-for-OpenStax-Tutor-Beta">
+        <Link href="https://help.openstax.org/s/article/Canvas-LMS-integration-for-OpenStax-Tutor-Beta">
             <Icon type="info-circle" /> How do I integrate with Canvas?
         </Link>
         <CopyOnFocusInput label="Consumer key" value={lms.key} />
@@ -34,7 +34,7 @@ const canvas = ({ lms }) => (
 
 const moodle = ({ lms }) => (
     <div className="moodle">
-        <Link href="https://openstax.secure.force.com/help/articles/FAQ/Moodle-LMS-integration-for-OpenStax-Tutor-Beta">
+        <Link href="https://help.openstax.org/s/article/Moodle-LMS-integration-for-OpenStax-Tutor-Beta">
             <Icon type="info-circle" /> How do I integrate with Moodle?
         </Link>
         <CopyOnFocusInput label="Secure tool URL" value={lms.launch_url} />
@@ -45,7 +45,7 @@ const moodle = ({ lms }) => (
 
 const d2l = ({ lms }) => (
     <div className="d2l">
-        <Link href="https://openstax.secure.force.com/help/articles/FAQ/Desire2Learn-LMS-integration-for-OpenStax-Tutor-Beta">
+        <Link href="https://help.openstax.org/s/article/Desire2Learn-LMS-integration-for-OpenStax-Tutor-Beta">
             <Icon type="info-circle" /> How do I integrate with Desire2Learn?
         </Link>
         <CopyOnFocusInput label="URL" value={lms.launch_url} />
@@ -56,7 +56,7 @@ const d2l = ({ lms }) => (
 
 const sakai = ({ lms }) => (
     <div className="sakai">
-        <Link href="https://openstax.secure.force.com/help/articles/FAQ/Sakai-LMS-integration-for-OpenStax-Tutor-Beta">
+        <Link href="https://help.openstax.org/s/article/Sakai-LMS-integration-for-OpenStax-Tutor-Beta">
             <Icon type="info-circle" /> How do I integrate with Sakai?
         </Link>
         <CopyOnFocusInput label="Launch URL" value={lms.launch_url} />

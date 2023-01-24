@@ -1,4 +1,4 @@
-export const TUTOR_HELP = 'https://openstax.secure.force.com/help?search=tutor';
+export const TUTOR_HELP = 'https://help.openstax.org/s/global-search/tutor';
 export const SUPPORT_EMAIL = 'support@openstax.org';
 export const STUDENT_PRACTICE_TYPES = {
     WORST: 'worst',
