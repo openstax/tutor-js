@@ -705,7 +705,7 @@ exports[`Course Settings, student access renders with only link for non-lms enab
     className="student-access direct-links-only"
   >
     <p>
-      Interested in learning management system (LMS) integration?
+      Interested in learning management system (LMS) integration? 
       <a
         className="external-icon"
         href="https://help.openstax.org/s/article/LMS-integration-for-OpenStax-Tutor-Beta"
