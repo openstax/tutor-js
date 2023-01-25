@@ -160,7 +160,7 @@ const renderFailedToSend = (footer) => (
         <div>
             <p>
                 <NewTabLink
-                    to="https://openstax.secure.force.com/help/articles/FAQ/How-do-I-send-student-scores-from-OpenStax-Tutor-to-my-learning-management-system"
+                    to="https://help.openstax.org/s/article/How-do-I-send-student-scores-from-OpenStax-Tutor-to-my-learning-management-system"
                 >
           Send course averages to your LMS
                 </NewTabLink>

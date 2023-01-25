@@ -15,7 +15,7 @@ exports[`Course Settings, student access can switch to links 1`] = `
     Choose how students access OpenStax Tutor. Access settings cannot be changed after students begin to enroll.
   </p>
   <a
-    href="https://openstax.secure.force.com/help/articles/FAQ/Student-Access-with-Enrollment-Link-versus-LMS-sign-in-for-OpenStax-Tutor-Beta-LMS-Pilots"
+    href="https://help.openstax.org/s/article/Student-Access-with-Enrollment-Link-versus-LMS-sign-in-for-OpenStax-Tutor-Beta-LMS-Pilots"
     target="_blank"
   >
     <svg
@@ -194,7 +194,7 @@ exports[`Course Settings, student access can switch to lms 1`] = `
     Choose how students access OpenStax Tutor. Access settings cannot be changed after students begin to enroll.
   </p>
   <a
-    href="https://openstax.secure.force.com/help/articles/FAQ/Student-Access-with-Enrollment-Link-versus-LMS-sign-in-for-OpenStax-Tutor-Beta-LMS-Pilots"
+    href="https://help.openstax.org/s/article/Student-Access-with-Enrollment-Link-versus-LMS-sign-in-for-OpenStax-Tutor-Beta-LMS-Pilots"
     target="_blank"
   >
     <svg
@@ -533,7 +533,7 @@ exports[`Course Settings, student access renders chooser when lms is enabled 1`]
     Choose how students access OpenStax Tutor. Access settings cannot be changed after students begin to enroll.
   </p>
   <a
-    href="https://openstax.secure.force.com/help/articles/FAQ/Student-Access-with-Enrollment-Link-versus-LMS-sign-in-for-OpenStax-Tutor-Beta-LMS-Pilots"
+    href="https://help.openstax.org/s/article/Student-Access-with-Enrollment-Link-versus-LMS-sign-in-for-OpenStax-Tutor-Beta-LMS-Pilots"
     target="_blank"
   >
     <svg
