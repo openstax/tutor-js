@@ -195,7 +195,7 @@
     "babel-plugin-transform-imports": "^2.0.0",
     "blanket": "1.2.3",
     "chalk": "^2.4.2",
-    "chrome-launcher": "^0.11.2",
+    "chrome-launcher": "^0.13.2",
     "coveralls": "3.0.6",
     "css-loader": "3.2.0",
     "enzyme": "^3.11.0",
