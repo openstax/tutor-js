@@ -92,6 +92,11 @@ exports[`Book tags component renders tags 1`] = `
         Business Computer Applications
       </option>
       <option
+        value="stax-nursingskills"
+      >
+        Clinical Nursing Skills
+      </option>
+      <option
         value="stax-phys"
       >
         College Physics
@@ -100,6 +105,11 @@ exports[`Book tags component renders tags 1`] = `
         value="stax-apphys"
       >
         College Physics for AP® Courses
+      </option>
+      <option
+        value="stax-pophealth"
+      >
+        Community-Population Health
       </option>
       <option
         value="stax-pyth"
@@ -120,6 +130,11 @@ exports[`Book tags component renders tags 1`] = `
         value="stax-cmath"
       >
         Contemporary Math
+      </option>
+      <option
+        value="stax-datascience"
+      >
+        Data Science
       </option>
       <option
         value="stax-devpsy"
@@ -147,6 +162,11 @@ exports[`Book tags component renders tags 1`] = `
         Finance
       </option>
       <option
+        value="stax-nursingfundamentals"
+      >
+        Fundamentals of Nursing
+      </option>
+      <option
         value="stax-k12phys"
       >
         HS Physics
@@ -157,9 +177,24 @@ exports[`Book tags component renders tags 1`] = `
         Information Systems
       </option>
       <option
+        value="stax-neuroscience"
+      >
+        Introduction to Behavioral Neuroscience
+      </option>
+      <option
         value="stax-macro"
       >
         Macro Economics
+      </option>
+      <option
+        value="stax-matnewborn"
+      >
+        Maternal Newborn Nursing
+      </option>
+      <option
+        value="stax-medsurg"
+      >
+        Medical-Surgical Nursing
       </option>
       <option
         value="stax-micro"
@@ -167,9 +202,19 @@ exports[`Book tags component renders tags 1`] = `
         Micro Economics
       </option>
       <option
+        value="stax-nutrition"
+      >
+        Nutrition
+      </option>
+      <option
         value="stax-orgchem"
       >
         Organic Chemistry
+      </option>
+      <option
+        value="stax-pharmacology"
+      >
+        Pharmacology for Nurses
       </option>
       <option
         value="stax-phi"
@@ -185,6 +230,11 @@ exports[`Book tags component renders tags 1`] = `
         value="stax-mktg"
       >
         Principles of Marketing
+      </option>
+      <option
+        value="stax-psychnursing"
+      >
+        Psychiatric-Mental Health Nursing
       </option>
       <option
         value="stax-psy"
