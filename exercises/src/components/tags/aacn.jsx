@@ -29,7 +29,7 @@ class Input extends React.Component {
         if (this.isValid(this.aacn)) {
             return null;
         } else {
-            return `Must be present and match AACN pattern of ${pattern}`;
+            return `Must match AACN pattern of ${pattern}`;
         }
     }
 
