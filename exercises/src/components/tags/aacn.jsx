@@ -1,25 +1,14 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { defaults } from 'lodash';
 import classnames from 'classnames';
 import Exercise from '../../models/exercises/exercise';
 import { observer } from 'mobx-react';
-import { action, observable, modelize } from 'shared/model';
+import { action, computed, observable, modelize } from 'shared/model';
 import TagModel from 'shared/model/exercise/tag';
 import { Icon } from 'shared';
 import Error from './error';
+import { nursingBooks } from './nursingBooks';
 import Wrapper from './wrapper';
-
-const BOOKS = [
-    'stax-matnewborn',
-    'stax-medsurg',
-    'stax-nursingfundamentals',
-    'stax-nursingskills',
-    'stax-nutrition',
-    'stax-pharmacology',
-    'stax-pophealth',
-    'stax-psychnursing',
-];
 
 const pattern = '##.#[a-z]';
 
@@ -30,8 +19,19 @@ class Input extends React.Component {
         tag: PropTypes.instanceOf(TagModel).isRequired,
     };
 
-    @observable errorMsg;
     @observable aacn = this.props.tag.value;
+
+    isValid(aacn) {
+        return aacn && aacn.match(/^\d{1,2}\.\d[a-z]$/);
+    }
+
+    @computed get errorMsg() {
+        if (this.isValid(this.aacn)) {
+            return null;
+        } else {
+            return `Must be present and match AACN pattern of ${pattern}`;
+        }
+    }
 
     constructor(props) {
         super(props)
@@ -39,26 +39,11 @@ class Input extends React.Component {
     }
 
     @action.bound onTextChange(ev) {
-        this.aacn = ev.target.value.replace(/[^0-9a-z.]+/, '');
-        this.errorMsg = null;
-    }
-
-    isValid(aacn) {
-        return !aacn || aacn.match(/^\d{1,2}\.\d[a-z]$/);
-    }
-
-    @action.bound validateAndSave(attrs = {}) {
-        const { aacn } = defaults(attrs, { aacn: this.aacn });
-
-        if (!this.isValid(aacn)) {
-            this.errorMsg = `Must match AACN pattern of ${pattern}`;
-        } else {
-            this.props.tag.value = aacn;
-        }
+        this.aacn = ev.target.value.toLowerCase().replace(/[^0-9a-z.]+/, '');
     }
 
     @action.bound onTextBlur() {
-        return this.validateAndSave({ aacn: this.aacn });
+        this.props.tag.value = this.isValid(this.aacn) ? this.aacn : '';
     }
 
     @action.bound onDelete() {
@@ -104,7 +89,7 @@ class AACNTags extends React.Component {
         const { exercise } = this.props;
 
         const bookTags = exercise.tags.withType('book', { multiple: true });
-        if (!bookTags.find(tag => BOOKS.includes(tag.value))) {
+        if (!bookTags.find(tag => nursingBooks.includes(tag.value))) {
             return null;
         }
 

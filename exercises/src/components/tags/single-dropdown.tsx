@@ -18,6 +18,7 @@ interface SingleDropdownProps {
     exercise: Exercise
     label: string
     type: string
+    specifier?: string
     readonly: boolean
     icon: React.ReactNode
     choices: Record<string, string>
@@ -35,6 +36,7 @@ class SingleDropdown extends React.Component<SingleDropdownProps> {
         exercise: PropTypes.instanceOf(Exercise).isRequired,
         label:   PropTypes.string.isRequired,
         type:  PropTypes.string.isRequired,
+        specifier: PropTypes.string,
         readonly: PropTypes.bool,
         icon: PropTypes.node,
         choices: PropTypes.object.isRequired,
@@ -51,15 +53,23 @@ class SingleDropdown extends React.Component<SingleDropdownProps> {
 
     @action.bound onChange(option?: SelectOption) {
         if (option) {
-            const tag = this.props.exercise.tags.findOrAddWithType(this.props.type)
+            const tag = this.props.specifier ?
+                this.props.exercise.tags.findOrAddWithTypeAndSpecifier(this.props.type, this.props.specifier) :
+                this.props.exercise.tags.findOrAddWithType(this.props.type)
             tag.value = option.value
         } else {
-            this.props.exercise.tags.removeType(this.props.type)
+            if (this.props.specifier) {
+                this.props.exercise.tags.removeTypeAndSpecifier(this.props.type, this.props.specifier)
+            } else {
+                this.props.exercise.tags.removeType(this.props.type)
+            }
         }
     }
 
     @computed get selectedOption() {
-        const tag = this.props.exercise.tags.withType(this.props.type);
+        const tag = this.props.specifier ?
+            this.props.exercise.tags.withTypeAndSpecifier(this.props.type, this.props.specifier) :
+            this.props.exercise.tags.withType(this.props.type)
         const value = get(tag, 'value', '')
         return this.options.find(opt => opt.value == value)
     }

@@ -4,7 +4,7 @@ import {
 import { isString, isObject, first, last, filter, extend, values, pick, isNil } from 'lodash';
 
 const TYPES = {
-    IMPORTANT: ['lo', 'aplo', 'blooms', 'dok', 'length', 'time', 'hts', 'rp', 'difficulty'],
+    IMPORTANT: ['lo', 'aplo', 'blooms', 'dok', 'length', 'time', 'hts', 'rp', 'difficulty', 'nursing'],
 };
 const TITLE_SUBSTITUTIONS = [
     ['hts:1', 'HTS-1 Developments and Processes'],
