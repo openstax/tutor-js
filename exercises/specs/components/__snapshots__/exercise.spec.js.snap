@@ -671,6 +671,11 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                     Business Computer Applications
                   </option>
                   <option
+                    value="stax-nursingskills"
+                  >
+                    Clinical Nursing Skills
+                  </option>
+                  <option
                     value="stax-phys"
                   >
                     College Physics
@@ -679,6 +684,11 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                     value="stax-apphys"
                   >
                     College Physics for AP® Courses
+                  </option>
+                  <option
+                    value="stax-pophealth"
+                  >
+                    Community-Population Health
                   </option>
                   <option
                     value="stax-pyth"
@@ -699,6 +709,11 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                     value="stax-cmath"
                   >
                     Contemporary Math
+                  </option>
+                  <option
+                    value="stax-datascience"
+                  >
+                    Data Science
                   </option>
                   <option
                     value="stax-devpsy"
@@ -726,6 +741,11 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                     Finance
                   </option>
                   <option
+                    value="stax-nursingfundamentals"
+                  >
+                    Fundamentals of Nursing
+                  </option>
+                  <option
                     value="stax-k12phys"
                   >
                     HS Physics
@@ -736,9 +756,24 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                     Information Systems
                   </option>
                   <option
+                    value="stax-neuroscience"
+                  >
+                    Introduction to Behavioral Neuroscience
+                  </option>
+                  <option
                     value="stax-macro"
                   >
                     Macro Economics
+                  </option>
+                  <option
+                    value="stax-matnewborn"
+                  >
+                    Maternal Newborn Nursing
+                  </option>
+                  <option
+                    value="stax-medsurg"
+                  >
+                    Medical-Surgical Nursing
                   </option>
                   <option
                     value="stax-micro"
@@ -746,9 +781,19 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                     Micro Economics
                   </option>
                   <option
+                    value="stax-nutrition"
+                  >
+                    Nutrition
+                  </option>
+                  <option
                     value="stax-orgchem"
                   >
                     Organic Chemistry
+                  </option>
+                  <option
+                    value="stax-pharmacology"
+                  >
+                    Pharmacology for Nurses
                   </option>
                   <option
                     value="stax-phi"
@@ -764,6 +809,11 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                     value="stax-mktg"
                   >
                     Principles of Marketing
+                  </option>
+                  <option
+                    value="stax-psychnursing"
+                  >
+                    Psychiatric-Mental Health Nursing
                   </option>
                   <option
                     value="stax-psy"
@@ -4014,6 +4064,11 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                     Business Computer Applications
                   </option>
                   <option
+                    value="stax-nursingskills"
+                  >
+                    Clinical Nursing Skills
+                  </option>
+                  <option
                     value="stax-phys"
                   >
                     College Physics
@@ -4022,6 +4077,11 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                     value="stax-apphys"
                   >
                     College Physics for AP® Courses
+                  </option>
+                  <option
+                    value="stax-pophealth"
+                  >
+                    Community-Population Health
                   </option>
                   <option
                     value="stax-pyth"
@@ -4042,6 +4102,11 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                     value="stax-cmath"
                   >
                     Contemporary Math
+                  </option>
+                  <option
+                    value="stax-datascience"
+                  >
+                    Data Science
                   </option>
                   <option
                     value="stax-devpsy"
@@ -4069,6 +4134,11 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                     Finance
                   </option>
                   <option
+                    value="stax-nursingfundamentals"
+                  >
+                    Fundamentals of Nursing
+                  </option>
+                  <option
                     value="stax-k12phys"
                   >
                     HS Physics
@@ -4079,9 +4149,24 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                     Information Systems
                   </option>
                   <option
+                    value="stax-neuroscience"
+                  >
+                    Introduction to Behavioral Neuroscience
+                  </option>
+                  <option
                     value="stax-macro"
                   >
                     Macro Economics
+                  </option>
+                  <option
+                    value="stax-matnewborn"
+                  >
+                    Maternal Newborn Nursing
+                  </option>
+                  <option
+                    value="stax-medsurg"
+                  >
+                    Medical-Surgical Nursing
                   </option>
                   <option
                     value="stax-micro"
@@ -4089,9 +4174,19 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                     Micro Economics
                   </option>
                   <option
+                    value="stax-nutrition"
+                  >
+                    Nutrition
+                  </option>
+                  <option
                     value="stax-orgchem"
                   >
                     Organic Chemistry
+                  </option>
+                  <option
+                    value="stax-pharmacology"
+                  >
+                    Pharmacology for Nurses
                   </option>
                   <option
                     value="stax-phi"
@@ -4107,6 +4202,11 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                     value="stax-mktg"
                   >
                     Principles of Marketing
+                  </option>
+                  <option
+                    value="stax-psychnursing"
+                  >
+                    Psychiatric-Mental Health Nursing
                   </option>
                   <option
                     value="stax-psy"
@@ -6327,11 +6427,17 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                               <option value=\\"stax-bca\\">
                                                 Business Computer Applications
                                               </option>
+                                              <option value=\\"stax-nursingskills\\">
+                                                Clinical Nursing Skills
+                                              </option>
                                               <option value=\\"stax-phys\\">
                                                 College Physics
                                               </option>
                                               <option value=\\"stax-apphys\\">
                                                 College Physics for AP® Courses
+                                              </option>
+                                              <option value=\\"stax-pophealth\\">
+                                                Community-Population Health
                                               </option>
                                               <option value=\\"stax-pyth\\">
                                                 Computer Programming with Python
@@ -6344,6 +6450,9 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                               </option>
                                               <option value=\\"stax-cmath\\">
                                                 Contemporary Math
+                                              </option>
+                                              <option value=\\"stax-datascience\\">
+                                                Data Science
                                               </option>
                                               <option value=\\"stax-devpsy\\">
                                                 Developmental Psychology
@@ -6360,20 +6469,38 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                               <option value=\\"stax-fin\\">
                                                 Finance
                                               </option>
+                                              <option value=\\"stax-nursingfundamentals\\">
+                                                Fundamentals of Nursing
+                                              </option>
                                               <option value=\\"stax-k12phys\\">
                                                 HS Physics
                                               </option>
                                               <option value=\\"stax-infosys\\">
                                                 Information Systems
                                               </option>
+                                              <option value=\\"stax-neuroscience\\">
+                                                Introduction to Behavioral Neuroscience
+                                              </option>
                                               <option value=\\"stax-macro\\">
                                                 Macro Economics
+                                              </option>
+                                              <option value=\\"stax-matnewborn\\">
+                                                Maternal Newborn Nursing
+                                              </option>
+                                              <option value=\\"stax-medsurg\\">
+                                                Medical-Surgical Nursing
                                               </option>
                                               <option value=\\"stax-micro\\">
                                                 Micro Economics
                                               </option>
+                                              <option value=\\"stax-nutrition\\">
+                                                Nutrition
+                                              </option>
                                               <option value=\\"stax-orgchem\\">
                                                 Organic Chemistry
+                                              </option>
+                                              <option value=\\"stax-pharmacology\\">
+                                                Pharmacology for Nurses
                                               </option>
                                               <option value=\\"stax-phi\\">
                                                 Philosophy
@@ -6383,6 +6510,9 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                               </option>
                                               <option value=\\"stax-mktg\\">
                                                 Principles of Marketing
+                                              </option>
+                                              <option value=\\"stax-psychnursing\\">
+                                                Psychiatric-Mental Health Nursing
                                               </option>
                                               <option value=\\"stax-psy\\">
                                                 Psychology
