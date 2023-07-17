@@ -6607,6 +6607,8 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                   </TagWrapper>
                                 </LoTags>
                                 <ApLoTags exercise={{...}} />
+                                <AACNTags exercise={{...}} />
+                                <NCLEXTag exercise={{...}} />
                                 <QuestionTypeTag exercise={{...}}>
                                   <MultiSelect exercise={{...}} readonly={false} tagType=\\"assignment-type\\" label=\\"Assignment Type\\" options={{...}}>
                                     <TagWrapper label=\\"Assignment Type\\">

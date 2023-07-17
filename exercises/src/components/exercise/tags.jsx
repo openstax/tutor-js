@@ -12,7 +12,9 @@ import Blooms from '../tags/blooms';
 import Time from '../tags/time';
 import HistoricalThinking from '../tags/historical-thinking';
 import ReasoningProcess from '../tags/reasoning-process';
+import Aacn from '../tags/aacn';
 import ApLo from '../tags/aplo';
+import Nclex from '../tags/nclex';
 import SciencePractice from '../tags/science-practice';
 import PublicSolutions from '../tags/public-solutions';
 import Exercise from '../../models/exercises/exercise';
@@ -29,6 +31,8 @@ function ExerciseTags({ exercise }) {
                 <SciencePractice {...tagProps} />
                 <Lo {...tagProps} />
                 <ApLo {...tagProps} />
+                <Aacn {...tagProps} />
+                <Nclex {...tagProps} />
                 <AssignmentType {...tagProps} />
                 <HistoricalThinking {...tagProps} />
                 <ReasoningProcess {...tagProps} />
