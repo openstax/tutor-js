@@ -10,14 +10,19 @@ exports[`Book Selection tags component renders and matches snapshot 1`] = `
     value=""
   />
   <option
+    value="stax-accounting"
+  >
+    Principles of Accounting, Volumes 1-2
+  </option>
+  <option
+    value="stax-algtrig"
+  >
+    Algebra and Trigonometry
+  </option>
+  <option
     value="stax-amfg"
   >
     Additive Manufacturing
-  </option>
-  <option
-    value="stax-usgovt"
-  >
-    American Government
   </option>
   <option
     value="stax-anp"
@@ -30,29 +35,9 @@ exports[`Book Selection tags component renders and matches snapshot 1`] = `
     Anthropology
   </option>
   <option
-    value="stax-bio"
-  >
-    Biology
-  </option>
-  <option
     value="stax-apbio"
   >
     Biology for AP® Courses
-  </option>
-  <option
-    value="stax-bca"
-  >
-    Business Computer Applications
-  </option>
-  <option
-    value="stax-nursingskills"
-  >
-    Clinical Nursing Skills
-  </option>
-  <option
-    value="stax-phys"
-  >
-    College Physics
   </option>
   <option
     value="stax-apphys"
@@ -60,19 +45,54 @@ exports[`Book Selection tags component renders and matches snapshot 1`] = `
     College Physics for AP® Courses
   </option>
   <option
-    value="stax-pophealth"
+    value="stax-apush"
   >
-    Community-Population Health
+    U.S. History for AP® Courses
   </option>
   <option
-    value="stax-pyth"
+    value="stax-astro"
   >
-    Computer Programming with Python
+    Astronomy
   </option>
   <option
-    value="stax-cs"
+    value="stax-bca"
   >
-    Computer Science
+    Business Computer Applications
+  </option>
+  <option
+    value="stax-bio"
+  >
+    Biology
+  </option>
+  <option
+    value="stax-busethics"
+  >
+    Business Ethics
+  </option>
+  <option
+    value="stax-buslaw"
+  >
+    Business Law I Essentials
+  </option>
+  <option
+    value="stax-busstats"
+  >
+    Introductory Business Statistics
+  </option>
+  <option
+    value="stax-calc"
+  >
+    Calculus vol 1-3
+  </option>
+  <option
+    value="stax-calculo"
+  >
+    Cálculo Volumen 1-3
+  </option>
+  <option
+    value="stax-calgebra"
+  >
+    College Algebra
   </option>
   <option
     value="stax-cbio"
@@ -80,9 +100,29 @@ exports[`Book Selection tags component renders and matches snapshot 1`] = `
     Concepts of Biology
   </option>
   <option
+    value="stax-chem"
+  >
+    Chemistry, Chemistry Atoms First
+  </option>
+  <option
     value="stax-cmath"
   >
     Contemporary Math
+  </option>
+  <option
+    value="stax-coreqalgebra"
+  >
+    College Algebra with Corequisite Skills
+  </option>
+  <option
+    value="stax-cs"
+  >
+    Computer Science
+  </option>
+  <option
+    value="stax-csuccess"
+  >
+    College Success
   </option>
   <option
     value="stax-datascience"
@@ -100,6 +140,11 @@ exports[`Book Selection tags component renders and matches snapshot 1`] = `
     Economics
   </option>
   <option
+    value="stax-elemalgebra"
+  >
+    Elementary Algebra
+  </option>
+  <option
     value="stax-engcomp"
   >
     English Composition
@@ -110,19 +155,24 @@ exports[`Book Selection tags component renders and matches snapshot 1`] = `
     Entrepreneurship
   </option>
   <option
+    value="stax-estadistica"
+  >
+    Introducción a la estadística
+  </option>
+  <option
+    value="stax-estadisticaempresarial"
+  >
+    Introducción a la estadística empresarial
+  </option>
+  <option
     value="stax-fin"
   >
     Finance
   </option>
   <option
-    value="stax-nursingfundamentals"
+    value="stax-hsstats"
   >
-    Fundamentals of Nursing
-  </option>
-  <option
-    value="stax-k12phys"
-  >
-    HS Physics
+    Statistics (high school)
   </option>
   <option
     value="stax-infosys"
@@ -130,9 +180,24 @@ exports[`Book Selection tags component renders and matches snapshot 1`] = `
     Information Systems
   </option>
   <option
-    value="stax-neuroscience"
+    value="stax-interalgebra"
   >
-    Introduction to Behavioral Neuroscience
+    Intermediate Algebra
+  </option>
+  <option
+    value="stax-introbus"
+  >
+    Introduction to Business
+  </option>
+  <option
+    value="stax-ip"
+  >
+    Intellectual Property
+  </option>
+  <option
+    value="stax-k12phys"
+  >
+    HS Physics
   </option>
   <option
     value="stax-macro"
@@ -155,9 +220,39 @@ exports[`Book Selection tags component renders and matches snapshot 1`] = `
     Micro Economics
   </option>
   <option
+    value="stax-microbio"
+  >
+    Microbiology
+  </option>
+  <option
+    value="stax-mktg"
+  >
+    Principles of Marketing
+  </option>
+  <option
+    value="stax-neuroscience"
+  >
+    Introduction to Behavioral Neuroscience
+  </option>
+  <option
+    value="stax-nursingfundamentals"
+  >
+    Fundamentals of Nursing
+  </option>
+  <option
+    value="stax-nursingskills"
+  >
+    Clinical Nursing Skills
+  </option>
+  <option
     value="stax-nutrition"
   >
     Nutrition
+  </option>
+  <option
+    value="stax-orgbehavior"
+  >
+    Organizational Behavior
   </option>
   <option
     value="stax-orgchem"
@@ -175,19 +270,44 @@ exports[`Book Selection tags component renders and matches snapshot 1`] = `
     Philosophy
   </option>
   <option
+    value="stax-phys"
+  >
+    College Physics
+  </option>
+  <option
     value="stax-polisci"
   >
     Political Science
   </option>
   <option
-    value="stax-mktg"
+    value="stax-pom"
   >
-    Principles of Marketing
+    Principles of Management
   </option>
   <option
-    value="stax-psychnursing"
+    value="stax-pophealth"
   >
-    Psychiatric-Mental Health Nursing
+    Community-Population Health
+  </option>
+  <option
+    value="stax-prealgebra"
+  >
+    Prealgebra
+  </option>
+  <option
+    value="stax-precal"
+  >
+    Precalculus
+  </option>
+  <option
+    value="stax-precalculo"
+  >
+    Precálculo
+  </option>
+  <option
+    value="stax-prepcsuccess"
+  >
+    Preparing for College Success
   </option>
   <option
     value="stax-psy"
@@ -195,19 +315,49 @@ exports[`Book Selection tags component renders and matches snapshot 1`] = `
     Psychology
   </option>
   <option
+    value="stax-psychnursing"
+  >
+    Psychiatric-Mental Health Nursing
+  </option>
+  <option
+    value="stax-pyth"
+  >
+    Computer Programming with Python
+  </option>
+  <option
+    value="stax-quimica"
+  >
+    Química
+  </option>
+  <option
     value="stax-soc"
   >
     Sociology
   </option>
   <option
+    value="stax-stats"
+  >
+    Introductory Statistics
+  </option>
+  <option
+    value="stax-ufisica"
+  >
+    Física Universitaria
+  </option>
+  <option
+    value="stax-uphysics"
+  >
+    University Physics
+  </option>
+  <option
+    value="stax-usgovt"
+  >
+    American Government
+  </option>
+  <option
     value="stax-ushist"
   >
     U.S. History
-  </option>
-  <option
-    value="stax-apush"
-  >
-    U.S. History for AP® Courses
   </option>
   <option
     value="stax-worldhist"
