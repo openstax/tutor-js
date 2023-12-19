@@ -19,7 +19,7 @@ if [ "$(version "$npm_version")" -lt "$(version "$required_version")" ]; then
 fi
 
 [ -d $OX_PROJECT/dist ] && rm -r $OX_PROJECT/dist
-$(npm bin)/webpack --config webpack.config.js
+NODE_OPTIONS="--openssl-legacy-provider" npx webpack --config webpack.config.js
 
 # we're done unless the "archive" flag from the ansible build is set
 if [ "$2" != "archive" ]; then
