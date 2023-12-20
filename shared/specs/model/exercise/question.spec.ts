@@ -81,6 +81,36 @@ describe('Exercise Question', () => {
         question.collaborator_solution_html = '';
         expect(question.collaborator_solutions).toHaveLength(0);
     });
+    it('#summary_html', () => {
+        question.collaborator_solutions.clear()
+        expect(question.collaborator_solutions).toHaveLength(0);
+        question.summary_html = 'one, two, three';
+        expect(question.collaborator_solutions).toHaveLength(1);
+        expect(question.collaborator_solutions[0].content_html).toEqual('one, two, three');
+        question.summary_html = 'four';
+        expect(question.collaborator_solutions[0].content_html).toEqual('four');
+        question.summary_html = '';
+        expect(question.collaborator_solutions).toHaveLength(0);
+    });
+    it('can handle both summary and detailed solution types', () => {
+        question.collaborator_solutions.clear()
+        expect(question.collaborator_solutions).toHaveLength(0);
+        question.summary_html = 'one, two, three';
+        question.collaborator_solution_html = 'four, five, six';
+        expect(question.collaborator_solutions).toHaveLength(2);
+        expect(question.collaborator_solutions[0].content_html).toEqual('one, two, three');
+        expect(question.collaborator_solutions[1].content_html).toEqual('four, five, six');
+        expect(question.collaborator_solutions[0].solution_type).toEqual('summary');
+        expect(question.collaborator_solutions[1].solution_type).toEqual('detailed');
+        question.summary_html = 'four';
+        expect(question.collaborator_solutions[0].content_html).toEqual('four');
+        question.summary_html = '';
+        expect(question.collaborator_solutions).toHaveLength(1);
+        expect(question.collaborator_solutions[0].content_html).toEqual('four, five, six');
+        expect(question.collaborator_solutions[0].solution_type).toEqual('detailed');
+        question.collaborator_solution_html = '';
+        expect(question.collaborator_solutions).toHaveLength(0);
+    });
     it('uses answers for detecting multi-choice', () => {
         expect(question.isMultipleChoice).toBe(true);
         question.answers.clear()

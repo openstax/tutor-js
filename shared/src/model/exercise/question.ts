@@ -51,6 +51,34 @@ class ExerciseQuestion extends BaseModel {
         modelize(this)
     }
 
+    private findSolutionByType(solution_type: string) {
+        return this.collaborator_solutions.findIndex(
+            (sol) => sol.solution_type === solution_type
+        );
+    }
+
+    private setSolutionByType(solution_type: string, val: string) {
+        let idx = this.findSolutionByType(solution_type);
+        if (!val) {
+            if (idx !== -1) {
+                this.collaborator_solutions.splice(idx, 1);
+            }
+        } else {
+            if (idx === -1) {
+                const newSolution = new Solution;
+                newSolution.solution_type = solution_type;
+                idx = this.collaborator_solutions.push(newSolution) - 1;
+            }
+            this.collaborator_solutions[idx].content_html = val;
+        }
+    }
+
+    private getSolutionHTMLByType(solution_type: string) {
+        const idx = this.findSolutionByType(solution_type)
+        return idx !== -1 ?
+            this.collaborator_solutions[idx].content_html : '';
+    }
+
     @computed get allowedFormatTypes() {
         const type = this.exercise.tags.withType('type');
         if (type && type.value != 'practice') {
@@ -90,21 +118,19 @@ class ExerciseQuestion extends BaseModel {
     }
 
     @computed get collaborator_solution_html() {
-        return this.collaborator_solutions.length ?
-            this.collaborator_solutions[0].content_html : '';
+        return this.getSolutionHTMLByType('detailed');
     }
 
     set collaborator_solution_html(val) {
-        if (!val) {
-            if (this.collaborator_solutions.length) {
-                this.collaborator_solutions.clear()
-            }
-        } else {
-            if (!this.collaborator_solutions.length) {
-                this.collaborator_solutions.push(new Solution);
-            }
-            this.collaborator_solutions[0].content_html = val;
-        }
+        this.setSolutionByType('detailed', val);
+    }
+
+    @computed get summary_html() {
+        return this.getSolutionHTMLByType('summary');
+    }
+
+    set summary_html(val) {
+        this.setSolutionByType('summary', val);
     }
 
     @computed get formatId() {

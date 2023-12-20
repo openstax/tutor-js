@@ -11,4 +11,4 @@ if [[ -z "$NODE_OPTIONS" ]]; then
     export NODE_OPTIONS="--max-old-space-size=768"
 fi
 
-$(npm bin)/jest --verbose false --config ./configs/test/jest.$1.js $args
+npx jest --verbose false --config ./configs/test/jest.$1.js $args

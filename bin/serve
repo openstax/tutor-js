@@ -10,5 +10,5 @@ echo Serving: $OX_PROJECT
 if [ x$2 == x"standalone" ]; then
 node tutor/specs/acceptance/server/index.js
 else
-node --max_old_space_size=2048 $(npm bin)/webpack-dev-server --debug --progress --config webpack.config.js
+NODE_OPTIONS="--openssl-legacy-provider --max_old_space_size=2048" npx webpack-dev-server --debug --progress --config webpack.config.js
 fi

@@ -571,6 +571,13 @@ exports[`Exercises component renders and matches snapshot 1`] = `
               onChange={[Function]}
               value="four"
             />
+            <label>
+              Summary
+            </label>
+            <textarea
+              onChange={[Function]}
+              value=""
+            />
           </div>
         </div>
       </div>
@@ -2893,6 +2900,13 @@ exports[`Exercises component renders with intro and a multiple questions when ex
               onChange={[Function]}
               value="four"
             />
+            <label>
+              Summary
+            </label>
+            <textarea
+              onChange={[Function]}
+              value=""
+            />
           </div>
         </div>
       </div>
@@ -3689,6 +3703,13 @@ exports[`Exercises component renders with intro and a multiple questions when ex
               onChange={[Function]}
               value="four"
             />
+            <label>
+              Summary
+            </label>
+            <textarea
+              onChange={[Function]}
+              value=""
+            />
           </div>
         </div>
       </div>
@@ -4113,6 +4134,13 @@ exports[`Exercises component renders with intro and a multiple questions when ex
             <textarea
               onChange={[Function]}
               value="four"
+            />
+            <label>
+              Summary
+            </label>
+            <textarea
+              onChange={[Function]}
+              value=""
             />
           </div>
         </div>
@@ -6665,6 +6693,10 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                   Detailed Solution
                                 </label>
                                 <textarea onChange={[Function: updateSolution] { isMobxAction: true }} value=\\"four\\" />
+                                <label>
+                                  Summary
+                                </label>
+                                <textarea onChange={[Function: updateSummary] { isMobxAction: true }} value=\\"\\" />
                               </div>
                             </div>
                           </Question>

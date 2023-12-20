@@ -42,6 +42,11 @@ class Question extends React.Component {
         question.collaborator_solution_html = event.target.value;
     }
 
+    @action.bound updateSummary(event) {
+        const { question } = this.props;
+        question.summary_html = event.target.value;
+    }
+
     @action.bound addAnswer() {
         this.props.question.answers.push(new AnswerModel());
     }
@@ -139,6 +144,10 @@ class Question extends React.Component {
                         Detailed Solution
                     </label>
                     <textarea onChange={this.updateSolution} value={question.collaborator_solution_html} />
+                    <label>
+                        Summary
+                    </label>
+                    <textarea onChange={this.updateSummary} value={question.summary_html} />
                 </div>
             </div>
         );

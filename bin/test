@@ -37,9 +37,9 @@ done
 echo Test: $OX_PROJECT
 
 if [[ "$OX_PROJECT" = "e2e" ]]; then
-    $(npm bin)/playwright test --config configs/playwright.config.ts "$OTHER_ARGS"
+    npx playwright test --config configs/playwright.config.ts "$OTHER_ARGS"
     if [[ "$WATCH" = "t" ]]; then
-        $(npm bin)/chokidar ./tutor/specs/e2e/*.ts -d 1500 -c '$(npm bin)/playwright test --config configs/playwright.config.ts {path}'
+        npx chokidar ./tutor/specs/e2e/*.ts -d 1500 -c 'npx playwright test --config configs/playwright.config.ts {path}'
     fi
 else
     $DIR/test-unit $OX_PROJECT $OTHER_ARGS

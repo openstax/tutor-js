@@ -8,19 +8,19 @@ if [ $# -ne 0 ]; then
   if [ "$1" == "staged" ]; then
     files=`git status --short */{src,specs} | egrep '^[^D|^R].*([j|t]sx?)$' | awk '{ print $2 }'`
     if [ ! -z "$files" ]; then
-      $(npm bin)/eslint $2 $files
+      npx eslint $2 $files
     fi
   elif [ "$1" == "fix" ]; then
-      $(npm bin)/eslint --ext $EXT {tutor,shared,exercises}/{src,specs} --fix
+      npx eslint --ext $EXT {tutor,shared,exercises}/{src,specs} --fix
   else
-    $(npm bin)/eslint --ext $EXT $1/{src,specs}
+    npx eslint --ext $EXT $1/{src,specs}
   fi
   exit $?
 fi
 
 if [[ ! -z "${OX_PROJECT}" ]]; then
-   $(npm bin)/eslint --ext $EXT $OX_PROJECT/{src,specs}
+   npx eslint --ext $EXT $OX_PROJECT/{src,specs}
    exit $?
 fi
 
-$(npm bin)/eslint --ext $EXT {tutor,shared,exercises}/{src,specs}
+npx eslint --ext $EXT {tutor,shared,exercises}/{src,specs}
