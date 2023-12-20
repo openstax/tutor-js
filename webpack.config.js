@@ -112,7 +112,7 @@ const config = {
         quiet: false,
         noInfo: false,
         clientLogLevel: 'warning',
-        host,
+        host: 'localhost',
         filename: '[name].js',
         hot: !isCI,
         liveReload: !isCI,

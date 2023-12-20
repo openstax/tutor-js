@@ -1,27 +1,14 @@
-FROM node:18-slim as base
+FROM node:10.9-slim as builder
 
 RUN apt-get update && apt-get install -y \
     build-essential \
     g++ \
     gcc \
     git \
-    curl \
-    # Additional packages required by python build
-    zlib1g \
-    zlib1g-dev \
-    libssl-dev \
-    libbz2-dev \
-    libsqlite3-dev \
-  && rm -rf /var/lib/apt/lists/* 
+    python2.7 \
+  && rm -rf /var/lib/apt/lists/*
 
-FROM base as builder
-
-ENV PATH=/root/.pyenv/bin:$PATH
-RUN curl https://pyenv.run | bash \
-  && eval "$(pyenv virtualenv-init -)" \
-  && pyenv install 2.7 \
-  && ln -s /root/.pyenv/shims/python /usr/bin/python
-
+RUN ln -s /usr/bin/python2.7 /usr/bin/python2
 
 FROM builder as build
 ARG PUBLIC_PATH
