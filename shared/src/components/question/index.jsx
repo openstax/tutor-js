@@ -144,7 +144,9 @@ class Question extends React.Component {
                         {...htmlAndMathProps}
                         className="solution"
                         block={true}
-                        html={map(collaborator_solutions, 'content_html').join('')} />
+                        html={map(collaborator_solutions.filter(
+                            (sol) => sol.solution_type === 'detailed'
+                        ), 'content_html').join('')} />
                 </div>;
         }
 
