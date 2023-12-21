@@ -1,14 +1,25 @@
-FROM node:10.9-slim as builder
+FROM debian:bookworm-slim as base
 
 RUN apt-get update && apt-get install -y \
     build-essential \
     g++ \
     gcc \
     git \
-    python2.7 \
+    curl \
   && rm -rf /var/lib/apt/lists/*
 
-RUN ln -s /usr/bin/python2.7 /usr/bin/python2
+FROM base as builder
+ENV NODE_VERSION=12.22.12
+ENV NVM_DIR="/root/.nvm"
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash \
+  && . $NVM_DIR/nvm.sh \
+  && nvm install $NODE_VERSION \
+  && nvm alias default $NODE_VERSION \
+  && nvm use default \
+  && npm install -g yarn
+
+ENV NODE_PATH=$NVM_DIR/versions/node/v$NODE_VERSION/lib/node_modules
+ENV PATH=$NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 
 FROM builder as build
 ARG PUBLIC_PATH
