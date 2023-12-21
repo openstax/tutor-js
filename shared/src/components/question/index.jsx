@@ -135,19 +135,27 @@ class Question extends React.Component {
         }
 
         if (this.hasSolution()) {
-            solution =
-                <div className="detailed-solution">
-                    <div className="header">
-                        Detailed solution:
-                    </div>
-                    <ArbitraryHtmlAndMath
-                        {...htmlAndMathProps}
-                        className="solution"
-                        block={true}
-                        html={map(collaborator_solutions.filter(
-                            (sol) => sol.solution_type === 'detailed'
-                        ), 'content_html').join('')} />
-                </div>;
+            const solutionTypes = ['detailed', 'summary'];
+            solution = solutionTypes.map((type) => {
+                const solutionHTML = collaborator_solutions
+                    .filter((sol) => sol.solution_type === type)
+                    .map((sol) => sol.content_html)
+                    .join('');
+                return solutionHTML === ''
+                    ? null
+                    : (
+                        <div className="detailed-solution">
+                            <div className="header">
+                                {`${type[0].toUpperCase()}${type.slice(1)} solution:`}
+                            </div>
+                            <ArbitraryHtmlAndMath
+                                {...htmlAndMathProps}
+                                className="solution"
+                                block={true}
+                                html={solutionHTML} />
+                        </div>
+                    );
+            })
         }
 
         return (
