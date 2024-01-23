@@ -18,6 +18,7 @@ import Nclex from '../tags/nclex';
 import SciencePractice from '../tags/science-practice';
 import PublicSolutions from '../tags/public-solutions';
 import Exercise from '../../models/exercises/exercise';
+import PublicSolutionsSubset from '../tags/public-solution-subset';
 
 function ExerciseTags({ exercise }) {
     const { validity } = exercise;
@@ -41,7 +42,16 @@ function ExerciseTags({ exercise }) {
                 <Dok {...tagProps} />
                 <Blooms {...tagProps} />
                 <Time {...tagProps} />
-                <PublicSolutions {...tagProps} />
+                <PublicSolutions {...tagProps} onChange={(value) => {
+                    if (exercise.isMultiPart && !value) {
+                        exercise.tags.removeType(
+                            Exercise.publicSolutionsSubsetType
+                        );
+                    }
+                }} />
+                {exercise.solutions_are_public && exercise.isMultiPart
+                    ? <PublicSolutionsSubset {...tagProps} />
+                    : null}
             </div>
         </div>
     );
