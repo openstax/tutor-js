@@ -87,6 +87,7 @@ describe('Exercises component', () => {
         const checkbox = ex.find('.tag-type.solutionIsPublic input').first();
 
         // WHEN: Solutions are private
+        checkbox.simulate('change', { target: { checked: false } });
         expect(props.exercises.get(data.uid).tags.withType(tag)).toBeFalsy();
         // THEN: The publicSolutionsSubset dropdown is not rendered
         expect(ex).not.toHaveRendered('.tag-type.publicSolutionsSubset');
