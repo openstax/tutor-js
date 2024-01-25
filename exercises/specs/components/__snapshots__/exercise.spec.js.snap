@@ -7550,7 +7550,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                     </TagWrapper>
                                   </SingleDropdown>
                                 </TimeTag>
-                                <PublicSolutions exercise={{...}}>
+                                <PublicSolutions exercise={{...}} onChange={[Function: onChange]}>
                                   <TagWrapper label=\\"Solution is public\\">
                                     <div className=\\"tag-type solutionIsPublic\\">
                                       <div className=\\"heading\\">

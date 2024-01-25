@@ -75,4 +75,39 @@ describe('Exercises component', () => {
         ex.find('.tag-type.book select').simulate('change', { target: { value: 'stax-apbio' } });
         expect(ex).toHaveRendered('.tag-type.sciencePractice');
     });
+
+    it('only includes public solution subset when question is multipart and solution is public', () => {
+        // GIVEN: a multi-part question
+        const data = Factory.data('Exercise', { multipart: true });
+        const tag = 'public-solutions-subset';
+
+        runInAction(() => props.exercises.onLoaded({ data: data })); // set(ex.uid, ex) );
+        props.match.params.uid = data.uid;
+        const ex = mount(<Router><Exercise {...props} /></Router>);
+        const checkbox = ex.find('.tag-type.solutionIsPublic input').first();
+
+        // WHEN: Solutions are private
+        checkbox.simulate('change', { target: { checked: false } });
+        expect(props.exercises.get(data.uid).tags.withType(tag)).toBeFalsy();
+        // THEN: The publicSolutionsSubset dropdown is not rendered
+        expect(ex).not.toHaveRendered('.tag-type.publicSolutionsSubset');
+
+        // WHEN: the solutions are made public
+        checkbox.simulate('change', { target: { checked: true } });
+        // THEN: The publicSolutionsSubset dropdown is rendered
+        expect(ex).toHaveRendered('.tag-type.publicSolutionsSubset');
+        
+        // WHEN: An option is selected
+        ex.find('.tag-type.publicSolutionsSubset .select__dropdown-indicator')
+            .first()
+            .simulate('mouseDown', { button: 0 });
+        ex.find('.tag-type.publicSolutionsSubset .select__option').last().simulate('click');
+        // THEN: The tag should be set
+        expect(props.exercises.get(data.uid).tags.withType(tag).raw).toMatch(new RegExp(`^${tag}:`));
+
+        // WHEN: Solution is Public is unchecked
+        checkbox.simulate('change', { target: { checked: false } });
+        // THEN: The tag should be unset
+        expect(props.exercises.get(data.uid).tags.withType(tag)).toBeFalsy();
+    });
 });

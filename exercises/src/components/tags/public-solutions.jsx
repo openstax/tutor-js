@@ -9,6 +9,7 @@ import Wrapper from './wrapper';
 class PublicSolutions extends React.Component {
     static propTypes = {
         exercise: PropTypes.instanceOf(Exercise).isRequired,
+        onChange: PropTypes.func,
     };
 
     constructor(props) {
@@ -17,7 +18,11 @@ class PublicSolutions extends React.Component {
     }
 
     @action.bound updateValue(ev) {
-        this.props.exercise.solutions_are_public = ev.target.checked;
+        const value = ev.target.checked;
+        this.props.exercise.solutions_are_public = value;
+        if (this.props.onChange !== undefined) {
+            this.props.onChange(value);
+        }
     }
 
     render() {

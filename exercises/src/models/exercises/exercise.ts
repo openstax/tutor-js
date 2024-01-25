@@ -1,4 +1,4 @@
-import { action } from 'mobx';
+import { action, override } from 'mobx';
 import { merge, find, isEmpty, isObject, map } from 'lodash';
 import { field, modelize, model, hydrateModel, observable, array } from 'shared/model';
 import Image from './image';
@@ -9,6 +9,7 @@ import CurrentUser from '../user';
 
 export default
 class Exercise extends SharedExercise {
+    public static readonly publicSolutionsSubsetType = 'public-solutions-subset';
     @field solutions_are_public = false
 
     static build(attrs: any) {
@@ -29,6 +30,15 @@ class Exercise extends SharedExercise {
 
     @action onError(message: any) {
         this.error = message;
+    }
+
+    @override toggleMultiPart(): void {
+        if (this.isMultiPart) {
+            // Remove tags that only apply to multi-part questions
+            const tagsForMultiPart = [Exercise.publicSolutionsSubsetType];
+            tagsForMultiPart.forEach((tag) => this.tags.removeType(tag));
+        }
+        super.toggleMultiPart();
     }
 
     get errorMessage() {
