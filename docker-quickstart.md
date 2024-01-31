@@ -26,6 +26,8 @@ the js files will be served at `http://localhost:8000`
 
 the ui is available through the tutor-server project at `http://localhost:3001`
 
+Something seem broken? See [Troubleshooting](#troubleshooting)
+
 ## Run Exercises frontend
 
 ``` bash
@@ -35,6 +37,8 @@ docker-compose -f docker-compose.exercises.yml up
 the js files will be served at `http://localhost:8001`
 
 You will need to start the exercises backend independently
+
+Something seem broken? See [Troubleshooting](#troubleshooting)
 
 ## node_modules
 
@@ -53,5 +57,5 @@ docker-compose exec build <command>
 ## Troubleshooting
 
 if you run into problems, try the following:
-* rebuilding the build image with `docker-compose build`
+* rebuilding the build image with `docker-compose build` or `docker-compose -f <compose-file> build` (depending on your use case)
 * remove your node_modules directory
