@@ -125,6 +125,11 @@ exports[`Book Selection tags component renders and matches snapshot 1`] = `
     College Success
   </option>
   <option
+    value="stax-csuccessconcise"
+  >
+    College Success Concise
+  </option>
+  <option
     value="stax-datascience"
   >
     Data Science
