@@ -26,6 +26,7 @@ const BOOKS = {
     'stax-coreqalgebra':           'College Algebra with Corequisite Skills',
     'stax-cs':                     'Computer Science',
     'stax-csuccess':               'College Success',
+    'stax-csuccessconcise':        'College Success Concise',
     'stax-datascience':            'Data Science',
     'stax-devpsy':                 'Developmental Psychology',
     'stax-econ':                   'Economics',

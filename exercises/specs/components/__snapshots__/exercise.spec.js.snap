@@ -758,6 +758,11 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                     College Success
                   </option>
                   <option
+                    value="stax-csuccessconcise"
+                  >
+                    College Success Concise
+                  </option>
+                  <option
                     value="stax-datascience"
                   >
                     Data Science
@@ -4322,6 +4327,11 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                     College Success
                   </option>
                   <option
+                    value="stax-csuccessconcise"
+                  >
+                    College Success Concise
+                  </option>
+                  <option
                     value="stax-datascience"
                   >
                     Data Science
@@ -6806,6 +6816,9 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                               </option>
                                               <option value=\\"stax-csuccess\\">
                                                 College Success
+                                              </option>
+                                              <option value=\\"stax-csuccessconcise\\">
+                                                College Success Concise
                                               </option>
                                               <option value=\\"stax-datascience\\">
                                                 Data Science
